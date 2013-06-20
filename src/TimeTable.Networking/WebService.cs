@@ -2,12 +2,12 @@
 using System.Net;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using TimeTable.Networking.Restful;
 
 namespace TimeTable.Networking
 {
     public class WebService
     {
-        private const string URL_PREFIX = "http://raspisanie-vuzov.ru/api/v1/";
         private readonly TimeSpan timeoutTimeSpan = TimeSpan.FromSeconds(40);
 
         public WebService()
@@ -15,18 +15,18 @@ namespace TimeTable.Networking
             
         }
 
-        public IObservable<T> Get<T>(string url) where T : new()
+        public IObservable<T> Get<T>(RestfullRequest<T> request ) where T : new()
         {
             return Observable.Create<T>(
                 observer => 
                 Scheduler.Default.Schedule(() =>
                 {
-                    var fullUrl = ComposeUrl(url);
-                    var request = (HttpWebRequest)WebRequest.Create(fullUrl);
-                    request.Method = "GET";
-                    Observable.FromAsyncPattern<WebResponse>(request.BeginGetResponse, request.EndGetResponse)()
+                    var fullUrl = request.Url;
+                    var webRequest = (HttpWebRequest)WebRequest.Create(fullUrl);
+                    webRequest.Method = "GET";
+                    Observable.FromAsyncPattern<WebResponse>(webRequest.BeginGetResponse, webRequest.EndGetResponse)()
                         .Timeout(timeoutTimeSpan)
-                        .Subscribe(responce => HandleResponce(responce, url, observer),
+                        .Subscribe(responce => HandleResponce(responce, request, observer),
                             ex =>
                             {
                                 HandleException(ex);
@@ -38,12 +38,7 @@ namespace TimeTable.Networking
                 ));
         }
 
-        private string ComposeUrl(string url)
-        {
-            return URL_PREFIX + url;
-        }
-
-        private void HandleResponce<T>(WebResponse responce, string url, IObserver<T> observer) where T: new()
+        private void HandleResponce<T>(WebResponse responce, RestfullRequest<T> request , IObserver<T> observer) where T: new()
         {
             var result = new T();
             observer.OnNext(result);
