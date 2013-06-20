@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Threading;
 using JetBrains.Annotations;
 
 namespace TimeTable.ViewModel
@@ -11,7 +12,14 @@ namespace TimeTable.ViewModel
         protected virtual void OnPropertyChanged(string propertyName)
         {
             var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            if (handler != null)
+            {
+                SmartDispatcher.BeginInvoke(() =>
+                {
+                    handler(this, new PropertyChangedEventArgs(propertyName));
+                });
+                
+            }
         }
     }
 }

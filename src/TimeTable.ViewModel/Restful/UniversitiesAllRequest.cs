@@ -3,9 +3,9 @@ using TimeTable.Networking.Restful;
 
 namespace TimeTable.ViewModel.Restful
 {
-    public sealed class UniversitiesRequest : RestfullRequest<Universities>
+    public sealed class UniversitiesAllRequest : RestfullRequest<UniversityAll>
     {
-        public UniversitiesRequest(string baseUrl, string parameters) : base(baseUrl)
+        public UniversitiesAllRequest(string baseUrl, string parameters) : base(baseUrl)
         {
             AdditionalUrl = parameters;
         }

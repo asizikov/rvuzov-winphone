@@ -4,6 +4,7 @@ namespace TimeTable.Networking.Restful
 {
     public abstract class RestfullRequest<T>
     {
+        private readonly TimeSpan timeoutTimeSpan = TimeSpan.FromSeconds(40);
         private readonly string baseUrl;
         protected abstract string AdditionalUrl { get; set; }
 
@@ -20,5 +21,7 @@ namespace TimeTable.Networking.Restful
                 return baseUrl + AdditionalUrl;
             } 
         }
+
+        public TimeSpan Timeout {get { return timeoutTimeSpan; }}
     }
 }

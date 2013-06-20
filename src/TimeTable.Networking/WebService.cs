@@ -1,19 +1,17 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using System.Text;
 using TimeTable.Networking.Restful;
 
 namespace TimeTable.Networking
 {
     public class WebService
     {
-        private readonly TimeSpan timeoutTimeSpan = TimeSpan.FromSeconds(40);
+        private readonly Deserializer deserializer = new Deserializer();
 
-        public WebService()
-        {
-            
-        }
 
         public IObservable<T> Get<T>(RestfullRequest<T> request ) where T : new()
         {
@@ -25,8 +23,8 @@ namespace TimeTable.Networking
                     var webRequest = (HttpWebRequest)WebRequest.Create(fullUrl);
                     webRequest.Method = "GET";
                     Observable.FromAsyncPattern<WebResponse>(webRequest.BeginGetResponse, webRequest.EndGetResponse)()
-                        .Timeout(timeoutTimeSpan)
-                        .Subscribe(responce => HandleResponce(responce, request, observer),
+                        .Timeout(request.Timeout)
+                        .Subscribe(response => HandleResponce(response, request, observer),
                             ex =>
                             {
                                 HandleException(ex);
@@ -38,9 +36,16 @@ namespace TimeTable.Networking
                 ));
         }
 
-        private void HandleResponce<T>(WebResponse responce, RestfullRequest<T> request , IObserver<T> observer) where T: new()
+        private void HandleResponce<T>(WebResponse response, RestfullRequest<T> request , IObserver<T> observer) where T: new()
         {
-            var result = new T();
+            string json;
+            using (Stream stream = response.GetResponseStream())
+            {
+                var reader = new StreamReader(stream, Encoding.UTF8);
+                json = reader.ReadToEnd();
+            }
+            
+            var result = deserializer.Deserialize<T>(json);
             observer.OnNext(result);
         }
 

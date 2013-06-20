@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.Networking;
@@ -9,26 +10,28 @@ namespace TimeTable.ViewModel
     public class TmpViewModel : BaseViewModel
     {
         private readonly WebService webService;
-        private readonly RestfulCallFactory factory;
-        private Universities universities;
+        private readonly RestfulCallFactory requestFactory;
+        private ObservableCollection<University> universitiesesList;
 
-        public TmpViewModel([NotNull] WebService webService, [NotNull] RestfulCallFactory factory)
+        public TmpViewModel([NotNull] WebService webService, [NotNull] RestfulCallFactory requestFactory)
         {
             if (webService == null) throw new ArgumentNullException("webService");
-            if (factory == null) throw new ArgumentNullException("factory");
+            if (requestFactory == null) throw new ArgumentNullException("requestFactory");
             this.webService = webService;
-            this.factory = factory;
+            this.requestFactory = requestFactory;
             Init();
         }
 
         private void Init()
         {
-            webService.Get(factory.GetUniversitiesRequest())
+            var universitiesRequest = requestFactory.GetAllUniversitiesRequest();
+
+            webService.Get(universitiesRequest)
                 .Subscribe(
                 result =>
                 {
 
-                    Universities = result;
+                    UniversitiesesList = new ObservableCollection<University>(result.universities);
                 },
                     ex =>
                     {
@@ -41,15 +44,14 @@ namespace TimeTable.ViewModel
                 );
         }
 
-        [CanBeNull]
-        public Universities Universities
+        public ObservableCollection<University> UniversitiesesList
         {
-            get { return universities; }
+            get { return universitiesesList; }
             set
             {
-                if (Equals(value, universities)) return;
-                universities = value;
-                OnPropertyChanged("Universities");
+                if (Equals(value, universitiesesList)) return;
+                universitiesesList = value;
+                OnPropertyChanged("UniversitiesesList");
             }
         }
     }

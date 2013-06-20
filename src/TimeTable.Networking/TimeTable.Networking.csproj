@@ -42,6 +42,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Phone" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\TimeTable\packages\Newtonsoft.Json.5.0.6\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Observable" />
     <Reference Include="System.Reactive.Core">
       <HintPath>..\TimeTable\packages\Rx-Core.2.1.30214.0\lib\SL4-WindowsPhone71\System.Reactive.Core.dll</HintPath>
@@ -63,6 +66,7 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Deserializer.cs" />
     <Compile Include="Restful\RestfullRequest.cs" />
     <Compile Include="WebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
