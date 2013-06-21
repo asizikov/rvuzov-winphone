@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using TimeTable.Model;
 
 namespace TimeTable.ViewModel.Data
 {
     internal class CacheItem
     {
         public object Data { get; set; }
-        public string Url { get; set; }
-        public Type Type { get; set; }
+        public string Url { private get; set; }
+        public Type Type { private get; set; }
     }
 
     public class InMemoryCache : ICache
@@ -23,7 +24,7 @@ namespace TimeTable.ViewModel.Data
             return cache.ContainsKey(url);
         }
 
-        public void Put<T>(T item, string url)
+        public void Put<T>(T item, string url) where T : new ()
         {
             var cacheItem = new CacheItem
             {
@@ -41,7 +42,7 @@ namespace TimeTable.ViewModel.Data
             }
         }
 
-        public T Fetch<T>(string url)
+        public T Fetch<T>(string url) where T : new ()
         {
             if (!cache.ContainsKey(url)) throw new ArgumentException("Requested item is not cached");
 

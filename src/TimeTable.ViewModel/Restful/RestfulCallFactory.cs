@@ -8,7 +8,7 @@ namespace TimeTable.ViewModel.Restful
 
         private const string URL_PREFIX = "http://raspisanie-vuzov.ru/api/v1/";
         private const string UNIVERSITIES_ALL = "universities-all";
-        private const string UIVERSITIES_ALL_LAST_UPDATED = "universities-all/last-updated";
+        private const string LAST_UPDATED = "/last-updated";
         private const string GROUPS_ALL = "universities/{id}/groups-all";
 
         //TODO: create calls for all API endpoints
@@ -28,9 +28,10 @@ namespace TimeTable.ViewModel.Restful
             return new UniversitiesAllRequest(URL_PREFIX, UNIVERSITIES_ALL, webService);
         }
 
-        public LastUpdatedRequest GetUniversitiesLastUpdatedRequest()
+        public LastUpdatedRequest GetLastUpdatedRequest<T>()
         {
-            return new LastUpdatedRequest(URL_PREFIX, UIVERSITIES_ALL_LAST_UPDATED, webService);
+            //todo: detect by type
+            return new LastUpdatedRequest(URL_PREFIX, UNIVERSITIES_ALL + LAST_UPDATED, webService);
         }
     }
 }

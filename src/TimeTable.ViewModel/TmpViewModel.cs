@@ -27,7 +27,7 @@ namespace TimeTable.ViewModel
             result =>
             {
 
-                UniversitiesesList = new ObservableCollection<University>(result.universities);
+                UniversitiesesList = new ObservableCollection<University>(result.Universities);
             },
                 ex =>
                 {

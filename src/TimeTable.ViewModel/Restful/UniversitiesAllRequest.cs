@@ -21,7 +21,7 @@ namespace TimeTable.ViewModel.Restful
 
     public sealed class LastUpdatedRequest : RestfullRequest<LastUpdated>
     {
-        public LastUpdatedRequest([NotNull] string baseUrl,string parameters, [NotNull] WebService webService) : base(baseUrl, webService)
+        public LastUpdatedRequest([NotNull] string baseUrl, string parameters, [NotNull] WebService webService) : base(baseUrl, webService)
         {
             AdditionalUrl = parameters;
         }

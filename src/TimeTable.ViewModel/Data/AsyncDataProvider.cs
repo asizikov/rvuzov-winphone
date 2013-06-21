@@ -2,6 +2,7 @@
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using TimeTable.Model;
+using TimeTable.Networking.Restful;
 using TimeTable.ViewModel.Restful;
 
 namespace TimeTable.ViewModel.Data
@@ -15,23 +16,31 @@ namespace TimeTable.ViewModel.Data
         public IObservable<UniversitesAll> GetUniversitiesAllAsync()
         {
             var request = callFactory.GetAllUniversitiesRequest();
-            if (!cache.IsCached<UniversitesAll>(request.Url))
+            return GetDataAsync(request);
+        }
+
+        private IObservable<T> GetDataAsync<T>(RestfullRequest<T> request) where T : new()
+        {
+
+            if (!cache.IsCached<T>(request.Url))
             {
-                return Observable.Create<UniversitesAll>(
+                return Observable.Create<T>(
                     observer =>
                         Scheduler.Default.Schedule(() => ExecuteRequest(request, observer))
                     );
             }
-            else
-            {
-                return Observable.Create<UniversitesAll>(
-                    observer => 
-                        Scheduler.Default.Schedule(() =>
+            return Observable.Create<T>(
+                observer =>
+                    Scheduler.Default.Schedule(() =>
+                    {
+                        var item = cache.Fetch<T>(request.Url);
+                        observer.OnNext(item);
+
+                        var updatable = item as IUpdatableModel;
+                        if (updatable != null)
                         {
-                            var item = cache.Fetch<UniversitesAll>(request.Url);
-                            var lastUpdated = item.last_updated;
-                            observer.OnNext(item);
-                            var lastUpdatedRequest = callFactory.GetUniversitiesLastUpdatedRequest();
+                            var lastUpdated = updatable.LastUpdated;
+                            var lastUpdatedRequest = callFactory.GetLastUpdatedRequest<T>();
                             lastUpdatedRequest.Execute()
                                 .Subscribe(
                                     resutl =>
@@ -46,22 +55,25 @@ namespace TimeTable.ViewModel.Data
                                         }
                                     }
                                 );
-                            
-                        })
-                    );
-            }
+                        }
+                        else
+                        {
+                            observer.OnCompleted();
+                        }
+                    })
+                );
         }
 
-        private IDisposable ExecuteRequest(UniversitiesAllRequest request, IObserver<UniversitesAll> observer)
+        private void ExecuteRequest<T>(RestfullRequest<T> request, IObserver<T> observer) where T : new()
         {
-            return request.Execute()
+            request.Execute()
                 .Subscribe(result =>
                 {
                     cache.Put(result, request.Url);
                     observer.OnNext(result);
                 },
-                    observer.OnError,
-                    observer.OnCompleted);
+                observer.OnError,
+                observer.OnCompleted);
         }
     }
 }

@@ -1,11 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace TimeTable.Model
 {
-    public sealed class UniversitesAll
+
+    public interface IUpdatableModel
     {
-        public int last_updated { get; set; }
-        public List<University> universities { get; set; }
+        int LastUpdated { get; set; }
+    }
+
+    public sealed class UniversitesAll: IUpdatableModel
+    {
+        [DataMember(Name = "last_updated")]
+        public int LastUpdated { get; set; }
+
+        [DataMember(Name = "universities")]
+        public List<University> Universities { get; set; }
     }
 
     public class University
