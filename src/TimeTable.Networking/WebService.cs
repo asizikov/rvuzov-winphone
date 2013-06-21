@@ -4,7 +4,6 @@ using System.Net;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Text;
-using TimeTable.Networking.Restful;
 
 namespace TimeTable.Networking
 {
@@ -13,18 +12,19 @@ namespace TimeTable.Networking
         private readonly Deserializer deserializer = new Deserializer();
 
 
-        public IObservable<T> Get<T>(RestfullRequest<T> request ) where T : new()
+        public IObservable<T> Get<T>(string url, TimeSpan timeoutTimeSpan) where T : new()
         {
             return Observable.Create<T>(
                 observer => 
                 Scheduler.Default.Schedule(() =>
                 {
-                    var fullUrl = request.Url;
+                    var fullUrl = url;
                     var webRequest = (HttpWebRequest)WebRequest.Create(fullUrl);
                     webRequest.Method = "GET";
                     Observable.FromAsyncPattern<WebResponse>(webRequest.BeginGetResponse, webRequest.EndGetResponse)()
-                        .Timeout(request.Timeout)
-                        .Subscribe(response => HandleResponce(response, request, observer),
+                        .Timeout(timeoutTimeSpan)
+                        .Take(1)
+                        .Subscribe(response => HandleResponce(response, observer),
                             ex =>
                             {
                                 HandleException(ex);
@@ -36,7 +36,7 @@ namespace TimeTable.Networking
                 ));
         }
 
-        private void HandleResponce<T>(WebResponse response, RestfullRequest<T> request , IObserver<T> observer) where T: new()
+        private void HandleResponce<T>(WebResponse response, IObserver<T> observer) where T: new()
         {
             string json;
             using (Stream stream = response.GetResponseStream())
@@ -53,5 +53,7 @@ namespace TimeTable.Networking
         {
             ;
         }
+
+
     }
 }

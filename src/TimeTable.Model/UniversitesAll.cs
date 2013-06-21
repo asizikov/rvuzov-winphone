@@ -2,7 +2,7 @@
 
 namespace TimeTable.Model
 {
-    public sealed class UniversityAll
+    public sealed class UniversitesAll
     {
         public int last_updated { get; set; }
         public List<University> universities { get; set; }
@@ -14,5 +14,10 @@ namespace TimeTable.Model
         public string university_name { get; set; }
         public string university_shortname { get; set; }
         public string parity_countdown { get; set; }
+    }
+
+    public class LastUpdated
+    {
+        public int last_updated { get; set; }
     }
 }

@@ -9,16 +9,12 @@ namespace TimeTable.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
             var handler = PropertyChanged;
             if (handler != null)
             {
-                SmartDispatcher.BeginInvoke(() =>
-                {
-                    handler(this, new PropertyChangedEventArgs(propertyName));
-                });
-                
+                SmartDispatcher.BeginInvoke(() => handler(this, new PropertyChangedEventArgs(propertyName)));
             }
         }
     }

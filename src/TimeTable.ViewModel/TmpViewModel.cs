@@ -2,57 +2,63 @@
 using System.Collections.ObjectModel;
 using JetBrains.Annotations;
 using TimeTable.Model;
-using TimeTable.Networking;
-using TimeTable.ViewModel.Restful;
+using TimeTable.ViewModel.Commands;
+using TimeTable.ViewModel.Data;
 
 namespace TimeTable.ViewModel
 {
     public class TmpViewModel : BaseViewModel
     {
-        private readonly WebService webService;
-        private readonly RestfulCallFactory requestFactory;
+        private readonly AsyncDataProvider dataProvider;
         private ObservableCollection<University> universitiesesList;
+        private readonly SimpleCommand refreshCommand;
 
-        public TmpViewModel([NotNull] WebService webService, [NotNull] RestfulCallFactory requestFactory)
+        public TmpViewModel([NotNull] AsyncDataProvider dataProvider)
         {
-            if (webService == null) throw new ArgumentNullException("webService");
-            if (requestFactory == null) throw new ArgumentNullException("requestFactory");
-            this.webService = webService;
-            this.requestFactory = requestFactory;
+            if (dataProvider == null) throw new ArgumentNullException("dataProvider");
+            this.dataProvider = dataProvider;
+            refreshCommand = new SimpleCommand(RefreshList);
             Init();
         }
 
         private void Init()
         {
-            var universitiesRequest = requestFactory.GetAllUniversitiesRequest();
+            dataProvider.GetUniversitiesAllAsync().Subscribe(
+            result =>
+            {
 
-            webService.Get(universitiesRequest)
-                .Subscribe(
-                result =>
+                UniversitiesesList = new ObservableCollection<University>(result.universities);
+            },
+                ex =>
                 {
-
-                    UniversitiesesList = new ObservableCollection<University>(result.universities);
+                    //handle exception
                 },
-                    ex =>
-                    {
-                        //handle exception
-                    },
-                    () =>
-                    {
-                        //handle loaded
-                    }
-                );
+                () =>
+                {
+                    //handle loaded
+                }
+            );
         }
 
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public ObservableCollection<University> UniversitiesesList
         {
             get { return universitiesesList; }
-            set
+            private set
             {
                 if (Equals(value, universitiesesList)) return;
                 universitiesesList = value;
                 OnPropertyChanged("UniversitiesesList");
             }
+        }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public SimpleCommand RefreshCommand { get { return refreshCommand; } }
+
+        private void RefreshList()
+        {
+            UniversitiesesList = new ObservableCollection<University>();
+            Init();
         }
     }
 }

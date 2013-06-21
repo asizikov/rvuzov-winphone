@@ -1,5 +1,4 @@
-﻿using TimeTable.Networking;
-using TimeTable.ViewModel.Restful;
+﻿using TimeTable.ViewModel.Data;
 
 namespace TimeTable.ViewModel
 {
@@ -7,7 +6,7 @@ namespace TimeTable.ViewModel
     {
         public static BaseViewModel GetTmpViewModel()
         {
-            return new TmpViewModel(new WebService(), new RestfulCallFactory());
+            return new TmpViewModel(new AsyncDataProvider());
         }
     }
 }

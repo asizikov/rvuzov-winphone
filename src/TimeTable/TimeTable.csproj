@@ -110,10 +110,6 @@
     <Resource Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TimeTable.Model\TimeTable.Model.csproj">
-      <Project>{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}</Project>
-      <Name>TimeTable.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TimeTable.Networking\TimeTable.Networking.csproj">
       <Project>{98BDF17B-A349-4A0F-8437-0306BC1C1308}</Project>
       <Name>TimeTable.Networking</Name>
