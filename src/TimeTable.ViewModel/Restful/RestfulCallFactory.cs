@@ -1,4 +1,6 @@
-﻿using TimeTable.Networking;
+﻿using System;
+using System.Collections.Generic;
+using TimeTable.Networking;
 
 namespace TimeTable.ViewModel.Restful
 {

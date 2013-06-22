@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
@@ -14,6 +16,7 @@ namespace TimeTable.ViewModel
         private readonly INavigationService navigation;
         private ObservableCollection<University> universitiesesList;
         private readonly SimpleCommand refreshCommand;
+        private University selectedUniversity;
 
         public TmpViewModel([NotNull] AsyncDataProvider dataProvider, [NotNull] INavigationService navigation)
         {
@@ -55,6 +58,22 @@ namespace TimeTable.ViewModel
             }
         }
 
+        [UsedImplicitly(ImplicitUseKindFlags.Default)]
+        public University SelectedUniversity
+        {
+            get { return selectedUniversity; }
+            set
+            {
+                if (Equals(value, selectedUniversity)) return;
+                selectedUniversity = value;
+                OnPropertyChanged("SelectedUniversity");
+                if (selectedUniversity != null)
+                {
+                    NavigateToUniversity(selectedUniversity.Id);
+                }
+            }
+        }
+
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public SimpleCommand RefreshCommand { get { return refreshCommand; } }
 
@@ -62,6 +81,17 @@ namespace TimeTable.ViewModel
         {
             UniversitiesesList = new ObservableCollection<University>();
             Init();
+        }
+
+
+        private void NavigateToUniversity(int id)
+        {
+            var navigationParameter = new NavigationParameter
+            {
+                Parameter = NavigationParameterName.Id,
+                Value = id.ToString(CultureInfo.InvariantCulture)
+            };
+            navigation.GoToPage(Pages.Groups, new List<NavigationParameter>{navigationParameter});
         }
     }
 }

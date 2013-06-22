@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
@@ -11,19 +11,23 @@ namespace TimeTable.Model
 
     public sealed class UniversitesAll: IUpdatableModel
     {
-        [DataMember(Name = "last_updated")]
+        [JsonProperty("last_updated")]
         public int LastUpdated { get; set; }
 
-        [DataMember(Name = "universities")]
+        [JsonProperty("universities")]
         public List<University> Universities { get; set; }
     }
 
     public class University
     {
-        public int university_id { get; set; }
-        public string university_name { get; set; }
-        public string university_shortname { get; set; }
-        public string parity_countdown { get; set; }
+        [JsonProperty("university_id")]
+        public int Id { get; set; }
+        [JsonProperty("university_name")]
+        public string Name { get; set; }
+        [JsonProperty("university_shortname")]
+        public string ShortName { get; set; }
+        [JsonProperty("parity_countdown")]
+        public string ParityCountdown { get; set; }
     }
 
     public class LastUpdated

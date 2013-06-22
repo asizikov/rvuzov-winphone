@@ -5,8 +5,13 @@ namespace TimeTable.ViewModel.Services
 
     public class NavigationParameter
     {
-        string Parameter { get; set; }
-        string Value { get; set; }
+        public string Parameter { get; set; }
+        public string Value { get; set; }
+    }
+
+    public static class NavigationParameterName
+    {
+        public const string Id = "id";
     }
 
     public interface INavigationService
