@@ -1,4 +1,6 @@
 ﻿using TimeTable.ViewModel.Data;
+using TimeTable.ViewModel.Services;
+using TinyIoC;
 
 namespace TimeTable.ViewModel
 {
@@ -6,7 +8,7 @@ namespace TimeTable.ViewModel
     {
         public static BaseViewModel GetTmpViewModel()
         {
-            return new TmpViewModel(new AsyncDataProvider());
+            return new TmpViewModel(new AsyncDataProvider(), TinyIoCContainer.Current.Resolve<INavigationService>());
         }
     }
 }

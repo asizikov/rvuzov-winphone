@@ -26,7 +26,7 @@ namespace TimeTable
 
             // Phone-specific initialization
             InitializePhoneApplication();
-            Bootstrapper.InitApplication();
+            Bootstrapper.InitApplication(RootFrame);
 
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
