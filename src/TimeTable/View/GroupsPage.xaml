@@ -28,7 +28,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock>FirstChekin!</TextBlock>
+            <TextBlock>SecondChekin!</TextBlock>
         </Grid>
     </Grid>
  
