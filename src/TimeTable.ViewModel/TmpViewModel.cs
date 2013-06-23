@@ -14,16 +14,20 @@ namespace TimeTable.ViewModel
     {
         private readonly AsyncDataProvider dataProvider;
         private readonly INavigationService navigation;
+        private readonly BaseApplicationSettings applicationSettings;
         private ObservableCollection<University> universitiesesList;
         private readonly SimpleCommand refreshCommand;
         private University selectedUniversity;
 
-        public TmpViewModel([NotNull] AsyncDataProvider dataProvider, [NotNull] INavigationService navigation)
+        public TmpViewModel([NotNull] AsyncDataProvider dataProvider, [NotNull] INavigationService navigation,
+            [NotNull] BaseApplicationSettings applicationSettings)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (navigation == null) throw new ArgumentNullException("navigation");
+            if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
             this.dataProvider = dataProvider;
             this.navigation = navigation;
+            this.applicationSettings = applicationSettings;
             refreshCommand = new SimpleCommand(RefreshList);
             Init();
         }
