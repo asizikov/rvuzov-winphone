@@ -68,6 +68,7 @@
     <Compile Include="Data\AsyncDataProvider.cs" />
     <Compile Include="Data\ICache.cs" />
     <Compile Include="Data\InMemoryCache.cs" />
+    <Compile Include="FirstPageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Restful\RestfulCallFactory.cs" />
     <Compile Include="Restful\UniversitiesAllRequest.cs" />
