@@ -52,7 +52,10 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UniversitesAll.cs" />
+    <Compile Include="Groups.cs" />
+    <Compile Include="IUpdatableModel.cs" />
+    <Compile Include="Updates.cs" />
+    <Compile Include="Universites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

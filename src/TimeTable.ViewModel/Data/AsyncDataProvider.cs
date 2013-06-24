@@ -9,20 +9,25 @@ namespace TimeTable.ViewModel.Data
 {
     public class AsyncDataProvider
     {
-        private readonly RestfulCallFactory callFactory = new RestfulCallFactory();
-        private readonly ICache cache = new InMemoryCache();
+        private readonly RestfulCallFactory _callFactory = new RestfulCallFactory();
+        private readonly ICache _cache = new InMemoryCache();
 
 
-        public IObservable<UniversitesAll> GetUniversitiesAllAsync()
+        public IObservable<Universites> GetUniversitesAsync()
         {
-            var request = callFactory.GetAllUniversitiesRequest();
+            var request = _callFactory.GetAllUniversitesRequest();
+            return GetDataAsync(request);
+        }
+
+        public IObservable<Groups> GetUniversitesGroupsAsync(int universityId)
+        {
+            var request = _callFactory.GetUniversitesGroupsRequest(universityId);
             return GetDataAsync(request);
         }
 
         private IObservable<T> GetDataAsync<T>(RestfullRequest<T> request) where T : new()
         {
-
-            if (!cache.IsCached<T>(request.Url))
+            if (!_cache.IsCached<T>(request.Url))
             {
                 return Observable.Create<T>(
                     observer =>
@@ -33,19 +38,19 @@ namespace TimeTable.ViewModel.Data
                 observer =>
                     Scheduler.Default.Schedule(() =>
                     {
-                        var item = cache.Fetch<T>(request.Url);
+                        var item = _cache.Fetch<T>(request.Url);
                         observer.OnNext(item);
 
                         var updatable = item as IUpdatableModel;
                         if (updatable != null)
                         {
                             var lastUpdated = updatable.LastUpdated;
-                            var lastUpdatedRequest = callFactory.GetLastUpdatedRequest<T>();
+                            var lastUpdatedRequest = _callFactory.GetLastUpdatedRequest<T>();
                             lastUpdatedRequest.Execute()
                                 .Subscribe(
                                     resutl =>
                                     {
-                                        if (resutl.last_updated > lastUpdated)
+                                        if (resutl.Last > lastUpdated)
                                         {
                                             ExecuteRequest(request, observer);
                                         }
@@ -69,7 +74,7 @@ namespace TimeTable.ViewModel.Data
             request.Execute()
                 .Subscribe(result =>
                 {
-                    cache.Put(result, request.Url);
+                    _cache.Put(result, request.Url);
                     observer.OnNext(result);
                 },
                 observer.OnError,

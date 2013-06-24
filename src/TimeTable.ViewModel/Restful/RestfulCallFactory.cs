@@ -25,9 +25,14 @@ namespace TimeTable.ViewModel.Restful
         
 
 
-        public UniversitiesAllRequest GetAllUniversitiesRequest()
+        public UniversitesRequest GetAllUniversitesRequest()
         {
-            return new UniversitiesAllRequest(URL_PREFIX, UNIVERSITIES_ALL, webService);
+            return new UniversitesRequest(URL_PREFIX, UNIVERSITIES_ALL, webService);
+        }
+
+        public UniversitiesGroupsRequest GetUniversitesGroupsRequest(int universityId)
+        {
+            return new UniversitiesGroupsRequest(URL_PREFIX, string.Format("universities/{0}/groups-all", universityId), webService);
         }
 
         public LastUpdatedRequest GetLastUpdatedRequest<T>()

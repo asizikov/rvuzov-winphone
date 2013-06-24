@@ -33,7 +33,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-                <ListBox Grid.Row="0" SelectedItem="{Binding SelectedUniversity, Mode=TwoWay}" ItemsSource="{Binding UniversitiesesList}">
+            <ListBox Grid.Row="0" SelectedItem="{Binding SelectedUniversity, Mode=TwoWay}" ItemsSource="{Binding UniversitesList}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                      <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="12">

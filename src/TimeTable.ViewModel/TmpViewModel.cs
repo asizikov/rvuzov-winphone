@@ -12,74 +12,77 @@ namespace TimeTable.ViewModel
 {
     public class TmpViewModel : BaseViewModel
     {
-        private readonly AsyncDataProvider dataProvider;
-        private readonly INavigationService navigation;
-        private ObservableCollection<University> universitiesesList;
-        private readonly SimpleCommand refreshCommand;
-        private University selectedUniversity;
+        private readonly AsyncDataProvider _dataProvider;
+        private readonly INavigationService _navigation;
+        private ObservableCollection<University> _universitesList;
+        private readonly SimpleCommand _refreshCommand;
+        private University _selectedUniversity;
 
         public TmpViewModel([NotNull] AsyncDataProvider dataProvider, [NotNull] INavigationService navigation)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (navigation == null) throw new ArgumentNullException("navigation");
-            this.dataProvider = dataProvider;
-            this.navigation = navigation;
-            refreshCommand = new SimpleCommand(RefreshList);
+
+            _dataProvider = dataProvider;
+            _navigation = navigation;
+
+            _refreshCommand = new SimpleCommand(RefreshList);
+
             Init();
         }
 
         private void Init()
         {
-            dataProvider.GetUniversitiesAllAsync().Subscribe(
-            result =>
-            {
-                UniversitiesesList = new ObservableCollection<University>(result.Universities);
-            },
-            ex =>
-            {
-                //handle exception
-            },
-            () =>
-            {
-                //handle loaded
-            }
-            );
+            _dataProvider.GetUniversitesAsync().Subscribe(
+                result => { UniversitesList = new ObservableCollection<University>(result.UniversitesList); },
+                ex =>
+                    {
+                        //handle exception
+                    },
+                () =>
+                    {
+                        //handle loaded
+                    }
+                );
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public ObservableCollection<University> UniversitiesesList
+        public ObservableCollection<University> UniversitesList
         {
-            get { return universitiesesList; }
+            get { return _universitesList; }
             private set
             {
-                if (Equals(value, universitiesesList)) return;
-                universitiesesList = value;
-                OnPropertyChanged("UniversitiesesList");
+                if (Equals(value, _universitesList)) return;
+                _universitesList = value;
+                OnPropertyChanged("UniversitesList");
             }
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Default)]
         public University SelectedUniversity
         {
-            get { return selectedUniversity; }
+            get { return _selectedUniversity; }
             set
             {
-                if (Equals(value, selectedUniversity)) return;
-                selectedUniversity = value;
+                if (Equals(value, _selectedUniversity)) return;
+                _selectedUniversity = value;
                 OnPropertyChanged("SelectedUniversity");
-                if (selectedUniversity != null)
+                if (_selectedUniversity != null)
                 {
-                    NavigateToUniversity(selectedUniversity.Id);
+                    NavigateToUniversity(_selectedUniversity.Id);
                 }
             }
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public SimpleCommand RefreshCommand { get { return refreshCommand; } }
+        public SimpleCommand RefreshCommand
+        {
+            get { return _refreshCommand; }
+        }
 
         private void RefreshList()
         {
-            UniversitiesesList = new ObservableCollection<University>();
+            UniversitesList = new ObservableCollection<University>();
             Init();
         }
 
@@ -87,11 +90,11 @@ namespace TimeTable.ViewModel
         private void NavigateToUniversity(int id)
         {
             var navigationParameter = new NavigationParameter
-            {
-                Parameter = NavigationParameterName.Id,
-                Value = id.ToString(CultureInfo.InvariantCulture)
-            };
-            navigation.GoToPage(Pages.Groups, new List<NavigationParameter>{navigationParameter});
+                {
+                    Parameter = NavigationParameterName.Id,
+                    Value = id.ToString(CultureInfo.InvariantCulture)
+                };
+            _navigation.GoToPage(Pages.Groups, new List<NavigationParameter> {navigationParameter});
         }
     }
 }
