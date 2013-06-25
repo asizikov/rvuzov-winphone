@@ -19,8 +19,9 @@ namespace TimeTable.ViewModel
         private University _selectedUniversity;
 
 
-        public TmpViewModel([NotNull] AsyncDataProvider dataProvider, [NotNull] INavigationService navigation,
-                            [NotNull] BaseApplicationSettings applicationSettings)
+        public TmpViewModel([NotNull] INavigationService navigation,
+                            [NotNull] BaseApplicationSettings applicationSettings,
+                            [NotNull] AsyncDataProvider dataProvider)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (navigation == null) throw new ArgumentNullException("navigation");

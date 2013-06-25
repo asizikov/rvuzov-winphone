@@ -9,25 +9,30 @@ namespace TimeTable.ViewModel
 {
     public class GroupPageViewModel : BaseViewModel
     {
-        private readonly AsyncDataProvider _dataProvider;
         private readonly INavigationService _navigation;
-        private readonly int _parameter;
-        private ObservableCollection<Group> _groupsList;
+        private readonly BaseApplicationSettings _applicationSettings;
+        private readonly AsyncDataProvider _dataProvider;
+        private readonly int _universityId;
+        private ReadOnlyObservableCollection<Group> _groupsList;
 
-        public GroupPageViewModel([NotNull] AsyncDataProvider dataProvider, [NotNull] INavigationService navigation, int parameter)
+        public GroupPageViewModel([NotNull] INavigationService navigation,
+                                  [NotNull] BaseApplicationSettings applicationSettings,
+                                  [NotNull] AsyncDataProvider dataProvider,
+                                  int universityId)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (navigation == null) throw new ArgumentNullException("navigation");
 
-            _dataProvider = dataProvider;
             _navigation = navigation;
-            _parameter = parameter;
+            _applicationSettings = applicationSettings;
+            _dataProvider = dataProvider;
+            _universityId = universityId;
 
             Init();
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public ObservableCollection<Group> GroupsList
+        public ReadOnlyObservableCollection<Group> GroupsList
         {
             get { return _groupsList; }
             set
@@ -40,12 +45,11 @@ namespace TimeTable.ViewModel
 
         private void Init()
         {
-            _dataProvider.GetUniversitesGroupsAsync(_parameter).Subscribe(
+            _dataProvider.GetUniversitesGroupsAsync(_universityId).Subscribe(
                 result =>
                     {
-                        GroupsList = new ObservableCollection<Group>(result.GroupsList);
-//                        GroupsList = new ReadOnlyObservableCollection<Group>(
-//                            new ObservableCollection<Group>(result.GroupsList));
+                        GroupsList = new ReadOnlyObservableCollection<Group>(
+                            new ObservableCollection<Group>(result.GroupsList));
                     },
                 ex =>
                     {

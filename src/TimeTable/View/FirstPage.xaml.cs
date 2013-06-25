@@ -1,8 +1,9 @@
-﻿using TimeTable.ViewModel;
+﻿using Microsoft.Phone.Controls;
+using TimeTable.ViewModel;
 
 namespace TimeTable.View
 {
-    public partial class FirstPage
+    public partial class FirstPage : PhoneApplicationPage
     {
         public FirstPage()
         {

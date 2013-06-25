@@ -5,7 +5,7 @@ using TimeTable.Networking.Restful;
 
 namespace TimeTable.ViewModel.Restful
 {
-    public sealed class UniversitesRequest : RestfullRequest<Universites>
+    public sealed class UniversitesRequest : RestfullRequest<Universities>
     {
         public UniversitesRequest(string baseUrl, string parameters, WebService webService) : base(baseUrl, webService)
         {

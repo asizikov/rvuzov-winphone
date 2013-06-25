@@ -21,10 +21,10 @@ namespace TimeTable.View
             string parameter;
             if (NavigationContext.QueryString.TryGetValue(NavigationParameterName.Id, out parameter))
             {
-                int id;
-                if (Int32.TryParse(parameter, out id))
+                int universityId;
+                if (Int32.TryParse(parameter, out universityId))
                 {
-                    new GroupPageViewModel(new AsyncDataProvider(), TinyIoCContainer.Current.Resolve<INavigationService>(), id);
+                    DataContext = ViewModelLocator.GetGroupstPageViewModel(universityId);
                 }
             }
         }

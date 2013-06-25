@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
-    public sealed class Universites: IUpdatableModel
+    public sealed class Universities: IUpdatableModel
     {
         [JsonProperty("Last")]
         public int LastUpdated { get; set; }

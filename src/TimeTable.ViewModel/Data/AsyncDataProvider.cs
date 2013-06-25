@@ -13,7 +13,7 @@ namespace TimeTable.ViewModel.Data
         private readonly ICache _cache = new InMemoryCache();
 
 
-        public IObservable<Universites> GetUniversitesAsync()
+        public IObservable<Universities> GetUniversitesAsync()
         {
             var request = _callFactory.GetAllUniversitesRequest();
             return GetDataAsync(request);

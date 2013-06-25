@@ -13,7 +13,7 @@ namespace TimeTable.ViewModel
         private readonly BaseApplicationSettings _applicationSettings;
 
         public FirstPageViewModel([NotNull] INavigationService navigation,
-            [NotNull] BaseApplicationSettings applicationSettings)
+                                  [NotNull] BaseApplicationSettings applicationSettings)
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
@@ -39,7 +39,7 @@ namespace TimeTable.ViewModel
         private void SaveUserRoleAndNavigateToNextPage(UserRole role)
         {
             _applicationSettings.Role = role;
-            _navigation.GoToPage(Pages.Universites);
+            _navigation.GoToPage(Pages.Universities);
         }
     }
 }
