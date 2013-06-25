@@ -18,7 +18,9 @@ namespace TimeTable.ViewModel
         private readonly SimpleCommand _refreshCommand;
         private University _selectedUniversity;
 
-        public TmpViewModel([NotNull] AsyncDataProvider dataProvider, [NotNull] INavigationService navigation)
+
+        public TmpViewModel([NotNull] AsyncDataProvider dataProvider, [NotNull] INavigationService navigation,
+                            [NotNull] BaseApplicationSettings applicationSettings)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (navigation == null) throw new ArgumentNullException("navigation");
@@ -27,8 +29,6 @@ namespace TimeTable.ViewModel
             _navigation = navigation;
 
             _refreshCommand = new SimpleCommand(RefreshList);
-
-            Init();
         }
 
         private void Init()

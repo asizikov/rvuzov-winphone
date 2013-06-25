@@ -6,9 +6,22 @@ namespace TimeTable.ViewModel
 {
     public static class ViewModelLocator
     {
+        private static TinyIoCContainer Container
+        {
+            get
+            {
+                return TinyIoCContainer.Current;
+            }
+        }
+
         public static BaseViewModel GetTmpViewModel()
         {
-            return new TmpViewModel(new AsyncDataProvider(), TinyIoCContainer.Current.Resolve<INavigationService>());
+            return new TmpViewModel(new AsyncDataProvider(), Container.Resolve<INavigationService>(), Container.Resolve<BaseApplicationSettings>());
+        }
+
+        public static BaseViewModel GetFirstPageViewModel()
+        {
+            return new FirstPageViewModel(Container.Resolve<INavigationService>(), Container.Resolve<BaseApplicationSettings>());
         }
     }
 }
