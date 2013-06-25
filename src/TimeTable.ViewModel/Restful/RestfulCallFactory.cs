@@ -11,7 +11,11 @@ namespace TimeTable.ViewModel.Restful
         private const string URL_PREFIX = "http://raspisanie-vuzov.ru/api/v1/";
         private const string UNIVERSITIES_ALL = "universities-all";
         private const string LAST_UPDATED = "/last-updated";
-        private const string GROUPS_ALL = "universities/{id}/groups-all";
+
+        private string AllGroupsRequesSufix(int universityId)
+        {
+            return string.Format("universities/{0}/groups-all", universityId);
+        }
 
         //TODO: create calls for all API endpoints
         //universities/{id}/groups-all/last-updated list all groups for specified university last updated time
@@ -32,7 +36,7 @@ namespace TimeTable.ViewModel.Restful
 
         public UniversitiesGroupsRequest GetUniversitesGroupsRequest(int universityId)
         {
-            return new UniversitiesGroupsRequest(URL_PREFIX, string.Format("universities/{0}/groups-all", universityId), webService);
+            return new UniversitiesGroupsRequest(URL_PREFIX, AllGroupsRequesSufix(universityId), webService);
         }
 
         public LastUpdatedRequest GetLastUpdatedRequest<T>()
