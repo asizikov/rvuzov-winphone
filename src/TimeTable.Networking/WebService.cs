@@ -9,7 +9,7 @@ namespace TimeTable.Networking
 {
     public class WebService
     {
-        private readonly Deserializer deserializer = new Deserializer();
+        private readonly Deserializer _deserializer = new Deserializer();
 
 
         public IObservable<T> Get<T>(string url, TimeSpan timeoutTimeSpan) where T : new()
@@ -45,7 +45,7 @@ namespace TimeTable.Networking
                 json = reader.ReadToEnd();
             }
             
-            var result = deserializer.Deserialize<T>(json);
+            var result = _deserializer.Deserialize<T>(json);
             observer.OnNext(result);
         }
 
