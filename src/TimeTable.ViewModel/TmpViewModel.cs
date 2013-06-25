@@ -30,6 +30,8 @@ namespace TimeTable.ViewModel
             _navigation = navigation;
 
             _refreshCommand = new SimpleCommand(RefreshList);
+
+            Init();
         }
 
         private void Init()
