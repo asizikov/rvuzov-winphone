@@ -10,7 +10,7 @@ using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel
 {
-    public class TmpViewModel : BaseViewModel
+    public class UniversitiesViewModel : BaseViewModel
     {
         private readonly AsyncDataProvider _dataProvider;
         private readonly INavigationService _navigation;
@@ -18,7 +18,7 @@ namespace TimeTable.ViewModel
         private readonly SimpleCommand _refreshCommand;
         private University _selectedUniversity;
 
-        public TmpViewModel([NotNull] INavigationService navigation,
+        public UniversitiesViewModel([NotNull] INavigationService navigation,
                             [NotNull] BaseApplicationSettings applicationSettings,
                             [NotNull] AsyncDataProvider dataProvider)
         {

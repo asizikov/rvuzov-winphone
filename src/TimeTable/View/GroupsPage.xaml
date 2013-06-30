@@ -39,7 +39,10 @@
                 Width="480"
                 Grid.Row="0" 
                 Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <ListBox Grid.Row="0" Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}" ItemsSource="{Binding GroupsList}">
+            <ListBox Grid.Row="0" 
+                     Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}" 
+                     SelectedItem="{Binding SelectedGroup, Mode=TwoWay}"
+                     ItemsSource="{Binding GroupsList}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="12">

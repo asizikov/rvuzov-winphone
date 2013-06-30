@@ -52,6 +52,7 @@
       <HintPath>..\Lib\Funq.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>packages\WPtoolkit.4.2013.06.11\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
@@ -99,6 +100,9 @@
     </Compile>
     <Compile Include="View\GroupsPage.xaml.cs">
       <DependentUpon>GroupsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LessonsPage.xaml.cs">
+      <DependentUpon>LessonsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TmpPage.xaml.cs">
       <DependentUpon>TmpPage.xaml</DependentUpon>
@@ -148,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\GroupsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LessonsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

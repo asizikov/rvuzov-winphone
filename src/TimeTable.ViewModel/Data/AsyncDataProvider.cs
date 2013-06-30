@@ -25,6 +25,12 @@ namespace TimeTable.ViewModel.Data
             return GetDataAsync(request);
         }
 
+        public IObservable<GroupTimeTable> GetLessonsForGroupAsync(int groupId)
+        {
+            var groupTimeTableRequest = _callFactory.GetGroupTimeTableRequest(groupId);
+            return GetDataAsync(groupTimeTableRequest);
+        }
+
         private IObservable<T> GetDataAsync<T>(RestfullRequest<T> request) where T : new()
         {
             if (!_cache.IsCached<T>(request.Url))

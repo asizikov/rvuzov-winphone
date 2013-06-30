@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Data;
@@ -14,6 +16,7 @@ namespace TimeTable.ViewModel
         private readonly AsyncDataProvider _dataProvider;
         private readonly int _universityId;
         private ReadOnlyObservableCollection<Group> _groupsList;
+        private Group _selectedGroup;
 
         public GroupPageViewModel([NotNull] INavigationService navigation,
                                   [NotNull] BaseApplicationSettings applicationSettings,
@@ -35,12 +38,36 @@ namespace TimeTable.ViewModel
         public ReadOnlyObservableCollection<Group> GroupsList
         {
             get { return _groupsList; }
-            set
+            private set
             {
                 if (Equals(value, _groupsList)) return;
                 _groupsList = value;
                 OnPropertyChanged("GroupsList");
             }
+        }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Default)]
+        public Group SelectedGroup
+        {
+            get { return _selectedGroup; }
+            set
+            {
+                if (Equals(value, _selectedGroup)) return;
+                _selectedGroup = value;
+                OnPropertyChanged("SelectedGroup");
+                NavigateToLessonsPage(_selectedGroup.Id);
+            }
+        }
+
+        private void NavigateToLessonsPage(int id)
+        {
+            _applicationSettings.Group = id;
+            _navigation.GoToPage(Pages.Lessons, new List<NavigationParameter>{
+                new NavigationParameter
+            {
+                Parameter = NavigationParameterName.Id,
+                Value = id.ToString(CultureInfo.InvariantCulture)
+            }});
         }
 
         private void Init()
@@ -49,7 +76,7 @@ namespace TimeTable.ViewModel
             _dataProvider.GetUniversitesGroupsAsync(_universityId).Subscribe(
                 result =>
                 {
-                    IsLoading = true;
+                    IsLoading = false;
                     GroupsList = new ReadOnlyObservableCollection<Group>(
                         new ObservableCollection<Group>(result.GroupsList));
                 },

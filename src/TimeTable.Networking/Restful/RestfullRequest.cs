@@ -26,7 +26,8 @@ namespace TimeTable.Networking.Restful
             }
         }
 
-        protected abstract string AdditionalUrl { get; set; }
+        protected string AdditionalUrl { get; set; }
+
         public Type RequestType {get { return typeof (T); }}
 
         public IObservable<T> Execute()

@@ -15,13 +15,13 @@ namespace TimeTable.ViewModel
             }
         }
 
-        private static TmpViewModel _tmpViewModel;
+        private static UniversitiesViewModel _universitiesViewModel;
 
         public static BaseViewModel GetTmpViewModel()
         {
-            return _tmpViewModel ??
-                   (_tmpViewModel =
-                       new TmpViewModel(Container.Resolve<INavigationService>(),
+            return _universitiesViewModel ??
+                   (_universitiesViewModel =
+                       new UniversitiesViewModel(Container.Resolve<INavigationService>(),
                            Container.Resolve<BaseApplicationSettings>(), new AsyncDataProvider()));
         }
 
@@ -33,6 +33,11 @@ namespace TimeTable.ViewModel
         public static BaseViewModel GetGroupstPageViewModel(int universityId)
         {
             return new GroupPageViewModel(Container.Resolve<INavigationService>(), Container.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), universityId);
+        }
+
+        public static BaseViewModel GetLessonsViewModel(int groupId)
+        {
+            return new LessonsViewModel(Container.Resolve<INavigationService>(),Container.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), groupId);
         }
     }
 }

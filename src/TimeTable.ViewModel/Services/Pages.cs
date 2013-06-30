@@ -9,5 +9,7 @@ namespace TimeTable.ViewModel.Services
 
         [NotNull]
         public static readonly string Universities = "/View/TmpPage.xaml";
+
+        [NotNull] public static readonly string Lessons = "/View/LessonsPage.xaml";
     }
 }
