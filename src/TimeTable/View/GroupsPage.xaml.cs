@@ -1,13 +1,10 @@
 ﻿using System;
-using Microsoft.Phone.Controls;
 using TimeTable.ViewModel;
-using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
-using TinyIoC;
 
 namespace TimeTable.View
 {
-    public partial class GroupsPage : PhoneApplicationPage
+    public partial class GroupsPage
     {
         public GroupsPage()
         {

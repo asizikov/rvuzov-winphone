@@ -1,16 +1,17 @@
-﻿using TimeTable.ViewModel.Data;
+﻿using Funq;
+using TimeTable.IoC;
+using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
-using TinyIoC;
 
 namespace TimeTable.ViewModel
 {
     public static class ViewModelLocator
     {
-        private static TinyIoCContainer Container
+        private static Container Container
         {
             get
             {
-                return TinyIoCContainer.Current;
+                return ContainerInstance.Current;
             }
         }
 
