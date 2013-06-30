@@ -33,7 +33,13 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <ListBox Grid.Row="0" SelectedItem="{Binding SelectedUniversity, Mode=TwoWay}" ItemsSource="{Binding UniversitesList}">
+            <toolkit:PerformanceProgressBar 
+                IsIndeterminate="true"
+                Foreground="{StaticResource PhoneAccentBrush}"
+                Height="150" 
+                 Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"
+                Margin="0" />
+            <ListBox Grid.Row="0" Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}" SelectedItem="{Binding SelectedUniversity, Mode=TwoWay}" ItemsSource="{Binding UniversitesList}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                      <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="12">

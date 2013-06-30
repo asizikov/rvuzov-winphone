@@ -14,9 +14,14 @@ namespace TimeTable.ViewModel
             }
         }
 
+        private static TmpViewModel _tmpViewModel;
+
         public static BaseViewModel GetTmpViewModel()
         {
-            return new TmpViewModel(Container.Resolve<INavigationService>(), Container.Resolve<BaseApplicationSettings>(), new AsyncDataProvider());
+            return _tmpViewModel ??
+                   (_tmpViewModel =
+                       new TmpViewModel(Container.Resolve<INavigationService>(),
+                           Container.Resolve<BaseApplicationSettings>(), new AsyncDataProvider()));
         }
 
         public static BaseViewModel GetFirstPageViewModel()

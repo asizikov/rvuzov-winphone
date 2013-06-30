@@ -18,7 +18,6 @@ namespace TimeTable.ViewModel
         private readonly SimpleCommand _refreshCommand;
         private University _selectedUniversity;
 
-
         public TmpViewModel([NotNull] INavigationService navigation,
                             [NotNull] BaseApplicationSettings applicationSettings,
                             [NotNull] AsyncDataProvider dataProvider)
@@ -36,12 +35,18 @@ namespace TimeTable.ViewModel
 
         private void Init()
         {
+            IsLoading = true;
             _dataProvider.GetUniversitesAsync().Subscribe(
-                result => { UniversitesList = new ObservableCollection<University>(result.UniversitesList); },
+                result =>
+                {
+                    IsLoading = false;
+                    UniversitesList = new ObservableCollection<University>(result.UniversitesList);
+                },
                 ex =>
-                    {
-                        //handle exception
-                    },
+                {
+                    IsLoading = false;
+                    //handle exception
+                },
                 () =>
                     {
                         //handle loaded

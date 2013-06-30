@@ -2,11 +2,14 @@
     x:Class="TimeTable.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone">
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:converters="clr-namespace:TimeTable.Converters">
 
     <!--Application Resources-->
     <Application.Resources>
         <local:LocalizedStrings xmlns:local="clr-namespace:TimeTable.Resources"  x:Key="LocalizedStrings" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:ReversedBoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter"/>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

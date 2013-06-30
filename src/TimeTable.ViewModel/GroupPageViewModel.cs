@@ -45,20 +45,23 @@ namespace TimeTable.ViewModel
 
         private void Init()
         {
+            IsLoading = true;
             _dataProvider.GetUniversitesGroupsAsync(_universityId).Subscribe(
                 result =>
-                    {
-                        GroupsList = new ReadOnlyObservableCollection<Group>(
-                            new ObservableCollection<Group>(result.GroupsList));
-                    },
+                {
+                    IsLoading = true;
+                    GroupsList = new ReadOnlyObservableCollection<Group>(
+                        new ObservableCollection<Group>(result.GroupsList));
+                },
                 ex =>
-                    {
-                        //handle exception
-                    },
+                {
+                    IsLoading = false;
+                    //handle exception
+                },
                 () =>
-                    {
-                        //handle loaded
-                    }
+                {
+                    //handle loaded
+                }
                 );
         }
     }
