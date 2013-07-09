@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.IsolatedStorage;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Model.User;
@@ -22,6 +23,21 @@ namespace TimeTable.ViewModel
             _applicationSettings = applicationSettings;
 
             InitCommands();
+
+            TryNavigateToLastPage();
+        }
+
+        private void TryNavigateToLastPage()
+        {
+            if (!_applicationSettings.FirstLoad)
+                return;
+
+            var lastPage = UserStorageSettings.GetLastPage();
+            if (lastPage != null)
+            {
+                _navigation.GoToPage(lastPage);
+            }
+            _applicationSettings.FirstLoad = false;
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]

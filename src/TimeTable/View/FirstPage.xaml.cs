@@ -1,4 +1,5 @@
-﻿using Microsoft.Phone.Controls;
+﻿using Microsoft.Phone.BackgroundAudio;
+using Microsoft.Phone.Controls;
 using TimeTable.ViewModel;
 
 namespace TimeTable.View

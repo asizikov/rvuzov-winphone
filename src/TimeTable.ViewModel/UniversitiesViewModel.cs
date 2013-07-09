@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO.IsolatedStorage;
+using System.Windows.Navigation;
 using JetBrains.Annotations;
 using TimeTable.Model;
+using TimeTable.Model.User;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
@@ -14,13 +17,13 @@ namespace TimeTable.ViewModel
     {
         private readonly AsyncDataProvider _dataProvider;
         private readonly INavigationService _navigation;
-        private ObservableCollection<University> _universitesList;
         private readonly SimpleCommand _refreshCommand;
+        private ObservableCollection<University> _universitesList;
         private University _selectedUniversity;
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
-                            [NotNull] BaseApplicationSettings applicationSettings,
-                            [NotNull] AsyncDataProvider dataProvider)
+                                     [NotNull] BaseApplicationSettings applicationSettings,
+                                     [NotNull] AsyncDataProvider dataProvider)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (navigation == null) throw new ArgumentNullException("navigation");
@@ -31,22 +34,25 @@ namespace TimeTable.ViewModel
             _refreshCommand = new SimpleCommand(RefreshList);
 
             Init();
+
+            UserStorageSettings.SetLastPage(Pages.Universities);
         }
+
 
         private void Init()
         {
             IsLoading = true;
             _dataProvider.GetUniversitesAsync().Subscribe(
                 result =>
-                {
-                    IsLoading = false;
-                    UniversitesList = new ObservableCollection<University>(result.UniversitesList);
-                },
+                    {
+                        IsLoading = false;
+                        UniversitesList = new ObservableCollection<University>(result.UniversitesList);
+                    },
                 ex =>
-                {
-                    IsLoading = false;
-                    //handle exception
-                },
+                    {
+                        IsLoading = false;
+                        //handle exception
+                    },
                 () =>
                     {
                         //handle loaded

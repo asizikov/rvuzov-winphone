@@ -4,12 +4,10 @@ namespace TimeTable.ViewModel.Services
 {
     public static class Pages
     {
-        [NotNull]
-        public static readonly string Groups = "/View/GroupsPage.xaml";
+        [NotNull] public const string Groups = "/View/GroupsPage.xaml";
 
-        [NotNull]
-        public static readonly string Universities = "/View/TmpPage.xaml";
+        [NotNull] public const string Universities = "/View/TmpPage.xaml";
 
-        [NotNull] public static readonly string Lessons = "/View/LessonsPage.xaml";
+        [NotNull] public const string Lessons = "/View/LessonsPage.xaml";
     }
 }

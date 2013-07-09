@@ -37,7 +37,7 @@ namespace TimeTable.ViewModel
 
         public static BaseViewModel GetLessonsViewModel(int groupId)
         {
-            return new LessonsViewModel(Container.Resolve<INavigationService>(),Container.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), groupId);
+            return new LessonsViewModel(Container.Resolve<INavigationService>(), Container.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), groupId);
         }
     }
 }

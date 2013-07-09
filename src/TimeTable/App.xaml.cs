@@ -105,9 +105,11 @@ namespace TimeTable
             if (phoneApplicationInitialized)
                 return;
 
+ 
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
             RootFrame = new PhoneApplicationFrame();
+            RootFrame.UriMapper = (UriMapper) Resources["ApplicationUriMapper"];
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
             // Handle navigation failures

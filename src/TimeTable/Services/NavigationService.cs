@@ -9,12 +9,12 @@ namespace TimeTable.Services
 {
     public class NavigationService : INavigationService
     {
-        private readonly PhoneApplicationFrame rootFrame;
+        private readonly PhoneApplicationFrame _rootFrame;
 
         public NavigationService([NotNull] PhoneApplicationFrame rootFrame)
         {
             if (rootFrame == null) throw new ArgumentNullException("rootFrame");
-            this.rootFrame = rootFrame;
+            _rootFrame = rootFrame;
         }
 
         public void GoToPage([NotNull] string pageName, IEnumerable<NavigationParameter> parameters = null)
@@ -34,17 +34,17 @@ namespace TimeTable.Services
                     sb.Append("&");
                 }
             }
-            rootFrame.Navigate(new Uri(sb.ToString(), UriKind.Relative));
+            _rootFrame.Navigate(new Uri(sb.ToString(), UriKind.Relative));
         }
 
         public void GoBack()
         {
-            rootFrame.GoBack();
+            _rootFrame.GoBack();
         }
 
         public bool CanGoBack()
         {
-            return rootFrame.CanGoBack;
+            return _rootFrame.CanGoBack;
         }
     }
 }

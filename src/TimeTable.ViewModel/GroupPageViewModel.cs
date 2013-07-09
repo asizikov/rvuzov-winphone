@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using JetBrains.Annotations;
 using TimeTable.Model;
+using TimeTable.Model.User;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
@@ -32,6 +33,8 @@ namespace TimeTable.ViewModel
             _universityId = universityId;
 
             Init();
+
+            UserStorageSettings.SetLastPage(string.Format("{0}?id={1}", Pages.Groups, _universityId));
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]

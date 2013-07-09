@@ -1,22 +1,31 @@
-﻿<Application 
+﻿<Application
     x:Class="TimeTable.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:converters="clr-namespace:TimeTable.Converters">
+    xmlns:converters="clr-namespace:TimeTable.Converters"
+    xmlns:navigation="clr-namespace:System.Windows.Navigation;assembly=Microsoft.Phone"
+    xmlns:isolatedStorage="clr-namespace:System.IO.IsolatedStorage;assembly=System.Windows">
 
     <!--Application Resources-->
     <Application.Resources>
-        <local:LocalizedStrings xmlns:local="clr-namespace:TimeTable.Resources"  x:Key="LocalizedStrings" />
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        <converters:ReversedBoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter"/>
+        <local:LocalizedStrings xmlns:local="clr-namespace:TimeTable.Resources" x:Key="LocalizedStrings" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:ReversedBoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter" />
+
+        <navigation:UriMapper x:Name="ApplicationUriMapper">
+<!--            <navigation:UriMapping Uri="/StartPage/{Role}" MappedUri="/View/FirstPage.xaml?Role={Role}" />-->
+            <navigation:UriMapping Uri="/StartPage" MappedUri="/View/FirstPage.xaml" />
+            <navigation:UriMapping Uri="/GroupsPage" MappedUri="/View/GroupsPage.xaml" />
+            <navigation:UriMapping Uri="/TempPage" MappedUri="/View/TmpPage.xaml" />
+            <navigation:UriMapping Uri="/LessonsPage" MappedUri="/View/LessonsPage.xaml" />
+        </navigation:UriMapper>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
         <!--Required object that handles lifetime events for the application-->
-        <shell:PhoneApplicationService 
-            Launching="Application_Launching" Closing="Application_Closing" 
-            Activated="Application_Activated" Deactivated="Application_Deactivated"/>
+        <shell:PhoneApplicationService
+            Launching="Application_Launching" Closing="Application_Closing"
+            Activated="Application_Activated" Deactivated="Application_Deactivated" />
     </Application.ApplicationLifetimeObjects>
-
 </Application>
