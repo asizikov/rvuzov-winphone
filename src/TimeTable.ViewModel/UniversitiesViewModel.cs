@@ -6,9 +6,9 @@ using System.IO.IsolatedStorage;
 using System.Windows.Navigation;
 using JetBrains.Annotations;
 using TimeTable.Model;
-using TimeTable.Model.User;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
+using TimeTable.ViewModel.Enums;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel
@@ -17,6 +17,7 @@ namespace TimeTable.ViewModel
     {
         private readonly AsyncDataProvider _dataProvider;
         private readonly INavigationService _navigation;
+        private readonly BaseApplicationSettings _applicationSettings;
         private readonly SimpleCommand _refreshCommand;
         private ObservableCollection<University> _universitesList;
         private University _selectedUniversity;
@@ -30,12 +31,9 @@ namespace TimeTable.ViewModel
 
             _dataProvider = dataProvider;
             _navigation = navigation;
+            _applicationSettings = applicationSettings;
 
             _refreshCommand = new SimpleCommand(RefreshList);
-
-            Init();
-
-            UserStorageSettings.SetLastPage(Pages.Universities);
         }
 
 

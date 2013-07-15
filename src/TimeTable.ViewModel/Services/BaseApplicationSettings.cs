@@ -1,16 +1,16 @@
-﻿using TimeTable.Model.User;
+﻿using TimeTable.ViewModel.Enums;
 
 namespace TimeTable.ViewModel.Services
 {
     public abstract class BaseApplicationSettings
     {
-        public UserRole Role { get; set; }
-        public int Group { get; set; }
+        public abstract UserRole? Role { get; set; }
+        public abstract int? UniversityId { get; set; }
+        public abstract int? GroupId { get; set; }
+
         public bool FirstLoad { get; set; }
 
-        public abstract void LoadSettings();
-
-        public BaseApplicationSettings()
+        protected BaseApplicationSettings()
         {
             FirstLoad = true;
         }

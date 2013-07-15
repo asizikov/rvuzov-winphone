@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using JetBrains.Annotations;
 using TimeTable.Model;
-using TimeTable.Model.User;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
@@ -32,9 +31,9 @@ namespace TimeTable.ViewModel
             _dataProvider = dataProvider;
             _universityId = universityId;
 
-            Init();
+            _applicationSettings.UniversityId = _universityId;
 
-            UserStorageSettings.SetLastPage(string.Format("{0}?id={1}", Pages.Groups, _universityId));
+            Init();
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -64,7 +63,7 @@ namespace TimeTable.ViewModel
 
         private void NavigateToLessonsPage(int id)
         {
-            _applicationSettings.Group = id;
+            _applicationSettings.GroupId = id;
             _navigation.GoToPage(Pages.Lessons, new List<NavigationParameter>{
                 new NavigationParameter
             {

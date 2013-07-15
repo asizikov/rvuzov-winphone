@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using JetBrains.Annotations;
 using TimeTable.Model;
-using TimeTable.Model.User;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
@@ -27,10 +26,10 @@ namespace TimeTable.ViewModel
             _applicationSettings = applicationSettings;
             _dataProvider = dataProvider;
             _groupId = groupId;
-
+            
+            _applicationSettings.GroupId = _groupId;
+            
             Init();
-
-            UserStorageSettings.SetLastPage(string.Format("{0}?id={1}", Pages.Lessons, _groupId));
         }
 
         private void Init()

@@ -68,6 +68,7 @@
     <Compile Include="Data\AsyncDataProvider.cs" />
     <Compile Include="Data\ICache.cs" />
     <Compile Include="Data\InMemoryCache.cs" />
+    <Compile Include="Enums\UserRole.cs" />
     <Compile Include="FirstPageViewModel.cs" />
     <Compile Include="GroupPageViewModel.cs" />
     <Compile Include="LessonsViewModel.cs" />

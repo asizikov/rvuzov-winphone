@@ -2,8 +2,8 @@
 using System.IO.IsolatedStorage;
 using System.Windows.Input;
 using JetBrains.Annotations;
-using TimeTable.Model.User;
 using TimeTable.ViewModel.Commands;
+using TimeTable.ViewModel.Enums;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel
@@ -24,18 +24,32 @@ namespace TimeTable.ViewModel
 
             InitCommands();
 
-            TryNavigateToLastPage();
+            TryNavigateToUserPage();
         }
 
-        private void TryNavigateToLastPage()
+        private void TryNavigateToUserPage()
         {
             if (!_applicationSettings.FirstLoad)
                 return;
 
-            var lastPage = UserStorageSettings.GetLastPage();
-            if (lastPage != null)
+            string userPage = null;
+
+            if (_applicationSettings.GroupId != null)
             {
-                _navigation.GoToPage(lastPage);
+                userPage = string.Format("{0}?id={1}", Pages.Lessons, _applicationSettings.GroupId);
+            }
+            else if (_applicationSettings.UniversityId != null)
+            {
+                userPage = string.Format("{0}?id={1}", Pages.Groups, _applicationSettings.UniversityId);
+            }
+            else if (_applicationSettings.Role != null)
+            {
+                userPage = string.Format("{0}?id={1}", Pages.Universities, _applicationSettings.Role);
+            }
+
+            if (userPage != null)
+            {
+                _navigation.GoToPage(userPage);
             }
             _applicationSettings.FirstLoad = false;
         }
