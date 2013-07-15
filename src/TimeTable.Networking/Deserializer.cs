@@ -1,18 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace TimeTable.Networking
 {
     public class Deserializer
     {
-        public Deserializer()
+        [CanBeNull]
+        public T Deserialize<T>([CanBeNull] string json)
         {
-
+            var result = JsonConvert.DeserializeObject<T>(json);
+            return result;
         }
-
-           public T Deserialize<T>(string json)
-           {
-               var result = JsonConvert.DeserializeObject<T>(json);
-               return result;
-           }
     }
 }

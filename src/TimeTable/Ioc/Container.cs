@@ -1,4 +1,5 @@
 ﻿using Funq;
+using JetBrains.Annotations;
 
 namespace TimeTable.IoC
 {
@@ -8,6 +9,7 @@ namespace TimeTable.IoC
         {
         }
 
+        [NotNull]
         public static Container Current { get { return Nested.Instance; } }
 
         private static class Nested

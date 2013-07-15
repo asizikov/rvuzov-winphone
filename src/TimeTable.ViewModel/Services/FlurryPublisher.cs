@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using JetBrains.Annotations;
 using TimeTable.Model;
 
 namespace TimeTable.ViewModel.Services
 {
     public abstract class FlurryPublisher
     {
-        private readonly List<FlurryEventWrapper> _eventQueue = new List<FlurryEventWrapper>();
+        [NotNull] private readonly List<FlurryEventWrapper> _eventQueue = new List<FlurryEventWrapper>();
+        [NotNull] private readonly object _lockObject = new object();
         protected bool IsSessionActive;
-        private readonly object _lockObject = new object();
-
 
         public void StartSession(string userId)
         {
@@ -98,14 +98,15 @@ namespace TimeTable.ViewModel.Services
         protected abstract void InitSession(string userId);
         protected abstract void FlushEvent(string eventName, EventParameter[] parameters);
 
-
-        public void PublishUniversitySelected(University university)
+        public void PublishUniversitySelected([NotNull] University university)
         {
+            if (university == null) throw new ArgumentNullException("university");
+
             var parameters = new[]
             {
                 new EventParameter("University name", university.Name),
                 new EventParameter("University shortname", university.ShortName),
-                new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture))
             };
 
             PublishEvent(FlurryEvents.EVENT_CHOOSE_UNIVERSITY, parameters);

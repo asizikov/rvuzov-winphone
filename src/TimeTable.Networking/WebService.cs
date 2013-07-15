@@ -4,15 +4,16 @@ using System.Net;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Text;
+using JetBrains.Annotations;
 
 namespace TimeTable.Networking
 {
     public class WebService
     {
-        private readonly Deserializer _deserializer = new Deserializer();
+        [NotNull] private readonly Deserializer _deserializer = new Deserializer();
 
 
-        public IObservable<T> Get<T>(string url, TimeSpan timeoutTimeSpan) where T : new()
+        [NotNull] public IObservable<T> Get<T>(string url, TimeSpan timeoutTimeSpan) where T : new()
         {
             return Observable.Create<T>(
                 observer => 
