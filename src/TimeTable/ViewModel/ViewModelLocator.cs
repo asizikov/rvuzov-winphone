@@ -1,4 +1,5 @@
 ﻿using Funq;
+using JetBrains.Annotations;
 using TimeTable.IoC;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
@@ -7,7 +8,7 @@ namespace TimeTable.ViewModel
 {
     public static class ViewModelLocator
     {
-        private static Container Container
+        private static Container C
         {
             get
             {
@@ -17,28 +18,28 @@ namespace TimeTable.ViewModel
 
         private static UniversitiesViewModel _universitiesViewModel;
 
-        public static BaseViewModel GetTmpViewModel()
+        [NotNull] public static BaseViewModel GetTmpViewModel()
         {
             return _universitiesViewModel ??
                    (_universitiesViewModel =
-                       new UniversitiesViewModel(Container.Resolve<INavigationService>(),
-                           Container.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), 
-                           Container.Resolve<FlurryPublisher>()));
+                       new UniversitiesViewModel(C.Resolve<INavigationService>(),
+                           C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), 
+                           C.Resolve<FlurryPublisher>()));
         }
 
         public static BaseViewModel GetFirstPageViewModel()
         {
-            return new FirstPageViewModel(Container.Resolve<INavigationService>(), Container.Resolve<BaseApplicationSettings>());
+            return new FirstPageViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>());
         }
 
         public static BaseViewModel GetGroupstPageViewModel(int universityId)
         {
-            return new GroupPageViewModel(Container.Resolve<INavigationService>(), Container.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), universityId);
+            return new GroupPageViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), universityId);
         }
 
         public static BaseViewModel GetLessonsViewModel(int groupId)
         {
-            return new LessonsViewModel(Container.Resolve<INavigationService>(), Container.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), groupId);
+            return new LessonsViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), groupId);
         }
     }
 }
