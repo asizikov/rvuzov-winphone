@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.IO.IsolatedStorage;
-using System.Windows.Navigation;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
-using TimeTable.ViewModel.Enums;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel
@@ -16,6 +13,7 @@ namespace TimeTable.ViewModel
     public class UniversitiesViewModel : BaseViewModel
     {
         private readonly AsyncDataProvider _dataProvider;
+        private readonly FlurryPublisher _flurry;
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly SimpleCommand _refreshCommand;
@@ -24,16 +22,20 @@ namespace TimeTable.ViewModel
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
                                      [NotNull] BaseApplicationSettings applicationSettings,
-                                     [NotNull] AsyncDataProvider dataProvider)
+                                     [NotNull] AsyncDataProvider dataProvider, 
+                                     [NotNull] FlurryPublisher flurry)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
+            if (flurry == null) throw new ArgumentNullException("flurry");
             if (navigation == null) throw new ArgumentNullException("navigation");
 
             _dataProvider = dataProvider;
+            _flurry = flurry;
             _navigation = navigation;
             _applicationSettings = applicationSettings;
 
             _refreshCommand = new SimpleCommand(RefreshList);
+            Init();
         }
 
 
@@ -79,6 +81,7 @@ namespace TimeTable.ViewModel
                 if (Equals(value, _selectedUniversity)) return;
                 _selectedUniversity = value;
                 OnPropertyChanged("SelectedUniversity");
+                _flurry.PublishUniversitySelected(_selectedUniversity);
                 if (_selectedUniversity != null)
                 {
                     NavigateToUniversity(_selectedUniversity.Id);

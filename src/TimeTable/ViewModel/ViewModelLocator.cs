@@ -22,7 +22,8 @@ namespace TimeTable.ViewModel
             return _universitiesViewModel ??
                    (_universitiesViewModel =
                        new UniversitiesViewModel(Container.Resolve<INavigationService>(),
-                           Container.Resolve<BaseApplicationSettings>(), new AsyncDataProvider()));
+                           Container.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), 
+                           Container.Resolve<FlurryPublisher>()));
         }
 
         public static BaseViewModel GetFirstPageViewModel()

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO.IsolatedStorage;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.ViewModel.Commands;

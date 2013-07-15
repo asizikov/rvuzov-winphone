@@ -79,6 +79,11 @@
     <Compile Include="Restful\UniversitesRequest.cs" />
     <Compile Include="Restful\UniversitiesGroupsRequest.cs" />
     <Compile Include="Services\BaseApplicationSettings.cs" />
+    <Compile Include="Services\DebugFlurryPublisher.cs" />
+    <Compile Include="Services\EventParameter.cs" />
+    <Compile Include="Services\FlurryEvents.cs" />
+    <Compile Include="Services\FlurryEventWrapper.cs" />
+    <Compile Include="Services\FlurryPublisher.cs" />
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\Pages.cs" />
     <Compile Include="UniversitiesViewModel.cs" />

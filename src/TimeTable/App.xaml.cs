@@ -2,6 +2,8 @@
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using TimeTable.IoC;
+using TimeTable.ViewModel.Services;
 
 namespace TimeTable
 {
@@ -54,6 +56,8 @@ namespace TimeTable
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            var flurryPublisher = ContainerInstance.Current.Resolve<FlurryPublisher>();
+            flurryPublisher.StartSession("secret key"); //change to normal key, after we got flurry lib
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -72,6 +76,8 @@ namespace TimeTable
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            var flurryPublisher = ContainerInstance.Current.Resolve<FlurryPublisher>();
+            flurryPublisher.EndSession();
         }
 
         // Code to execute if a navigation fails

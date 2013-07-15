@@ -24,6 +24,7 @@ namespace TimeTable
             var ioc = ContainerInstance.Current;
             ioc.Register<INavigationService>(new NavigationService(rootFrame));
             ioc.Register<BaseApplicationSettings>(new ApplicationSettings());
+            ioc.Register<FlurryPublisher>(new DebugFlurryPublisher());
         }
     }
 }
