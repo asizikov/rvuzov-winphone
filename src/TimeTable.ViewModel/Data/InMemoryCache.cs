@@ -4,10 +4,11 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Xml.Linq;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace TimeTable.ViewModel.Data
 {
-    internal class CacheItem
+    public class CacheItem
     {
         public object Data { get; set; }
         public string Url { private get; set; }
@@ -17,8 +18,9 @@ namespace TimeTable.ViewModel.Data
     public class InMemoryCache : ICache
         //todo: thread safe!
     {
-        [NotNull] private readonly Dictionary<string, CacheItem> _cache = new Dictionary<string, CacheItem>();
+        [NotNull] private Dictionary<string, CacheItem> _cache = new Dictionary<string, CacheItem>();
         [NotNull] private readonly IsolatedStorageFile _storageFile = IsolatedStorageFile.GetUserStoreForApplication();
+        [NotNull] private readonly object _readLock = new object();
 
         private const string StorageFileName = "TimeTableData";
 
@@ -51,19 +53,20 @@ namespace TimeTable.ViewModel.Data
             if (!_cache.ContainsKey(url)) throw new ArgumentException("Requested item is not cached");
 
             var item = _cache[url];
-            return (T) item.Data;
+
+            if (item.Data is T)
+            {
+                return (T) item.Data;
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<T>(item.Data.ToString());
+            }
         }
 
         public void PushToStorage()
         {
-            if (_storageFile.FileExists(StorageFileName))
-            {
-                using (var storageFileStream = _storageFile.OpenFile(StorageFileName, FileMode.CreateNew))
-                {
-                    WriteFile(storageFileStream);
-                }
-            }
-            else
+            lock (_readLock)
             {
                 using (var storageFileStream = _storageFile.CreateFile(StorageFileName))
                 {
@@ -74,55 +77,34 @@ namespace TimeTable.ViewModel.Data
 
         public void PullFromStorage()
         {
-            if (_storageFile.FileExists(StorageFileName))
+            lock (_readLock)
             {
-                using (var storageFileStream = _storageFile.OpenFile(StorageFileName, FileMode.Open))
+                if (_storageFile.FileExists(StorageFileName))
                 {
-                    ReadFile(storageFileStream);
+                    using (var storageFileStream = _storageFile.OpenFile(StorageFileName, FileMode.Open))
+                    {
+                        _cache = new Dictionary<string, CacheItem>(ReadFile(storageFileStream));
+                    }
                 }
             }
         }
 
         private void WriteFile(Stream fileStream)
         {
-            var xmlDoc = SerializeCacheDictionary();
-            xmlDoc.Save(fileStream);
-        }
-
-        private void ReadFile(Stream fileStream)
-        {
-            var xmlDoc = XDocument.Load(fileStream);
-            DeserializeCacheDictionary(xmlDoc);
-        }
-
-        private XDocument SerializeCacheDictionary()
-        {
-            var resultDoc = new XDocument("Cache");
-
-            foreach (var cacheItem in _cache)
+            using (var writer = new StreamWriter(fileStream))
             {
-                var xElement = new XElement("CacheItem");
-                xElement.Add(new XAttribute(cacheItem.Key, cacheItem.Value));
+                var json = new JsonSerializer();
+                json.Serialize(writer, _cache, _cache.GetType());
             }
-
-            return resultDoc;
         }
 
-        private void DeserializeCacheDictionary(XDocument xmlDoc)
+        private Dictionary<string, CacheItem> ReadFile(Stream fileStream)
         {
-            if (xmlDoc.Root == null || !xmlDoc.Root.HasElements)
-                return;
-
-            foreach (var element in xmlDoc.Root.Elements())
+            using (var streamReader = new StreamReader(fileStream))
             {
-                foreach (var attribute in element.Attributes())
-                {
-                    _cache.Add(attribute.Name.ToString(),
-                               new CacheItem()
-                                   {
-                                       Data = attribute.Value,
-                                   });
-                }
+                var json = new JsonSerializer();
+                var reader = new JsonTextReader(streamReader);
+                return json.Deserialize<Dictionary<string, CacheItem>>(reader);
             }
         }
     }

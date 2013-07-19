@@ -3,6 +3,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using TimeTable.IoC;
+using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable
@@ -19,7 +20,7 @@ namespace TimeTable
         /// Constructor for the Application object.
         /// </summary>
         public App()
-        {
+            {
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 
@@ -56,28 +57,50 @@ namespace TimeTable
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            var flurryPublisher = ContainerInstance.Current.Resolve<FlurryPublisher>();
-            flurryPublisher.StartSession("secret key"); //change to normal key, after we got flurry lib
+            CommonActivated();
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            CommonActivated();
         }
 
         // Code to execute when the application is deactivated (sent to background)
+
         // This code will not execute when the application is closing
+
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+            CommonDeactivated();
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
+
         // This code will not execute when the application is deactivated
+
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            CommonDeactivated();
+        }
+
+        private static void CommonActivated()
+        {
             var flurryPublisher = ContainerInstance.Current.Resolve<FlurryPublisher>();
+            var cache = ContainerInstance.Current.Resolve<ICache>();
+
+            cache.PullFromStorage();
+            flurryPublisher.StartSession("secret key"); //change to normal key, after we got flurry lib
+        }
+
+        private static void CommonDeactivated()
+        {
+            var flurryPublisher = ContainerInstance.Current.Resolve<FlurryPublisher>();
+            var cache = ContainerInstance.Current.Resolve<ICache>();
+
             flurryPublisher.EndSession();
+            cache.PushToStorage();
         }
 
         // Code to execute if a navigation fails

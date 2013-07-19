@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.Networking.Restful;
 using TimeTable.ViewModel.Restful;
@@ -10,8 +11,14 @@ namespace TimeTable.ViewModel.Data
     public class AsyncDataProvider
     {
         private readonly RestfulCallFactory _callFactory = new RestfulCallFactory();
-        private readonly ICache _cache = new InMemoryCache();
+        private readonly ICache _cache;
 
+        public AsyncDataProvider([NotNull]ICache cache)
+        {
+            if (cache == null) throw new ArgumentNullException("cache");
+            
+            _cache = cache;
+        }
 
         public IObservable<Universities> GetUniversitesAsync()
         {

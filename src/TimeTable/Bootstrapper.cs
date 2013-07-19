@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using Microsoft.Phone.Controls;
 using TimeTable.IoC;
 using TimeTable.Services;
+using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable
@@ -25,6 +26,7 @@ namespace TimeTable
             ioc.Register<INavigationService>(new NavigationService(rootFrame));
             ioc.Register<BaseApplicationSettings>(new ApplicationSettings());
             ioc.Register<FlurryPublisher>(new DebugFlurryPublisher());
+            ioc.Register<ICache>(new InMemoryCache());
         }
     }
 }

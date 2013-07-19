@@ -23,7 +23,7 @@ namespace TimeTable.ViewModel
             return _universitiesViewModel ??
                    (_universitiesViewModel =
                        new UniversitiesViewModel(C.Resolve<INavigationService>(),
-                           C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), 
+                           C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(C.Resolve<ICache>()), 
                            C.Resolve<FlurryPublisher>()));
         }
 
@@ -34,12 +34,12 @@ namespace TimeTable.ViewModel
 
         public static BaseViewModel GetGroupstPageViewModel(int universityId)
         {
-            return new GroupPageViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), universityId);
+            return new GroupPageViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(C.Resolve<ICache>()), universityId);
         }
 
         public static BaseViewModel GetLessonsViewModel(int groupId)
         {
-            return new LessonsViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(), groupId);
+            return new LessonsViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(C.Resolve<ICache>()), groupId);
         }
     }
 }
