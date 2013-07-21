@@ -17,7 +17,7 @@ namespace TimeTable.Services
             _rootFrame = rootFrame;
         }
 
-        public void GoToPage([NotNull] string pageName, IEnumerable<NavigationParameter> parameters = null)
+        public void GoToPage([NotNull] string pageName, [CanBeNull] IEnumerable<NavigationParameter> parameters = null)
         {
             if (pageName == null) throw new ArgumentNullException("pageName");
 
@@ -30,7 +30,7 @@ namespace TimeTable.Services
                 {
                     sb.Append(navigationParameter.Parameter);
                     sb.Append("=");
-                    sb.Append(navigationParameter.Value);
+                    sb.Append(Uri.EscapeDataString(navigationParameter.Value));
                     sb.Append("&");
                 }
             }

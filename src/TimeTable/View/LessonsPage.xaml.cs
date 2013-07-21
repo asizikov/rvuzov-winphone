@@ -15,13 +15,15 @@ namespace TimeTable.View
         {
             base.OnNavigatedTo(e);
 
-            string parameter;
-            if (NavigationContext.QueryString.TryGetValue(NavigationParameterName.Id, out parameter))
+            string rawGroupId;
+            string rawGroupName;
+            if (NavigationContext.QueryString.TryGetValue(NavigationParameterName.Id, out rawGroupId)
+                && NavigationContext.QueryString.TryGetValue(NavigationParameterName.Name, out rawGroupName))
             {
                 int groupId;
-                if (Int32.TryParse(parameter, out groupId))
+                if (Int32.TryParse(rawGroupId, out groupId))
                 {
-                    DataContext = ViewModelLocator.GetLessonsViewModel(groupId);
+                    DataContext = ViewModelLocator.GetLessonsViewModel(groupId, Uri.UnescapeDataString(rawGroupName));
                 }
             }
         }

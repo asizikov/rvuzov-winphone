@@ -37,9 +37,11 @@ namespace TimeTable.ViewModel
             return new GroupPageViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(C.Resolve<ICache>()), universityId);
         }
 
-        public static BaseViewModel GetLessonsViewModel(int groupId)
+        public static BaseViewModel GetLessonsViewModel(int groupId, string groupName)
         {
-            return new LessonsViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(C.Resolve<ICache>()), groupId);
+            return new LessonsViewModel(C.Resolve<INavigationService>(), 
+                C.Resolve<BaseApplicationSettings>(), 
+                new AsyncDataProvider(C.Resolve<ICache>()), groupId, groupName);
         }
     }
 }

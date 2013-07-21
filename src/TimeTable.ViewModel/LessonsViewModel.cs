@@ -7,17 +7,17 @@ using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel
 {
-    public class LessonsViewModel :BaseViewModel
+    public class LessonsViewModel : BaseViewModel
     {
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly AsyncDataProvider _dataProvider;
-        private readonly int _groupId;
+        private readonly Group _group;
         private ObservableCollection<Day> _weekDays;
 
         public LessonsViewModel([NotNull] INavigationService navigation,
-            [NotNull] BaseApplicationSettings applicationSettings, 
-            [NotNull] AsyncDataProvider dataProvider, int groupId)
+            [NotNull] BaseApplicationSettings applicationSettings,
+            [NotNull] AsyncDataProvider dataProvider, int groupId, string groupName)
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
@@ -25,17 +25,17 @@ namespace TimeTable.ViewModel
             _navigation = navigation;
             _applicationSettings = applicationSettings;
             _dataProvider = dataProvider;
-            _groupId = groupId;
-            
-            _applicationSettings.GroupId = _groupId;
-            
+            _group = new Group { GroupName = groupName, Id = groupId };
+
+            _applicationSettings.GroupId = _group.Id;
+
             Init();
         }
 
         private void Init()
         {
             IsLoading = true;
-            _dataProvider.GetLessonsForGroupAsync(_groupId).Subscribe(
+            _dataProvider.GetLessonsForGroupAsync(_group.Id).Subscribe(
                 timeTable =>
                 {
                     IsLoading = false;
@@ -58,6 +58,13 @@ namespace TimeTable.ViewModel
                 _weekDays = value;
                 OnPropertyChanged("WeekDays");
             }
+        }
+
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public String GroupName
+        {
+            get { return _group.GroupName; }
         }
     }
 }

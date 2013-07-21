@@ -12,6 +12,7 @@ namespace TimeTable.ViewModel.Services
     public static class NavigationParameterName
     {
         public const string Id = "id";
+        public const string Name = "name";
     }
 
     public interface INavigationService

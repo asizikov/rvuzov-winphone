@@ -57,18 +57,23 @@ namespace TimeTable.ViewModel
                 if (Equals(value, _selectedGroup)) return;
                 _selectedGroup = value;
                 OnPropertyChanged("SelectedGroup");
-                NavigateToLessonsPage(_selectedGroup.Id);
+                NavigateToLessonsPage(_selectedGroup);
             }
         }
 
-        private void NavigateToLessonsPage(int id)
+        private void NavigateToLessonsPage(Group group)
         {
-            _applicationSettings.GroupId = id;
+            _applicationSettings.GroupId = group.Id;
             _navigation.GoToPage(Pages.Lessons, new List<NavigationParameter>{
                 new NavigationParameter
             {
                 Parameter = NavigationParameterName.Id,
-                Value = id.ToString(CultureInfo.InvariantCulture)
+                Value = group.Id.ToString(CultureInfo.InvariantCulture)
+            },
+            new NavigationParameter
+            {
+                Parameter = NavigationParameterName.Name,
+                Value = group.GroupName
             }});
         }
 
