@@ -22,35 +22,6 @@ namespace TimeTable.ViewModel
             _applicationSettings = applicationSettings;
 
             InitCommands();
-
-            TryNavigateToUserPage();
-        }
-
-        private void TryNavigateToUserPage()
-        {
-            if (!_applicationSettings.FirstLoad)
-                return;
-
-            string userPage = null;
-
-            if (_applicationSettings.GroupId != null)
-            {
-                userPage = string.Format("{0}?id={1}", Pages.Lessons, _applicationSettings.GroupId);
-            }
-            else if (_applicationSettings.UniversityId != null)
-            {
-                userPage = string.Format("{0}?id={1}", Pages.Groups, _applicationSettings.UniversityId);
-            }
-            else if (_applicationSettings.Role != null)
-            {
-                userPage = string.Format("{0}?id={1}", Pages.Universities, _applicationSettings.Role);
-            }
-
-            if (userPage != null)
-            {
-                _navigation.GoToPage(userPage);
-            }
-            _applicationSettings.FirstLoad = false;
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]

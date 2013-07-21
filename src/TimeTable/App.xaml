@@ -12,14 +12,6 @@
         <local:LocalizedStrings xmlns:local="clr-namespace:TimeTable.Resources" x:Key="LocalizedStrings" />
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converters:ReversedBoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter" />
-
-        <navigation:UriMapper x:Name="ApplicationUriMapper">
-<!--            <navigation:UriMapping Uri="/StartPage/{Role}" MappedUri="/View/FirstPage.xaml?Role={Role}" />-->
-            <navigation:UriMapping Uri="/StartPage" MappedUri="/View/FirstPage.xaml" />
-            <navigation:UriMapping Uri="/GroupsPage" MappedUri="/View/GroupsPage.xaml" />
-            <navigation:UriMapping Uri="/TempPage" MappedUri="/View/TmpPage.xaml" />
-            <navigation:UriMapping Uri="/LessonsPage" MappedUri="/View/LessonsPage.xaml" />
-        </navigation:UriMapper>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

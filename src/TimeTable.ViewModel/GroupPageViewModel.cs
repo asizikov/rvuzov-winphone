@@ -25,6 +25,7 @@ namespace TimeTable.ViewModel
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (navigation == null) throw new ArgumentNullException("navigation");
+            if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
 
             _navigation = navigation;
             _applicationSettings = applicationSettings;
@@ -64,6 +65,7 @@ namespace TimeTable.ViewModel
         private void NavigateToLessonsPage(Group group)
         {
             _applicationSettings.GroupId = group.Id;
+            _applicationSettings.GroupName = group.GroupName;
             _navigation.GoToPage(Pages.Lessons, new List<NavigationParameter>{
                 new NavigationParameter
             {

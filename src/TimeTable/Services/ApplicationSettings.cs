@@ -31,23 +31,30 @@ namespace TimeTable.Services
         [NotNull] private const string RoleKey = "Role";
         [NotNull] private const string UniversityKey = "University";
         [NotNull] private const string GroupKey = "Group";
+        [NotNull] private const string GroupNameKey = "GroupName";
 
         public override UserRole? Role
         {
-            get {return (UserRole?) LoadFromStorage(RoleKey); }
+            get { return (UserRole?)LoadFromStorage(RoleKey); }
             set { SaveInStorage(RoleKey, value); }
         }
 
         public override int? UniversityId
         {
-            get { return (int?) LoadFromStorage(UniversityKey); }
+            get { return (int?)LoadFromStorage(UniversityKey); }
             set { SaveInStorage(UniversityKey, value); }
         }
 
         public override int? GroupId
         {
-            get { return (int?) LoadFromStorage(GroupKey); }
+            get { return (int?)LoadFromStorage(GroupKey); }
             set { SaveInStorage(GroupKey, value); }
+        }
+
+        public override string GroupName
+        {
+            get { return (string)LoadFromStorage(GroupNameKey); }
+            set { SaveInStorage(GroupNameKey, value); }
         }
     }
 }

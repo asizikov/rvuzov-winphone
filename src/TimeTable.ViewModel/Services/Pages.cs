@@ -9,5 +9,9 @@ namespace TimeTable.ViewModel.Services
         [NotNull] public const string Universities = "/View/TmpPage.xaml";
 
         [NotNull] public const string Lessons = "/View/LessonsPage.xaml";
+
+        [NotNull] public const string EntryPoint = "/View/EntryPoint.xaml";
+
+        [NotNull] public const string FirstPage = "/View/FirstPage.xaml";
     }
 }
