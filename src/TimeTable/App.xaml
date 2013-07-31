@@ -12,6 +12,7 @@
                     <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
                     <converters:ReversedBoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter" />
                     <local:LocalizedStrings xmlns:local="clr-namespace:TimeTable.Resources" x:Key="LocalizedStrings" />
+                    <SolidColorBrush x:Key="BgBrush">#2D3541</SolidColorBrush>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
