@@ -20,5 +20,6 @@ namespace TimeTable.ViewModel.Services
         void GoBack();
         bool CanGoBack();
         void GoToPage(string page, IEnumerable<NavigationParameter> parameters = null);
+        void CleanNavigationStack();
     }
 }

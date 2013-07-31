@@ -95,5 +95,14 @@ namespace TimeTable.Resources {
                 return ResourceManager.GetString("ImTeacher", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to выбор ВУЗа.
+        /// </summary>
+        public static string SelectUniversity {
+            get {
+                return ResourceManager.GetString("SelectUniversity", resourceCulture);
+            }
+        }
     }
 }

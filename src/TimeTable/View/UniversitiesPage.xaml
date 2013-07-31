@@ -1,0 +1,86 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="TimeTable.View.UniversitiesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
+    SupportedOrientations="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True"
+    shell:SystemTray.Opacity="0.1"
+    d:DataContext="{d:DesignInstance viewModel:UniversitiesViewModel}">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="{StaticResource BgBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="{Binding Strings.SelectUniversity, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextLargeStyle}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid Grid.Row="1" Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <toolkit:PerformanceProgressBar 
+                IsIndeterminate="true"
+                Foreground="{StaticResource PhoneAccentBrush}"
+                Height="150" 
+                 Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"
+                Margin="0" />
+            <toolkit:LongListSelector Grid.Row="0"
+                Background="Transparent"
+                IsFlatList="False"
+                ItemsSource="{Binding UniversitesList}"
+                SelectedItem="{Binding SelectedUniversity, Mode=TwoWay}" 
+                Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}" 
+                >
+                <toolkit:LongListSelector.GroupItemsPanel>
+                    <ItemsPanelTemplate>
+                        <toolkit:WrapPanel/>
+                    </ItemsPanelTemplate>
+                </toolkit:LongListSelector.GroupItemsPanel>
+                <toolkit:LongListSelector.GroupItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#4C6DA7" 
+                                HorizontalAlignment="Left"
+                                toolkit:TiltEffect.IsTiltEnabled="True" Margin="12"
+                                Padding="{StaticResource PhoneTouchTargetOverhang}">
+                            <TextBlock Text="{Binding Title}" 
+                                       Style="{StaticResource PhoneTextLargeStyle}"/>
+                        </Border>
+                    </DataTemplate>
+                </toolkit:LongListSelector.GroupItemTemplate>
+                <toolkit:LongListSelector.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <Border Background="#4C6DA7" 
+                                HorizontalAlignment="Left"
+                                toolkit:TiltEffect.IsTiltEnabled="True" Margin="12"
+                                Padding="{StaticResource PhoneTouchTargetOverhang}">
+                            <TextBlock Text="{Binding Title}" 
+                                       Style="{StaticResource PhoneTextLargeStyle}"/>
+                        </Border>
+                    </DataTemplate>
+                </toolkit:LongListSelector.GroupHeaderTemplate>
+                <toolkit:LongListSelector.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
+                            <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding ShortName}"/>
+                            <TextBlock Style="{StaticResource PhoneTextSmallStyle}" Foreground="#A1ACB7" TextWrapping="Wrap" Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </toolkit:LongListSelector.ItemTemplate>
+            </toolkit:LongListSelector>
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>

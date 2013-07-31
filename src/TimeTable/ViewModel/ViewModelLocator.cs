@@ -18,7 +18,7 @@ namespace TimeTable.ViewModel
 
         private static UniversitiesViewModel _universitiesViewModel;
 
-        [NotNull] public static BaseViewModel GetTmpViewModel()
+        [NotNull] public static BaseViewModel GetUniversitiesViewModel()
         {
             return _universitiesViewModel ??
                    (_universitiesViewModel =
