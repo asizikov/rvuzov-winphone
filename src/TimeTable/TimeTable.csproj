@@ -112,8 +112,8 @@
     <Compile Include="View\LessonsPage.xaml.cs">
       <DependentUpon>LessonsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TmpPage.xaml.cs">
-      <DependentUpon>TmpPage.xaml</DependentUpon>
+    <Compile Include="View\UniversitiesPage.xaml.cs">
+      <DependentUpon>UniversitiesPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -171,7 +171,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\TmpPage.xaml">
+    <Page Include="View\UniversitiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

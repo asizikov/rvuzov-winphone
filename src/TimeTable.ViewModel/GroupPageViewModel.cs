@@ -66,17 +66,22 @@ namespace TimeTable.ViewModel
         {
             _applicationSettings.GroupId = group.Id;
             _applicationSettings.GroupName = group.GroupName;
-            _navigation.GoToPage(Pages.Lessons, new List<NavigationParameter>{
+            _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group));
+        }
+
+        private static IEnumerable<NavigationParameter> GetNavitationParameters(Group group)
+        {
+            return new List<NavigationParameter>{
                 new NavigationParameter
-            {
-                Parameter = NavigationParameterName.Id,
-                Value = group.Id.ToString(CultureInfo.InvariantCulture)
-            },
-            new NavigationParameter
-            {
-                Parameter = NavigationParameterName.Name,
-                Value = group.GroupName
-            }});
+                {
+                    Parameter = NavigationParameterName.Id,
+                    Value = group.Id.ToString(CultureInfo.InvariantCulture)
+                },
+                new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.Name,
+                    Value = group.GroupName
+                }};
         }
 
         private void Init()

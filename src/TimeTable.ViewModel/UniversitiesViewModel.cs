@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Model;
-using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
@@ -16,8 +16,7 @@ namespace TimeTable.ViewModel
         private readonly FlurryPublisher _flurry;
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
-        private readonly SimpleCommand _refreshCommand;
-        private ObservableCollection<University> _universitesList;
+        private ObservableCollection<ListGroup<University>> _universitesList;
         private University _selectedUniversity;
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
@@ -34,7 +33,6 @@ namespace TimeTable.ViewModel
             _navigation = navigation;
             _applicationSettings = applicationSettings;
 
-            _refreshCommand = new SimpleCommand(RefreshList);
             Init();
         }
 
@@ -45,8 +43,12 @@ namespace TimeTable.ViewModel
             _dataProvider.GetUniversitesAsync().Subscribe(
                 result =>
                     {
+                        var grouped = result.UniversitesList
+                            .GroupBy(u => u.ShortName[0])
+                            .Select(g => new ListGroup<University>(g.Key.ToString(CultureInfo.InvariantCulture), 
+                                g.ToList()));
+                        UniversitesList = new ObservableCollection<ListGroup<University>>(grouped);
                         IsLoading = false;
-                        UniversitesList = new ObservableCollection<University>(result.UniversitesList);
                     },
                 ex =>
                     {
@@ -61,7 +63,7 @@ namespace TimeTable.ViewModel
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public ObservableCollection<University> UniversitesList
+        public ObservableCollection<ListGroup<University>> UniversitesList
         {
             get { return _universitesList; }
             private set
@@ -87,18 +89,6 @@ namespace TimeTable.ViewModel
                     NavigateToUniversity(_selectedUniversity.Id);
                 }
             }
-        }
-
-        [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public SimpleCommand RefreshCommand
-        {
-            get { return _refreshCommand; }
-        }
-
-        private void RefreshList()
-        {
-            UniversitesList = new ObservableCollection<University>();
-            Init();
         }
 
 

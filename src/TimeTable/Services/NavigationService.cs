@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using Microsoft.Phone.Controls;
@@ -35,6 +36,14 @@ namespace TimeTable.Services
                 }
             }
             _rootFrame.Navigate(new Uri(sb.ToString(), UriKind.Relative));
+        }
+
+        public void CleanNavigationStack()
+        {
+            while (_rootFrame.BackStack.Any())
+            {
+                _rootFrame.RemoveBackEntry();
+            }
         }
 
         public void GoBack()
