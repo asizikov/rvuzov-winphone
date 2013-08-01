@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Data;
@@ -15,7 +16,7 @@ namespace TimeTable.ViewModel
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly AsyncDataProvider _dataProvider;
         private readonly int _universityId;
-        private ReadOnlyObservableCollection<Group> _groupsList;
+        private ReadOnlyObservableCollection<ListGroup<Group>> _groupsList;
         private Group _selectedGroup;
 
         public GroupPageViewModel([NotNull] INavigationService navigation,
@@ -38,7 +39,7 @@ namespace TimeTable.ViewModel
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public ReadOnlyObservableCollection<Group> GroupsList
+        public ReadOnlyObservableCollection<ListGroup<Group>> GroupsList
         {
             get { return _groupsList; }
             private set
@@ -91,8 +92,7 @@ namespace TimeTable.ViewModel
                 result =>
                 {
                     IsLoading = false;
-                    GroupsList = new ReadOnlyObservableCollection<Group>(
-                        new ObservableCollection<Group>(result.GroupsList));
+                    GroupsList = FormatResult(result);
                 },
                 ex =>
                 {
@@ -104,6 +104,16 @@ namespace TimeTable.ViewModel
                     //handle loaded
                 }
                 );
+        }
+
+        private static ReadOnlyObservableCollection<ListGroup<Group>> FormatResult(Groups result)
+        {
+            var grouped = result.GroupsList
+                .GroupBy(u => u.GroupName[0])
+                .Select(g => new ListGroup<Group>(g.Key.ToString(CultureInfo.InvariantCulture),
+                    g.ToList()));
+           return new ReadOnlyObservableCollection<ListGroup<Group>>(
+                        new ObservableCollection<ListGroup<Group>>(grouped));
         }
     }
 }

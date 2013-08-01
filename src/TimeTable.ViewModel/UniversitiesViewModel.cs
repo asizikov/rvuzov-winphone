@@ -43,11 +43,7 @@ namespace TimeTable.ViewModel
             _dataProvider.GetUniversitesAsync().Subscribe(
                 result =>
                     {
-                        var grouped = result.UniversitesList
-                            .GroupBy(u => u.ShortName[0])
-                            .Select(g => new ListGroup<University>(g.Key.ToString(CultureInfo.InvariantCulture), 
-                                g.ToList()));
-                        UniversitesList = new ObservableCollection<ListGroup<University>>(grouped);
+                        UniversitesList = FormatResult(result);
                         IsLoading = false;
                     },
                 ex =>
@@ -60,6 +56,16 @@ namespace TimeTable.ViewModel
                         //handle loaded
                     }
                 );
+        }
+
+        private static ObservableCollection<ListGroup<University>> FormatResult(Universities result)
+        {
+            var grouped = result.UniversitesList
+                .GroupBy(u => u.ShortName[0])
+                .Select(g => new ListGroup<University>(g.Key.ToString(CultureInfo.InvariantCulture),
+                    g.ToList()));
+            var observableCollection = new ObservableCollection<ListGroup<University>>(grouped);
+            return observableCollection;
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
