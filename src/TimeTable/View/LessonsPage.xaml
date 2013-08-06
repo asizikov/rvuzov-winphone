@@ -4,15 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
+    Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.IsVisible="True"
     d:DataContext="{d:DesignInstance viewModel:LessonsViewModel}">
 
@@ -26,44 +23,51 @@
             <TextBlock Text="{Binding Path=Strings.Group, Source ={StaticResource LocalizedStrings} }"/>
             <TextBlock Text="{Binding GroupName}"/>
         </StackPanel>
-        <controls:Pivot 
-            Grid.Row="1"
-            x:Name="MainPivot" ItemsSource="{Binding WeekDays}">
-            <controls:Pivot.HeaderTemplate>
+        <ListBox 
+            ItemsSource="{Binding WeekDays}"
+            Grid.Row="1">
+            <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Weekday}"/>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Weekday, Converter={StaticResource NumberToWeekDayConverter}}" 
+                                   Style="{StaticResource PhoneTextLargeStyle}"
+                                   Foreground="{StaticResource TimeTableHilighthBrush}"/>
+                        <ItemsControl Margin="24,12,24,0"  ItemsSource="{Binding Lessons}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Background="White" 
+                                          Width="432"
+                                          Margin="0,0,0,12">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel
+                                            Margin="12,0"
+                                            Grid.Row="0"
+                                            Orientation="Horizontal">
+                                            <TextBlock Text="{Binding TimeStart}" Margin="0" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                            <TextBlock Text="-" Margin="0" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}" />
+                                            <TextBlock Text="{Binding TimeEnd}" Margin="0" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        </StackPanel>
+                                        <TextBlock Grid.Row="1" Margin="12,0,0,0" Text="лекция" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
+                                        <TextBlock Grid.Row="2" Text="{Binding Subject}" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"/>
+                                        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="12,0">
+                                            <Image Margin="0,0,12,0" CacheMode="BitmapCache" Source="../Resources/Images/Lesson/target.png"/>
+                                            <TextBlock Text="{Binding Auditory}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                       
+                                    </Grid>
+                                            
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
                 </DataTemplate>
-            </controls:Pivot.HeaderTemplate>
-            <controls:Pivot.ItemTemplate>
-                <DataTemplate>
-                    <ListBox ItemsSource="{Binding Lessons}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="12,0,12,12">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-
-                                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="12,0,12,0" Text="{Binding Auditory}" Style="{StaticResource PhoneTextSmallStyle}"/>
-                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
-                                        <TextBlock  Text="{Binding TimeStart}"/>
-                                        <TextBlock  Text="-"/>
-                                        <TextBlock  Text="{Binding TimeEnd}"/>
-                                    </StackPanel>
-
-                                    <TextBlock Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="12,0,12,0" TextWrapping="Wrap" Text="{Binding Subject}" Style="{StaticResource PhoneTextNormalStyle}" />
-                                </Grid>
-
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </DataTemplate>
-            </controls:Pivot.ItemTemplate>
-        </controls:Pivot>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </phone:PhoneApplicationPage>

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
+    [UsedImplicitly]
     public class Day
     {
         [JsonProperty("lessons")]

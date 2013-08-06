@@ -11,6 +11,7 @@
                 <ResourceDictionary>
                     <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
                     <converters:ReversedBoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter" />
+                    <converters:NumberToWeekDayConverter x:Key="NumberToWeekDayConverter"/>
                     <local:LocalizedStrings xmlns:local="clr-namespace:TimeTable.Resources" x:Key="LocalizedStrings" />
                 </ResourceDictionary>
                 <ResourceDictionary Source="Resources/Styles.xaml"/>
