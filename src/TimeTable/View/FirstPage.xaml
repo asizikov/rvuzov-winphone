@@ -7,17 +7,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="False"
+    Style="{StaticResource TimeTablePageStyle}"
     d:DataContext="{d:DesignInstance viewModel:FirstPageViewModel}">
-
     <!--LayoutRoot is the root grid where all page content is placed-->
+    <phone:PhoneApplicationPage.Resources>
+        <ImageBrush x:Key="TimeTableBackground" ImageSource="../Resources/Images/bg.png"/>
+    </phone:PhoneApplicationPage.Resources>
     <Grid x:Name="LayoutRoot" 
-          Background="{StaticResource TimeTableBackgorundColorBrush}">
+          Background="{StaticResource TimeTableBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -25,12 +25,24 @@
 
         <!--ContentPanel - place additional content here-->
             <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-                <StackPanel>
-                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Strings.AppName, Source ={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                <Button Content="{Binding Path=Strings.ImStudent, Source ={StaticResource LocalizedStrings}}" Command="{Binding ImStudentCommand}"/>
-                <Button Content="{Binding Path=Strings.ImTeacher, Source ={StaticResource LocalizedStrings}}" Command="{Binding ImTeacherCommand}"/>
-            </StackPanel>
-                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Center" 
+                       Grid.Row="0" 
+                       Text="{Binding Path=Strings.AppName, Source ={StaticResource LocalizedStrings}}"
+                       FontFamily="{StaticResource PhoneFontFamilyLight}"
+                       TextWrapping="Wrap"
+                       FontSize="72"
+                       TextAlignment="Center"
+                       Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+            <Image Grid.Row="1" Source="../Resources/Images/logo.png" Width="206" Height="206"/>
+                <StackPanel Grid.Row="2" Margin="12,0,12,64">
+                <Button Content="{Binding Path=Strings.ImStudent, Source ={StaticResource LocalizedStrings}}" Command="{Binding ImStudentCommand}" Style="{StaticResource TimeTableButtonStyle}"/>
+                <Button Content="{Binding Path=Strings.ImTeacher, Source ={StaticResource LocalizedStrings}}" Command="{Binding ImTeacherCommand}" Style="{StaticResource TimeTableButtonStyle}"/>
+            </StackPanel>            
             </Grid>
     </Grid>
 </phone:PhoneApplicationPage>
