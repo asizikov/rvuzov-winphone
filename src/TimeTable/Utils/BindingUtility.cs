@@ -7,7 +7,7 @@ namespace TimeTable.Utils
     {
         public static bool GetUpdateSourceOnChange(DependencyObject d)
         {
-            return (bool)d.GetValue(UpdateSourceOnChangeProperty);
+            return (bool) d.GetValue(UpdateSourceOnChangeProperty);
         }
 
         public static void SetUpdateSourceOnChange(DependencyObject d, bool value)
@@ -16,20 +16,20 @@ namespace TimeTable.Utils
         }
 
         public static readonly DependencyProperty
-          UpdateSourceOnChangeProperty =
-            DependencyProperty.RegisterAttached(
-            "UpdateSourceOnChange",
-            typeof(bool),
-                      typeof(BindingUtility),
-            new PropertyMetadata(false, OnPropertyChanged));
+            UpdateSourceOnChangeProperty =
+                DependencyProperty.RegisterAttached(
+                    "UpdateSourceOnChange",
+                    typeof (bool),
+                    typeof (BindingUtility),
+                    new PropertyMetadata(false, OnPropertyChanged));
 
         private static void OnPropertyChanged(DependencyObject d,
-          DependencyPropertyChangedEventArgs e)
+            DependencyPropertyChangedEventArgs e)
         {
             var textBox = d as TextBox;
             if (textBox == null)
                 return;
-            if ((bool)e.NewValue)
+            if ((bool) e.NewValue)
             {
                 textBox.TextChanged += OnTextChanged;
             }
@@ -38,7 +38,8 @@ namespace TimeTable.Utils
                 textBox.TextChanged -= OnTextChanged;
             }
         }
-        static void OnTextChanged(object s, TextChangedEventArgs e)
+
+        private static void OnTextChanged(object s, TextChangedEventArgs e)
         {
             var textBox = s as TextBox;
             if (textBox == null)
@@ -52,4 +53,3 @@ namespace TimeTable.Utils
         }
     }
 }
-
