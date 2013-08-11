@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
+    xmlns:utils="clr-namespace:TimeTable.Utils"
     SupportedOrientations="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
@@ -24,6 +25,18 @@
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="{Binding Strings.SelectUniversity, Source={StaticResource LocalizedStrings}}" 
                        Style="{StaticResource PhoneTextLargeStyle}"/>
+            <TextBox x:Name="Search"
+                             Width="467"
+                             Height="72"
+                             HorizontalAlignment="Left"
+                             GotFocus="Search_GotFocus"
+                             InputScope="Search"
+                             MaxLength="128"
+                             Padding="2,2,8,2"
+                             Text="{Binding Query,
+                                            Mode=TwoWay}"
+                             utils:BindingUtility.UpdateSourceOnChange="True"
+                             x:FieldModifier="private" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->

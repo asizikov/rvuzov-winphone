@@ -100,6 +100,7 @@
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="TimeTableUriMapper.cs" />
+    <Compile Include="Utils\BindingUtility.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\EntryPoint.xaml.cs">
       <DependentUpon>EntryPoint.xaml</DependentUpon>
