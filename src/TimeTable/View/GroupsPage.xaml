@@ -7,6 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:utils="clr-namespace:TimeTable.Utils"
+    xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -26,6 +28,19 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="группы" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBox x:Name="Search"
+                             Width="467"
+                             Height="72"
+                             HorizontalAlignment="Left"
+                             GotFocus="Search_GotFocus"
+                             InputScope="Search"
+                             MaxLength="128"
+                             Padding="2,2,8,2"
+                             Visibility="{Binding IsSearchBoxVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                             Text="{Binding Query,
+                                            Mode=TwoWay}"
+                             utils:BindingUtility.UpdateSourceOnChange="True"
+                             x:FieldModifier="private" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -60,4 +75,14 @@
             </toolkit:LongListSelector>
         </Grid>
     </Grid>
+    <bar:Bindable.ApplicationBar>
+        <bar:BindableApplicationBar 
+                IsVisible="{Binding IsSearchBoxVisible, Converter={StaticResource ReversedBoolConverter }}"
+                BackgroundColor="{StaticResource TimeTableHilighthColor}">
+            <bar:BindableApplicationBarButton
+            Text="{Binding  Strings.Search, Source={StaticResource LocalizedStrings}}"
+            Command="{Binding ShowSearchBoxCommand}"
+            IconUri="/Resources/Icons/feature.search.png"/>
+        </bar:BindableApplicationBar>
+    </bar:Bindable.ApplicationBar>
 </phone:PhoneApplicationPage>

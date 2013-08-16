@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 using TimeTable.ViewModel;
 using TimeTable.ViewModel.Services;
 
@@ -24,6 +26,12 @@ namespace TimeTable.View
                     DataContext = ViewModelLocator.GetGroupstPageViewModel(universityId);
                 }
             }
+        }
+
+        private void Search_GotFocus(object sender, RoutedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox != null) textBox.SelectAll();
         }
     }
 }

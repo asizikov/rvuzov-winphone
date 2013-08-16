@@ -11,6 +11,7 @@ using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
+using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.ViewModel
 {
@@ -25,7 +26,6 @@ namespace TimeTable.ViewModel
         private string _query;
         private IDisposable _queryObserver;
         private Universities _storedRequest;
-        private readonly CultureInfo _invariantCulture;
         private ICommand _showSearchBoxCommand;
         private bool _isSearchBoxVisible;
 
@@ -42,13 +42,12 @@ namespace TimeTable.ViewModel
             _flurry = flurry;
             _navigation = navigation;
             _applicationSettings = applicationSettings;
-            _invariantCulture = CultureInfo.InvariantCulture;
             _showSearchBoxCommand = new SimpleCommand(() =>
             {
                 IsSearchBoxVisible = true;
             });
-            Init();
             SubscribeToQuery();
+            Init();
         }
 
 
@@ -149,7 +148,7 @@ namespace TimeTable.ViewModel
             var navigationParameter = new NavigationParameter
             {
                 Parameter = NavigationParameterName.Id,
-                Value = id.ToString(_invariantCulture)
+                Value = id.ToString(CultureInfo.InvariantCulture)
             };
             _navigation.GoToPage(Pages.Groups, new List<NavigationParameter> {navigationParameter});
         }
@@ -172,15 +171,10 @@ namespace TimeTable.ViewModel
                     : _storedRequest.UniversitesList.Where(u => Matches(u, search)));
         }
 
-        private bool Matches(University university, string search)
+        private static bool Matches(University university, string search)
         {
-            return IgnoreCaseContains(university.Name, search) ||
-                   IgnoreCaseContains(university.ShortName, search);
-        }
-
-        private bool IgnoreCaseContains(string text, string search)
-        {
-            return _invariantCulture.CompareInfo.IndexOf(text, search, CompareOptions.IgnoreCase) >= 0;
+            return university.Name.IgnoreCaseContains(search) ||
+                   university.ShortName.IgnoreCaseContains(search);
         }
     }
 }

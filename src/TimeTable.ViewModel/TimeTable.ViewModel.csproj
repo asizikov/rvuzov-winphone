@@ -90,6 +90,7 @@
     <Compile Include="Services\FlurryPublisher.cs" />
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\Pages.cs" />
+    <Compile Include="Utils\StringExtentions.cs" />
     <Compile Include="UniversitiesViewModel.cs" />
     <Compile Include="Utils\SmartDispatcher.cs" />
   </ItemGroup>
