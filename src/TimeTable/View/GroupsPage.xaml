@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage 
+﻿<view:SearchPage 
     x:Class="TimeTable.View.GroupsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,6 +10,7 @@
     xmlns:utils="clr-namespace:TimeTable.Utils"
     xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
+    xmlns:view="clr-namespace:TimeTable.View"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -85,4 +86,4 @@
             IconUri="/Resources/Icons/feature.search.png"/>
         </bar:BindableApplicationBar>
     </bar:Bindable.ApplicationBar>
-</phone:PhoneApplicationPage>
+</view:SearchPage>

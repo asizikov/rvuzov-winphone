@@ -23,7 +23,8 @@ namespace TimeTable.View
                 int universityId;
                 if (Int32.TryParse(parameter, out universityId))
                 {
-                    DataContext = ViewModelLocator.GetGroupstPageViewModel(universityId);
+                    ViewModel = ViewModelLocator.GetGroupstPageViewModel(universityId) as SearchViewModel;
+                    DataContext = ViewModel;
                 }
             }
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Threading;
 using JetBrains.Annotations;
 using Microsoft.Phone.Controls;
 using TimeTable.ViewModel.Services;
@@ -35,7 +36,7 @@ namespace TimeTable.Services
                     sb.Append("&");
                 }
             }
-            _rootFrame.Navigate(new Uri(sb.ToString(), UriKind.Relative));
+            SmartDispatcher.BeginInvoke(() => _rootFrame.Navigate(new Uri(sb.ToString(), UriKind.Relative)));
         }
 
         public void CleanNavigationStack()

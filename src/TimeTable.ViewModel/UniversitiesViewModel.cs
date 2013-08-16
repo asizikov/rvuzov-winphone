@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Reactive.Linq;
-using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Model;
-using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.ViewModel
 {
-    public class UniversitiesViewModel : BaseViewModel
+    public class UniversitiesViewModel : SearchViewModel
     {
         private readonly AsyncDataProvider _dataProvider;
         private readonly FlurryPublisher _flurry;
@@ -23,11 +19,8 @@ namespace TimeTable.ViewModel
         private readonly BaseApplicationSettings _applicationSettings;
         private ObservableCollection<ListGroup<University>> _universitesList;
         private University _selectedUniversity;
-        private string _query;
-        private IDisposable _queryObserver;
+        
         private Universities _storedRequest;
-        private ICommand _showSearchBoxCommand;
-        private bool _isSearchBoxVisible;
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings,
@@ -42,10 +35,6 @@ namespace TimeTable.ViewModel
             _flurry = flurry;
             _navigation = navigation;
             _applicationSettings = applicationSettings;
-            _showSearchBoxCommand = new SimpleCommand(() =>
-            {
-                IsSearchBoxVisible = true;
-            });
             SubscribeToQuery();
             Init();
         }
@@ -113,36 +102,6 @@ namespace TimeTable.ViewModel
             }
         }
 
-        public string Query
-        {
-            get { return _query; }
-            set
-            {
-                if (value == _query) return;
-                _query = value;
-                OnPropertyChanged("Query");
-            }
-        }
-
-        public ICommand ShowSearchBoxCommand
-        {
-            get
-            {
-                return _showSearchBoxCommand;
-            }
-        }
-
-        public bool IsSearchBoxVisible
-        {
-            get { return _isSearchBoxVisible; }
-            set
-            {
-                if (value.Equals(_isSearchBoxVisible)) return;
-                _isSearchBoxVisible = value;
-                OnPropertyChanged("IsSearchBoxVisible");
-            }
-        }
-
         private void NavigateToUniversity(int id)
         {
             var navigationParameter = new NavigationParameter
@@ -153,17 +112,7 @@ namespace TimeTable.ViewModel
             _navigation.GoToPage(Pages.Groups, new List<NavigationParameter> {navigationParameter});
         }
 
-        private void SubscribeToQuery()
-        {
-            _queryObserver = (from evt in Observable.FromEventPattern<PropertyChangedEventArgs>(this, "PropertyChanged")
-                where evt.EventArgs.PropertyName == "Query"
-                select Query)
-                .Throttle(TimeSpan.FromMilliseconds(500))
-                .DistinctUntilChanged()
-                .Subscribe(GetResults);
-        }
-
-        private void GetResults(string search)
+        protected override void GetResults(string search)
         {
             UniversitesList = FormatResult(
                 String.IsNullOrEmpty(search)

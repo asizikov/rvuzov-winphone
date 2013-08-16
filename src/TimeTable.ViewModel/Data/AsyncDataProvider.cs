@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using JetBrains.Annotations;
@@ -13,10 +14,10 @@ namespace TimeTable.ViewModel.Data
         private readonly RestfulCallFactory _callFactory = new RestfulCallFactory();
         private readonly ICache _cache;
 
-        public AsyncDataProvider([NotNull]ICache cache)
+        public AsyncDataProvider([NotNull] ICache cache)
         {
             if (cache == null) throw new ArgumentNullException("cache");
-            
+
             _cache = cache;
         }
 
@@ -36,6 +37,17 @@ namespace TimeTable.ViewModel.Data
         {
             var groupTimeTableRequest = _callFactory.GetGroupTimeTableRequest(groupId);
             return GetDataAsync(groupTimeTableRequest);
+        }
+
+        public IObservable<University> GetUniversityByIdAsync(int universityId)
+        {
+            return Observable.Create<University>(observer =>
+                Scheduler.Default.Schedule(() =>
+                    GetUniversitesAsync().Subscribe(universities =>
+                    {
+                        var university = universities.UniversitesList.FirstOrDefault(u => u.Id == universityId);
+                        observer.OnNext(university);
+                    })));
         }
 
         private IObservable<T> GetDataAsync<T>(RestfullRequest<T> request) where T : new()
@@ -71,8 +83,7 @@ namespace TimeTable.ViewModel.Data
                                         {
                                             observer.OnCompleted();
                                         }
-                                    }
-                                );
+                                    }, ex => observer.OnCompleted());
                         }
                         else
                         {
@@ -90,8 +101,8 @@ namespace TimeTable.ViewModel.Data
                     _cache.Put(result, request.Url);
                     observer.OnNext(result);
                 },
-                observer.OnError,
-                observer.OnCompleted);
+                    observer.OnError,
+                    observer.OnCompleted);
         }
     }
 }

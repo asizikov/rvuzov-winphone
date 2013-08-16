@@ -14,7 +14,8 @@ namespace TimeTable.View
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            DataContext = ViewModelLocator.GetUniversitiesViewModel();
+            ViewModel = ViewModelLocator.GetUniversitiesViewModel() as SearchViewModel;
+            DataContext = ViewModel;
         }
 
         private void Search_GotFocus(object sender, RoutedEventArgs e)

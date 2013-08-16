@@ -82,6 +82,7 @@
     <Compile Include="Restful\RestfulCallFactory.cs" />
     <Compile Include="Restful\UniversitesRequest.cs" />
     <Compile Include="Restful\UniversitiesGroupsRequest.cs" />
+    <Compile Include="SearchViewModel.cs" />
     <Compile Include="Services\BaseApplicationSettings.cs" />
     <Compile Include="Services\DebugFlurryPublisher.cs" />
     <Compile Include="Services\EventParameter.cs" />

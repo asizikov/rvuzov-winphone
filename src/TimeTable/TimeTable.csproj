@@ -118,6 +118,7 @@
     <Compile Include="View\LessonsPage.xaml.cs">
       <DependentUpon>LessonsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SearchPage.cs" />
     <Compile Include="View\UniversitiesPage.xaml.cs">
       <DependentUpon>UniversitiesPage.xaml</DependentUpon>
     </Compile>

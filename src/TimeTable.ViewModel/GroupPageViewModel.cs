@@ -1,53 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Reactive.Linq;
-using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Model;
-using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.ViewModel
 {
-    public class GroupPageViewModel : BaseViewModel
+    public class GroupPageViewModel : SearchViewModel
     {
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly AsyncDataProvider _dataProvider;
+        private readonly FlurryPublisher _flurryPublisher;
         private readonly int _universityId;
         private ReadOnlyObservableCollection<ListGroup<Group>> _groupsList;
         private Group _selectedGroup;
-        private ICommand _showSearchBoxCommand;
-        private bool _isSearchBoxVisible;
-        private string _query;
-        private IDisposable _queryObserver;
         private Groups _storedRequest;
 
         public GroupPageViewModel([NotNull] INavigationService navigation,
-                                  [NotNull] BaseApplicationSettings applicationSettings,
-                                  [NotNull] AsyncDataProvider dataProvider,
-                                  int universityId)
+            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
+            [NotNull] FlurryPublisher flurryPublisher, int universityId)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
+            if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
 
             _navigation = navigation;
             _applicationSettings = applicationSettings;
             _dataProvider = dataProvider;
+            _flurryPublisher = flurryPublisher;
             _universityId = universityId;
 
             _applicationSettings.UniversityId = _universityId;
-            _showSearchBoxCommand = new SimpleCommand(() =>
-            {
-                IsSearchBoxVisible = true;
-            });
             SubscribeToQuery();
             Init();
         }
@@ -73,37 +63,14 @@ namespace TimeTable.ViewModel
                 if (Equals(value, _selectedGroup)) return;
                 _selectedGroup = value;
                 OnPropertyChanged("SelectedGroup");
-                NavigateToLessonsPage(_selectedGroup);
-            }
-        }
-
-        public string Query
-        {
-            get { return _query; }
-            set
-            {
-                if (value == _query) return;
-                _query = value;
-                OnPropertyChanged("Query");
-            }
-        }
-
-        public ICommand ShowSearchBoxCommand
-        {
-            get
-            {
-                return _showSearchBoxCommand;
-            }
-        }
-
-        public bool IsSearchBoxVisible
-        {
-            get { return _isSearchBoxVisible; }
-            set
-            {
-                if (value.Equals(_isSearchBoxVisible)) return;
-                _isSearchBoxVisible = value;
-                OnPropertyChanged("IsSearchBoxVisible");
+                if (_selectedGroup != null)
+                {
+                    _dataProvider.GetUniversityByIdAsync(_universityId).Subscribe(result =>
+                    {
+                        _flurryPublisher.PublishGroupSelected(_selectedGroup, result);
+                        NavigateToLessonsPage(_selectedGroup);
+                    });
+                }
             }
         }
 
@@ -116,7 +83,8 @@ namespace TimeTable.ViewModel
 
         private static IEnumerable<NavigationParameter> GetNavitationParameters(Group group)
         {
-            return new List<NavigationParameter>{
+            return new List<NavigationParameter>
+            {
                 new NavigationParameter
                 {
                     Parameter = NavigationParameterName.Id,
@@ -126,7 +94,8 @@ namespace TimeTable.ViewModel
                 {
                     Parameter = NavigationParameterName.Name,
                     Value = group.GroupName
-                }};
+                }
+            };
         }
 
         private void Init()
@@ -157,21 +126,11 @@ namespace TimeTable.ViewModel
                 .GroupBy(u => u.GroupName[0])
                 .Select(g => new ListGroup<Group>(g.Key.ToString(CultureInfo.InvariantCulture),
                     g.ToList()));
-           return new ReadOnlyObservableCollection<ListGroup<Group>>(
-                        new ObservableCollection<ListGroup<Group>>(grouped));
+            return new ReadOnlyObservableCollection<ListGroup<Group>>(
+                new ObservableCollection<ListGroup<Group>>(grouped));
         }
 
-        private void SubscribeToQuery()
-        {
-            _queryObserver = (from evt in Observable.FromEventPattern<PropertyChangedEventArgs>(this, "PropertyChanged")
-                              where evt.EventArgs.PropertyName == "Query"
-                              select Query)
-                .Throttle(TimeSpan.FromMilliseconds(500))
-                .DistinctUntilChanged()
-                .Subscribe(GetResults);
-        }
-
-        private void GetResults(string search)
+        protected override void GetResults(string search)
         {
             GroupsList = FormatResult(
                 String.IsNullOrEmpty(search)

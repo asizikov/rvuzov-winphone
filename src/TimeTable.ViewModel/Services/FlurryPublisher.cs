@@ -10,6 +10,7 @@ namespace TimeTable.ViewModel.Services
     {
         [NotNull] private readonly List<FlurryEventWrapper> _eventQueue = new List<FlurryEventWrapper>();
         [NotNull] private readonly object _lockObject = new object();
+
         protected bool IsSessionActive;
 
         public void StartSession(string userId)
@@ -110,6 +111,22 @@ namespace TimeTable.ViewModel.Services
             };
 
             PublishEvent(FlurryEvents.EVENT_CHOOSE_UNIVERSITY, parameters);
+        }
+
+        public void PublishGroupSelected([NotNull] Group selectedGroup, [NotNull] University university)
+        {
+            if (selectedGroup == null) throw new ArgumentNullException("selectedGroup");
+            if (university == null) throw new ArgumentNullException("university");
+
+            var parameters = new[]
+            {
+                new EventParameter("University name", university.Name),
+                new EventParameter("University shortname", university.ShortName),
+                new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("Group name", selectedGroup.GroupName),
+                new EventParameter("Group id", selectedGroup.Id.ToString(CultureInfo.InvariantCulture))
+            };
+            PublishEvent(FlurryEvents.EVENT_CHOOSE_GROUP, parameters);
         }
     }
 }
