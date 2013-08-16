@@ -5,8 +5,10 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Model;
+using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
@@ -24,6 +26,8 @@ namespace TimeTable.ViewModel
         private IDisposable _queryObserver;
         private Universities _storedRequest;
         private readonly CultureInfo _invariantCulture;
+        private ICommand _showSearchBoxCommand;
+        private bool _isSearchBoxVisible;
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings,
@@ -39,6 +43,10 @@ namespace TimeTable.ViewModel
             _navigation = navigation;
             _applicationSettings = applicationSettings;
             _invariantCulture = CultureInfo.InvariantCulture;
+            _showSearchBoxCommand = new SimpleCommand(() =>
+            {
+                IsSearchBoxVisible = true;
+            });
             Init();
             SubscribeToQuery();
         }
@@ -100,8 +108,8 @@ namespace TimeTable.ViewModel
 
                 if (_selectedUniversity != null)
                 {
-                    NavigateToUniversity(_selectedUniversity.Id);
                     _flurry.PublishUniversitySelected(_selectedUniversity);
+                    NavigateToUniversity(_selectedUniversity.Id);
                 }
             }
         }
@@ -114,6 +122,25 @@ namespace TimeTable.ViewModel
                 if (value == _query) return;
                 _query = value;
                 OnPropertyChanged("Query");
+            }
+        }
+
+        public ICommand ShowSearchBoxCommand
+        {
+            get
+            {
+                return _showSearchBoxCommand;
+            }
+        }
+
+        public bool IsSearchBoxVisible
+        {
+            get { return _isSearchBoxVisible; }
+            set
+            {
+                if (value.Equals(_isSearchBoxVisible)) return;
+                _isSearchBoxVisible = value;
+                OnPropertyChanged("IsSearchBoxVisible");
             }
         }
 

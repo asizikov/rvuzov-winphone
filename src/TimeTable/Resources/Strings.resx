@@ -129,6 +129,9 @@
   <data name="ImTeacher" xml:space="preserve">
     <value>я - преподаватель</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>поиск</value>
+  </data>
   <data name="SelectUniversity" xml:space="preserve">
     <value>выбор ВУЗа</value>
   </data>

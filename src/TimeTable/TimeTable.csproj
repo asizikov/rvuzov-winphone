@@ -48,6 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BindableApplicationBar">
+      <HintPath>..\Lib\BindableApplicationBar.dll</HintPath>
+    </Reference>
     <Reference Include="Funq">
       <HintPath>..\Lib\Funq.dll</HintPath>
     </Reference>
@@ -88,6 +91,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\NumberToWeekDayConverter.cs" />
+    <Compile Include="Converters\ReversedBoolConverter.cs" />
     <Compile Include="Converters\ReversedBoolToVisibilityConverter.cs" />
     <Compile Include="IoC\Container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -136,6 +140,7 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Icons\feature.search.png" />
     <Content Include="Resources\Images\bg.png" />
     <Content Include="Resources\Images\Lesson\target.png" />
     <Content Include="Resources\Images\Lesson\teacher.png" />
@@ -192,7 +197,9 @@
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

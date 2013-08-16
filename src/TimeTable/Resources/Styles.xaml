@@ -10,7 +10,8 @@
    <SolidColorBrush x:Key="TimeTableBackgorundColorBrush">#2D3541</SolidColorBrush>
    <SolidColorBrush x:Key="TimeTableHilighthBrush">#4C6DA7</SolidColorBrush>
     <SolidColorBrush x:Key="TimeTableSecondaryTextColorBrush">#A1ACB7</SolidColorBrush>
-    <SolidColorBrush x:Key="TimeTableButtonBackgroundColorBrush">#46659E</SolidColorBrush> 
+    <SolidColorBrush x:Key="TimeTableButtonBackgroundColorBrush">#46659E</SolidColorBrush>
+    <Color x:Key="TimeTableHilighthColor">#4C6DA7</Color>
 
     <DataTemplate x:Key="TimeTableGroupItemTemplate">
         <Border Background="{StaticResource TimeTableHilighthBrush}" 
