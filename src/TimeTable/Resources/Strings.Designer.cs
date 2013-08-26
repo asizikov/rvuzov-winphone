@@ -79,6 +79,15 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to группы.
+        /// </summary>
+        public static string Groups {
+            get {
+                return ResourceManager.GetString("Groups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to я - студент.
         /// </summary>
         public static string ImStudent {
@@ -111,6 +120,15 @@ namespace TimeTable.Resources {
         public static string SelectUniversity {
             get {
                 return ResourceManager.GetString("SelectUniversity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to преподаватели.
+        /// </summary>
+        public static string Teachers {
+            get {
+                return ResourceManager.GetString("Teachers", resourceCulture);
             }
         }
     }

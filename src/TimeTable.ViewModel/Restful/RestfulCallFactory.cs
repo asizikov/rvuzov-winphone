@@ -10,12 +10,12 @@ namespace TimeTable.ViewModel.Restful
         private const string UNIVERSITIES_ALL = "universities-all";
         private const string LAST_UPDATED = "/last-updated";
         private const string ALL_GROUPS_TEMPLATE = "universities/{0}/groups-all";
+        private const string ALL_TEACHERS_TEMPLATE = "universities/{0}/teachers-all";
         private const string GROUP_TIMETABLE_TEMPLATE = "groups/{0}";
 
-        private string AllGroupsRequestSufix(int universityId)
+        private static string InjectIdToTemplate(string template, int universityId)
         {
-            
-            return string.Format(ALL_GROUPS_TEMPLATE, universityId);
+            return string.Format(template, universityId);
         }
 
         //TODO: create calls for all API endpoints
@@ -34,13 +34,18 @@ namespace TimeTable.ViewModel.Restful
 
         public UniversitiesGroupsRequest GetUniversitesGroupsRequest(int universityId)
         {
-            return new UniversitiesGroupsRequest(URL_PREFIX, AllGroupsRequestSufix(universityId), _webService);
+            return new UniversitiesGroupsRequest(URL_PREFIX, InjectIdToTemplate(ALL_GROUPS_TEMPLATE, universityId), _webService);
         }
 
         public GroupTimeTableRequest GetGroupTimeTableRequest(int groupId)
         {
             var suffix = string.Format(GROUP_TIMETABLE_TEMPLATE, groupId);
             return new GroupTimeTableRequest(URL_PREFIX, suffix, _webService);
+        }
+
+        public UniversityTeachersRequest GetUniversityTeachersRequest(int universityId)
+        {
+            return new UniversityTeachersRequest(URL_PREFIX, InjectIdToTemplate(ALL_TEACHERS_TEMPLATE, universityId), _webService );
         }
 
         public LastUpdatedRequest GetLastUpdatedRequest<T>()

@@ -19,8 +19,10 @@ namespace TimeTable.ViewModel
         private readonly FlurryPublisher _flurryPublisher;
         private readonly int _universityId;
         private ReadOnlyObservableCollection<ListGroup<Group>> _groupsList;
+        private ReadOnlyObservableCollection<ListGroup<Teacher>> _teachersList;
         private Group _selectedGroup;
-        private Groups _storedRequest;
+        private Groups _storedGroupsRequest;
+        private Teachers _storedTeachersRequest;
 
         public GroupPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
@@ -54,6 +56,18 @@ namespace TimeTable.ViewModel
             }
         }
 
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public ReadOnlyObservableCollection<ListGroup<Teacher>> TeachersList
+        {
+            get { return _teachersList; }
+            private set
+            {
+                if (Equals(value, _teachersList)) return;
+                _teachersList = value;
+                OnPropertyChanged("TeachersList");
+            }
+        }
+
         [UsedImplicitly(ImplicitUseKindFlags.Default)]
         public Group SelectedGroup
         {
@@ -65,11 +79,12 @@ namespace TimeTable.ViewModel
                 OnPropertyChanged("SelectedGroup");
                 if (_selectedGroup != null)
                 {
-                    _dataProvider.GetUniversityByIdAsync(_universityId).Subscribe(result =>
-                    {
-                        _flurryPublisher.PublishGroupSelected(_selectedGroup, result);
-                        NavigateToLessonsPage(_selectedGroup);
-                    });
+                    _dataProvider.GetUniversityByIdAsync(_universityId)
+                        .Subscribe(university =>
+                        {
+                            _flurryPublisher.PublishGroupSelected(_selectedGroup, university);
+                            NavigateToLessonsPage(_selectedGroup);
+                        });
                 }
             }
         }
@@ -104,38 +119,43 @@ namespace TimeTable.ViewModel
             _dataProvider.GetUniversitesGroupsAsync(_universityId).Subscribe(
                 result =>
                 {
-                    _storedRequest = result;
-                    GroupsList = FormatResult(result.GroupsList);
+                    _storedGroupsRequest = result;
+                    GroupsList = FormatResult(result.GroupsList, u => u.GroupName[0]);
                     IsLoading = false;
                 },
                 ex =>
                 {
                     IsLoading = false;
-                    //handle exception
-                },
-                () =>
-                {
-                    //handle loaded
                 }
+                );
+
+            _dataProvider.GetUniversityTeachersAsync(_universityId).Subscribe(
+                result =>
+                {
+                    _storedTeachersRequest = result;
+                    TeachersList = FormatResult(result.TeachersList, u => u.Name[0]);
+                }, ex => { IsLoading = false; }
                 );
         }
 
-        private static ReadOnlyObservableCollection<ListGroup<Group>> FormatResult(IEnumerable<Group> result)
+        private static ReadOnlyObservableCollection<ListGroup<T>> FormatResult<T>([NotNull]IEnumerable<T> result,
+            Func<T, char> groupFunc)
         {
             var grouped = result
-                .GroupBy(u => u.GroupName[0])
-                .Select(g => new ListGroup<Group>(g.Key.ToString(CultureInfo.InvariantCulture),
+                .GroupBy(groupFunc)
+                .Select(g => new ListGroup<T>(g.Key.ToString(CultureInfo.InvariantCulture),
                     g.ToList()));
-            return new ReadOnlyObservableCollection<ListGroup<Group>>(
-                new ObservableCollection<ListGroup<Group>>(grouped));
+            return new ReadOnlyObservableCollection<ListGroup<T>>(
+                new ObservableCollection<ListGroup<T>>(grouped));
         }
 
         protected override void GetResults(string search)
         {
             GroupsList = FormatResult(
                 String.IsNullOrEmpty(search)
-                    ? _storedRequest.GroupsList
-                    : _storedRequest.GroupsList.Where(u => u.GroupName.IgnoreCaseContains(search)));
+                    ? _storedGroupsRequest.GroupsList
+                    : _storedGroupsRequest.GroupsList.Where(u => u.GroupName.IgnoreCaseContains(search)),
+                u => u.GroupName[0]);
         }
     }
 }

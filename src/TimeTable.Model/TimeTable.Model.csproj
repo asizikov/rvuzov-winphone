@@ -52,6 +52,7 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Teachers.cs" />
     <Compile Include="ListGroup.cs" />
     <Compile Include="Day.cs" />
     <Compile Include="Group.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="GroupTimeTable.cs" />
     <Compile Include="IUpdatableModel.cs" />
     <Compile Include="Lesson.cs" />
+    <Compile Include="Teacher.cs" />
     <Compile Include="Updates.cs" />
     <Compile Include="Universities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

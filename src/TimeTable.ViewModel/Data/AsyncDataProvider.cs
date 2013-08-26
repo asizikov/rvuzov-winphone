@@ -50,6 +50,12 @@ namespace TimeTable.ViewModel.Data
                     })));
         }
 
+        public IObservable<Teachers> GetUniversityTeachersAsync(int universityId)
+        {
+            var universityTeachersRequest = _callFactory.GetUniversityTeachersRequest(universityId);
+            return GetDataAsync(universityTeachersRequest);
+        }
+
         private IObservable<T> GetDataAsync<T>(RestfullRequest<T> request) where T : new()
         {
             if (!_cache.IsCached<T>(request.Url))

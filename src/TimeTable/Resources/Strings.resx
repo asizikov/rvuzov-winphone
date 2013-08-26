@@ -123,6 +123,9 @@
   <data name="Group" xml:space="preserve">
     <value>Группа:</value>
   </data>
+  <data name="Groups" xml:space="preserve">
+    <value>группы</value>
+  </data>
   <data name="ImStudent" xml:space="preserve">
     <value>я - студент</value>
   </data>
@@ -134,5 +137,8 @@
   </data>
   <data name="SelectUniversity" xml:space="preserve">
     <value>выбор ВУЗа</value>
+  </data>
+  <data name="Teachers" xml:space="preserve">
+    <value>преподаватели</value>
   </data>
 </root>
