@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
+    [UsedImplicitly]
     public class Lesson
     {
         [JsonProperty("teachers")]
-        public List<object> Teachers { get; set; }
+        public List<Teacher> Teachers { get; set; }
         [JsonProperty("parity")]
         public int Parity { get; set; }
         [JsonProperty("auditory")]

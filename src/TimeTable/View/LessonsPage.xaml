@@ -49,15 +49,15 @@
                                             Margin="12,0"
                                             Grid.Row="0"
                                             Orientation="Horizontal">
-                                            <TextBlock Text="{Binding TimeStart}" Margin="0" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                            <TextBlock Text="{Binding Lesson.TimeStart}" Margin="0" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}"/>
                                             <TextBlock Text="-" Margin="0" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}" />
-                                            <TextBlock Text="{Binding TimeEnd}" Margin="0 " Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                            <TextBlock Text="{Binding Lesson.TimeEnd}" Margin="0 " Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}"/>
                                         </StackPanel>
                                         <TextBlock Grid.Row="1" Margin="12,0,0,0" Text="лекция" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
-                                        <TextBlock Grid.Row="2" Text="{Binding Subject}" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"/>
+                                        <TextBlock Grid.Row="2" Text="{Binding Lesson.Subject}" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"/>
                                         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="12,0">
                                             <Image Margin="0,0,12,0" CacheMode="BitmapCache" Source="../Resources/Images/Lesson/target.png"/>
-                                            <TextBlock Text="{Binding Auditory}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Lesson.Auditory}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
                                         </StackPanel>
                                        
                                     </Grid>

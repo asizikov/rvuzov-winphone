@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Data;
+using TimeTable.ViewModel.Extensions;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel
@@ -13,7 +15,7 @@ namespace TimeTable.ViewModel
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly AsyncDataProvider _dataProvider;
         private readonly Group _group;
-        private ObservableCollection<Day> _weekDays;
+        private ObservableCollection<DayViewModel> _weekDays;
 
         public LessonsViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings,
@@ -39,7 +41,7 @@ namespace TimeTable.ViewModel
                 timeTable =>
                 {
                     IsLoading = false;
-                    WeekDays = new ObservableCollection<Day>(timeTable.Days);
+                    WeekDays = new ObservableCollection<DayViewModel>(timeTable.Days.ToViewModelList());
                 },
             ex =>
             {
@@ -49,7 +51,7 @@ namespace TimeTable.ViewModel
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public ObservableCollection<Day> WeekDays
+        public ObservableCollection<DayViewModel> WeekDays
         {
             get { return _weekDays; }
             private set

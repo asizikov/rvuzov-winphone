@@ -73,7 +73,9 @@
     <Compile Include="Data\BaseAsyncDataProvider.cs" />
     <Compile Include="Data\ICache.cs" />
     <Compile Include="Data\InMemoryCache.cs" />
+    <Compile Include="DayViewModel.cs" />
     <Compile Include="Enums\UserRole.cs" />
+    <Compile Include="Extensions\DayExtensions.cs" />
     <Compile Include="FirstPageViewModel.cs" />
     <Compile Include="GroupPageViewModel.cs" />
     <Compile Include="LessonsViewModel.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Restful\UniversitesRequest.cs" />
     <Compile Include="Restful\UniversitiesGroupsRequest.cs" />
     <Compile Include="Restful\UniversityTeachersRequest.cs" />
+    <Compile Include="TimeTableItemViewModel.cs" />
     <Compile Include="SearchViewModel.cs" />
     <Compile Include="Services\BaseApplicationSettings.cs" />
     <Compile Include="Services\DebugFlurryPublisher.cs" />
