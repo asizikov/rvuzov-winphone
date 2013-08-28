@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using TimeTable.Model;
-using TimeTable.Networking;
+﻿using TimeTable.Networking;
 
 namespace TimeTable.ViewModel.Restful
 {
@@ -15,12 +12,6 @@ namespace TimeTable.ViewModel.Restful
         private const string ALL_GROUPS_TEMPLATE = "universities/{0}/groups-all";
         private const string ALL_TEACHERS_TEMPLATE = "universities/{0}/teachers-all";
         private const string GROUP_TIMETABLE_TEMPLATE = "groups/{0}";
-
-        private readonly Dictionary<Type, string> _lastUpdated = new Dictionary<Type, string>
-        {
-            {typeof(Groups), UNIVERSITIES_ALL + LAST_UPDATED},
-            {typeof(Universities), UNIVERSITIES_ALL + LAST_UPDATED},
-        }; 
 
         private static string InjectIdToTemplate(string template, int universityId)
         {
@@ -57,9 +48,9 @@ namespace TimeTable.ViewModel.Restful
             return new UniversityTeachersRequest(URL_PREFIX, InjectIdToTemplate(ALL_TEACHERS_TEMPLATE, universityId), _webService );
         }
 
-        public LastUpdatedRequest GetLastUpdatedRequest<T>()
+        public LastUpdatedRequest GetLastUpdatedRequest<T>(string url)
         {
-            return new LastUpdatedRequest(URL_PREFIX, _lastUpdated[typeof(T)], _webService);
+            return new LastUpdatedRequest(URL_PREFIX, url + LAST_UPDATED , _webService);
         }
     }
 }

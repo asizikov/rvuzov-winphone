@@ -39,7 +39,7 @@ namespace TimeTable.ViewModel.Data
                         if (updatable != null)
                         {
                             var lastUpdated = updatable.LastUpdated;
-                            var lastUpdatedRequest = CallFactory.GetLastUpdatedRequest<T>();
+                            var lastUpdatedRequest = CallFactory.GetLastUpdatedRequest<T>(request.Url);
                             lastUpdatedRequest.Execute()
                                 .Subscribe(
                                     resutl =>
