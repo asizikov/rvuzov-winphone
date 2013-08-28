@@ -37,7 +37,10 @@
                  Text="{Binding Query, Mode=TwoWay}"
                  utils:BindingUtility.UpdateSourceOnChange="True"
                              x:FieldModifier="private" />
-        <controls:Pivot Grid.Row="1">
+        <toolkit:LockablePivot 
+            IsLocked="{Binding IsSearchBoxVisible}"
+            SelectedIndex="{Binding SelectedPivotIndex, Mode=TwoWay}"
+            Grid.Row="1">
             <controls:PivotItem  Header="{Binding Strings.Groups ,Source={StaticResource LocalizedStrings}}">
                 <Grid x:Name="ContentPanel"  Margin="0">
                     <Grid.RowDefinitions>
@@ -87,7 +90,7 @@
                     </toolkit:LongListSelector.ItemTemplate>
                 </toolkit:LongListSelector>
     </controls:PivotItem>
-        </controls:Pivot>
+        </toolkit:LockablePivot>
     </Grid>
     <bar:Bindable.ApplicationBar>
         <bar:BindableApplicationBar

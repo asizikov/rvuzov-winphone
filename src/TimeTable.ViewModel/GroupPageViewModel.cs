@@ -23,6 +23,9 @@ namespace TimeTable.ViewModel
         private Group _selectedGroup;
         private Groups _storedGroupsRequest;
         private Teachers _storedTeachersRequest;
+        private int _selectedPivotIndex;
+        private readonly Func<Group, char> _groupFunc;
+        private readonly Func<Teacher, char> _teachersGroupFunc;
 
         public GroupPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
@@ -40,6 +43,10 @@ namespace TimeTable.ViewModel
             _universityId = universityId;
 
             _applicationSettings.UniversityId = _universityId;
+
+            _groupFunc = group => group.GroupName[0];
+            _teachersGroupFunc = teacher => teacher.Name[0];
+
             SubscribeToQuery();
             Init();
         }
@@ -89,6 +96,75 @@ namespace TimeTable.ViewModel
             }
         }
 
+        [UsedImplicitly(ImplicitUseKindFlags.Assign)]
+        public int SelectedPivotIndex
+        {
+            get { return _selectedPivotIndex; }
+            set
+            {
+                if (value == _selectedPivotIndex) return;
+                _selectedPivotIndex = value;
+                OnPropertyChanged("SelectedPivotIndex");
+            }
+        }
+
+        private void Init()
+        {
+            IsLoading = true;
+            _dataProvider.GetUniversitesGroupsAsync(_universityId).Subscribe(
+                result =>
+                {
+                    _storedGroupsRequest = result;
+                    GroupsList = FormatResult(result.GroupsList, _groupFunc);
+                    IsLoading = false;
+                },
+                ex => { IsLoading = false; }
+                );
+
+            _dataProvider.GetUniversityTeachersAsync(_universityId).Subscribe(
+                result =>
+                {
+                    _storedTeachersRequest = result;
+                    TeachersList = FormatResult(result.TeachersList, u => u.Name[0]);
+                }, ex => { IsLoading = false; }
+                );
+        }
+
+        private static ReadOnlyObservableCollection<ListGroup<T>> FormatResult<T>([NotNull] IEnumerable<T> result,
+            Func<T, char> groupFunc)
+        {
+            var grouped = result
+                .GroupBy(groupFunc)
+                .Select(g => new ListGroup<T>(g.Key.ToString(CultureInfo.InvariantCulture),
+                    g.ToList()));
+            return new ReadOnlyObservableCollection<ListGroup<T>>(
+                new ObservableCollection<ListGroup<T>>(grouped));
+        }
+
+        protected override void GetResults(string search)
+        {
+            if (String.IsNullOrEmpty(search))
+            {
+                GroupsList = FormatResult(_storedGroupsRequest.GroupsList, _groupFunc);
+                TeachersList = FormatResult(_storedTeachersRequest.TeachersList, _teachersGroupFunc);
+                return;
+            }
+            //TODO: use enum here.
+            if (SelectedPivotIndex == 0) // Groups
+            {
+                GroupsList =
+                    FormatResult(_storedGroupsRequest.GroupsList.Where(u => u.GroupName.IgnoreCaseContains(search)),
+                        _groupFunc);
+            }
+            else if (SelectedPivotIndex == 1) // Teachers
+            {
+                TeachersList =
+                    FormatResult(
+                        _storedTeachersRequest.TeachersList.Where(teacher => teacher.Name.IgnoreCaseContains(search)),
+                        _teachersGroupFunc);
+            }
+        }
+
         private void NavigateToLessonsPage(Group group)
         {
             _applicationSettings.GroupId = group.Id;
@@ -111,51 +187,6 @@ namespace TimeTable.ViewModel
                     Value = group.GroupName
                 }
             };
-        }
-
-        private void Init()
-        {
-            IsLoading = true;
-            _dataProvider.GetUniversitesGroupsAsync(_universityId).Subscribe(
-                result =>
-                {
-                    _storedGroupsRequest = result;
-                    GroupsList = FormatResult(result.GroupsList, u => u.GroupName[0]);
-                    IsLoading = false;
-                },
-                ex =>
-                {
-                    IsLoading = false;
-                }
-                );
-
-            _dataProvider.GetUniversityTeachersAsync(_universityId).Subscribe(
-                result =>
-                {
-                    _storedTeachersRequest = result;
-                    TeachersList = FormatResult(result.TeachersList, u => u.Name[0]);
-                }, ex => { IsLoading = false; }
-                );
-        }
-
-        private static ReadOnlyObservableCollection<ListGroup<T>> FormatResult<T>([NotNull]IEnumerable<T> result,
-            Func<T, char> groupFunc)
-        {
-            var grouped = result
-                .GroupBy(groupFunc)
-                .Select(g => new ListGroup<T>(g.Key.ToString(CultureInfo.InvariantCulture),
-                    g.ToList()));
-            return new ReadOnlyObservableCollection<ListGroup<T>>(
-                new ObservableCollection<ListGroup<T>>(grouped));
-        }
-
-        protected override void GetResults(string search)
-        {
-            GroupsList = FormatResult(
-                String.IsNullOrEmpty(search)
-                    ? _storedGroupsRequest.GroupsList
-                    : _storedGroupsRequest.GroupsList.Where(u => u.GroupName.IgnoreCaseContains(search)),
-                u => u.GroupName[0]);
         }
     }
 }

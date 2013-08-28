@@ -70,6 +70,7 @@
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="Commands\SimpleCommand.cs" />
     <Compile Include="Data\AsyncDataProvider.cs" />
+    <Compile Include="Data\BaseAsyncDataProvider.cs" />
     <Compile Include="Data\ICache.cs" />
     <Compile Include="Data\InMemoryCache.cs" />
     <Compile Include="Enums\UserRole.cs" />
