@@ -5,8 +5,10 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     Style="{StaticResource TimeTablePageStyle}"
@@ -23,51 +25,32 @@
             <TextBlock Text="{Binding Path=Strings.Group, Source ={StaticResource LocalizedStrings} }"/>
             <TextBlock Text="{Binding GroupName}"/>
         </StackPanel>
-        <ListBox 
-            ItemsSource="{Binding WeekDays}"
-            Grid.Row="1">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Weekday, Converter={StaticResource NumberToWeekDayConverter}}" 
-                                   Style="{StaticResource PhoneTextLargeStyle}"
-                                   Foreground="{StaticResource TimeTableHilighthBrush}"/>
-                        <ItemsControl Margin="24,12,24,0"  ItemsSource="{Binding Lessons}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Background="White" 
-                                          Width="432"
-                                          Margin="0,0,0,12">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <StackPanel
-                                            Margin="12,0"
-                                            Grid.Row="0"
-                                            Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Lesson.TimeStart}" Margin="0" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                            <TextBlock Text="-" Margin="0" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}" />
-                                            <TextBlock Text="{Binding Lesson.TimeEnd}" Margin="0 " Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        </StackPanel>
-                                        <TextBlock Grid.Row="1" Margin="12,0,0,0" Text="лекция" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
-                                        <TextBlock Grid.Row="2" Text="{Binding Lesson.Subject}" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"/>
-                                        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="12,0">
-                                            <Image Margin="0,0,12,0" CacheMode="BitmapCache" Source="../Resources/Images/Lesson/target.png"/>
-                                            <TextBlock Text="{Binding Lesson.Auditory}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
-                                        </StackPanel>
-                                       
-                                    </Grid>
-                                            
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <toolkit:LockablePivot 
+            Grid.Row="1" >
+            <controls:PivotItem
+                DataContext="{Binding CurrentWeek}"
+                Header="{Binding WeekNumber, Converter={StaticResource WeekNumberToTextConverter}}">
+                <ListBox 
+                    ItemTemplate="{StaticResource TimeTableWeekDataTemplate}"
+                    ItemsSource="{Binding Days}">
+                </ListBox>
+            </controls:PivotItem>
+            <controls:PivotItem
+                DataContext="{Binding NextWeek}"
+                Header="{Binding WeekNumber, Converter={StaticResource WeekNumberToTextConverter}}">
+                <ListBox 
+                    ItemTemplate="{StaticResource TimeTableWeekDataTemplate}"
+                ItemsSource="{Binding Days}">
+                </ListBox>
+            </controls:PivotItem>
+            <controls:PivotItem
+                DataContext="{Binding PreviousWeek}"
+                Header="{Binding WeekNumber, Converter={StaticResource WeekNumberToTextConverter}}">
+                <ListBox 
+                    ItemTemplate="{StaticResource TimeTableWeekDataTemplate}"
+                ItemsSource="{Binding Days}">
+                </ListBox>
+            </controls:PivotItem>
+        </toolkit:LockablePivot>
     </Grid>
 </phone:PhoneApplicationPage>

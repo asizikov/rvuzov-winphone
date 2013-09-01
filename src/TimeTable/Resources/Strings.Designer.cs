@@ -131,5 +131,14 @@ namespace TimeTable.Resources {
                 return ResourceManager.GetString("Teachers", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} неделя.
+        /// </summary>
+        public static string WeekNumber {
+            get {
+                return ResourceManager.GetString("WeekNumber", resourceCulture);
+            }
+        }
     }
 }

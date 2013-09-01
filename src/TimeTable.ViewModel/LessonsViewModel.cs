@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Data;
-using TimeTable.ViewModel.Extensions;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel
@@ -15,7 +12,9 @@ namespace TimeTable.ViewModel
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly AsyncDataProvider _dataProvider;
         private readonly Group _group;
-        private ObservableCollection<DayViewModel> _weekDays;
+        private WeekViewModel _currentWeek;
+        private WeekViewModel _nextWeek;
+        private WeekViewModel _previousWeek;
 
         public LessonsViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings,
@@ -41,7 +40,9 @@ namespace TimeTable.ViewModel
                 timeTable =>
                 {
                     IsLoading = false;
-                    WeekDays = new ObservableCollection<DayViewModel>(timeTable.Days.ToViewModelList());
+                    CurrentWeek = new WeekViewModel(timeTable.Days, WeekType.Current);
+                    NextWeek = new WeekViewModel(timeTable.Days, WeekType.Next);
+                    PreviousWeek = new WeekViewModel(timeTable.Days, WeekType.Previous);
                 },
             ex =>
             {
@@ -51,17 +52,40 @@ namespace TimeTable.ViewModel
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public ObservableCollection<DayViewModel> WeekDays
+        public WeekViewModel PreviousWeek
         {
-            get { return _weekDays; }
+            get { return _previousWeek; }
             private set
             {
-                if (Equals(value, _weekDays)) return;
-                _weekDays = value;
-                OnPropertyChanged("WeekDays");
+                if (Equals(value, _previousWeek)) return;
+                _previousWeek = value;
+                OnPropertyChanged("PreviousWeek");
             }
         }
 
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public WeekViewModel CurrentWeek
+        {
+            get { return _currentWeek; }
+            private set
+            {
+                if (Equals(value, _currentWeek)) return;
+                _currentWeek = value;
+                OnPropertyChanged("CurrentWeek");
+            }
+        }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public WeekViewModel NextWeek
+        {
+            get { return _nextWeek; }
+            private set
+            {
+                if (Equals(value, _nextWeek)) return;
+                _nextWeek = value;
+                OnPropertyChanged("NextWeek");
+            }
+        }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public String GroupName

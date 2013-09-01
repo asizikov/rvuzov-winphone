@@ -93,6 +93,7 @@
     <Compile Include="Converters\NumberToWeekDayConverter.cs" />
     <Compile Include="Converters\ReversedBoolConverter.cs" />
     <Compile Include="Converters\ReversedBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\WeekNumberToTextConverter.cs" />
     <Compile Include="IoC\Container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\LocalizedStrings.cs" />

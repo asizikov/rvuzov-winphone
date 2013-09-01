@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
@@ -44,10 +45,7 @@ namespace TimeTable.ViewModel
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public int Weekday
         {
-            get
-            {
-                return _day.Weekday;
-            }
+            get { return _day.Weekday; }
         }
     }
 }

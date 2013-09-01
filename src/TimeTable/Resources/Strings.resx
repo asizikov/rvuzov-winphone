@@ -141,4 +141,7 @@
   <data name="Teachers" xml:space="preserve">
     <value>преподаватели</value>
   </data>
+  <data name="WeekNumber" xml:space="preserve">
+    <value>{0} неделя</value>
+  </data>
 </root>
