@@ -131,14 +131,30 @@
 
     <DataTemplate x:Key="TimeTableWeekDataTemplate">
         <StackPanel>
-            <TextBlock Text="{Binding Weekday, Converter={StaticResource NumberToWeekDayConverter}}" 
+            <StackPanel 
+                Orientation="Horizontal">
+                <TextBlock 
+                    Margin="12,0,0,12"
+                    Text="{Binding Weekday, Converter={StaticResource NumberToWeekDayConverter}}" 
                                    Style="{StaticResource PhoneTextLargeStyle}"
-                                   Foreground="{StaticResource TimeTableHilighthBrush}"/>
-            <ItemsControl Margin="24,12,24,0"  ItemsSource="{Binding Lessons}">
+                           Foreground="{StaticResource TimeTableHilighthBrush}"
+                                   />
+                <TextBlock Text="," 
+                           Margin="0,0,0,12"
+                           Foreground="{StaticResource TimeTableHilighthBrush}"
+                           Style="{StaticResource PhoneTextLargeStyle}"/>
+                <TextBlock Text="{Binding NameForTheDay}" 
+                           Margin="12,0,0,12"
+                           Foreground="{StaticResource TimeTableHilighthBrush}"
+                           Style="{StaticResource PhoneTextLargeStyle}"/>
+            </StackPanel>
+            
+            <ItemsControl Margin="12,12,24,0"  ItemsSource="{Binding Lessons}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="White" 
                                           Width="432"
+
                                           Margin="0,0,0,12">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -157,11 +173,16 @@
                             </StackPanel>
                             <TextBlock Grid.Row="1" Margin="12,0,0,0" Text="лекция" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
                             <TextBlock Grid.Row="2" Text="{Binding Lesson.Subject}" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"/>
-                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="12,0">
+                            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="12,0,12,12">
                                 <Image Margin="0,0,12,0" CacheMode="BitmapCache" Source="../Resources/Images/Lesson/target.png"/>
-                                <TextBlock Text="{Binding Lesson.Auditory}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Auditory}" 
+                                           Visibility="{Binding Auditory, Converter={StaticResource NullToVisibilityConverter}}"
+                                           Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
                             </StackPanel>
-
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="12,0,12,12" Visibility="{Binding Teachers, Converter={StaticResource NullToVisibilityConverter}}">
+                                <Image Margin="0,0,12,0" CacheMode="BitmapCache" Source="../Resources/Images/Lesson/teacher.png"/>
+                                <TextBlock Text="{Binding Teachers}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
+                            </StackPanel>
                         </Grid>
 
                     </DataTemplate>

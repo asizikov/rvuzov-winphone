@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\NumberToWeekDayConverter.cs" />
     <Compile Include="Converters\ReversedBoolConverter.cs" />
     <Compile Include="Converters\ReversedBoolToVisibilityConverter.cs" />
@@ -144,6 +145,7 @@
     </Content>
     <Content Include="Resources\Icons\feature.search.png" />
     <Content Include="Resources\Images\bg.png" />
+    <Content Include="Resources\Images\Lesson\students.png" />
     <Content Include="Resources\Images\Lesson\target.png" />
     <Content Include="Resources\Images\Lesson\teacher.png" />
     <Content Include="Resources\Images\logo.png" />

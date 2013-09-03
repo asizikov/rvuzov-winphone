@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Model;
@@ -10,12 +10,14 @@ namespace TimeTable.ViewModel
     public class DayViewModel : BaseViewModel
     {
         private readonly Day _day;
+        private readonly WeekType _weekType;
         private ObservableCollection<TimeTableItemViewModel> _lessons;
 
-        public DayViewModel([NotNull] Day day)
+        public DayViewModel([NotNull] Day day, WeekType weekType)
         {
             if (day == null) throw new ArgumentNullException("day");
             _day = day;
+            _weekType = weekType;
 
             if (_day.Lessons != null)
             {
@@ -27,7 +29,34 @@ namespace TimeTable.ViewModel
             {
                 Lessons = new ObservableCollection<TimeTableItemViewModel>();
             }
+            SetUpDayName(_weekType);
         }
+
+        private void SetUpDayName(WeekType weekType)
+        {
+            var today = DateTime.Now;
+            var delta = DayOfWeek.Monday - today.DayOfWeek;
+            var monday = today.AddDays(delta);
+            
+
+            switch (weekType)
+            {
+                case WeekType.Previous:
+                    monday -= TimeSpan.FromDays(7);
+                    break;
+                case WeekType.Current:
+                    break;
+                case WeekType.Next:
+                    monday += TimeSpan.FromDays(7);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("weekType");
+            }
+            NameForTheDay = (monday + TimeSpan.FromDays(_day.Weekday - 1)).ToString("d MMMM");
+        }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public string NameForTheDay { get; private set; }
 
         [NotNull]
         [UsedImplicitly(ImplicitUseKindFlags.Access)]

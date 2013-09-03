@@ -16,8 +16,9 @@ namespace TimeTable.ViewModel
         public WeekViewModel(IEnumerable<Day> days, WeekType type)
         {
             _type = type;
-            Days = new ObservableCollection<DayViewModel>(days.ToViewModelList());
+            Days = new ObservableCollection<DayViewModel>(days.ToViewModelList(_type));
         }
+
 
         public int WeekNumber
         {
@@ -28,7 +29,7 @@ namespace TimeTable.ViewModel
         {
             var currentCulture = CultureInfo.CurrentCulture;
             var weekNo = currentCulture.Calendar.GetWeekOfYear(
-                new DateTime(2013, 12, 31),
+                DateTime.Now,
                 currentCulture.DateTimeFormat.CalendarWeekRule,
                 currentCulture.DateTimeFormat.FirstDayOfWeek);
             switch (_type)

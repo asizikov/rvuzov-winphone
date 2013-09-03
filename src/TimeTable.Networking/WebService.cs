@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Reactive.Concurrency;
@@ -45,14 +46,14 @@ namespace TimeTable.Networking
                 var reader = new StreamReader(stream, Encoding.UTF8);
                 json = reader.ReadToEnd();
             }
-            
+            Debug.WriteLine(json);
             var result = _deserializer.Deserialize<T>(json);
             observer.OnNext(result);
         }
 
-        private void HandleException(Exception exception)
+// ReSharper disable once UnusedParameter.Local
+        private static void HandleException(Exception ignored)
         {
-            ;
         }
 
 
