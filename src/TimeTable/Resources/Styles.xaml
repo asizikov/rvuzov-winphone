@@ -136,17 +136,17 @@
                 <TextBlock 
                     Margin="12,0,0,12"
                     Text="{Binding Weekday, Converter={StaticResource NumberToWeekDayConverter}}" 
-                                   Style="{StaticResource PhoneTextLargeStyle}"
+                                   Style="{StaticResource PhoneTextTitle2Style}"
                            Foreground="{StaticResource TimeTableHilighthBrush}"
                                    />
                 <TextBlock Text="," 
                            Margin="0,0,0,12"
                            Foreground="{StaticResource TimeTableHilighthBrush}"
-                           Style="{StaticResource PhoneTextLargeStyle}"/>
+                           Style="{StaticResource PhoneTextTitle2Style}"/>
                 <TextBlock Text="{Binding NameForTheDay}" 
                            Margin="12,0,0,12"
                            Foreground="{StaticResource TimeTableHilighthBrush}"
-                           Style="{StaticResource PhoneTextLargeStyle}"/>
+                           Style="{StaticResource PhoneTextTitle2Style}"/>
             </StackPanel>
             
             <ItemsControl Margin="12,12,24,0"  ItemsSource="{Binding Lessons}">
