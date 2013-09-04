@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Model;
+using TimeTable.ViewModel.Commands;
 
 namespace TimeTable.ViewModel
 {
@@ -13,9 +14,11 @@ namespace TimeTable.ViewModel
         private readonly WeekType _weekType;
         private ObservableCollection<TimeTableItemViewModel> _lessons;
 
-        public DayViewModel([NotNull] Day day, WeekType weekType)
+        public DayViewModel([NotNull] Day day, WeekType weekType, [NotNull] ICommandFactory commandFactory)
         {
             if (day == null) throw new ArgumentNullException("day");
+            if (commandFactory == null) throw new ArgumentNullException("commandFactory");
+
             _day = day;
             _weekType = weekType;
 
@@ -23,7 +26,7 @@ namespace TimeTable.ViewModel
             {
                 Lessons =
                     new ObservableCollection<TimeTableItemViewModel>(
-                        _day.Lessons.Select(lesson => new TimeTableItemViewModel(lesson)));
+                        _day.Lessons.Select(lesson => new TimeTableItemViewModel(lesson, commandFactory)));
             }
             else
             {

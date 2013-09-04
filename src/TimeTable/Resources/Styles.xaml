@@ -6,6 +6,7 @@
    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+   xmlns:controls="clr-namespace:TimeTable.Controls"
    mc:Ignorable="d">
    <SolidColorBrush x:Key="TimeTableBackgorundColorBrush">#2D3541</SolidColorBrush>
    <SolidColorBrush x:Key="TimeTableHilighthBrush">#4C6DA7</SolidColorBrush>
@@ -156,6 +157,9 @@
                                           Width="432"
 
                                           Margin="0,0,0,12">
+                            <toolkit:ContextMenuService.ContextMenu>
+                                <controls:CommandReadyContextMenu IsZoomEnabled="False" ItemsSource="{Binding ContextMenuItems}" />
+                            </toolkit:ContextMenuService.ContextMenu>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>

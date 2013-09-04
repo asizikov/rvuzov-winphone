@@ -16,14 +16,14 @@ namespace TimeTable.View
             base.OnNavigatedTo(e);
 
             string rawGroupId;
-            string rawGroupName;
+            string rawIsTeacher;
             if (NavigationContext.QueryString.TryGetValue(NavigationParameterName.Id, out rawGroupId)
-                && NavigationContext.QueryString.TryGetValue(NavigationParameterName.Name, out rawGroupName))
+                && NavigationContext.QueryString.TryGetValue(NavigationParameterName.IsTeacher, out rawIsTeacher))
             {
-                int groupId;
-                if (Int32.TryParse(rawGroupId, out groupId))
+                int id;
+                if (Int32.TryParse(rawGroupId, out id))
                 {
-                    DataContext = ViewModelLocator.GetLessonsViewModel(groupId, Uri.UnescapeDataString(rawGroupName));
+                    DataContext = ViewModelLocator.GetLessonsViewModel(id, Boolean.Parse(rawIsTeacher));
                 }
             }
         }

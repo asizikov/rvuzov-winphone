@@ -1,6 +1,7 @@
 ﻿using Funq;
 using JetBrains.Annotations;
 using TimeTable.IoC;
+using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
@@ -40,11 +41,11 @@ namespace TimeTable.ViewModel
                 C.Resolve<FlurryPublisher>(),universityId);
         }
 
-        public static BaseViewModel GetLessonsViewModel(int groupId, string groupName)
+        public static BaseViewModel GetLessonsViewModel(int id, bool isTeacher)
         {
             return new LessonsViewModel(C.Resolve<INavigationService>(), 
-                C.Resolve<BaseApplicationSettings>(), 
-                new AsyncDataProvider(C.Resolve<ICache>()), groupId, groupName);
+                C.Resolve<BaseApplicationSettings>(), C.Resolve<ICommandFactory>(),
+                new AsyncDataProvider(C.Resolve<ICache>()), id, isTeacher);
         }
     }
 }

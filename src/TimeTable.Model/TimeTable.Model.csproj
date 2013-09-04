@@ -57,7 +57,7 @@
     <Compile Include="Day.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Groups.cs" />
-    <Compile Include="GroupTimeTable.cs" />
+    <Compile Include="TimeTable.cs" />
     <Compile Include="IUpdatableModel.cs" />
     <Compile Include="Lesson.cs" />
     <Compile Include="Teacher.cs" />

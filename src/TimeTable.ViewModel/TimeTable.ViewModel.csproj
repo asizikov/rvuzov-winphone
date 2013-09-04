@@ -68,6 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseViewModel.cs" />
+    <Compile Include="Commands\AbstractMenuItem.cs" />
+    <Compile Include="Commands\ICommandFactory.cs" />
+    <Compile Include="Commands\ShowTeachersTimeTableCommand.cs" />
     <Compile Include="Commands\SimpleCommand.cs" />
     <Compile Include="Data\AsyncDataProvider.cs" />
     <Compile Include="Data\BaseAsyncDataProvider.cs" />
@@ -80,7 +83,7 @@
     <Compile Include="GroupPageViewModel.cs" />
     <Compile Include="LessonsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Restful\GroupTimeTableRequest.cs" />
+    <Compile Include="Restful\TimeTableRequest.cs" />
     <Compile Include="Restful\LastUpdatedRequest.cs" />
     <Compile Include="Restful\RestfulCallFactory.cs" />
     <Compile Include="Restful\UniversitesRequest.cs" />

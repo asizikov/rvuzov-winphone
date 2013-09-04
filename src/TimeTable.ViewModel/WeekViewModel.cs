@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using JetBrains.Annotations;
 using TimeTable.Model;
+using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Extensions;
 
 namespace TimeTable.ViewModel
@@ -13,10 +14,10 @@ namespace TimeTable.ViewModel
         private readonly WeekType _type;
         private ObservableCollection<DayViewModel> _days;
 
-        public WeekViewModel(IEnumerable<Day> days, WeekType type)
+        public WeekViewModel(IEnumerable<Day> days,ICommandFactory commandFactory, WeekType type)
         {
             _type = type;
-            Days = new ObservableCollection<DayViewModel>(days.ToViewModelList(_type));
+            Days = new ObservableCollection<DayViewModel>(days.ToViewModelList(commandFactory,_type));
         }
 
 

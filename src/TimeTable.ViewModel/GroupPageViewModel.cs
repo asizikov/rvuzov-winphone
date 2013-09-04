@@ -183,6 +183,11 @@ namespace TimeTable.ViewModel
                 },
                 new NavigationParameter
                 {
+                    Parameter = NavigationParameterName.IsTeacher,
+                    Value = false.ToString()
+                },
+                new NavigationParameter
+                {
                     Parameter = NavigationParameterName.Name,
                     Value = group.GroupName
                 }

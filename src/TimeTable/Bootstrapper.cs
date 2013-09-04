@@ -2,8 +2,10 @@
 using System.Windows.Threading;
 using JetBrains.Annotations;
 using Microsoft.Phone.Controls;
+using TimeTable.Commands;
 using TimeTable.IoC;
 using TimeTable.Services;
+using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
@@ -28,6 +30,7 @@ namespace TimeTable
             ioc.Register<BaseApplicationSettings>(new ApplicationSettings());
             ioc.Register<FlurryPublisher>(new DebugFlurryPublisher());
             ioc.Register<ICache>(new InMemoryCache());
+            ioc.Register<ICommandFactory>(new CommandsFactory(ioc.Resolve<INavigationService>()));
         }
     }
 }

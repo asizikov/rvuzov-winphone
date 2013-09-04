@@ -25,9 +25,15 @@ namespace TimeTable.ViewModel.Data
             return GetDataAsync(request);
         }
 
-        public IObservable<GroupTimeTable> GetLessonsForGroupAsync(int groupId)
+        public IObservable<Model.TimeTable> GetLessonsForGroupAsync(int groupId)
         {
             var groupTimeTableRequest = CallFactory.GetGroupTimeTableRequest(groupId);
+            return GetDataAsync(groupTimeTableRequest);
+        }
+
+        public IObservable<Model.TimeTable> GetLessonsForTeacherAsync(int id)
+        {
+            var groupTimeTableRequest = CallFactory.GetTeacherTimeTableRequest(id);
             return GetDataAsync(groupTimeTableRequest);
         }
 

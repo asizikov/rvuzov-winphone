@@ -1,4 +1,6 @@
-﻿using TimeTable.Networking;
+﻿using TimeTable.Model;
+using TimeTable.Networking;
+using TimeTable.Networking.Restful;
 
 namespace TimeTable.ViewModel.Restful
 {
@@ -12,6 +14,7 @@ namespace TimeTable.ViewModel.Restful
         private const string ALL_GROUPS_TEMPLATE = "universities/{0}/groups-all";
         private const string ALL_TEACHERS_TEMPLATE = "universities/{0}/teachers-all";
         private const string GROUP_TIMETABLE_TEMPLATE = "groups/{0}";
+        private const string TEACHER_TIMETABLE_TEMPLATE = "teachers/{0}";
 
         private static string InjectIdToTemplate(string template, int universityId)
         {
@@ -28,10 +31,16 @@ namespace TimeTable.ViewModel.Restful
             return new UniversitiesGroupsRequest(URL_PREFIX, InjectIdToTemplate(ALL_GROUPS_TEMPLATE, universityId), _webService);
         }
 
-        public GroupTimeTableRequest GetGroupTimeTableRequest(int groupId)
+        public TimeTableRequest GetGroupTimeTableRequest(int groupId)
         {
             var suffix = string.Format(GROUP_TIMETABLE_TEMPLATE, groupId);
-            return new GroupTimeTableRequest(URL_PREFIX, suffix, _webService);
+            return new TimeTableRequest(URL_PREFIX, suffix, _webService);
+        }
+
+        public TimeTableRequest GetTeacherTimeTableRequest(int id)
+        {
+            var suffix = string.Format(TEACHER_TIMETABLE_TEMPLATE, id);
+            return new TimeTableRequest(URL_PREFIX, suffix, _webService);
         }
 
         public UniversityTeachersRequest GetUniversityTeachersRequest(int universityId)

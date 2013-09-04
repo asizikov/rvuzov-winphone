@@ -1,19 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using TimeTable.Model;
+using TimeTable.ViewModel.Commands;
 
 namespace TimeTable.ViewModel
 {
     public class TimeTableItemViewModel : BaseViewModel
     {
         private readonly Lesson _lesson;
+        private readonly ICommandFactory _commandFactory;
 
-        public TimeTableItemViewModel([NotNull] Lesson lesson)
+        public TimeTableItemViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory)
         {
             if (lesson == null) throw new ArgumentNullException("lesson");
+            if (commandFactory == null) throw new ArgumentNullException("commandFactory");
             _lesson = lesson;
+            _commandFactory = commandFactory;
         }
 
 
@@ -50,6 +55,30 @@ namespace TimeTable.ViewModel
                 }
             }
             return sb.ToString();
+        }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public IEnumerable<AbstractMenuItem> ContextMenuItems
+        {
+            get
+            {
+                yield return new AbstractMenuItem 
+                {
+                    Command = null,
+                    Header = "аудитория"
+
+                };
+                if (_lesson.Teachers != null && _lesson.Teachers.Any())
+                {
+                    yield return new AbstractMenuItem
+                    {
+                        CommandParameter = _lesson.Teachers.First().Id,
+                        Command = _commandFactory.GetShowTeachersTimeTableCommand(),
+                        Header = "расписание преподавателя"
+                    };
+                }
+                
+            }
         }
     }
 }

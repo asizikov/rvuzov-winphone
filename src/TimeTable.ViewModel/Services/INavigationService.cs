@@ -3,7 +3,7 @@
 namespace TimeTable.ViewModel.Services
 {
 
-    public class NavigationParameter
+    public sealed class NavigationParameter
     {
         public string Parameter { get; set; }
         public string Value { get; set; }
@@ -13,6 +13,7 @@ namespace TimeTable.ViewModel.Services
     {
         public const string Id = "id";
         public const string Name = "name";
+        public const string IsTeacher = "is_teacher";
     }
 
     public interface INavigationService
