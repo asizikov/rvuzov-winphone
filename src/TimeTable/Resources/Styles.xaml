@@ -158,7 +158,10 @@
 
                                           Margin="0,0,0,12">
                             <toolkit:ContextMenuService.ContextMenu>
-                                <controls:CommandReadyContextMenu IsZoomEnabled="False" ItemsSource="{Binding ContextMenuItems}" />
+                                <controls:CommandReadyContextMenu 
+                                    Background="{StaticResource TimeTableHilighthBrush}"
+                                    Foreground="White"
+                                    IsZoomEnabled="False" ItemsSource="{Binding ContextMenuItems}" />
                             </toolkit:ContextMenuService.ContextMenu>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
