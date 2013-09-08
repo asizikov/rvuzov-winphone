@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
@@ -18,10 +19,11 @@ namespace TimeTable.ViewModel
         private WeekViewModel _currentWeek;
         private WeekViewModel _nextWeek;
         private WeekViewModel _previousWeek;
+        private University _university;
 
         public LessonsViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
-            [NotNull] AsyncDataProvider dataProvider, int id, bool isTeacher)
+            [NotNull] AsyncDataProvider dataProvider, int id, bool isTeacher, int universityId)
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
@@ -40,12 +42,22 @@ namespace TimeTable.ViewModel
             }
 
 
-            Init();
+            Init(universityId);
         }
 
-        private void Init()
+        private void Init(int universityId)
         {
             IsLoading = true;
+            _dataProvider.GetUniversityByIdAsync(universityId).Subscribe(university =>
+            {
+                _university = university;
+                LoadLessons();
+            });
+
+        }
+
+        private void LoadLessons()
+        {
             if (_isTeacher)
             {
                 _dataProvider.GetLessonsForTeacherAsync(_group.Id)
@@ -63,9 +75,9 @@ namespace TimeTable.ViewModel
         private void FormatTimeTable(Model.TimeTable timeTable)
         {
             IsLoading = false;
-            CurrentWeek = new WeekViewModel(timeTable.Days, _commandFactory, WeekType.Current);
-            NextWeek = new WeekViewModel(timeTable.Days, _commandFactory, WeekType.Next);
-            PreviousWeek = new WeekViewModel(timeTable.Days, _commandFactory, WeekType.Previous);
+            CurrentWeek = new WeekViewModel(timeTable.Days, _commandFactory, WeekType.Current, _university);
+            NextWeek = new WeekViewModel(timeTable.Days, _commandFactory, WeekType.Next, _university);
+            PreviousWeek = new WeekViewModel(timeTable.Days, _commandFactory, WeekType.Previous, _university);
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -109,5 +121,7 @@ namespace TimeTable.ViewModel
         {
             get { return _group.GroupName; }
         }
+
+        public ICommand GoToSettingsCommand { get; private set; }
     }
 }

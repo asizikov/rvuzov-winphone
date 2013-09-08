@@ -14,7 +14,7 @@ namespace TimeTable.ViewModel
         private readonly WeekType _weekType;
         private ObservableCollection<TimeTableItemViewModel> _lessons;
 
-        public DayViewModel([NotNull] Day day, WeekType weekType, [NotNull] ICommandFactory commandFactory)
+        public DayViewModel([NotNull] Day day, WeekType weekType, [NotNull] ICommandFactory commandFactory, University university)
         {
             if (day == null) throw new ArgumentNullException("day");
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
@@ -26,7 +26,7 @@ namespace TimeTable.ViewModel
             {
                 Lessons =
                     new ObservableCollection<TimeTableItemViewModel>(
-                        _day.Lessons.Select(lesson => new TimeTableItemViewModel(lesson, commandFactory)));
+                        _day.Lessons.Select(lesson => new TimeTableItemViewModel(lesson, commandFactory, university)));
             }
             else
             {

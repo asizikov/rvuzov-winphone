@@ -11,6 +11,7 @@ namespace TimeTable.ViewModel.Services
 
     public static class NavigationParameterName
     {
+        public const string UniversityId = "university_id";
         public const string Id = "id";
         public const string Name = "name";
         public const string IsTeacher = "is_teacher";

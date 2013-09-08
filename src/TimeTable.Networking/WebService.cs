@@ -51,9 +51,17 @@ namespace TimeTable.Networking
             observer.OnNext(result);
         }
 
-// ReSharper disable once UnusedParameter.Local
         private static void HandleException(Exception ignored)
         {
+            if (ignored is WebException)
+            {
+                var ve = ignored as WebException;
+                if (ve.Response != null)
+                {
+                    Debug.WriteLine("WebClient::exception::uir: " + ve.Response.ResponseUri);
+                }
+            }
+            Debug.WriteLine("WebClient::exception: " + ignored);
         }
 
 

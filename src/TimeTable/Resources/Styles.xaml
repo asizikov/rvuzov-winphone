@@ -190,6 +190,10 @@
                                 <Image Margin="0,0,12,0" CacheMode="BitmapCache" Source="../Resources/Images/Lesson/teacher.png"/>
                                 <TextBlock Text="{Binding Teachers}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
                             </StackPanel>
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="12,0,12,12" Visibility="{Binding Groups, Converter={StaticResource NullToVisibilityConverter}}">
+                                <Image Margin="0,0,12,0" CacheMode="BitmapCache" Source="../Resources/Images/Lesson/students.png"/>
+                                <TextBlock Text="{Binding Groups}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
+                            </StackPanel>
                         </Grid>
 
                     </DataTemplate>

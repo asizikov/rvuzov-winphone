@@ -30,7 +30,7 @@ namespace TimeTable
             ioc.Register<BaseApplicationSettings>(new ApplicationSettings());
             ioc.Register<FlurryPublisher>(new DebugFlurryPublisher());
             ioc.Register<ICache>(new InMemoryCache());
-            ioc.Register<ICommandFactory>(new CommandsFactory(ioc.Resolve<INavigationService>()));
+            ioc.Register<ICommandFactory>(new CommandsFactory(ioc.Resolve<INavigationService>(), ioc.Resolve<FlurryPublisher>()));
         }
     }
 }

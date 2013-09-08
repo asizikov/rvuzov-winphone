@@ -8,9 +8,9 @@ namespace TimeTable.ViewModel.Extensions
     public static class DayExtensions
     {
         public static IEnumerable<DayViewModel> ToViewModelList(this IEnumerable<Day> models,
-            ICommandFactory commandFactory, WeekType type)
+            ICommandFactory commandFactory, WeekType type, University university)
         {
-            var list = models.Select(day => new DayViewModel(day, type, commandFactory));
+            var list = models.Select(day => new DayViewModel(day, type, commandFactory, university));
             return list;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using JetBrains.Annotations;
@@ -23,11 +24,13 @@ namespace TimeTable.ViewModel.Data
         {
             if (!_cache.IsCached<T>(request.Url))
             {
+                Debug.WriteLine("DataProvider::Getting data:" + request.Url);
                 return Observable.Create<T>(
                     observer =>
                         Scheduler.Default.Schedule(() => ExecuteRequest(request, observer))
                     );
             }
+            Debug.WriteLine("DataProvider::Getting cached data:" + request.Url);
             return Observable.Create<T>(
                 observer =>
                     Scheduler.Default.Schedule(() =>

@@ -56,11 +56,10 @@
     </Grid>
     <bindableApplicationBar:Bindable.ApplicationBar>
         <bindableApplicationBar:BindableApplicationBar
-            IsVisible="{Binding IsSearchBoxVisible, Converter={StaticResource ReversedBoolConverter }}"
             BackgroundColor="{StaticResource TimeTableHilighthColor}">
             <bindableApplicationBar:BindableApplicationBarButton
                 Text="{Binding  Strings.Search, Source={StaticResource LocalizedStrings}}"
-                Command="{Binding ShowSearchBoxCommand}"
+                Command="{Binding GoToSettingsCommand}"
                 IconUri="/Resources/Icons/appbar.cog.png" />
         </bindableApplicationBar:BindableApplicationBar>
     </bindableApplicationBar:Bindable.ApplicationBar>

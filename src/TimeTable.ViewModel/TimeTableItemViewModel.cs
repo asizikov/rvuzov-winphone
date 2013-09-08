@@ -12,13 +12,17 @@ namespace TimeTable.ViewModel
     {
         private readonly Lesson _lesson;
         private readonly ICommandFactory _commandFactory;
+        private readonly University _university;
 
-        public TimeTableItemViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory)
+        public TimeTableItemViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory,
+            [NotNull] University university)
         {
             if (lesson == null) throw new ArgumentNullException("lesson");
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
+            if (university == null) throw new ArgumentNullException("university");
             _lesson = lesson;
             _commandFactory = commandFactory;
+            _university = university;
         }
 
 
@@ -28,14 +32,41 @@ namespace TimeTable.ViewModel
             get { return _lesson; }
         }
 
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public string Auditory
         {
             get { return _lesson.Auditory; }
         }
 
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public string Teachers
         {
             get { return FormatTeachersList(); }
+        }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public string Groups
+        {
+            get { return FormatGroupsList(); }
+        }
+
+        private string FormatGroupsList()
+        {
+            if (_lesson.Groups == null || _lesson.Groups.Count == 0)
+            {
+                return null;
+            }
+            var sb = new StringBuilder();
+
+            for (var index = 0; index < _lesson.Groups.Count; index++)
+            {
+                sb.Append(_lesson.Groups[index].GroupName);
+                if (index != _lesson.Groups.Count - 1)
+                {
+                    sb.Append(",");
+                }
+            }
+            return sb.ToString();
         }
 
         private string FormatTeachersList()
@@ -73,7 +104,7 @@ namespace TimeTable.ViewModel
                     yield return new AbstractMenuItem
                     {
                         CommandParameter = _lesson.Teachers.First().Id,
-                        Command = _commandFactory.GetShowTeachersTimeTableCommand(),
+                        Command = _commandFactory.GetShowTeachersTimeTableCommand(_university,_lesson.Teachers.First()),
                         Header = "расписание преподавателя"
                     };
                 }

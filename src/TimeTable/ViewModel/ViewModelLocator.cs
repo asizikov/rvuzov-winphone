@@ -41,11 +41,11 @@ namespace TimeTable.ViewModel
                 C.Resolve<FlurryPublisher>(),universityId);
         }
 
-        public static BaseViewModel GetLessonsViewModel(int id, bool isTeacher)
+        public static BaseViewModel GetLessonsViewModel(int id, bool isTeacher, int universityId)
         {
             return new LessonsViewModel(C.Resolve<INavigationService>(), 
                 C.Resolve<BaseApplicationSettings>(), C.Resolve<ICommandFactory>(),
-                new AsyncDataProvider(C.Resolve<ICache>()), id, isTeacher);
+                new AsyncDataProvider(C.Resolve<ICache>()), id, isTeacher, universityId);
         }
     }
 }

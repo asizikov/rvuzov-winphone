@@ -14,10 +14,10 @@ namespace TimeTable.ViewModel
         private readonly WeekType _type;
         private ObservableCollection<DayViewModel> _days;
 
-        public WeekViewModel(IEnumerable<Day> days,ICommandFactory commandFactory, WeekType type)
+        public WeekViewModel(IEnumerable<Day> days,ICommandFactory commandFactory, WeekType type, University university)
         {
             _type = type;
-            Days = new ObservableCollection<DayViewModel>(days.ToViewModelList(commandFactory,_type));
+            Days = new ObservableCollection<DayViewModel>(days.ToViewModelList(commandFactory,_type, university));
         }
 
 

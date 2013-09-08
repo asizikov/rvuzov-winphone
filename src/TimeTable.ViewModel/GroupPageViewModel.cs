@@ -172,7 +172,7 @@ namespace TimeTable.ViewModel
             _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group));
         }
 
-        private static IEnumerable<NavigationParameter> GetNavitationParameters(Group group)
+        private IEnumerable<NavigationParameter> GetNavitationParameters(Group group)
         {
             return new List<NavigationParameter>
             {
@@ -190,6 +190,11 @@ namespace TimeTable.ViewModel
                 {
                     Parameter = NavigationParameterName.Name,
                     Value = group.GroupName
+                },
+                new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.UniversityId,
+                    Value = _universityId.ToString(CultureInfo.InvariantCulture)
                 }
             };
         }

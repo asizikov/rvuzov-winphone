@@ -50,7 +50,7 @@ namespace TimeTable.ViewModel.Restful
 
         public LastUpdatedRequest GetLastUpdatedRequest<T>(string url)
         {
-            return new LastUpdatedRequest(URL_PREFIX, url + LAST_UPDATED , _webService);
+            return new LastUpdatedRequest("", url + LAST_UPDATED , _webService);
         }
     }
 }

@@ -128,5 +128,20 @@ namespace TimeTable.ViewModel.Services
             };
             PublishEvent(FlurryEvents.EVENT_CHOOSE_GROUP, parameters);
         }
+
+        public void PublishContextMenuShowTeachersTimeTable(University university, string name, string id)
+        {
+            var parameters = new[]
+            {
+                new EventParameter("University name", university.Name),
+                new EventParameter("University shortname", university.ShortName),
+                new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("Object name", name),
+                new EventParameter("Object Id", id),
+                new EventParameter("Mode", "teacher")
+            };
+            
+            PublishEvent(FlurryEvents.EVENT_CONTEXT_TEACHER_SCHEDULE, parameters);
+        }
     }
 }

@@ -25,5 +25,7 @@ namespace TimeTable.Model
         public int Type { get; set; }
         [JsonProperty("subject")]
         public string Subject { get; set; }
+        [JsonProperty("groups")]
+        public List<Group> Groups { get; set; } 
     }
 }
