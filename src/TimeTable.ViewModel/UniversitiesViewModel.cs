@@ -47,7 +47,7 @@ namespace TimeTable.ViewModel
                 result =>
                 {
                     _storedRequest = result;
-                    UniversitesList = FormatResult(result.UniversitesList);
+                    UniversitesList = FormatResult(result.Data);
                     IsLoading = false;
                 },
                 ex =>
@@ -116,8 +116,8 @@ namespace TimeTable.ViewModel
         {
             UniversitesList = FormatResult(
                 String.IsNullOrEmpty(search)
-                    ? _storedRequest.UniversitesList
-                    : _storedRequest.UniversitesList.Where(u => Matches(u, search)));
+                    ? _storedRequest.Data
+                    : _storedRequest.Data.Where(u => Matches(u, search)));
         }
 
         private static bool Matches(University university, string search)

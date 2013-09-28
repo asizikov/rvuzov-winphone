@@ -43,7 +43,7 @@ namespace TimeTable.ViewModel.Data
                 Scheduler.Default.Schedule(() =>
                     GetUniversitesAsync().Subscribe(universities =>
                     {
-                        var university = universities.UniversitesList.FirstOrDefault(u => u.Id == universityId);
+                        var university = universities.Data.FirstOrDefault(u => u.Id == universityId);
                         observer.OnNext(university);
                     })));
         }

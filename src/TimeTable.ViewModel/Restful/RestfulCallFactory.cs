@@ -8,8 +8,8 @@ namespace TimeTable.ViewModel.Restful
     {
         private readonly WebService _webService = new WebService();
 
-        private const string URL_PREFIX = "http://raspisanie-vuzov.ru/api/v1/";
-        private const string UNIVERSITIES_ALL = "universities-all";
+        private const string URL_PREFIX = "http://new.raspisaniye-vuzov.ru/api/v1/";
+        private const string UNIVERSITIES_ALL = "universities";
         private const string LAST_UPDATED = "/last-updated";
         private const string ALL_GROUPS_TEMPLATE = "universities/{0}/groups-all";
         private const string ALL_TEACHERS_TEMPLATE = "universities/{0}/teachers-all";
