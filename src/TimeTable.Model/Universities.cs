@@ -1,37 +1,46 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
-    public sealed class Universities//: IUpdatableModel
+    public sealed class Universities
     {
         [JsonProperty("success")]
         public bool Success { get; set; }
 
         [JsonProperty("data")]
         public List<University> Data { get; set; }
-
-        //[JsonProperty("Last")]
-        //public int LastUpdated { get; set; }
-
-        //[JsonProperty("universities")]
-        //public List<University> UniversitesList { get; set; }
     }
 
     public sealed class University
     {
-        /*        "email": null,
-                "title": "Алтайский государственный университет",
-                "shortTitle": "АлтГУ",
-              "allFacultiesTimestamp": null,
-                "allGroupsTimestamp": null,
-                "allTeachersTimestamp": null,
-                "commonScheduleTimestamp": null,
-                "startDate": "1378080000",
-                "endDate": "1391040000",
-                "publishSchedule": true,
-                "publishUniversity": true
-         */
+        [CanBeNull, JsonProperty("email")]
+        public int? Email { get; set; }
+
+        [CanBeNull, JsonProperty("allFacultiesTimestamp")]
+        public long? AllFacultiesTimestamp { get; set; }
+
+        [CanBeNull, JsonProperty("allGroupsTimestamp")]
+        public long? AllGroupsTimestamp { get; set; }
+
+        [CanBeNull, JsonProperty("allTeachersTimestamp")]
+        public long? AllTeachersTimestamp { get; set; }
+
+        [CanBeNull, JsonProperty("commonScheduleTimestamp")]
+        public long? CommonScheduleTimestamp { get; set; }
+
+        [JsonProperty("startDate")]
+        public long StartDate { get; set; }
+
+        [JsonProperty("endDate")]
+        public long EndDate { get; set; }
+
+        [JsonProperty("publishSchedule")]
+        public bool PublishSchedule { get; set; }
+
+        [JsonProperty("publishUniversity")]
+        public bool PublishUniversity { get; set; }
 
         [JsonProperty("id")]
         public int Id { get; set; }
