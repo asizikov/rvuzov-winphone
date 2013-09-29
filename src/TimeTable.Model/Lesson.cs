@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
+
     [UsedImplicitly]
     public class Lesson
     {
@@ -15,9 +16,6 @@ namespace TimeTable.Model
 
         [JsonProperty("auditory")]
         public string Auditory { get; set; }
-
-        [JsonProperty("auditory_address")]
-        public string AuditoryAddress { get; set; }
 
         [JsonProperty("time_start")]
         public string TimeStart { get; set; }
