@@ -52,6 +52,7 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Faculty.cs" />
     <Compile Include="Teachers.cs" />
     <Compile Include="ListGroup.cs" />
     <Compile Include="Day.cs" />

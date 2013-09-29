@@ -1,18 +1,35 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
-    public class Faculty
+    public sealed class Faculty
     {
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
+        [JsonProperty("title")]
+        public string Title { get; set; }
+
+        [JsonProperty("startDate")]
+        public long StartDate { get; set; }
+
+        [JsonProperty("endDate")]
+        public long EndDate { get; set; }
+
+        [JsonProperty("publishSchedule")]
+        public bool PublishSchedule { get; set; }
+
+        [JsonProperty("publishFaculty")]
+        public bool PublishFaculty { get; set; }
+    }
+
+    public sealed class Faculties
+    {
+        [JsonProperty("success")]
+        public bool Success { get; set; }
+
+        [JsonProperty("data")]
+        public List<Faculty> Data { get; set; }
     }
 }
