@@ -1,13 +1,20 @@
-﻿using Newtonsoft.Json;
+﻿using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
-    public class Group
+    public sealed class Group
     {
-        [JsonProperty("group_id")]
+        [JsonProperty("id")]
         public int Id { get; set; }
-        
-        [JsonProperty("group_name")]
+
+        [JsonProperty("title")]
         public string GroupName { get; set; }
+
+        [CanBeNull,JsonProperty("speciality")]
+        public string Speciality { get; set; }
+
+        [JsonProperty("timestamp")]
+        public long TimeStamp { get; set; }
     }
 }
