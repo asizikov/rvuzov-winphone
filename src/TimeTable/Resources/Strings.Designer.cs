@@ -115,7 +115,16 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to выбор ВУЗа.
+        ///   Looks up a localized string similar to факультеты.
+        /// </summary>
+        public static string SelectFaculty {
+            get {
+                return ResourceManager.GetString("SelectFaculty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ВУЗы.
         /// </summary>
         public static string SelectUniversity {
             get {

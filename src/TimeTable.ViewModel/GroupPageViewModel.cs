@@ -18,8 +18,9 @@ namespace TimeTable.ViewModel
         private readonly AsyncDataProvider _dataProvider;
         private readonly FlurryPublisher _flurryPublisher;
         private readonly int _universityId;
-        private ReadOnlyObservableCollection<ListGroup<Group>> _groupsList;
-        private ReadOnlyObservableCollection<ListGroup<Teacher>> _teachersList;
+        private readonly int _facultyId;
+        private ObservableCollection<ListGroup<Group>> _groupsList;
+        private ObservableCollection<ListGroup<Teacher>> _teachersList;
         private Group _selectedGroup;
         private Groups _storedGroupsRequest;
         private Teachers _storedTeachersRequest;
@@ -29,7 +30,7 @@ namespace TimeTable.ViewModel
 
         public GroupPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurryPublisher, int universityId)
+            [NotNull] FlurryPublisher flurryPublisher, int universityId, int facultyId)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
@@ -41,6 +42,7 @@ namespace TimeTable.ViewModel
             _dataProvider = dataProvider;
             _flurryPublisher = flurryPublisher;
             _universityId = universityId;
+            _facultyId = facultyId;
 
             _applicationSettings.UniversityId = _universityId;
 
@@ -52,7 +54,7 @@ namespace TimeTable.ViewModel
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public ReadOnlyObservableCollection<ListGroup<Group>> GroupsList
+        public ObservableCollection<ListGroup<Group>> GroupsList
         {
             get { return _groupsList; }
             private set
@@ -64,7 +66,7 @@ namespace TimeTable.ViewModel
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public ReadOnlyObservableCollection<ListGroup<Teacher>> TeachersList
+        public ObservableCollection<ListGroup<Teacher>> TeachersList
         {
             get { return _teachersList; }
             private set
@@ -111,7 +113,7 @@ namespace TimeTable.ViewModel
         private void Init()
         {
             IsLoading = true;
-            _dataProvider.GetUniversitesGroupsAsync(_universityId).Subscribe(
+            _dataProvider.GetFacultyGroupsAsync(_facultyId).Subscribe(
                 result =>
                 {
                     _storedGroupsRequest = result;
@@ -128,17 +130,6 @@ namespace TimeTable.ViewModel
                     TeachersList = FormatResult(result.TeachersList, u => u.Name[0]);
                 }, ex => { IsLoading = false; }
                 );
-        }
-
-        private static ReadOnlyObservableCollection<ListGroup<T>> FormatResult<T>([NotNull] IEnumerable<T> result,
-            Func<T, char> groupFunc)
-        {
-            var grouped = result
-                .GroupBy(groupFunc)
-                .Select(g => new ListGroup<T>(g.Key.ToString(CultureInfo.InvariantCulture),
-                    g.ToList()));
-            return new ReadOnlyObservableCollection<ListGroup<T>>(
-                new ObservableCollection<ListGroup<T>>(grouped));
         }
 
         protected override void GetResults(string search)

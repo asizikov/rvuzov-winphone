@@ -19,7 +19,7 @@ namespace TimeTable.ViewModel.Data
             return GetDataAsync(request);
         }
 
-        public IObservable<Groups> GetUniversitesGroupsAsync(int universityId)
+        public IObservable<Groups> GetFacultyGroupsAsync(int universityId)
         {
             var request = CallFactory.GetUniversitesGroupsRequest(universityId);
             return GetDataAsync(request);
@@ -52,6 +52,12 @@ namespace TimeTable.ViewModel.Data
         {
             var universityTeachersRequest = CallFactory.GetUniversityTeachersRequest(universityId);
             return GetDataAsync(universityTeachersRequest);
+        }
+
+        public IObservable<Faculties> GetUniversitesFacultiesAsync(int universityId)
+        {
+            var request = CallFactory.GetUniversityFacultiesRequest(universityId);
+            return GetDataAsync(request);
         }
     }
 }

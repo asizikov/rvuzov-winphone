@@ -21,6 +21,7 @@ namespace TimeTable.ViewModel
         private University _selectedUniversity;
         
         private Universities _storedRequest;
+        private static Func<University, char> _resultGrouper;
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings,
@@ -35,6 +36,7 @@ namespace TimeTable.ViewModel
             _flurry = flurry;
             _navigation = navigation;
             _applicationSettings = applicationSettings;
+            _resultGrouper = u => u.ShortName[0];
             SubscribeToQuery();
             Init();
         }
@@ -47,7 +49,7 @@ namespace TimeTable.ViewModel
                 result =>
                 {
                     _storedRequest = result;
-                    UniversitesList = FormatResult(result.Data);
+                    UniversitesList = FormatResult(result.Data, _resultGrouper);
                     IsLoading = false;
                 },
                 ex =>
@@ -60,16 +62,6 @@ namespace TimeTable.ViewModel
                     //handle loaded
                 }
                 );
-        }
-
-        private static ObservableCollection<ListGroup<University>> FormatResult(IEnumerable<University> result)
-        {
-            var grouped = result
-                .GroupBy(u => u.ShortName[0])
-                .Select(g => new ListGroup<University>(g.Key.ToString(CultureInfo.InvariantCulture),
-                    g.ToList()));
-            var observableCollection = new ObservableCollection<ListGroup<University>>(grouped);
-            return observableCollection;
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -97,19 +89,19 @@ namespace TimeTable.ViewModel
                 if (_selectedUniversity != null)
                 {
                     _flurry.PublishUniversitySelected(_selectedUniversity);
-                    NavigateToUniversity(_selectedUniversity.Id);
+                    NavigateToFaculties(_selectedUniversity.Id);
                 }
             }
         }
 
-        private void NavigateToUniversity(int id)
+        private void NavigateToFaculties(int id)
         {
             var navigationParameter = new NavigationParameter
             {
                 Parameter = NavigationParameterName.Id,
                 Value = id.ToString(CultureInfo.InvariantCulture)
             };
-            _navigation.GoToPage(Pages.Groups, new List<NavigationParameter> {navigationParameter});
+            _navigation.GoToPage(Pages.Faculties, new List<NavigationParameter> {navigationParameter});
         }
 
         protected override void GetResults(string search)
@@ -117,7 +109,7 @@ namespace TimeTable.ViewModel
             UniversitesList = FormatResult(
                 String.IsNullOrEmpty(search)
                     ? _storedRequest.Data
-                    : _storedRequest.Data.Where(u => Matches(u, search)));
+                    : _storedRequest.Data.Where(u => Matches(u, search)), _resultGrouper);
         }
 
         private static bool Matches(University university, string search)

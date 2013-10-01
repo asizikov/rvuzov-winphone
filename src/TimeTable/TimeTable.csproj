@@ -110,6 +110,9 @@
     <Compile Include="TimeTableUriMapper.cs" />
     <Compile Include="Utils\BindingUtility.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\FacultiesPage.xaml.cs">
+      <DependentUpon>FacultiesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EntryPoint.xaml.cs">
       <DependentUpon>EntryPoint.xaml</DependentUpon>
     </Compile>
@@ -180,6 +183,10 @@
     <Page Include="Resources\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FacultiesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\EntryPoint.xaml">
       <SubType>Designer</SubType>

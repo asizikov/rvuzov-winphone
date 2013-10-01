@@ -1,6 +1,4 @@
-﻿using TimeTable.Model;
-using TimeTable.Networking;
-using TimeTable.Networking.Restful;
+﻿using TimeTable.Networking;
 
 namespace TimeTable.ViewModel.Restful
 {
@@ -11,6 +9,8 @@ namespace TimeTable.ViewModel.Restful
         private const string URL_PREFIX = "http://new.raspisaniye-vuzov.ru/api/v1/";
         private const string UNIVERSITIES_ALL = "universities";
         private const string LAST_UPDATED = "/last-updated";
+
+        private const string ALL_FACULTIES_TEMPLATE = "universities/{0}/faculties";
         private const string ALL_GROUPS_TEMPLATE = "universities/{0}/groups-all";
         private const string ALL_TEACHERS_TEMPLATE = "universities/{0}/teachers-all";
         private const string GROUP_TIMETABLE_TEMPLATE = "groups/{0}";
@@ -51,6 +51,11 @@ namespace TimeTable.ViewModel.Restful
         public LastUpdatedRequest GetLastUpdatedRequest<T>(string url)
         {
             return new LastUpdatedRequest("", url + LAST_UPDATED , _webService);
+        }
+
+        public UniversityFacultiesRequest GetUniversityFacultiesRequest(int universityId)
+        {
+            return new UniversityFacultiesRequest(URL_PREFIX, InjectIdToTemplate(ALL_FACULTIES_TEMPLATE, universityId), _webService);
         }
     }
 }

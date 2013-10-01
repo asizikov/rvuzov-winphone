@@ -72,6 +72,7 @@
     <Compile Include="Commands\ICommandFactory.cs" />
     <Compile Include="Commands\ShowTeachersTimeTableCommand.cs" />
     <Compile Include="Commands\SimpleCommand.cs" />
+    <Compile Include="FacultiesPageViewModel.cs" />
     <Compile Include="Data\AsyncDataProvider.cs" />
     <Compile Include="Data\BaseAsyncDataProvider.cs" />
     <Compile Include="Data\ICache.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Restful\RestfulCallFactory.cs" />
     <Compile Include="Restful\UniversitesRequest.cs" />
     <Compile Include="Restful\UniversitiesGroupsRequest.cs" />
+    <Compile Include="Restful\UniversityFacultiesRequest.cs" />
     <Compile Include="Restful\UniversityTeachersRequest.cs" />
     <Compile Include="TimeTableItemViewModel.cs" />
     <Compile Include="SearchViewModel.cs" />

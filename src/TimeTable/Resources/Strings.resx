@@ -135,8 +135,11 @@
   <data name="Search" xml:space="preserve">
     <value>поиск</value>
   </data>
+  <data name="SelectFaculty" xml:space="preserve">
+    <value>факультеты</value>
+  </data>
   <data name="SelectUniversity" xml:space="preserve">
-    <value>выбор ВУЗа</value>
+    <value>ВУЗы</value>
   </data>
   <data name="Teachers" xml:space="preserve">
     <value>преподаватели</value>

@@ -1,0 +1,83 @@
+﻿<view:SearchPage 
+    x:Class="TimeTable.View.FacultiesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:utils="clr-namespace:TimeTable.Utils"
+    xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
+    xmlns:view="clr-namespace:TimeTable.View"
+    SupportedOrientations="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="False">
+
+    <Grid Background="{StaticResource TimeTableBackgorundColorBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="{Binding Strings.SelectFaculty, Source={StaticResource LocalizedStrings}}" 
+                       Style="{StaticResource PhoneTextLargeStyle}"/>
+            <TextBox x:Name="Search"
+                             Width="467"
+                             Height="72"
+                             HorizontalAlignment="Left"
+                             GotFocus="Search_GotFocus"
+                             InputScope="Search"
+                             MaxLength="128"
+                             Padding="2,2,8,2"
+                             Visibility="{Binding IsSearchBoxVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                             Text="{Binding Query,
+                                            Mode=TwoWay}"
+                             utils:BindingUtility.UpdateSourceOnChange="True"
+                             x:FieldModifier="private" />
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid Grid.Row="1" Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <toolkit:PerformanceProgressBar 
+                IsIndeterminate="true"
+                Foreground="{StaticResource PhoneAccentBrush}"
+                Height="150" 
+                 Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"
+                Margin="0" />
+            <toolkit:LongListSelector Grid.Row="0"
+                Background="Transparent"
+                IsFlatList="False"
+                GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
+                GroupItemTemplate="{StaticResource TimeTableGroupItemTemplate}"
+                GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}"
+                ItemsSource="{Binding FacultiesList}"
+                SelectedItem="{Binding SelectedFaculty, Mode=TwoWay}" 
+                Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}" 
+                >
+                <toolkit:LongListSelector.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
+                            <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Title}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </toolkit:LongListSelector.ItemTemplate>
+            </toolkit:LongListSelector>
+        </Grid>
+    </Grid>
+        <bar:Bindable.ApplicationBar>
+            <bar:BindableApplicationBar 
+                IsVisible="{Binding IsSearchBoxVisible, Converter={StaticResource ReversedBoolConverter }}"
+                BackgroundColor="{StaticResource TimeTableHilighthColor}">
+                <bar:BindableApplicationBarButton
+            Text="{Binding  Strings.Search, Source={StaticResource LocalizedStrings}}"
+            Command="{Binding ShowSearchBoxCommand}"
+            IconUri="/Resources/Icons/feature.search.png"/>
+            </bar:BindableApplicationBar>
+        </bar:Bindable.ApplicationBar>
+</view:SearchPage>

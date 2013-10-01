@@ -18,14 +18,26 @@ namespace TimeTable.View
             base.OnNavigatedTo(e);
 
             string parameter;
-            if (NavigationContext.QueryString.TryGetValue(NavigationParameterName.Id, out parameter))
+            string rawuniversityId;
+            if (NavigationContext.QueryString.TryGetValue(NavigationParameterName.Id, out parameter) &&
+                NavigationContext.QueryString.TryGetValue(NavigationParameterName.UniversityId, out rawuniversityId))
             {
+                int facultyId;
                 int universityId;
-                if (Int32.TryParse(parameter, out universityId))
+                if (Int32.TryParse(parameter, out facultyId) &&
+                    Int32.TryParse(rawuniversityId, out universityId))
                 {
-                    ViewModel = ViewModelLocator.GetGroupstPageViewModel(universityId) as SearchViewModel;
+                    ViewModel = ViewModelLocator.GetGroupsPageViewModel(facultyId, universityId) as SearchViewModel;
                     DataContext = ViewModel;
                 }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+            else
+            {
+                throw new ArgumentException();
             }
         }
 
