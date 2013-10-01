@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
-    public class Groups : IUpdatableModel
+    public sealed class Groups
     {
-        [JsonProperty("Last")]
-        public int LastUpdated { get; set; }
+        [JsonProperty("success")]
+        public bool Success { get; set; }
 
-        [JsonProperty("groups")]
+        [JsonProperty("data")]
         public List<Group> GroupsList { get; set; }
     }
 }

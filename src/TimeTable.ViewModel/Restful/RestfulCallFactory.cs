@@ -11,8 +11,8 @@ namespace TimeTable.ViewModel.Restful
         private const string LAST_UPDATED = "/last-updated";
 
         private const string ALL_FACULTIES_TEMPLATE = "universities/{0}/faculties";
-        private const string ALL_GROUPS_TEMPLATE = "universities/{0}/groups-all";
-        private const string ALL_TEACHERS_TEMPLATE = "universities/{0}/teachers-all";
+        private const string ALL_GROUPS_TEMPLATE = "faculties/{0}/groups";
+        private const string ALL_TEACHERS_TEMPLATE = "universities/{0}/teachers";
         private const string GROUP_TIMETABLE_TEMPLATE = "groups/{0}";
         private const string TEACHER_TIMETABLE_TEMPLATE = "teachers/{0}";
 
