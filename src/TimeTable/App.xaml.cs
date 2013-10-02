@@ -168,21 +168,19 @@ namespace TimeTable
 
                 // Set the properties. 
                 SetProperty(UpdateTileData, "Title", "");
-                SetProperty(UpdateTileData, "SmallBackgroundImage", new Uri("SmallTile.png", UriKind.Relative));
-                SetProperty(UpdateTileData, "BackgroundImage", new Uri("MediumTile.png", UriKind.Relative));
-                SetProperty(UpdateTileData, "WideBackgroundImage", new Uri("WideTile.png", UriKind.Relative));
+                SetProperty(UpdateTileData, "SmallBackgroundImage", new Uri("Images/SmallTile.png", UriKind.Relative));
+                SetProperty(UpdateTileData, "BackgroundImage", new Uri("Images/MediumTile.png", UriKind.Relative));
+                SetProperty(UpdateTileData, "WideBackgroundImage", new Uri("Images/WideTile.png", UriKind.Relative));
 
                 // Invoke the new version of ShellTile.Update.
                 shellTileType.GetMethod("Update").Invoke(tileToUpdate, new Object[] { UpdateTileData });
-
-
             }
             else
             {
                 StandardTileData newTile = new StandardTileData
                 {
                     Title = "",
-                    BackgroundImage = new Uri("MediumTile.png", UriKind.Relative),
+                    BackgroundImage = new Uri("Images/MediumTile.png", UriKind.Relative),
                 };
                 appTile.Update(newTile);
             }
