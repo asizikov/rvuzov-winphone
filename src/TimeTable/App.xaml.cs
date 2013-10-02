@@ -5,6 +5,8 @@ using Microsoft.Phone.Shell;
 using TimeTable.IoC;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
+using System;
+using System.Linq;
 
 namespace TimeTable
 {
