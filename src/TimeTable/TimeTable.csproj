@@ -54,9 +54,6 @@
     <Reference Include="Funq">
       <HintPath>..\Lib\Funq.dll</HintPath>
     </Reference>
-    <Reference Include="Mangopollo">
-      <HintPath>packages\Mangopollo.1.3\lib\sl4-windowsphone71\Mangopollo.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
@@ -110,6 +107,7 @@
     </Compile>
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\TilesSetter.cs" />
     <Compile Include="TimeTableUriMapper.cs" />
     <Compile Include="Utils\BindingUtility.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

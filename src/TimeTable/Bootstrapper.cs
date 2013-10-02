@@ -20,6 +20,8 @@ namespace TimeTable
             SmartDispatcher.Initialize();
             RegisterDependencies(rootFrame);
             rootFrame.UriMapper = new TimeTableUriMapper(ContainerInstance.Current.Resolve<BaseApplicationSettings>());
+
+            TilesSetter.SetTiles();
         }
 
 

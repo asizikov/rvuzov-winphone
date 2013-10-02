@@ -148,48 +148,6 @@ namespace TimeTable
 
             // Ensure we don't initialize again
             phoneApplicationInitialized = true;
-
-            // Setting new tiles
-            ShellTile appTile = ShellTile.ActiveTiles.First();
-            bool isTargetedVersion = Environment.OSVersion.Version >= new Version(7, 10, 8858);
-            if (isTargetedVersion)
-            {
-                // Get the new FlipTileData type.
-                Type flipTileDataType = Type.GetType("Microsoft.Phone.Shell.FlipTileData, Microsoft.Phone");
-
-                // Get the ShellTile type so we can call the new version of "Update" that takes the new Tile templates.
-                Type shellTileType = Type.GetType("Microsoft.Phone.Shell.ShellTile, Microsoft.Phone");
-
-                // Loop through any existing Tiles that are pinned to Start.
-                var tileToUpdate = ShellTile.ActiveTiles.First();
-
-                // Get the constructor for the new FlipTileData class and assign it to our variable to hold the Tile properties.
-                var UpdateTileData = flipTileDataType.GetConstructor(new Type[] { }).Invoke(null);
-
-                // Set the properties. 
-                SetProperty(UpdateTileData, "Title", "");
-                SetProperty(UpdateTileData, "SmallBackgroundImage", new Uri("Images/SmallTile.png", UriKind.Relative));
-                SetProperty(UpdateTileData, "BackgroundImage", new Uri("Images/MediumTile.png", UriKind.Relative));
-                SetProperty(UpdateTileData, "WideBackgroundImage", new Uri("Images/WideTile.png", UriKind.Relative));
-
-                // Invoke the new version of ShellTile.Update.
-                shellTileType.GetMethod("Update").Invoke(tileToUpdate, new Object[] { UpdateTileData });
-            }
-            else
-            {
-                StandardTileData newTile = new StandardTileData
-                {
-                    Title = "",
-                    BackgroundImage = new Uri("Images/MediumTile.png", UriKind.Relative),
-                };
-                appTile.Update(newTile);
-            }
-        }
-
-        private static void SetProperty(object instance, string name, object value)
-        {
-            var setMethod = instance.GetType().GetProperty(name).GetSetMethod();
-            setMethod.Invoke(instance, new object[] { value });
         }
 
         // Do not add any additional code to this method
