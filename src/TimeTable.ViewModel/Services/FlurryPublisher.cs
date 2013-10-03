@@ -41,7 +41,7 @@ namespace TimeTable.ViewModel.Services
                     //// ReSharper disable ConditionIsAlwaysTrueOrFalse
                     //   This is not always true, because it can be set from other thread
                     if (!IsSessionActive)
-                    //// ReSharper restore ConditionIsAlwaysTrueOrFalse
+                        //// ReSharper restore ConditionIsAlwaysTrueOrFalse
                     {
                         _eventQueue.Add(new FlurryEventWrapper(exception));
                         return;
@@ -60,7 +60,7 @@ namespace TimeTable.ViewModel.Services
                     //// ReSharper disable ConditionIsAlwaysTrueOrFalse
                     //   This is not always true, because it can be set from other thread
                     if (!IsSessionActive)
-                    //// ReSharper restore ConditionIsAlwaysTrueOrFalse
+                        //// ReSharper restore ConditionIsAlwaysTrueOrFalse
                     {
                         _eventQueue.Add(new FlurryEventWrapper(eventName, parameters));
                         return;
@@ -115,18 +115,18 @@ namespace TimeTable.ViewModel.Services
 
         public void PublishFacultySelected([NotNull] Faculty selectedFaculty, [NotNull] University university)
         {
-             if (selectedFaculty == null) throw new ArgumentNullException("selectedFaculty");
-             if (university == null) throw new ArgumentNullException("university");
+            if (selectedFaculty == null) throw new ArgumentNullException("selectedFaculty");
+            if (university == null) throw new ArgumentNullException("university");
 
-             var parameters = new[]
-             {
-                 new EventParameter("University name", university.Name),
-                 new EventParameter("University shortname", university.ShortName),
-                 new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
-                 new EventParameter("Faculty name", selectedFaculty.Title),
-                 new EventParameter("Faculty id", selectedFaculty.Id.ToString(CultureInfo.InvariantCulture))
-             };
-             PublishEvent(FlurryEvents.EVENT_CHOOSE_FACULTY, parameters);
+            var parameters = new[]
+            {
+                new EventParameter("University name", university.Name),
+                new EventParameter("University shortname", university.ShortName),
+                new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("Faculty name", selectedFaculty.Title),
+                new EventParameter("Faculty id", selectedFaculty.Id.ToString(CultureInfo.InvariantCulture))
+            };
+            PublishEvent(FlurryEvents.EVENT_CHOOSE_FACULTY, parameters);
         }
 
         public void PublishGroupSelected([NotNull] Group selectedGroup, [NotNull] University university)
@@ -156,7 +156,7 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("Object Id", id),
                 new EventParameter("Mode", "teacher")
             };
-            
+
             PublishEvent(FlurryEvents.EVENT_CONTEXT_TEACHER_SCHEDULE, parameters);
         }
     }
