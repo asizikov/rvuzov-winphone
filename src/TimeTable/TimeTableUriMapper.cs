@@ -28,9 +28,13 @@ namespace TimeTable
             {
                 updatedUri = string.Format("{0}?id={1}&is_teacher={2}&university_id={3}", Pages.Lessons, _applicationSettings.GroupId, false, _applicationSettings.UniversityId);
             }
+            else if (_applicationSettings.FacultyId != null)
+            {
+                updatedUri = string.Format("{0}?id={1}&university_id={2}", Pages.Groups, _applicationSettings.FacultyId, _applicationSettings.UniversityId);
+            }
             else if (_applicationSettings.UniversityId != null)
             {
-                updatedUri = string.Format("{0}?id={1}", Pages.Groups, _applicationSettings.UniversityId);
+                updatedUri = string.Format("{0}?id={1}", Pages.Faculties, _applicationSettings.UniversityId);
             }
             else if (_applicationSettings.Role != null)
             {

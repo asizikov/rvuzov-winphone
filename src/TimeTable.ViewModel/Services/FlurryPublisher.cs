@@ -113,6 +113,22 @@ namespace TimeTable.ViewModel.Services
             PublishEvent(FlurryEvents.EVENT_CHOOSE_UNIVERSITY, parameters);
         }
 
+        public void PublishFacultySelected([NotNull] Faculty selectedFaculty, [NotNull] University university)
+        {
+             if (selectedFaculty == null) throw new ArgumentNullException("selectedFaculty");
+             if (university == null) throw new ArgumentNullException("university");
+
+             var parameters = new[]
+             {
+                 new EventParameter("University name", university.Name),
+                 new EventParameter("University shortname", university.ShortName),
+                 new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
+                 new EventParameter("Faculty name", selectedFaculty.Title),
+                 new EventParameter("Faculty id", selectedFaculty.Id.ToString(CultureInfo.InvariantCulture))
+             };
+             PublishEvent(FlurryEvents.EVENT_CHOOSE_FACULTY, parameters);
+        }
+
         public void PublishGroupSelected([NotNull] Group selectedGroup, [NotNull] University university)
         {
             if (selectedGroup == null) throw new ArgumentNullException("selectedGroup");

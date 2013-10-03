@@ -72,7 +72,7 @@ namespace TimeTable.ViewModel
                     _dataProvider.GetUniversityByIdAsync(_universityId)
                         .Subscribe(university =>
                         {
-                            //_flurryPublisher.PublishGroupSelected(_selectedFaculty, university);
+                            _flurryPublisher.PublishFacultySelected(_selectedFaculty, university);
                             NavigateToGroupsPage(_selectedFaculty);
                         });
                 }

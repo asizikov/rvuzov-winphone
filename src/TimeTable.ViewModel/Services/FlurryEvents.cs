@@ -3,6 +3,7 @@
     public static class FlurryEvents
     {
         public static readonly string EVENT_CHOOSE_UNIVERSITY = "CHOOSE_UNIVERSITY";
+        public static readonly string EVENT_CHOOSE_FACULTY = "CHOOSE_FACULTY";
         public static readonly string EVENT_CHOOSE_TEACHER = "CHOOSE_TEACHER";
         public static readonly string EVENT_CHOOSE_GROUP = "CHOOSE_GROUP";
         public static readonly string EVENT_MENU_FAVORITE_ADD = "MENU_FAVORITE_ADD";
