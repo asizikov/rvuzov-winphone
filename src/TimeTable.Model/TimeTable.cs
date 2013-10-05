@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
-    public class TimeTable : IUpdatableModel
+    public sealed class TimeTable
     {
-        [JsonProperty("last_updated")]
-        public int LastUpdated { get; set; }
-        [JsonProperty("parity_countdown")]
-        public string ParityCountdown { get; set; }
-        [JsonProperty("days")]
-        public List<Day> Days { get; set; }
+        [JsonProperty("success")]
+        public bool Success { get; set; }
+
+        [JsonProperty("data")]
+        public TimeTableData Data { get; set; }
     }
 }

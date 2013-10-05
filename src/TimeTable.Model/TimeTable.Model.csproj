@@ -62,6 +62,7 @@
     <Compile Include="IUpdatableModel.cs" />
     <Compile Include="Lesson.cs" />
     <Compile Include="Teacher.cs" />
+    <Compile Include="TimeTableData.cs" />
     <Compile Include="Updates.cs" />
     <Compile Include="Universities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

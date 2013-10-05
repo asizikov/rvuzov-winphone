@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace TimeTable.Model
 {
     [UsedImplicitly]
-    public class Day
+    public sealed class Day
     {
         [JsonProperty("lessons")]
         public List<Lesson> Lessons { get; set; }

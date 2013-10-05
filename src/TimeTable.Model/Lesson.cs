@@ -6,7 +6,7 @@ namespace TimeTable.Model
 {
 
     [UsedImplicitly]
-    public class Lesson
+    public sealed class Lesson
     {
         [JsonProperty("teachers")]
         public List<Teacher> Teachers { get; set; }
