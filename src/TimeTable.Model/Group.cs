@@ -5,10 +5,10 @@ namespace TimeTable.Model
 {
     public sealed class Group
     {
-        [JsonProperty("group_id")]
+        [JsonProperty("id")]
         public int Id { get; set; }
 
-        [JsonProperty("group_name")]
+        [JsonProperty("title")]
         public string GroupName { get; set; }
 
         [CanBeNull,JsonProperty("speciality")]

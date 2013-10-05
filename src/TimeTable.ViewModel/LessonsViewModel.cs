@@ -53,7 +53,6 @@ namespace TimeTable.ViewModel
                 _university = university;
                 LoadLessons();
             });
-
         }
 
         private void LoadLessons()
@@ -75,9 +74,12 @@ namespace TimeTable.ViewModel
         private void FormatTimeTable(Model.TimeTable timeTable)
         {
             IsLoading = false;
-            CurrentWeek = new WeekViewModel(timeTable.Data.Days, _commandFactory, WeekType.Current, _university);
-            NextWeek = new WeekViewModel(timeTable.Data.Days, _commandFactory, WeekType.Next, _university);
-            PreviousWeek = new WeekViewModel(timeTable.Data.Days, _commandFactory, WeekType.Previous, _university);
+            CurrentWeek = new WeekViewModel(timeTable.Data.Days, timeTable.Data.ParityCountdown, _commandFactory,
+                WeekType.Current, _university);
+            NextWeek = new WeekViewModel(timeTable.Data.Days, timeTable.Data.ParityCountdown, _commandFactory,
+                WeekType.Next, _university);
+            PreviousWeek = new WeekViewModel(timeTable.Data.Days, timeTable.Data.ParityCountdown, _commandFactory,
+                WeekType.Previous, _university);
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
