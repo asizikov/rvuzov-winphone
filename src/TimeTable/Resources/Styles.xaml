@@ -178,19 +178,20 @@
                                 <TextBlock Text="-" Margin="0" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}" />
                                 <TextBlock Text="{Binding Lesson.TimeEnd}" Margin="0 " Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}"/>
                             </StackPanel>
-                            <TextBlock Grid.Row="1" Margin="12,0,0,0" Text="лекция" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
+                            <TextBlock Grid.Row="1" Margin="12,0,0,0" Text="{Binding Lesson.TypeName}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
                             <TextBlock Grid.Row="2" Text="{Binding Lesson.Subject}" Foreground="{StaticResource TimeTableBackgorundColorBrush}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"/>
-                            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="12,0,12,12">
+                            <StackPanel Grid.Row="4" Orientation="Horizontal" 
+                                        Visibility="{Binding Auditory, Converter={StaticResource StringContentToVisibilityConverter}}"
+                                        Margin="12,0,12,12">
                                 <Image Margin="0,0,12,0" CacheMode="BitmapCache" Source="../Resources/Images/Lesson/target.png"/>
-                                <TextBlock Text="{Binding Auditory}" 
-                                           Visibility="{Binding Auditory, Converter={StaticResource NullToVisibilityConverter}}"
+                                <TextBlock Text="{Binding Auditory}"  
                                            Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
                             </StackPanel>
-                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="12,0,12,12" Visibility="{Binding Teachers, Converter={StaticResource NullToVisibilityConverter}}">
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="12,0,12,12" Visibility="{Binding Teachers, Converter={StaticResource StringContentToVisibilityConverter}}">
                                 <Image Margin="0,0,12,0" CacheMode="BitmapCache" Source="../Resources/Images/Lesson/teacher.png"/>
                                 <TextBlock Text="{Binding Teachers}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
                             </StackPanel>
-                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="12,0,12,12" Visibility="{Binding Groups, Converter={StaticResource NullToVisibilityConverter}}">
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="12,0,12,12" Visibility="{Binding Groups, Converter={StaticResource StringContentToVisibilityConverter}}">
                                 <Image Margin="0,0,12,0" CacheMode="BitmapCache" Source="../Resources/Images/Lesson/students.png"/>
                                 <TextBlock Text="{Binding Groups}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap"/>
                             </StackPanel>

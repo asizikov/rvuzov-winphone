@@ -15,6 +15,7 @@
                     <converters:ReversedBoolConverter x:Key="ReversedBoolConverter"/>
                     <converters:WeekNumberToTextConverter x:Key="WeekNumberToTextConverter"/>
                     <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+                    <converters:StringContentToVisibilityConverter x:Key="StringContentToVisibilityConverter"/>
                     <local:LocalizedStrings xmlns:local="clr-namespace:TimeTable.Resources" x:Key="LocalizedStrings" />
                 </ResourceDictionary>
                 <ResourceDictionary Source="Resources/Styles.xaml"/>

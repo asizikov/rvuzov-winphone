@@ -13,6 +13,8 @@ namespace TimeTable.ViewModel
         private readonly Lesson _lesson;
         private readonly ICommandFactory _commandFactory;
         private readonly University _university;
+        private string _auditoriesList;
+        private string _teachersList;
 
         public TimeTableItemViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory,
             [NotNull] University university)
@@ -35,7 +37,7 @@ namespace TimeTable.ViewModel
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public string Auditory
         {
-            get { return _lesson.Auditory; }
+            get { return FormatAuditories(); }
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -50,6 +52,7 @@ namespace TimeTable.ViewModel
             get { return FormatGroupsList(); }
         }
 
+        [CanBeNull]
         private string FormatGroupsList()
         {
             if (_lesson.Groups == null || _lesson.Groups.Count == 0)
@@ -69,12 +72,19 @@ namespace TimeTable.ViewModel
             return sb.ToString();
         }
 
+        [CanBeNull]
         private string FormatTeachersList()
         {
+            if (_teachersList != null)
+            {
+                return _teachersList;
+            }
+
             if (_lesson.Teachers == null || _lesson.Teachers.Count == 0)
             {
                 return null;
             }
+
             var sb = new StringBuilder();
 
             for (var index = 0; index < _lesson.Teachers.Count; index++)
@@ -85,7 +95,35 @@ namespace TimeTable.ViewModel
                     sb.Append(",");
                 }
             }
-            return sb.ToString();
+            _teachersList = sb.ToString();
+            return _teachersList;
+        }
+        [CanBeNull]
+        private string FormatAuditories()
+        {
+            if (_auditoriesList != null)
+            {
+                return _auditoriesList;
+            }
+            if (_lesson.Auditories ==null || !_lesson.Auditories.Any())
+            {
+                return null;
+            }
+
+            var sb = new StringBuilder();
+            for (var index = 0; index < _lesson.Auditories.Count; index++)
+            {
+                if (!string.IsNullOrEmpty(_lesson.Auditories[index].Name))
+                {
+                    sb.Append(_lesson.Auditories[index].Name);
+                }
+                if (index != _lesson.Auditories.Count - 1)
+                {
+                    sb.Append(",");
+                }
+            }
+            _auditoriesList = sb.ToString();
+            return _auditoriesList;
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -93,22 +131,20 @@ namespace TimeTable.ViewModel
         {
             get
             {
-                yield return new AbstractMenuItem 
+                yield return new AbstractMenuItem
                 {
                     Command = null,
                     Header = "аудитория"
-
                 };
                 if (_lesson.Teachers != null && _lesson.Teachers.Any())
                 {
                     yield return new AbstractMenuItem
                     {
                         CommandParameter = _lesson.Teachers.First().Id,
-                        Command = _commandFactory.GetShowTeachersTimeTableCommand(_university,_lesson.Teachers.First()),
+                        Command = _commandFactory.GetShowTeachersTimeTableCommand(_university, _lesson.Teachers.First()),
                         Header = "расписание преподавателя"
                     };
                 }
-                
             }
         }
     }

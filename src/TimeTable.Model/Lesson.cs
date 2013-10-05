@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace TimeTable.Model
 {
 
-    [UsedImplicitly]
+    [UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
     public sealed class Lesson
     {
         [JsonProperty("teachers")]
@@ -13,9 +13,6 @@ namespace TimeTable.Model
 
         [JsonProperty("parity")]
         public int Parity { get; set; }
-
-        [JsonProperty("auditory")]
-        public string Auditory { get; set; }
 
         [JsonProperty("time_start")]
         public string TimeStart { get; set; }
@@ -51,6 +48,7 @@ namespace TimeTable.Model
         public List<object> Dates { get; set; }
     }
 
+    [UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
     public sealed class Auditory
     {
         [JsonProperty("auditory_id")]
