@@ -172,7 +172,6 @@
                     <DataTemplate>
                         <Grid Background="White"
                               Width="432"
-
                               Margin="0,0,0,12">
                             <toolkit:ContextMenuService.ContextMenu>
                                 <controls:CommandReadyContextMenu

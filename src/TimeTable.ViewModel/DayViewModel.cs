@@ -27,7 +27,9 @@ namespace TimeTable.ViewModel
             {
                 Lessons =
                     new ObservableCollection<TimeTableItemViewModel>(
-                        _day.Lessons.Where(IsVisibleInCurrentWeek).Select(lesson => new TimeTableItemViewModel(lesson, commandFactory, university)));
+                        _day.Lessons.Where(IsVisibleInCurrentWeek)
+                        .OrderBy(lesson => lesson.TimeStart)
+                        .Select(lesson => new TimeTableItemViewModel(lesson, commandFactory, university)));
             }
             else
             {
