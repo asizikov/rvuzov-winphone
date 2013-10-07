@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
@@ -12,18 +13,18 @@ namespace TimeTable.ViewModel
         private readonly WeekType _type;
         private ObservableCollection<DayViewModel> _days;
 
-        public WeekViewModel(IEnumerable<Day> days, int weekNumber , ICommandFactory commandFactory, WeekType type, University university)
+        public WeekViewModel(IEnumerable<Day> days, int weekNumber, ICommandFactory commandFactory, WeekType type,
+            University university)
         {
+            var parity = weekNumber%2;
             _type = type;
-            WeekNumber = weekNumber; 
-            Days = new ObservableCollection<DayViewModel>(days.ToViewModelList(commandFactory,_type, university));
+            WeekNumber = weekNumber;
+
+            Days =
+                new ObservableCollection<DayViewModel>(days.ToViewModelList(commandFactory, _type, parity, university));
         }
 
-
-        public int WeekNumber
-        {
-            get; private set;
-        }
+        public int WeekNumber { get; private set; }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public ObservableCollection<DayViewModel> Days
@@ -36,6 +37,5 @@ namespace TimeTable.ViewModel
                 OnPropertyChanged("Days");
             }
         }
-
     }
 }

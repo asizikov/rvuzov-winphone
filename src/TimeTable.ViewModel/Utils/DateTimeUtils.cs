@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace TimeTable.ViewModel.Utils
 {
@@ -25,6 +26,15 @@ namespace TimeTable.ViewModel.Utils
         public static DateTime DateTimeFromUnixTimestampSeconds(long seconds)
         {
             return UnixEpoch.AddSeconds(seconds);
+        }
+
+        public static int GetWeekNumber(DateTime date)
+        {
+            var currentCulture = CultureInfo.InvariantCulture;
+            return currentCulture.Calendar.GetWeekOfYear(
+                date,
+                currentCulture.DateTimeFormat.CalendarWeekRule,
+                currentCulture.DateTimeFormat.FirstDayOfWeek);
         }
     }
 }

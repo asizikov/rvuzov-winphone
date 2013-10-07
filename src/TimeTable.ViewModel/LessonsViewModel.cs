@@ -75,30 +75,29 @@ namespace TimeTable.ViewModel
 
         private void FormatTimeTable(Model.TimeTable timeTable)
         {
-            IsLoading = false;
             var weekNumber = GetWeekNumber(timeTable.Data.ParityCountdown);
+
             CurrentWeek = new WeekViewModel(timeTable.Data.Days, weekNumber, _commandFactory,
                 WeekType.Current, _university);
             NextWeek = new WeekViewModel(timeTable.Data.Days, weekNumber + 1, _commandFactory,
                 WeekType.Next, _university);
             PreviousWeek = new WeekViewModel(timeTable.Data.Days, weekNumber - 1, _commandFactory,
                 WeekType.Previous, _university);
+            IsLoading = false;
         }
 
         private static int GetWeekNumber(long parityCountdown)
         {
             var parityCountDown = DateTimeUtils.DateTimeFromUnixTimestampSeconds(parityCountdown);
-            var currentCulture = CultureInfo.InvariantCulture;
-            var weekNo = currentCulture.Calendar.GetWeekOfYear(
-                DateTime.UtcNow,
-                currentCulture.DateTimeFormat.CalendarWeekRule,
-                currentCulture.DateTimeFormat.FirstDayOfWeek);
 
-            var parityWeekNo = currentCulture.Calendar.GetWeekOfYear(
-                parityCountDown,
-                currentCulture.DateTimeFormat.CalendarWeekRule,
-                currentCulture.DateTimeFormat.FirstDayOfWeek);
-            return weekNo - parityWeekNo + 1;
+            var currentWeekNumber = DateTimeUtils.GetWeekNumber(DateTime.UtcNow);
+            var firstWeekNumber = DateTimeUtils.GetWeekNumber(parityCountDown);
+
+            if (currentWeekNumber > firstWeekNumber)
+            {
+                return currentWeekNumber - firstWeekNumber + 1;
+            }
+            return currentWeekNumber + (53 - firstWeekNumber) + 1; //todo: fixme
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
