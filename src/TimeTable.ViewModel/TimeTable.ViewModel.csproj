@@ -70,6 +70,7 @@
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="Commands\AbstractMenuItem.cs" />
     <Compile Include="Commands\ICommandFactory.cs" />
+    <Compile Include="Commands\ITitledCommand.cs" />
     <Compile Include="Commands\ShowTeachersTimeTableCommand.cs" />
     <Compile Include="Commands\SimpleCommand.cs" />
     <Compile Include="FacultiesPageViewModel.cs" />
@@ -125,9 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
