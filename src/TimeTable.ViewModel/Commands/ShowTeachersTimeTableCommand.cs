@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.Commands
 {
-
-    public interface ITitledCommand : ICommand
-    {
-        string Title { get; }
-    }
-
     public class ShowTeachersTimeTableCommand : ITitledCommand
     {
         private readonly INavigationService _navigationService;
