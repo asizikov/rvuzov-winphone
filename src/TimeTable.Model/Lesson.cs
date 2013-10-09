@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
-
     [UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
     public sealed class Lesson
     {
@@ -33,7 +32,7 @@ namespace TimeTable.Model
         public string Subject { get; set; }
 
         [JsonProperty("groups")]
-        public List<Group> Groups { get; set; }
+        public List<LessonGroup> Groups { get; set; }
 
         [JsonProperty("auditories")]
         public List<Auditory> Auditories { get; set; }
@@ -46,18 +45,5 @@ namespace TimeTable.Model
 
         [JsonProperty("dates")]
         public List<object> Dates { get; set; }
-    }
-
-    [UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
-    public sealed class Auditory
-    {
-        [JsonProperty("auditory_id")]
-        public int Id { get; set; }
-
-        [CanBeNull, JsonProperty("auditory_name")]
-        public string Name { get; set; }
-
-        [CanBeNull, JsonProperty("auditory_address")]
-        public string Address { get; set; }
     }
 }

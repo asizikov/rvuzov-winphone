@@ -55,7 +55,7 @@ namespace TimeTable.ViewModel
         [CanBeNull]
         private string FormatGroupsList()
         {
-            if (_lesson.Groups == null || _lesson.Groups.Count == 0)
+            if (_lesson.Groups == null || !_lesson.Groups.Any())
             {
                 return null;
             }
@@ -80,7 +80,7 @@ namespace TimeTable.ViewModel
                 return _teachersList;
             }
 
-            if (_lesson.Teachers == null || _lesson.Teachers.Count == 0)
+            if (_lesson.Teachers == null || !_lesson.Teachers.Any())
             {
                 return null;
             }
@@ -113,9 +113,10 @@ namespace TimeTable.ViewModel
             var sb = new StringBuilder();
             for (var index = 0; index < _lesson.Auditories.Count; index++)
             {
-                if (!string.IsNullOrEmpty(_lesson.Auditories[index].Name))
+                var name = _lesson.Auditories[index].Name;
+                if (!string.IsNullOrEmpty(name))
                 {
-                    sb.Append(_lesson.Auditories[index].Name);
+                    sb.Append(name);
                 }
                 if (index != _lesson.Auditories.Count - 1)
                 {
