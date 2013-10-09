@@ -135,7 +135,7 @@ namespace TimeTable.ViewModel
                 yield return new AbstractMenuItem
                 {
                     Command = null,
-                    Header = "аудитория"
+                    Header = "аудитория" //todo: extract strings
                 };
                 if (_lesson.Teachers != null && _lesson.Teachers.Any())
                 {
