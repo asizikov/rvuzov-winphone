@@ -5,6 +5,6 @@ namespace TimeTable.ViewModel.Commands
 {
     public interface ICommandFactory
     {
-        ICommand GetShowTeachersTimeTableCommand(University university, Teacher teacher);
+        ICommand GetShowTeachersTimeTableCommand(University university, LessonTeacher teacher);
     }
 }

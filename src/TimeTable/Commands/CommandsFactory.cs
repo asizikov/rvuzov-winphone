@@ -7,7 +7,7 @@ using TimeTable.ViewModel.Services;
 
 namespace TimeTable.Commands
 {
-    class CommandsFactory : ICommandFactory
+    public sealed class CommandsFactory : ICommandFactory
     {
         private readonly INavigationService _navigationService;
         private readonly FlurryPublisher _flurryPublisher;
@@ -20,7 +20,7 @@ namespace TimeTable.Commands
             _flurryPublisher = flurryPublisher;
         }
 
-        public ICommand GetShowTeachersTimeTableCommand(University university, Teacher teacher)
+        public ICommand GetShowTeachersTimeTableCommand(University university, LessonTeacher teacher)
         {
             return new ShowTeachersTimeTableCommand(_navigationService, _flurryPublisher, university, teacher);
         }

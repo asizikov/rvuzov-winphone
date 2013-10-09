@@ -13,11 +13,11 @@ namespace TimeTable.ViewModel.Commands
         private readonly INavigationService _navigationService;
         private readonly FlurryPublisher _flurryPublisher;
         private readonly University _university;
-        private readonly Teacher _teacher;
+        private readonly LessonTeacher _teacher;
 
 
         public ShowTeachersTimeTableCommand([NotNull] INavigationService navigationService,
-            [NotNull] FlurryPublisher flurryPublisher, [NotNull] University university, [NotNull] Teacher teacher)
+            [NotNull] FlurryPublisher flurryPublisher, [NotNull] University university, [NotNull] LessonTeacher teacher)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");

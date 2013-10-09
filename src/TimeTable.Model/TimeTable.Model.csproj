@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Faculty.cs" />
+    <Compile Include="LessonTeacher.cs" />
     <Compile Include="Teachers.cs" />
     <Compile Include="ListGroup.cs" />
     <Compile Include="Day.cs" />
