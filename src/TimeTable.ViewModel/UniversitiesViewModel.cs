@@ -48,6 +48,7 @@ namespace TimeTable.ViewModel
             _dataProvider.GetUniversitesAsync().Subscribe(
                 result =>
                 {
+                    result.Data = result.Data.OrderBy(u => u.ShortName).ToList();
                     _storedRequest = result;
                     UniversitesList = FormatResult(result.Data, _resultGrouper);
                     IsLoading = false;

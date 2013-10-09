@@ -116,6 +116,7 @@ namespace TimeTable.ViewModel
             _dataProvider.GetFacultyGroupsAsync(_facultyId).Subscribe(
                 result =>
                 {
+                    result.GroupsList = result.GroupsList.OrderBy(g => g.GroupName).ToList();
                     _storedGroupsRequest = result;
                     GroupsList = FormatResult(result.GroupsList, _groupFunc);
                     IsLoading = false;
