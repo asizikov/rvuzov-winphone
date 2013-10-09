@@ -102,6 +102,10 @@ namespace TimeTable.ViewModel
                 Parameter = NavigationParameterName.Id,
                 Value = id.ToString(CultureInfo.InvariantCulture)
             };
+            if (!_applicationSettings.IsRegistrationCompleted)
+            {
+                _applicationSettings.UniversityId = id;
+            }
             _navigation.GoToPage(Pages.Faculties, new List<NavigationParameter> {navigationParameter});
         }
 

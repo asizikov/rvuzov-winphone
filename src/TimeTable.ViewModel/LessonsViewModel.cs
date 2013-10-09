@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Model;
@@ -37,12 +36,6 @@ namespace TimeTable.ViewModel
             _dataProvider = dataProvider;
             _isTeacher = isTeacher;
             _group = new Group {GroupName = "", Id = id};
-
-            if (_applicationSettings.GroupId != null)
-            {
-                _applicationSettings.GroupId = _group.Id;
-            }
-
 
             Init(universityId);
         }

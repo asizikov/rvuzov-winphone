@@ -43,9 +43,6 @@ namespace TimeTable.ViewModel
             _flurryPublisher = flurryPublisher;
             _universityId = universityId;
             _facultyId = facultyId;
-
-            _applicationSettings.UniversityId = _universityId;
-
             _groupFunc = group => group.GroupName[0];
             _teachersGroupFunc = teacher => teacher.Name[0];
 
@@ -159,8 +156,11 @@ namespace TimeTable.ViewModel
 
         private void NavigateToLessonsPage(Group group)
         {
-            _applicationSettings.GroupId = group.Id;
-            _applicationSettings.GroupName = group.GroupName;
+            if (!_applicationSettings.IsRegistrationCompleted)
+            {
+                _applicationSettings.GroupId = group.Id;
+                _applicationSettings.GroupName = group.GroupName;
+            }
             _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group));
         }
 
