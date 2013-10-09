@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
@@ -139,11 +140,12 @@ namespace TimeTable.ViewModel
                 };
                 if (_lesson.Teachers != null && _lesson.Teachers.Any())
                 {
+                    var  showTeachersTimeTableCommand = _commandFactory.GetShowTeachersTimeTableCommand(_university, _lesson.Teachers.First());
                     yield return new AbstractMenuItem
                     {
                         CommandParameter = _lesson.Teachers.First().Id,
-                        Command = _commandFactory.GetShowTeachersTimeTableCommand(_university, _lesson.Teachers.First()),
-                        Header = "расписание преподавателя"
+                        Command = showTeachersTimeTableCommand,
+                        Header = showTeachersTimeTableCommand.Title
                     };
                 }
             }

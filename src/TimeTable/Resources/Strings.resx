@@ -120,6 +120,9 @@
   <data name="AppName" xml:space="preserve">
     <value>расписание вузов</value>
   </data>
+  <data name="Auditory" xml:space="preserve">
+    <value>аудитория</value>
+  </data>
   <data name="Group" xml:space="preserve">
     <value>Группа:</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="Teachers" xml:space="preserve">
     <value>преподаватели</value>
+  </data>
+  <data name="TeachersTimeTable" xml:space="preserve">
+    <value>расписание преподавателя</value>
   </data>
   <data name="WeekNumber" xml:space="preserve">
     <value>{0} неделя</value>

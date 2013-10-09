@@ -70,6 +70,15 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to аудитория.
+        /// </summary>
+        public static string Auditory {
+            get {
+                return ResourceManager.GetString("Auditory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Группа:.
         /// </summary>
         public static string Group {
@@ -138,6 +147,15 @@ namespace TimeTable.Resources {
         public static string Teachers {
             get {
                 return ResourceManager.GetString("Teachers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to расписание преподавателя.
+        /// </summary>
+        public static string TeachersTimeTable {
+            get {
+                return ResourceManager.GetString("TeachersTimeTable", resourceCulture);
             }
         }
         

@@ -11,18 +11,23 @@ namespace TimeTable.Commands
     {
         private readonly INavigationService _navigationService;
         private readonly FlurryPublisher _flurryPublisher;
+        private readonly IUiStringsProviders _stringsProviders;
 
-        public CommandsFactory([NotNull] INavigationService navigationService, [NotNull] FlurryPublisher flurryPublisher)
+        public CommandsFactory([NotNull] INavigationService navigationService, [NotNull] FlurryPublisher flurryPublisher,
+            [NotNull] IUiStringsProviders stringsProviders)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
+            if (stringsProviders == null) throw new ArgumentNullException("stringsProviders");
             _navigationService = navigationService;
             _flurryPublisher = flurryPublisher;
+            _stringsProviders = stringsProviders;
         }
 
-        public ICommand GetShowTeachersTimeTableCommand(University university, LessonTeacher teacher)
+        public ITitledCommand GetShowTeachersTimeTableCommand(University university, LessonTeacher teacher)
         {
-            return new ShowTeachersTimeTableCommand(_navigationService, _flurryPublisher, university, teacher);
+            return new ShowTeachersTimeTableCommand(_navigationService, _flurryPublisher, _stringsProviders, university,
+                teacher);
         }
     }
 }

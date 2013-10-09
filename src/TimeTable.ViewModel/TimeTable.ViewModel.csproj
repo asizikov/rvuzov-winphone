@@ -91,6 +91,7 @@
     <Compile Include="Restful\UniversitiesGroupsRequest.cs" />
     <Compile Include="Restful\UniversityFacultiesRequest.cs" />
     <Compile Include="Restful\UniversityTeachersRequest.cs" />
+    <Compile Include="Services\IUiStringsProviders.cs" />
     <Compile Include="TimeTableItemViewModel.cs" />
     <Compile Include="SearchViewModel.cs" />
     <Compile Include="Services\BaseApplicationSettings.cs" />
@@ -124,6 +125,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
