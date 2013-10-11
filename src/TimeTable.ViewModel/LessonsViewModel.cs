@@ -143,12 +143,12 @@ namespace TimeTable.ViewModel
 
         private void InitCommands()
         {
-            GoToSettingsCommand = new SimpleCommand(() => NavigateToSettingsPage());
+            GoToSettingsCommand = new SimpleCommand(NavigateToSettingsPage);
         }
 
         private void NavigateToSettingsPage()
         {
-            _flurryPublisher.PublishActionbarScheduleSettings(_university,  _isTeacher, _group.GroupName, _group.Id);
+            _flurryPublisher.PublishActionbarScheduleSettings(_university, _isTeacher, _group.GroupName, _group.Id);
             _navigation.GoToPage(Pages.SettingsPage);
         }
     }
