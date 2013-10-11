@@ -144,6 +144,9 @@
   <data name="SelectUniversity" xml:space="preserve">
     <value>ВУЗы</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
   <data name="Teachers" xml:space="preserve">
     <value>преподаватели</value>
   </data>
