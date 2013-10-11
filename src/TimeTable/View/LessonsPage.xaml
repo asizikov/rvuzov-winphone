@@ -58,7 +58,7 @@
         <bindableApplicationBar:BindableApplicationBar
             BackgroundColor="{StaticResource TimeTableHilighthColor}">
             <bindableApplicationBar:BindableApplicationBarButton
-                Text="{Binding  Strings.Search, Source={StaticResource LocalizedStrings}}"
+                Text="{Binding  Strings.Settings, Source={StaticResource LocalizedStrings}}"
                 Command="{Binding GoToSettingsCommand}"
                 IconUri="/Resources/Icons/appbar.cog.png" />
         </bindableApplicationBar:BindableApplicationBar>
