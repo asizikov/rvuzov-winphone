@@ -187,6 +187,11 @@ namespace TimeTable.ViewModel
                 {
                     Parameter = NavigationParameterName.UniversityId,
                     Value = _universityId.ToString(CultureInfo.InvariantCulture)
+                },
+                new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.FacultyId,
+                    Value = _facultyId.ToString(CultureInfo.InvariantCulture)
                 }
             };
         }

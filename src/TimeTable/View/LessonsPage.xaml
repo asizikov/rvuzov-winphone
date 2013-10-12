@@ -61,8 +61,12 @@
                 Text="{Binding  Strings.Settings, Source={StaticResource LocalizedStrings}}"
                 Command="{Binding GoToSettingsCommand}"
                 IconUri="/Resources/Icons/appbar.cog.png" />
+            <bindableApplicationBar:BindableApplicationBarButton
+                Text="{Binding  Strings.ToFavorites, Source={StaticResource LocalizedStrings}}"
+                Command="{Binding AddToFavoritesCommand}"
+                IconUri="/Resources/Icons/favs.addto.png" />
             <bindableApplicationBar:BindableApplicationBar.MenuItems>
-                <bindableApplicationBar:BindableApplicationBarMenuItem
+                    <bindableApplicationBar:BindableApplicationBarMenuItem
                     Text="{Binding Strings.Favorite , Source={StaticResource LocalizedStrings}}"
                     Command="{Binding GoToFavoritesListCommand}"
                     />

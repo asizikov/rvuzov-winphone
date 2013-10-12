@@ -178,6 +178,15 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to в избранное.
+        /// </summary>
+        public static string ToFavorites {
+            get {
+                return ResourceManager.GetString("ToFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} неделя.
         /// </summary>
         public static string WeekNumber {

@@ -15,6 +15,7 @@ namespace TimeTable.ViewModel.Services
         public const string Id = "id";
         public const string Name = "name";
         public const string IsTeacher = "is_teacher";
+        public const string FacultyId = "faculty_id";
     }
 
     public interface INavigationService

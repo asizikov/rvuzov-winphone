@@ -26,7 +26,7 @@ namespace TimeTable
 
             if (_applicationSettings.GroupId != null)
             {
-                updatedUri = string.Format("{0}?id={1}&is_teacher={2}&university_id={3}", Pages.Lessons, _applicationSettings.GroupId, false, _applicationSettings.UniversityId);
+                updatedUri = string.Format("{0}?id={1}&is_teacher={2}&university_id={3}&faculty_id={4}", Pages.Lessons, _applicationSettings.GroupId, false, _applicationSettings.UniversityId, _applicationSettings.FacultyId);
             }
             else if (_applicationSettings.FacultyId != null)
             {

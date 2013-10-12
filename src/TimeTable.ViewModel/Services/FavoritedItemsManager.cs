@@ -75,5 +75,15 @@ namespace TimeTable.ViewModel.Services
         {
             return new List<FavoritedItem>(_favoritedItems.Items);
         }
+
+        public void Add(bool isTeacher, int id, string title, University university)
+        {
+            var newItem = new FavoritedItem();
+            newItem.Id = id;
+            newItem.Type = isTeacher ? FavoritedItemType.Teacher : FavoritedItemType.Group;
+            newItem.Title = title;
+            newItem.University = university;
+            _favoritedItems.Items.Add(newItem);
+        }
     }
 }

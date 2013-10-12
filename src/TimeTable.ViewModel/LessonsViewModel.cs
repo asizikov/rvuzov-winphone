@@ -15,29 +15,37 @@ namespace TimeTable.ViewModel
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly ICommandFactory _commandFactory;
         private readonly AsyncDataProvider _dataProvider;
+        private readonly FavoritedItemsManager _favoritedItemsManager;
+        private readonly int _id;
         private readonly FlurryPublisher _flurryPublisher;
         private readonly bool _isTeacher;
-        private readonly Group _group;
+        private readonly int _facultyId;
         private WeekViewModel _currentWeek;
         private WeekViewModel _nextWeek;
         private WeekViewModel _previousWeek;
         private University _university;
+        private Teacher _teacher;
+        private Group _group;
 
         public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
-            [NotNull] AsyncDataProvider dataProvider, int id, bool isTeacher, int universityId)
+            [NotNull] AsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager, int id,
+            bool isTeacher, int universityId, int facultyId)
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
+            if (favoritedItemsManager == null) throw new ArgumentNullException("favoritedItemsManager");
             _navigation = navigation;
             _applicationSettings = applicationSettings;
             _flurryPublisher = flurryPublisher;
             _commandFactory = commandFactory;
             _dataProvider = dataProvider;
+            _favoritedItemsManager = favoritedItemsManager;
+            _id = id;
             _isTeacher = isTeacher;
-            _group = new Group {GroupName = "", Id = id};
+            _facultyId = facultyId;
 
             Init(universityId);
 
@@ -50,6 +58,14 @@ namespace TimeTable.ViewModel
             _dataProvider.GetUniversityByIdAsync(universityId).Subscribe(university =>
             {
                 _university = university;
+                if (_isTeacher)
+                {
+                    _dataProvider.GetTeacherByIdAsync(universityId, _id).Subscribe(teacher => { _teacher = teacher; });
+                }
+                else
+                {
+                    _dataProvider.GetGroupByIdAsync(_facultyId, _id).Subscribe(group => { _group = group; });
+                }
                 LoadLessons();
             });
         }
@@ -58,12 +74,12 @@ namespace TimeTable.ViewModel
         {
             if (_isTeacher)
             {
-                _dataProvider.GetLessonsForTeacherAsync(_group.Id)
+                _dataProvider.GetLessonsForTeacherAsync(_id)
                     .Subscribe(FormatTimeTable, ex => { IsLoading = false; });
             }
             else
             {
-                _dataProvider.GetLessonsForGroupAsync(_group.Id).Subscribe(
+                _dataProvider.GetLessonsForGroupAsync(_id).Subscribe(
                     FormatTimeTable,
                     ex => { IsLoading = false; }
                     );
@@ -134,18 +150,26 @@ namespace TimeTable.ViewModel
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public String GroupName
+        public string GroupName
         {
-            get { return _group.GroupName; }
+            get { return _group == null ? string.Empty : _group.GroupName; }
         }
 
         public ICommand GoToSettingsCommand { get; private set; }
         public ICommand GoToFavoritesListCommand { get; private set; }
+        public ICommand AddToFavoritesCommand { get; private set; }
 
         private void InitCommands()
         {
             GoToSettingsCommand = new SimpleCommand(NavigateToSettingsPage);
             GoToFavoritesListCommand = new SimpleCommand(NavigateToFavoritesPage);
+            AddToFavoritesCommand = new SimpleCommand(AddToFavorites);
+        }
+
+        private void AddToFavorites()
+        {
+            _favoritedItemsManager.Add(_isTeacher, _isTeacher ? _teacher.Id : _group.Id,
+                _isTeacher ? _teacher.Name : _group.GroupName, _university);
         }
 
         private void NavigateToFavoritesPage()

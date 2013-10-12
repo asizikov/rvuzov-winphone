@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
@@ -9,6 +10,10 @@ namespace TimeTable.ViewModel.Data
 {
     public class AsyncDataProvider : BaseAsyncDataProvider
     {
+        private readonly Dictionary<int, University> _universities = new Dictionary<int, University>();
+        private readonly Dictionary<int, Teacher> _teachers = new Dictionary<int, Teacher>();
+        private readonly Dictionary<int, Group> _groups = new Dictionary<int, Group>();
+
         public AsyncDataProvider([NotNull] ICache cache) : base(cache)
         {
         }
@@ -41,11 +46,63 @@ namespace TimeTable.ViewModel.Data
         {
             return Observable.Create<University>(observer =>
                 Scheduler.Default.Schedule(() =>
-                    GetUniversitesAsync().Subscribe(universities =>
+                {
+                    if (_universities.ContainsKey(universityId))
                     {
-                        var university = universities.Data.FirstOrDefault(u => u.Id == universityId);
-                        observer.OnNext(university);
-                    })));
+                        observer.OnNext(_universities[universityId]);
+                    }
+                    else
+                    {
+                        GetUniversitesAsync().Subscribe(universities =>
+                        {
+                            var university = universities.Data.FirstOrDefault(u => u.Id == universityId);
+                            _universities.Add(universityId, university);
+                            observer.OnNext(university);
+                        });
+                    }
+                }));
+        }
+
+        public IObservable<Teacher> GetTeacherByIdAsync(int universityId,int id)
+        {
+            return Observable.Create<Teacher>(observer =>
+                Scheduler.Default.Schedule(() =>
+                {
+                    if (_teachers.ContainsKey(id))
+                    {
+                        observer.OnNext(_teachers[id]);
+                    }
+                    else
+                    {
+                        GetUniversityTeachersAsync(universityId).Subscribe(teachers =>
+                        {
+                            var teacher = teachers.TeachersList.FirstOrDefault(u => u.Id == id);
+                            _teachers.Add(id, teacher);
+                            observer.OnNext(teacher);
+                        });
+                    }
+                }));
+        }
+
+        public IObservable<Group> GetGroupByIdAsync(int facultyId, int id)
+        {
+            return Observable.Create<Group>(observer =>
+                Scheduler.Default.Schedule(() =>
+                {
+                    if (_groups.ContainsKey(id))
+                    {
+                        observer.OnNext(_groups[id]);
+                    }
+                    else
+                    {
+                        GetFacultyGroupsAsync(facultyId).Subscribe(groups =>
+                        {
+                            var group = groups.GroupsList.FirstOrDefault(u => u.Id == id);
+                            _groups.Add(id, group);
+                            observer.OnNext(group);
+                        });
+                    }
+                }));
         }
 
         public IObservable<Teachers> GetUniversityTeachersAsync(int universityId)
