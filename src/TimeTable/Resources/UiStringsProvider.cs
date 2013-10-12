@@ -19,5 +19,13 @@ namespace TimeTable.Resources
                 return Strings.TeachersTimeTable;
             }
         }
+
+        public string Group
+        {
+            get
+            {
+                return Strings.Group;
+            }
+        }
     }
 }

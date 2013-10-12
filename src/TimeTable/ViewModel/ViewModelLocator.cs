@@ -15,13 +15,11 @@ namespace TimeTable.ViewModel
         }
 
         private static UniversitiesViewModel _universitiesViewModel;
-        private static readonly FavoritedItemsManager FavoritedItemsManager;
         private static readonly AsyncDataProvider DataProvider;
 
         static ViewModelLocator()
         {
             DataProvider = new AsyncDataProvider(C.Resolve<ICache>());
-            FavoritedItemsManager = C.Resolve<FavoritedItemsManager>();
         }
 
         [NotNull]
@@ -59,12 +57,13 @@ namespace TimeTable.ViewModel
         {
             return new LessonsViewModel(C.Resolve<INavigationService>(), C.Resolve<FlurryPublisher>(),
                 C.Resolve<BaseApplicationSettings>(), C.Resolve<ICommandFactory>(),
-                DataProvider, FavoritedItemsManager, id, isTeacher, universityId, facultyId);
+                DataProvider, C.Resolve<FavoritedItemsManager>(), id, isTeacher, universityId, facultyId);
         }
 
         public static BaseViewModel GetFavoritesViewModel()
         {
-            return new FavoritesViewModel(C.Resolve<INavigationService>(), FavoritedItemsManager);
+            return new FavoritesViewModel(C.Resolve<INavigationService>(), C.Resolve<FavoritedItemsManager>(),
+                C.Resolve<IUiStringsProviders>());
         }
     }
 }

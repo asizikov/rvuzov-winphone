@@ -88,7 +88,7 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Группа:.
+        ///   Looks up a localized string similar to группа.
         /// </summary>
         public static string Group {
             get {

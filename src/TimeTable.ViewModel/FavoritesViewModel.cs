@@ -14,13 +14,15 @@ namespace TimeTable.ViewModel
         private ObservableCollection<FavoritedItemViewModel> _items;
 
         public FavoritesViewModel([NotNull] INavigationService navigationService,
-            [NotNull] FavoritedItemsManager favoritedItemsManager)
+            [NotNull] FavoritedItemsManager favoritedItemsManager, IUiStringsProviders stringsProviders)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
             if (favoritedItemsManager == null) throw new ArgumentNullException("favoritedItemsManager");
             _navigationService = navigationService;
             _favoritedItemsManager = favoritedItemsManager;
-            Items = new ObservableCollection<FavoritedItemViewModel>(_favoritedItemsManager.GetFavorites().ToViewModels());
+            Items =
+                new ObservableCollection<FavoritedItemViewModel>(
+                    _favoritedItemsManager.GetFavorites().ToViewModels(stringsProviders));
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -39,11 +41,14 @@ namespace TimeTable.ViewModel
     public sealed class FavoritedItemViewModel : BaseViewModel
     {
         private readonly FavoritedItem _item;
+        private readonly IUiStringsProviders _stringsProviders;
 
-        public FavoritedItemViewModel([NotNull] FavoritedItem item)
+        public FavoritedItemViewModel([NotNull] FavoritedItem item, [NotNull] IUiStringsProviders stringsProviders)
         {
             if (item == null) throw new ArgumentNullException("item");
+            if (stringsProviders == null) throw new ArgumentNullException("stringsProviders");
             _item = item;
+            _stringsProviders = stringsProviders;
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -51,7 +56,9 @@ namespace TimeTable.ViewModel
         {
             get
             {
-                return _item.Title;
+                return _item.Type == FavoritedItemType.Group
+                    ? string.Format("{0}: {1}", _stringsProviders.Group, _item.Title)
+                    : _item.Title;
             }
         }
 

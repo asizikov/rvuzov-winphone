@@ -4,5 +4,6 @@
     {
         string Auditory { get; }
         string TeachersTimeTable { get; }
+        string Group { get;}
     }
 }
