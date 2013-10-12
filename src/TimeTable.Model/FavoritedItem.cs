@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
@@ -25,5 +26,11 @@ namespace TimeTable.Model
 
         [JsonProperty("university")]
         public University University { get; set; }
+    }
+
+    public sealed class Favorites
+    {
+        [JsonProperty("favorites")]
+        public List<FavoritedItem> Items { get; set; } 
     }
 }
