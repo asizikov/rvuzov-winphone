@@ -17,5 +17,7 @@ namespace TimeTable.ViewModel.Services
         [NotNull] public const string FirstPage = "/View/FirstPage.xaml";
 
         [NotNull] public const string SettingsPage = "/View/SettingsPage.xaml";
+
+        [NotNull] public const string FarovitesPage = "/View/FavoritesPage.xaml";
     }
 }

@@ -123,6 +123,9 @@
   <data name="Auditory" xml:space="preserve">
     <value>аудитория</value>
   </data>
+  <data name="Favorite" xml:space="preserve">
+    <value>избранное</value>
+  </data>
   <data name="Group" xml:space="preserve">
     <value>Группа:</value>
   </data>

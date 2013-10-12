@@ -140,10 +140,17 @@ namespace TimeTable.ViewModel
         }
 
         public ICommand GoToSettingsCommand { get; private set; }
+        public ICommand GoToFavoritesListCommand { get; private set; }
 
         private void InitCommands()
         {
             GoToSettingsCommand = new SimpleCommand(NavigateToSettingsPage);
+            GoToFavoritesListCommand = new SimpleCommand(NavigateToFavoritesPage);
+        }
+
+        private void NavigateToFavoritesPage()
+        {
+            _navigation.GoToPage(Pages.FarovitesPage);
         }
 
         private void NavigateToSettingsPage()

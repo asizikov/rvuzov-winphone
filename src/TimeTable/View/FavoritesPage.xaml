@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="TimeTable.View.SettingsPage"
+    x:Class="TimeTable.View.FavoritesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -7,23 +7,21 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    Style="{StaticResource TimeTablePageStyle}"
-    shell:SystemTray.IsVisible="False"
     SupportedOrientations="Portrait"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Style="{StaticResource TimeTablePageStyle}"
+    shell:SystemTray.IsVisible="False">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid Background="{StaticResource TimeTableBackgorundColorBrush}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource TimeTableBackgorundColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,0,0,0">
-            <TextBlock Text="{Binding Strings.Settings, Source={StaticResource LocalizedStrings}}" 
-                       Style="{StaticResource PhoneTextLargeStyle}"
-                       FontSize="60"/>
+        <StackPanel Grid.Row="0" Margin="12,17,0,0">
+            <TextBlock Text="{Binding Strings.Favorite, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -31,6 +29,5 @@
 
         </Grid>
     </Grid>
-    
 
 </phone:PhoneApplicationPage>
