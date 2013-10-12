@@ -11,20 +11,18 @@ namespace TimeTable.ViewModel
     {
         private static Container C
         {
-            get
-            {
-                return ContainerInstance.Current;
-            }
+            get { return ContainerInstance.Current; }
         }
 
         private static UniversitiesViewModel _universitiesViewModel;
 
-        [NotNull] public static BaseViewModel GetUniversitiesViewModel()
+        [NotNull]
+        public static BaseViewModel GetUniversitiesViewModel()
         {
             return _universitiesViewModel ??
                    (_universitiesViewModel =
                        new UniversitiesViewModel(C.Resolve<INavigationService>(),
-                           C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(C.Resolve<ICache>()), 
+                           C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(C.Resolve<ICache>()),
                            C.Resolve<FlurryPublisher>()));
         }
 
@@ -35,10 +33,10 @@ namespace TimeTable.ViewModel
 
         public static BaseViewModel GetGroupsPageViewModel(int facultyId, int universityId)
         {
-            return new GroupPageViewModel(C.Resolve<INavigationService>(), 
-                C.Resolve<BaseApplicationSettings>(), 
-                new AsyncDataProvider(C.Resolve<ICache>()), 
-                C.Resolve<FlurryPublisher>(),universityId, facultyId);
+            return new GroupPageViewModel(C.Resolve<INavigationService>(),
+                C.Resolve<BaseApplicationSettings>(),
+                new AsyncDataProvider(C.Resolve<ICache>()),
+                C.Resolve<FlurryPublisher>(), universityId, facultyId);
         }
 
         public static BaseViewModel GetFacultiesPageViewModel(int universityId)
@@ -54,6 +52,11 @@ namespace TimeTable.ViewModel
             return new LessonsViewModel(C.Resolve<INavigationService>(), C.Resolve<FlurryPublisher>(),
                 C.Resolve<BaseApplicationSettings>(), C.Resolve<ICommandFactory>(),
                 new AsyncDataProvider(C.Resolve<ICache>()), id, isTeacher, universityId);
+        }
+
+        public static BaseViewModel GetFavoritesViewModel()
+        {
+            return new FavoritesViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>());
         }
     }
 }
