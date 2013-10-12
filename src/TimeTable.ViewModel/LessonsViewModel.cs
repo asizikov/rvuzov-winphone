@@ -15,6 +15,7 @@ namespace TimeTable.ViewModel
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly ICommandFactory _commandFactory;
         private readonly AsyncDataProvider _dataProvider;
+        private readonly FlurryPublisher _flurryPublisher;
         private readonly bool _isTeacher;
         private readonly Group _group;
         private WeekViewModel _currentWeek;
@@ -22,7 +23,7 @@ namespace TimeTable.ViewModel
         private WeekViewModel _previousWeek;
         private University _university;
 
-        public LessonsViewModel([NotNull] INavigationService navigation,
+        public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
             [NotNull] AsyncDataProvider dataProvider, int id, bool isTeacher, int universityId)
         {
@@ -32,12 +33,15 @@ namespace TimeTable.ViewModel
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             _navigation = navigation;
             _applicationSettings = applicationSettings;
+            _flurryPublisher = flurryPublisher;
             _commandFactory = commandFactory;
             _dataProvider = dataProvider;
             _isTeacher = isTeacher;
             _group = new Group {GroupName = "", Id = id};
 
             Init(universityId);
+
+            InitCommands();
         }
 
         private void Init(int universityId)
@@ -136,5 +140,23 @@ namespace TimeTable.ViewModel
         }
 
         public ICommand GoToSettingsCommand { get; private set; }
+        public ICommand GoToFavoritesListCommand { get; private set; }
+
+        private void InitCommands()
+        {
+            GoToSettingsCommand = new SimpleCommand(NavigateToSettingsPage);
+            GoToFavoritesListCommand = new SimpleCommand(NavigateToFavoritesPage);
+        }
+
+        private void NavigateToFavoritesPage()
+        {
+            _navigation.GoToPage(Pages.FarovitesPage);
+        }
+
+        private void NavigateToSettingsPage()
+        {
+            _flurryPublisher.PublishActionbarScheduleSettings(_university, _isTeacher, _group.GroupName, _group.Id);
+            _navigation.GoToPage(Pages.SettingsPage);
+        }
     }
 }

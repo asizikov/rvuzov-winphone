@@ -159,5 +159,23 @@ namespace TimeTable.ViewModel.Services
 
             PublishEvent(FlurryEvents.EVENT_CONTEXT_TEACHER_SCHEDULE, parameters);
         }
+
+        public void PublishActionbarScheduleSettings([NotNull] University university, bool mode,  string name, int id)
+        {
+            string _mode = "teacher";
+            if (university == null) throw new ArgumentNullException("university");
+            if(mode == false) _mode = "teacher";
+
+            var parameters = new[]
+            {
+                new EventParameter("University shortname", university.ShortName),
+                new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("Object name", name),
+                new EventParameter("Object Id", id.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("Mode", _mode)
+            };
+
+            PublishEvent(FlurryEvents.EVENT_ACTIONBAR_SCHEDULE_SETTINGS, parameters);
+        }
     }
 }

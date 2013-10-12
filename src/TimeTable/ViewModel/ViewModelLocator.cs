@@ -51,7 +51,7 @@ namespace TimeTable.ViewModel
 
         public static BaseViewModel GetLessonsViewModel(int id, bool isTeacher, int universityId)
         {
-            return new LessonsViewModel(C.Resolve<INavigationService>(), 
+            return new LessonsViewModel(C.Resolve<INavigationService>(), C.Resolve<FlurryPublisher>(),
                 C.Resolve<BaseApplicationSettings>(), C.Resolve<ICommandFactory>(),
                 new AsyncDataProvider(C.Resolve<ICache>()), id, isTeacher, universityId);
         }

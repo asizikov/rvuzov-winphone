@@ -11,7 +11,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
-    SupportedOrientations="Portrait"  Orientation="Portrait"
+    SupportedOrientations="Portrait"
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.IsVisible="True"
     d:DataContext="{d:DesignInstance viewModel:LessonsViewModel}">
@@ -58,9 +58,15 @@
         <bindableApplicationBar:BindableApplicationBar
             BackgroundColor="{StaticResource TimeTableHilighthColor}">
             <bindableApplicationBar:BindableApplicationBarButton
-                Text="{Binding  Strings.Search, Source={StaticResource LocalizedStrings}}"
+                Text="{Binding  Strings.Settings, Source={StaticResource LocalizedStrings}}"
                 Command="{Binding GoToSettingsCommand}"
                 IconUri="/Resources/Icons/appbar.cog.png" />
+            <bindableApplicationBar:BindableApplicationBar.MenuItems>
+                <bindableApplicationBar:BindableApplicationBarMenuItem
+                    Text="{Binding Strings.Favorite , Source={StaticResource LocalizedStrings}}"
+                    Command="{Binding GoToFavoritesListCommand}"
+                    />
+            </bindableApplicationBar:BindableApplicationBar.MenuItems>
         </bindableApplicationBar:BindableApplicationBar>
     </bindableApplicationBar:Bindable.ApplicationBar>
 </phone:PhoneApplicationPage>
