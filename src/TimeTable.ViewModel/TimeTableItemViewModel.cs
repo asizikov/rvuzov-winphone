@@ -8,7 +8,7 @@ using TimeTable.ViewModel.Commands;
 
 namespace TimeTable.ViewModel
 {
-    public class TimeTableItemViewModel : BaseViewModel
+    public sealed class TimeTableItemViewModel : BaseViewModel
     {
         private readonly Lesson _lesson;
         private readonly ICommandFactory _commandFactory;

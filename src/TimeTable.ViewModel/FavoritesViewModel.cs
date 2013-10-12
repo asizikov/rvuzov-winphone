@@ -10,18 +10,15 @@ namespace TimeTable.ViewModel
     public sealed class FavoritesViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
-        private readonly BaseApplicationSettings _applicationSettings;
         private readonly FavoritedItemsManager _favoritedItemsManager;
         private ObservableCollection<FavoritedItemViewModel> _items;
 
         public FavoritesViewModel([NotNull] INavigationService navigationService,
-            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] FavoritedItemsManager favoritedItemsManager)
+            [NotNull] FavoritedItemsManager favoritedItemsManager)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
-            if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
             if (favoritedItemsManager == null) throw new ArgumentNullException("favoritedItemsManager");
             _navigationService = navigationService;
-            _applicationSettings = applicationSettings;
             _favoritedItemsManager = favoritedItemsManager;
             Items = new ObservableCollection<FavoritedItemViewModel>(_favoritedItemsManager.GetFavorites().ToViewModels());
         }
@@ -49,11 +46,21 @@ namespace TimeTable.ViewModel
             _item = item;
         }
 
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public string Title
         {
             get
             {
                 return _item.Title;
+            }
+        }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public string UniversityName
+        {
+            get
+            {
+                return _item.University.Name; //todo: null checks
             }
         }
     }

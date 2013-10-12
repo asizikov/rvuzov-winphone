@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,17,0,0">
+        <StackPanel Grid.Row="0" Margin="12,17,12,0">
             <TextBlock Text="{Binding Strings.Favorite, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
@@ -29,9 +29,22 @@
             <ListBox ItemsSource="{Binding Items}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Title}"/>
-                        </StackPanel>
+                        <Grid Margin="0,12,12,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                <TextBlock 
+                                    Foreground="White"
+                                    Style="{StaticResource PhoneTextLargeStyle}"
+                                    Text="{Binding Title}"/>
+                            </StackPanel>
+                            <TextBlock Grid.Row="1"
+                                       Style="{StaticResource PhoneTextNormalStyle}"
+                                       Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+                                       Text="{Binding UniversityName}"/>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

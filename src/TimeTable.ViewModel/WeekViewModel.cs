@@ -8,7 +8,7 @@ using TimeTable.ViewModel.Extensions;
 
 namespace TimeTable.ViewModel
 {
-    public class WeekViewModel : BaseViewModel
+    public sealed class WeekViewModel : BaseViewModel
     {
         private readonly WeekType _type;
         private ObservableCollection<DayViewModel> _days;

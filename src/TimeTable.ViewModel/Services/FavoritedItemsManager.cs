@@ -78,12 +78,26 @@ namespace TimeTable.ViewModel.Services
 
         public void Add(bool isTeacher, int id, string title, University university)
         {
-            var newItem = new FavoritedItem();
-            newItem.Id = id;
-            newItem.Type = isTeacher ? FavoritedItemType.Teacher : FavoritedItemType.Group;
-            newItem.Title = title;
-            newItem.University = university;
+            var newItem = new FavoritedItem
+            {
+                Id = id,
+                Type = isTeacher ? FavoritedItemType.Teacher : FavoritedItemType.Group,
+                Title = title,
+                University = university
+            };
             _favoritedItems.Items.Add(newItem);
+        }
+
+        public void Save()
+        {
+            if (!IsolatedStorageSettings.ApplicationSettings.Contains(FAVORITES))
+            {
+                IsolatedStorageSettings.ApplicationSettings.Add(FAVORITES, SerializeToStrng(_favoritedItems));
+            }
+            else
+            {
+                IsolatedStorageSettings.ApplicationSettings[FAVORITES] = SerializeToStrng(_favoritedItems);
+            }
         }
     }
 }

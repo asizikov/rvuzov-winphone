@@ -42,6 +42,18 @@ namespace TimeTable.ViewModel.Data
             return GetDataAsync(groupTimeTableRequest);
         }
 
+        public IObservable<Teachers> GetUniversityTeachersAsync(int universityId)
+        {
+            var universityTeachersRequest = CallFactory.GetUniversityTeachersRequest(universityId);
+            return GetDataAsync(universityTeachersRequest);
+        }
+
+        public IObservable<Faculties> GetUniversitesFacultiesAsync(int universityId)
+        {
+            var request = CallFactory.GetUniversityFacultiesRequest(universityId);
+            return GetDataAsync(request);
+        }
+
         public IObservable<University> GetUniversityByIdAsync(int universityId)
         {
             return Observable.Create<University>(observer =>
@@ -103,18 +115,6 @@ namespace TimeTable.ViewModel.Data
                         });
                     }
                 }));
-        }
-
-        public IObservable<Teachers> GetUniversityTeachersAsync(int universityId)
-        {
-            var universityTeachersRequest = CallFactory.GetUniversityTeachersRequest(universityId);
-            return GetDataAsync(universityTeachersRequest);
-        }
-
-        public IObservable<Faculties> GetUniversitesFacultiesAsync(int universityId)
-        {
-            var request = CallFactory.GetUniversityFacultiesRequest(universityId);
-            return GetDataAsync(request);
         }
     }
 }

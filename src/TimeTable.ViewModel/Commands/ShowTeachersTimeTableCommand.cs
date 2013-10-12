@@ -7,7 +7,7 @@ using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.Commands
 {
-    public class ShowTeachersTimeTableCommand : ITitledCommand
+    public sealed class ShowTeachersTimeTableCommand : ITitledCommand
     {
         private readonly INavigationService _navigationService;
         private readonly FlurryPublisher _flurryPublisher;
