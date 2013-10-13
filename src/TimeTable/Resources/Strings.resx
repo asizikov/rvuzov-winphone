@@ -159,6 +159,9 @@
   <data name="ToFavorites" xml:space="preserve">
     <value>в избранное</value>
   </data>
+  <data name="Unfavorite" xml:space="preserve">
+    <value>из избранного</value>
+  </data>
   <data name="WeekNumber" xml:space="preserve">
     <value>{0} неделя</value>
   </data>

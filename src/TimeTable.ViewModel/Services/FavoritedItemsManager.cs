@@ -89,6 +89,28 @@ namespace TimeTable.ViewModel.Services
             _favoritedItems.Items.Add(newItem);
         }
 
+        public void Remove(bool isTeacher, int id, string name, University university, int facultyId)
+        {
+            if (isTeacher)
+            {
+                var teacher = _favoritedItems.Items.FirstOrDefault(
+                    i => i.Type == FavoritedItemType.Teacher && i.University.Id == university.Id && id == i.Id);
+                if (teacher != null)
+                {
+                    _favoritedItems.Items.Remove(teacher);
+                }
+            }
+            else
+            {
+                var group = _favoritedItems.Items.FirstOrDefault(
+                    i => i.Type == FavoritedItemType.Group && i.Faculty.Id == facultyId && id == i.Id);
+                if (group != null)
+                {
+                    _favoritedItems.Items.Remove(group);
+                }
+            }
+        }
+
         [Pure]
         public bool IsGroupFavorited(int facultyId, int groupId)
         {

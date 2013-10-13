@@ -8,5 +8,6 @@
         string Settings { get; }
         string AddToFavorited { get; }
         string Favorites { get; }
+        string Unfavorite { get;}
     }
 }

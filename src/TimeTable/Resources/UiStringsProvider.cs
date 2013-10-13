@@ -33,5 +33,10 @@ namespace TimeTable.Resources
         {
             get { return Strings.Favorite; }
         }
+
+        public string Unfavorite
+        {
+            get { return Strings.Unfavorite; }
+        }
     }
 }

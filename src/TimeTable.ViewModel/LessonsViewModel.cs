@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Windows.Threading;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
@@ -31,6 +32,7 @@ namespace TimeTable.ViewModel
         private FavoritedState _favoritedState;
         private ObservableCollection<AppbarButtonViewModel> _appbarButtons;
         private AppbarButtonViewModel _favoriteAppbarButton;
+        private AppbarButtonViewModel _unfavoriteAppbarButton;
 
         public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
@@ -78,7 +80,13 @@ namespace TimeTable.ViewModel
                 Command = AddToFavoritesCommand,
                 IconUri = "/Resources/Icons/favs.addto.png"
             };
-            AppbarButtons.Add(_favoriteAppbarButton);
+
+            _unfavoriteAppbarButton = new AppbarButtonViewModel
+            {
+                Text = _stringsProviders.Unfavorite,
+                IconUri = "/Resources/Icons/appbar.star.minus.png",
+                Command = RemoveFromFavoritesCommand,
+            };
         }
 
         private void Init(int universityId)
@@ -200,8 +208,33 @@ namespace TimeTable.ViewModel
             {
                 if (value == _favoritedState) return;
                 _favoritedState = value;
+                UpdateAppBar();
                 OnPropertyChanged("FavoritedState");
             }
+        }
+
+        private void UpdateAppBar()
+        {
+            SmartDispatcher.BeginInvoke(() =>
+            {
+                switch (FavoritedState)
+                {
+                    case FavoritedState.Unknown:
+                        break;
+                    case FavoritedState.Me:
+                        break;
+                    case FavoritedState.Favorited:
+                        AppbarButtons.Remove(_favoriteAppbarButton);
+                        AppbarButtons.Add(_unfavoriteAppbarButton);
+                        break;
+                    case FavoritedState.NotFavorited:
+                        AppbarButtons.Remove(_unfavoriteAppbarButton);
+                        AppbarButtons.Add(_favoriteAppbarButton);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            });
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -213,17 +246,29 @@ namespace TimeTable.ViewModel
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public ICommand AddToFavoritesCommand { get; private set; }
 
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public ICommand RemoveFromFavoritesCommand { get; private set; }
+
         private void InitCommands()
         {
             GoToSettingsCommand = new SimpleCommand(NavigateToSettingsPage);
             GoToFavoritesListCommand = new SimpleCommand(NavigateToFavoritesPage);
             AddToFavoritesCommand = new SimpleCommand(AddToFavorites);
+            RemoveFromFavoritesCommand = new SimpleCommand(RemoveFromFavorites);
+        }
+
+        private void RemoveFromFavorites()
+        {
+            _favoritedItemsManager.Remove(_isTeacher, _isTeacher ? _teacher.Id : _group.Id,
+                _isTeacher ? _teacher.Name : _group.GroupName, _university, _facultyId);
+            FavoritedState = FavoritedState.NotFavorited;
         }
 
         private void AddToFavorites()
         {
             _favoritedItemsManager.Add(_isTeacher, _isTeacher ? _teacher.Id : _group.Id,
                 _isTeacher ? _teacher.Name : _group.GroupName, _university, _facultyId);
+            FavoritedState = FavoritedState.Favorited;
         }
 
         private void NavigateToFavoritesPage()
@@ -256,7 +301,7 @@ namespace TimeTable.ViewModel
         public ObservableCollection<AppbarButtonViewModel> AppbarButtons
         {
             get { return _appbarButtons; }
-            set
+            private set
             {
                 if (Equals(value, _appbarButtons)) return;
                 _appbarButtons = value;
