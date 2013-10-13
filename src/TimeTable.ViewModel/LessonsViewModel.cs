@@ -67,13 +67,15 @@ namespace TimeTable.ViewModel
 
         private void BuildAppBarButtons()
         {
-            AppbarButtons = new ObservableCollection<AppbarButtonViewModel>();
-            AppbarButtons.Add(new AppbarButtonViewModel
+            AppbarButtons = new ObservableCollection<AppbarButtonViewModel>
             {
-                Text = _stringsProviders.Settings,
-                Command = GoToSettingsCommand,
-                IconUri = "/Resources/Icons/appbar.cog.png"
-            });
+                new AppbarButtonViewModel
+                {
+                    Text = _stringsProviders.Settings,
+                    Command = GoToSettingsCommand,
+                    IconUri = "/Resources/Icons/appbar.cog.png"
+                }
+            };
             _favoriteAppbarButton = new AppbarButtonViewModel
             {
                 Text = _stringsProviders.AddToFavorited,
@@ -289,7 +291,12 @@ namespace TimeTable.ViewModel
                 FavoritedState = FavoritedState.Unknown;
                 return;
             }
-            if (_favoritedItemsManager.IsGroupFavorited(_facultyId, _group.Id))
+            if (!_isTeacher && _favoritedItemsManager.IsGroupFavorited(_facultyId, _group.Id))
+            {
+                FavoritedState = FavoritedState.Favorited;
+                return;
+            }
+            if (_isTeacher && _favoritedItemsManager.IsTeacherFavorited(_university.Id, _teacher.Id))
             {
                 FavoritedState = FavoritedState.Favorited;
                 return;
