@@ -56,15 +56,18 @@
     </Grid>
     <bindableApplicationBar:Bindable.ApplicationBar>
         <bindableApplicationBar:BindableApplicationBar
+            ButtonsSource="{Binding AppbarButtons}"
+            Name="BindableApplicationBar"
             BackgroundColor="{StaticResource TimeTableHilighthColor}">
-            <bindableApplicationBar:BindableApplicationBarButton
-                Text="{Binding  Strings.Settings, Source={StaticResource LocalizedStrings}}"
-                Command="{Binding GoToSettingsCommand}"
-                IconUri="/Resources/Icons/appbar.cog.png" />
-            <bindableApplicationBar:BindableApplicationBarButton
-                Text="{Binding  Strings.ToFavorites, Source={StaticResource LocalizedStrings}}"
-                Command="{Binding AddToFavoritesCommand}"
-                IconUri="/Resources/Icons/favs.addto.png" />
+<!--            <bindableApplicationBar:BindableApplicationBarButton-->
+<!--                Text="{Binding  Strings.Settings, Source={StaticResource LocalizedStrings}}"-->
+<!--                Command="{Binding GoToSettingsCommand}"-->
+<!--                IconUri="/Resources/Icons/appbar.cog.png" />-->
+<!--            <bindableApplicationBar:BindableApplicationBarButton-->
+<!--                Name="AddToFavoritesButton"-->
+<!--                Text="{Binding  Strings.ToFavorites, Source={StaticResource LocalizedStrings}}"-->
+<!--                Command="{Binding AddToFavoritesCommand}"-->
+<!--                IconUri="/Resources/Icons/favs.addto.png" />-->
             <bindableApplicationBar:BindableApplicationBar.MenuItems>
                     <bindableApplicationBar:BindableApplicationBarMenuItem
                     Text="{Binding Strings.Favorite , Source={StaticResource LocalizedStrings}}"
@@ -73,4 +76,9 @@
             </bindableApplicationBar:BindableApplicationBar.MenuItems>
         </bindableApplicationBar:BindableApplicationBar>
     </bindableApplicationBar:Bindable.ApplicationBar>
+<!--    <phone:PhoneApplicationPage.ApplicationBar>-->
+<!--        <shell:ApplicationBar BackgroundColor="#4C6DA7" -->
+<!--            IsVisible="True" IsMenuEnabled="True">-->
+<!--        </shell:ApplicationBar>-->
+<!--    </phone:PhoneApplicationPage.ApplicationBar>-->
 </phone:PhoneApplicationPage>

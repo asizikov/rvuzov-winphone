@@ -53,11 +53,11 @@ namespace TimeTable.ViewModel
                 C.Resolve<FlurryPublisher>(), universityId);
         }
 
-        public static BaseViewModel GetLessonsViewModel(int id, bool isTeacher, int universityId, int facultyId)
+        public static LessonsViewModel GetLessonsViewModel(int id, bool isTeacher, int universityId, int facultyId)
         {
             return new LessonsViewModel(C.Resolve<INavigationService>(), C.Resolve<FlurryPublisher>(),
                 C.Resolve<BaseApplicationSettings>(), C.Resolve<ICommandFactory>(),
-                DataProvider, C.Resolve<FavoritedItemsManager>(), id, isTeacher, universityId, facultyId);
+                DataProvider, C.Resolve<FavoritedItemsManager>(),C.Resolve<IUiStringsProviders>(), id, isTeacher, universityId, facultyId);
         }
 
         public static BaseViewModel GetFavoritesViewModel()
