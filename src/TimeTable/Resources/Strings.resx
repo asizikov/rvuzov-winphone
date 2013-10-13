@@ -156,6 +156,9 @@
   <data name="TeachersTimeTable" xml:space="preserve">
     <value>расписание преподавателя</value>
   </data>
+  <data name="Today" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
   <data name="WeekNumber" xml:space="preserve">
     <value>{0} неделя</value>
   </data>

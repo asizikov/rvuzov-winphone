@@ -26,14 +26,16 @@
             <TextBlock Text="{Binding Path=Strings.Group, Source ={StaticResource LocalizedStrings} }"/>
             <TextBlock Text="{Binding GroupName}"/>
         </StackPanel>
-        <toolkit:LockablePivot 
+        <toolkit:LockablePivot SelectedIndex="{Binding SelectedWeekIndex, Mode=TwoWay}"
             Grid.Row="1" >
             <controls:PivotItem
                 DataContext="{Binding CurrentWeek}"
                 Header="{Binding WeekNumber, Converter={StaticResource WeekNumberToTextConverter}}">
                 <ListBox 
                     ItemTemplate="{StaticResource TimeTableWeekDataTemplate}"
-                    ItemsSource="{Binding Days}">
+                    ItemsSource="{Binding Days}"
+                    SelectedIndex="{Binding SelectedDayIndex, Mode=TwoWay}">
+                    
                 </ListBox>
             </controls:PivotItem>
             <controls:PivotItem
@@ -61,6 +63,11 @@
                 Text="{Binding  Strings.Settings, Source={StaticResource LocalizedStrings}}"
                 Command="{Binding GoToSettingsCommand}"
                 IconUri="/Resources/Icons/appbar.cog.png" />
+            <bindableApplicationBar:BindableApplicationBarButton 
+                Text="{Binding Strings.Today, Source={StaticResource LocalizedStrings}}"
+                Command="{Binding GoToTodayCommand}"
+                IconUri="/Resources/Icons/feature.calendar.png"
+                />
             <bindableApplicationBar:BindableApplicationBar.MenuItems>
                 <bindableApplicationBar:BindableApplicationBarMenuItem
                     Text="{Binding Strings.Favorite , Source={StaticResource LocalizedStrings}}"

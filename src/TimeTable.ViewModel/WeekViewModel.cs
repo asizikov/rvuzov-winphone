@@ -12,6 +12,7 @@ namespace TimeTable.ViewModel
     {
         private readonly WeekType _type;
         private ObservableCollection<DayViewModel> _days;
+        private int _selectedDayIndex=-1; 
 
         public WeekViewModel(IEnumerable<Day> days, int weekNumber, ICommandFactory commandFactory, WeekType type,
             University university)
@@ -22,6 +23,7 @@ namespace TimeTable.ViewModel
 
             Days =
                 new ObservableCollection<DayViewModel>(days.ToViewModelList(commandFactory, _type, parity, university));
+   
         }
 
         public int WeekNumber { get; private set; }
@@ -35,6 +37,17 @@ namespace TimeTable.ViewModel
                 if (Equals(value, _days)) return;
                 _days = value;
                 OnPropertyChanged("Days");
+            }
+        }
+
+        public int SelectedDayIndex 
+        {
+            get {return _selectedDayIndex;}
+            set 
+            {
+                if(Equals(_selectedDayIndex,value)) return;
+                _selectedDayIndex = value;
+                OnPropertyChanged("SelectedDayIndex");
             }
         }
     }
