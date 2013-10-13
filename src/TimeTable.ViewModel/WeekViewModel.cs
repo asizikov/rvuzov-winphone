@@ -12,7 +12,7 @@ namespace TimeTable.ViewModel
     {
         private readonly WeekType _type;
         private ObservableCollection<DayViewModel> _days;
-        private int _selectedDayIndex=-1; 
+        private int _selectedDayIndex= -1; 
 
         public WeekViewModel(IEnumerable<Day> days, int weekNumber, ICommandFactory commandFactory, WeekType type,
             University university)

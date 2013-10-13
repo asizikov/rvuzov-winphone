@@ -18,7 +18,7 @@ namespace TimeTable.ViewModel
         private readonly FlurryPublisher _flurryPublisher;
         private readonly bool _isTeacher;
         private readonly Group _group;
-        private int _selectedWeekIndex = 0;
+        private int _selectedWeekIndex;
         private WeekViewModel _currentWeek;
         private WeekViewModel _nextWeek;
         private WeekViewModel _previousWeek;
@@ -177,7 +177,7 @@ namespace TimeTable.ViewModel
         private void SelectTodayItem()
         {
             SelectedWeekIndex = 0;
-            DateTime today = DateTime.Now;
+            DateTime today = DateTime.UtcNow;
             CurrentWeek.SelectedDayIndex = (int)today.DayOfWeek - 1;
             CurrentWeek.SelectedDayIndex = -1;
             _flurryPublisher.PublishActionbarToday(_university, _isTeacher, _group.GroupName, _group.Id);
