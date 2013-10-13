@@ -224,6 +224,8 @@ namespace TimeTable.ViewModel
                     case FavoritedState.Unknown:
                         break;
                     case FavoritedState.Me:
+                        AppbarButtons.Remove(_favoriteAppbarButton);
+                        AppbarButtons.Remove(_unfavoriteAppbarButton);
                         break;
                     case FavoritedState.Favorited:
                         AppbarButtons.Remove(_favoriteAppbarButton);
@@ -300,6 +302,14 @@ namespace TimeTable.ViewModel
             {
                 FavoritedState = FavoritedState.Favorited;
                 return;
+            }
+            if (!_isTeacher)
+            {
+                if (_applicationSettings.GroupId == _group.Id && _applicationSettings.FacultyId == _facultyId)
+                {
+                    FavoritedState = FavoritedState.Me;
+                    return;
+                }
             }
             FavoritedState = FavoritedState.NotFavorited;
         }
