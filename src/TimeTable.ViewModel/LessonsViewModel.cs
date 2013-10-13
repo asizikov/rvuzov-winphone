@@ -37,7 +37,7 @@ namespace TimeTable.ViewModel
         public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
             [NotNull] AsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager,
-            [NotNull] IUiStringsProviders stringsProviders ,int id,
+            [NotNull] IUiStringsProviders stringsProviders, int id,
             bool isTeacher, int universityId, int facultyId)
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
@@ -273,6 +273,8 @@ namespace TimeTable.ViewModel
             _favoritedItemsManager.Add(_isTeacher, _isTeacher ? _teacher.Id : _group.Id,
                 _isTeacher ? _teacher.Name : _group.GroupName, _university, _facultyId);
             FavoritedState = FavoritedState.Favorited;
+            _flurryPublisher.PublishMarkFavorite(_university, _isTeacher,
+                (_isTeacher ? _teacher.Name : _group.GroupName), (_isTeacher ? _teacher.Id : _group.Id));
         }
 
         private void NavigateToFavoritesPage()
@@ -282,7 +284,8 @@ namespace TimeTable.ViewModel
 
         private void NavigateToSettingsPage()
         {
-            _flurryPublisher.PublishActionbarScheduleSettings(_university, _isTeacher, _group.GroupName, _group.Id);
+            _flurryPublisher.PublishActionbarScheduleSettings(_university, _isTeacher,
+                (_isTeacher ? _teacher.Name : _group.GroupName), (_isTeacher ? _teacher.Id : _group.Id));
             _navigation.GoToPage(Pages.SettingsPage);
         }
 
