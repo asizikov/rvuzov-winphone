@@ -24,5 +24,6 @@ namespace TimeTable.ViewModel.Services
         bool CanGoBack();
         void GoToPage(string page, IEnumerable<NavigationParameter> parameters = null);
         void CleanNavigationStack();
+        void GoToPage(string page, IEnumerable<NavigationParameter> parameters, int numberOfItemsToRemove);
     }
 }

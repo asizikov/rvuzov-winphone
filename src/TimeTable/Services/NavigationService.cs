@@ -47,6 +47,24 @@ namespace TimeTable.Services
             }
         }
 
+        public void GoToPage(string page, IEnumerable<NavigationParameter> parameters, int numberOfItemsToRemove)
+        {
+            GoToPage(page, parameters);
+
+            for (var counter = 0; counter < numberOfItemsToRemove; counter++)
+            {
+                if (CanGoBack())
+                {
+                    _rootFrame.RemoveBackEntry();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            
+        }
+
         public void GoBack()
         {
             _rootFrame.GoBack();

@@ -109,7 +109,7 @@ namespace TimeTable.ViewModel
                             ? _item.Faculty.Id.ToString(CultureInfo.InvariantCulture)
                             : "0")
                 }
-            });
+            }, 1);
         }
     }
 }
