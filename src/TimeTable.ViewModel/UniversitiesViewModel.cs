@@ -15,18 +15,18 @@ namespace TimeTable.ViewModel
     {
         private readonly AsyncDataProvider _dataProvider;
         private readonly FlurryPublisher _flurry;
+        private readonly bool _isAddingFavorites;
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private ObservableCollection<ListGroup<University>> _universitesList;
         private University _selectedUniversity;
-        
+
         private Universities _storedRequest;
         private static Func<University, char> _resultGrouper;
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
-            [NotNull] BaseApplicationSettings applicationSettings,
-            [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurry)
+            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
+            [NotNull] FlurryPublisher flurry, bool isAddingFavorites)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurry == null) throw new ArgumentNullException("flurry");
@@ -34,6 +34,7 @@ namespace TimeTable.ViewModel
 
             _dataProvider = dataProvider;
             _flurry = flurry;
+            _isAddingFavorites = isAddingFavorites;
             _navigation = navigation;
             _applicationSettings = applicationSettings;
             _resultGrouper = u => u.ShortName[0];
@@ -106,7 +107,16 @@ namespace TimeTable.ViewModel
             {
                 _applicationSettings.UniversityId = id;
             }
-            _navigation.GoToPage(Pages.Faculties, new List<NavigationParameter> {navigationParameter});
+            var parameters = new List<NavigationParameter> {navigationParameter};
+            if (_isAddingFavorites)
+            {
+                parameters.Add(new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.AddFavorites,
+                    Value = true.ToString()
+                });
+            }
+            _navigation.GoToPage(Pages.Faculties, parameters);
         }
 
         protected override void GetResults(string search)

@@ -76,9 +76,4 @@
             </bindableApplicationBar:BindableApplicationBar.MenuItems>
         </bindableApplicationBar:BindableApplicationBar>
     </bindableApplicationBar:Bindable.ApplicationBar>
-<!--    <phone:PhoneApplicationPage.ApplicationBar>-->
-<!--        <shell:ApplicationBar BackgroundColor="#4C6DA7" -->
-<!--            IsVisible="True" IsMenuEnabled="True">-->
-<!--        </shell:ApplicationBar>-->
-<!--    </phone:PhoneApplicationPage.ApplicationBar>-->
 </phone:PhoneApplicationPage>

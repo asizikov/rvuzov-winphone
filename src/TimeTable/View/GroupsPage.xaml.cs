@@ -27,7 +27,9 @@ namespace TimeTable.View
                 if (Int32.TryParse(parameter, out facultyId) &&
                     Int32.TryParse(rawuniversityId, out universityId))
                 {
-                    ViewModel = ViewModelLocator.GetGroupsPageViewModel(facultyId, universityId) as SearchViewModel;
+                    ViewModel =
+                        ViewModelLocator.GetGroupsPageViewModel(facultyId, universityId, IsAddingFavorites()) as
+                            SearchViewModel;
                     DataContext = ViewModel;
                 }
                 else

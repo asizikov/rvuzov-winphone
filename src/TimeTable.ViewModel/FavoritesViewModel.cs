@@ -26,6 +26,19 @@ namespace TimeTable.ViewModel
             Items =
                 new ObservableCollection<FavoritedItemViewModel>(
                     _favoritedItemsManager.GetFavorites().ToViewModels(stringsProviders, _navigationService));
+            AddCommand = new SimpleCommand(AddNewFavorite);
+        }
+
+        private void AddNewFavorite()
+        {
+            _navigationService.GoToPage(Pages.Universities, new[]
+            {
+                new NavigationParameter
+                {   
+                    Parameter = NavigationParameterName.AddFavorites,
+                    Value = true.ToString()
+                }
+            });
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -39,6 +52,9 @@ namespace TimeTable.ViewModel
                 OnPropertyChanged("Items");
             }
         }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public ICommand AddCommand { get; private set; }
     }
 
     public sealed class FavoritedItemViewModel : BaseViewModel
