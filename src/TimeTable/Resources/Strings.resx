@@ -166,7 +166,7 @@
     <value>настройки</value>
   </data>
   <data name="ShowInTheSchedule" xml:space="preserve">
-    <value>Отображать в расписании</value>
+    <value>отображать в расписании</value>
   </data>
   <data name="Teachers" xml:space="preserve">
     <value>преподаватели</value>

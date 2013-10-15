@@ -33,7 +33,7 @@ namespace TimeTable
                     isTeacher ? _applicationSettings.Me.Teacher.Id : _applicationSettings.Me.DefaultGroup.Id,
                     isTeacher, 
                     _applicationSettings.Me.University.Id, 
-                    _applicationSettings.Me.Faculty);
+                    _applicationSettings.Me.Faculty.Id);
             }
             else if (_applicationSettings.Me.Faculty != null)
             {

@@ -205,7 +205,7 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Отображать в расписании.
+        ///   Looks up a localized string similar to отображать в расписании.
         /// </summary>
         public static string ShowInTheSchedule {
             get {

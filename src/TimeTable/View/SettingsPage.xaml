@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,50,0,50">
+        <StackPanel Grid.Row="0" Margin="12,24,0,50">
             <TextBlock Text="{Binding Strings.Settings, Source={StaticResource LocalizedStrings}}" 
                        Style="{StaticResource PhoneTextLargeStyle}"
                        FontSize="60"/>
@@ -31,7 +31,7 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,32,0">
             <TextBlock Text="{Binding Strings.ShowInTheSchedule, Source={StaticResource LocalizedStrings}}" 
                        Margin="12,0"
-                       FontSize="23"
+                       Style="{StaticResource PhoneTextLargeStyle}"
                        Foreground="{StaticResource TimeTableHilighthBrush}"/>
             <toolkit:ToggleSwitch Margin="0, 30, 0, 0">
                 <toolkit:ToggleSwitch.ContentTemplate>
@@ -81,7 +81,6 @@
                 <StackPanel >
             <TextBlock Text="{Binding Strings.DefaultUniversityAndGroup, Source={StaticResource LocalizedStrings}}" 
                        Margin="0,12,0,0"
-                       FontSize="23"
                        Style="{StaticResource PhoneTextLargeStyle}"
                        Foreground="{StaticResource TimeTableHilighthBrush}"/>
             <TextBlock Text="{Binding Default.Name}" 
