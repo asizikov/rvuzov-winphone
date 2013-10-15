@@ -153,7 +153,7 @@ namespace TimeTable.ViewModel
                 result =>
                 {
                     _storedTeachersRequest = result;
-                    TeachersList = FormatResult(result.TeachersList, u => u.Name[0]);
+                    TeachersList = FormatResult(result.TeachersList, _teachersGroupFunc);
                 }, ex => { IsLoading = false; }
                 );
         }
@@ -196,7 +196,6 @@ namespace TimeTable.ViewModel
                 }
                 _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group));
             }
-            
         }
 
         private void NavigateToLessonsPage(Teacher teacher, University university)
@@ -213,7 +212,6 @@ namespace TimeTable.ViewModel
                 }
                 _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(teacher));
             }
-
         }
 
         private void AddGoupToFavorites(Group group, University university)
