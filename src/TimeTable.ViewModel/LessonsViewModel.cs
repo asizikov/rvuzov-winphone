@@ -26,11 +26,12 @@ namespace TimeTable.ViewModel
         private University _university;
         private Teacher _teacher;
         private Group _group;
+        private DefaultUniversityAndGroupManager _defaultUniversityAndGroupManager;
 
         public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
-            [NotNull] AsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager, int id,
-            bool isTeacher, int universityId, int facultyId)
+            [NotNull] AsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager,  
+            int id,bool isTeacher, int universityId, int facultyId)
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
@@ -64,7 +65,7 @@ namespace TimeTable.ViewModel
                 }
                 else
                 {
-                    _dataProvider.GetGroupByIdAsync(_facultyId, _id).Subscribe(group => { _group = group; });
+                    _dataProvider.GetGroupByIdAsync(_facultyId, _id).Subscribe(group => { _group = group; SetDefaultUniversityAndGroup(); });
                 }
                 LoadLessons();
             });
@@ -181,6 +182,10 @@ namespace TimeTable.ViewModel
         {
             _flurryPublisher.PublishActionbarScheduleSettings(_university, _isTeacher, _group.GroupName, _group.Id);
             _navigation.GoToPage(Pages.SettingsPage);
+        }
+        public void SetDefaultUniversityAndGroup() 
+        {
+            _defaultUniversityAndGroupManager = new DefaultUniversityAndGroupManager(_university.Name, _group.GroupName);
         }
     }
 }

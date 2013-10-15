@@ -94,6 +94,7 @@
     <Compile Include="Restful\UniversitiesGroupsRequest.cs" />
     <Compile Include="Restful\UniversityFacultiesRequest.cs" />
     <Compile Include="Restful\UniversityTeachersRequest.cs" />
+    <Compile Include="Services\DefaultUniversityAndGroupManager.cs" />
     <Compile Include="Services\FavoritedItemsManager.cs" />
     <Compile Include="Services\IUiStringsProviders.cs" />
     <Compile Include="SettingsViewModel.cs" />

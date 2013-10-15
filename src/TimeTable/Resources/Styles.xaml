@@ -7,6 +7,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:TimeTable.Controls"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
     mc:Ignorable="d">
     <SolidColorBrush x:Key="TimeTableBackgorundColorBrush">#2D3541</SolidColorBrush>
     <SolidColorBrush x:Key="TimeTableHilighthBrush">#4C6DA7</SolidColorBrush>
