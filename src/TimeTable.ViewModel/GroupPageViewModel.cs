@@ -29,6 +29,7 @@ namespace TimeTable.ViewModel
         private int _selectedPivotIndex;
         private readonly Func<Group, char> _groupFunc;
         private readonly Func<Teacher, char> _teachersGroupFunc;
+        private Teacher _selectedTeacher;
 
         public GroupPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
@@ -50,7 +51,7 @@ namespace TimeTable.ViewModel
             _facultyId = facultyId;
             _isAddingFavorites = isAddingFavorites;
             _groupFunc = group => group.GroupName[0];
-            _teachersGroupFunc = teacher => teacher.Name[0];
+            _teachersGroupFunc = teacher => !String.IsNullOrEmpty(teacher.Name) ? teacher.Name[0] : ' ';
 
             SubscribeToQuery();
             Init();
@@ -96,6 +97,27 @@ namespace TimeTable.ViewModel
                         {
                             _flurryPublisher.PublishGroupSelected(_selectedGroup, university);
                             NavigateToLessonsPage(_selectedGroup, university);
+                        });
+                }
+            }
+        }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Default)]
+        public Teacher SelectedTeacher
+        {
+            get { return _selectedTeacher; }
+            set
+            {
+                if (Equals(value, _selectedTeacher)) return;
+                _selectedTeacher = value;
+                OnPropertyChanged("SelectedTeacher");
+                if (_selectedTeacher != null)
+                {
+                    _dataProvider.GetUniversityByIdAsync(_universityId)
+                        .Subscribe(university =>
+                        {
+                            _flurryPublisher.PublishTeacherSelected(_selectedTeacher, university);
+                            NavigateToLessonsPage(_selectedTeacher, university);
                         });
                 }
             }
@@ -170,17 +192,39 @@ namespace TimeTable.ViewModel
             {
                 if (!_applicationSettings.IsRegistrationCompleted)
                 {
-                    _applicationSettings.GroupId = group.Id;
-                    _applicationSettings.GroupName = group.GroupName;
+                    _applicationSettings.Me.DefaultGroup = group;
                 }
                 _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group));
             }
             
         }
 
+        private void NavigateToLessonsPage(Teacher teacher, University university)
+        {
+            if (_isAddingFavorites)
+            {
+                AddTeacherToFavorites(teacher, university);
+            }
+            else
+            {
+                if (!_applicationSettings.IsRegistrationCompleted)
+                {
+                    _applicationSettings.Me.Teacher = teacher;
+                }
+                _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(teacher));
+            }
+
+        }
+
         private void AddGoupToFavorites(Group group, University university)
         {
             _favoritedItemsManager.Add(false, group.Id, group.GroupName, university, _facultyId);
+            _navigation.GoToPage(Pages.FarovitesPage, null, 4);
+        }
+
+        private void AddTeacherToFavorites(Teacher teacher, University university)
+        {
+            _favoritedItemsManager.Add(true, teacher.Id, teacher.Name, university, _facultyId);
             _navigation.GoToPage(Pages.FarovitesPage, null, 4);
         }
 
@@ -202,6 +246,33 @@ namespace TimeTable.ViewModel
                 {
                     Parameter = NavigationParameterName.Name,
                     Value = group.GroupName
+                },
+                new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.UniversityId,
+                    Value = _universityId.ToString(CultureInfo.InvariantCulture)
+                },
+                new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.FacultyId,
+                    Value = _facultyId.ToString(CultureInfo.InvariantCulture)
+                }
+            };
+        }
+
+        private IEnumerable<NavigationParameter> GetNavitationParameters(Teacher teacher)
+        {
+            return new List<NavigationParameter>
+            {
+                new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.Id,
+                    Value = teacher.Id.ToString(CultureInfo.InvariantCulture)
+                },
+                new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.IsTeacher,
+                    Value = true.ToString()
                 },
                 new NavigationParameter
                 {

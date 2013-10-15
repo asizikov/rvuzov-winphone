@@ -53,11 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auditory.cs" />
+    <Compile Include="UserRole.cs" />
     <Compile Include="FavoritedItem.cs" />
     <Compile Include="Faculty.cs" />
     <Compile Include="LessonGroup.cs" />
     <Compile Include="LessonTeacher.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Me.cs" />
     <Compile Include="Teachers.cs" />
     <Compile Include="ListGroup.cs" />
     <Compile Include="Day.cs" />

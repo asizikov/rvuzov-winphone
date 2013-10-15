@@ -127,7 +127,7 @@
     <value>аудитория</value>
   </data>
   <data name="DefaultUniversityAndGroup" xml:space="preserve">
-    <value>Вуз и группа по умолчанию</value>
+    <value>расписание по умолчанию</value>
   </data>
   <data name="Favorite" xml:space="preserve">
     <value>избранное</value>

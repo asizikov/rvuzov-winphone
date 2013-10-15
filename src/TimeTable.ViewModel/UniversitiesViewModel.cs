@@ -91,21 +91,21 @@ namespace TimeTable.ViewModel
                 if (_selectedUniversity != null)
                 {
                     _flurry.PublishUniversitySelected(_selectedUniversity);
-                    NavigateToFaculties(_selectedUniversity.Id);
+                    NavigateToFaculties(_selectedUniversity);
                 }
             }
         }
 
-        private void NavigateToFaculties(int id)
+        private void NavigateToFaculties(University university)
         {
             var navigationParameter = new NavigationParameter
             {
                 Parameter = NavigationParameterName.Id,
-                Value = id.ToString(CultureInfo.InvariantCulture)
+                Value = university.Id.ToString(CultureInfo.InvariantCulture)
             };
             if (!_applicationSettings.IsRegistrationCompleted)
             {
-                _applicationSettings.UniversityId = id;
+                _applicationSettings.Me.University = university;
             }
             var parameters = new List<NavigationParameter> {navigationParameter};
             if (_isAddingFavorites)

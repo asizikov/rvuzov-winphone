@@ -40,7 +40,7 @@ namespace TimeTable.ViewModel
             _universityId = universityId;
             _isAddingFavorites = isAddingFavorites;
 
-            _applicationSettings.UniversityId = _universityId;
+           // _applicationSettings.UniversityId = _universityId;
 
             _facultyGroupFunc = faculty => faculty.Title[0];
 
@@ -110,7 +110,10 @@ namespace TimeTable.ViewModel
 
         private void NavigateToGroupsPage(Faculty faculty)
         {
-            _applicationSettings.FacultyId = faculty.Id;
+            if (!_applicationSettings.IsRegistrationCompleted)
+            {
+                _applicationSettings.Me.Faculty = faculty;
+            }
             _navigation.GoToPage(Pages.Groups, GetNavitationParameters(faculty));
         }
 

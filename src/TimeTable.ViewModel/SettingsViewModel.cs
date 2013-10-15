@@ -1,39 +1,56 @@
 ﻿using System;
-using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Model;
-using TimeTable.ViewModel.Commands;
-using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
-using TimeTable.ViewModel.Utils;
 
 
 namespace TimeTable.ViewModel
 {
-    public class SettingsViewModel : BaseViewModel
+    public sealed class SettingsViewModel : BaseViewModel
     {
-        private DefaultUniversityAndGroupManager _defParams;
+        private readonly BaseApplicationSettings _applicationSettings;
 
-        public SettingsViewModel()
+        public SettingsViewModel([NotNull] BaseApplicationSettings applicationSettings,
+            [NotNull] INavigationService navigationService)
         {
-            getDefaultParameters();
-        }
-
-        public void getDefaultParameters()
-        {
-            DefaultUniversityAndGroupManager defParams  = new DefaultUniversityAndGroupManager();
-            _defParams = defParams;
-        }
-        [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public string DefaultGroup
-        {
-            get { return _defParams == null ? string.Empty : _defParams.defaultGroup; }
+            if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
+            if (navigationService == null) throw new ArgumentNullException("navigationService");
+            _applicationSettings = applicationSettings;
+            Default = new DefaultViewModel(_applicationSettings.Me, navigationService);
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public string DefoultUniversity
+        public DefaultViewModel Default { get; private set; }
+
+    }
+
+    public sealed class DefaultViewModel
+    {
+        private readonly Me _model;
+        private readonly INavigationService _navigationService;
+
+        public DefaultViewModel(Me model, INavigationService navigationService)
         {
-            get { return _defParams == null ? string.Empty : _defParams.defaultUniversity; }
+            _model = model;
+            _navigationService = navigationService;
         }
+
+        public string Name
+        {
+            get
+            {
+                return _model.Teacher != null ? _model.Teacher.Name : _model.DefaultGroup.GroupName;
+            }
+        }
+
+        public string University
+        {
+            get
+            {
+                return _model.University.Name;
+            }
+        }
+
+        
     }
 }

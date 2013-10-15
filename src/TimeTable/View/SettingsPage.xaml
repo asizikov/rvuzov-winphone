@@ -75,17 +75,25 @@
                     </DataTemplate>
                 </toolkit:ToggleSwitch.ContentTemplate>
             </toolkit:ToggleSwitch>
+            <Button 
+                toolkit:TiltEffect.IsTiltEnabled="True"
+                Style="{StaticResource ButtonNoBorder}" Margin="12,250,0,0">
+                <StackPanel >
             <TextBlock Text="{Binding Strings.DefaultUniversityAndGroup, Source={StaticResource LocalizedStrings}}" 
-                       Margin="12,250,0,0"
+                       Margin="0,12,0,0"
                        FontSize="23"
+                       Style="{StaticResource PhoneTextLargeStyle}"
                        Foreground="{StaticResource TimeTableHilighthBrush}"/>
-            <TextBlock Text="{Binding DefaultGroup}" 
-                       Margin="12,290,0,0"
+            <TextBlock Text="{Binding Default.Name}" 
+                       Margin="0,12,0,0"
+                       Foreground="White"
                        Style="{StaticResource PhoneTextLargeStyle}"/>
-            <TextBlock Text="{Binding DefoultUniversity}" 
-                       Margin="12,325,0,0" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+            <TextBlock Text="{Binding Default.University}" 
+                       Margin="0,12,0,0" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
                        FontSize="{StaticResource PhoneFontSizeNormal}"
                        TextWrapping="Wrap"/>
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
     

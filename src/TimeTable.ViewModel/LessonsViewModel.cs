@@ -29,7 +29,6 @@ namespace TimeTable.ViewModel
         private University _university;
         private Teacher _teacher;
         private Group _group;
-        private DefaultUniversityAndGroupManager _defaultUniversityAndGroupManager;
         private FavoritedState _favoritedState;
         private ObservableCollection<AppbarButtonViewModel> _appbarButtons;
         private AppbarButtonViewModel _favoriteAppbarButton;
@@ -113,7 +112,6 @@ namespace TimeTable.ViewModel
                     {
                         _group = group;
                         UpdateFaforitedSate();
-                        SetDefaultUniversityAndGroup();
                     });
                 }
                 LoadLessons();
@@ -292,11 +290,6 @@ namespace TimeTable.ViewModel
             _navigation.GoToPage(Pages.SettingsPage);
         }
 
-        public void SetDefaultUniversityAndGroup()
-        {
-            _defaultUniversityAndGroupManager = new DefaultUniversityAndGroupManager(_university.Name, _group.GroupName);
-        }
-
         private void UpdateFaforitedSate()
         {
             if (_group == null && _teacher == null)
@@ -316,7 +309,17 @@ namespace TimeTable.ViewModel
             }
             if (!_isTeacher)
             {
-                if (_applicationSettings.GroupId == _group.Id && _applicationSettings.FacultyId == _facultyId)
+                if (_applicationSettings.Me.DefaultGroup.Id == _group.Id &&
+                    _applicationSettings.Me.Faculty.Id == _facultyId)
+                {
+                    FavoritedState = FavoritedState.Me;
+                    return;
+                }
+            }
+            else
+            {
+                if (_applicationSettings.Me.Teacher.Id == _teacher.Id &&
+                    _applicationSettings.Me.University.Id == _university.Id)
                 {
                     FavoritedState = FavoritedState.Me;
                     return;

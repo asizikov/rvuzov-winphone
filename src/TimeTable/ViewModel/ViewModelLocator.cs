@@ -67,7 +67,7 @@ namespace TimeTable.ViewModel
         }
         public static BaseViewModel GetSettingsViewModel()
         {
-            return new SettingsViewModel();
+            return new SettingsViewModel(C.Resolve<BaseApplicationSettings>(), C.Resolve<INavigationService>());
         }
     }
 }
