@@ -291,11 +291,11 @@ namespace TimeTable.ViewModel
                 (_isTeacher ? _teacher.Name : _group.GroupName), (_isTeacher ? _teacher.Id : _group.Id));
             _navigation.GoToPage(Pages.SettingsPage);
         }
-<<<<<<< HEAD
-        public void SetDefaultUniversityAndGroup() 
+
+        public void SetDefaultUniversityAndGroup()
         {
             _defaultUniversityAndGroupManager = new DefaultUniversityAndGroupManager(_university.Name, _group.GroupName);
-=======
+        }
 
         private void UpdateFaforitedSate()
         {
@@ -335,7 +335,6 @@ namespace TimeTable.ViewModel
                 _appbarButtons = value;
                 OnPropertyChanged("AppbarButtons");
             }
->>>>>>> c42f004157f67286d2d0fc0a02ee21d622f40edc
         }
     }
 }
