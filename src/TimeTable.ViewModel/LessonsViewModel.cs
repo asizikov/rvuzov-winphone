@@ -33,6 +33,7 @@ namespace TimeTable.ViewModel
         private ObservableCollection<AppbarButtonViewModel> _appbarButtons;
         private AppbarButtonViewModel _favoriteAppbarButton;
         private AppbarButtonViewModel _unfavoriteAppbarButton;
+        private string _title;
 
         public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
@@ -103,6 +104,7 @@ namespace TimeTable.ViewModel
                     _dataProvider.GetTeacherByIdAsync(universityId, _id).Subscribe(teacher =>
                     {
                         _teacher = teacher;
+                        Title = _teacher.Name;
                         UpdateFaforitedSate();
                     });
                 }
@@ -111,6 +113,7 @@ namespace TimeTable.ViewModel
                     _dataProvider.GetGroupByIdAsync(_facultyId, _id).Subscribe(group =>
                     {
                         _group = group;
+                        Title = _group.GroupName;
                         UpdateFaforitedSate();
                     });
                 }
@@ -198,9 +201,15 @@ namespace TimeTable.ViewModel
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public string GroupName
+        public string Title
         {
-            get { return _group == null ? string.Empty : _group.GroupName; }
+            get { return _title; }
+            private set
+            {
+                if (value == _title) return;
+                _title = value;
+                OnPropertyChanged("Title");
+            }
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -309,7 +318,8 @@ namespace TimeTable.ViewModel
             }
             if (!_isTeacher)
             {
-                if (_applicationSettings.Me.DefaultGroup.Id == _group.Id &&
+                if (_applicationSettings.Me.DefaultGroup != null &&
+                    _applicationSettings.Me.DefaultGroup.Id == _group.Id &&
                     _applicationSettings.Me.Faculty.Id == _facultyId)
                 {
                     FavoritedState = FavoritedState.Me;
@@ -318,7 +328,8 @@ namespace TimeTable.ViewModel
             }
             else
             {
-                if (_applicationSettings.Me.Teacher.Id == _teacher.Id &&
+                if (_applicationSettings.Me.Teacher != null &&
+                    _applicationSettings.Me.Teacher.Id == _teacher.Id &&
                     _applicationSettings.Me.University.Id == _university.Id)
                 {
                     FavoritedState = FavoritedState.Me;
