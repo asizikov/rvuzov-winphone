@@ -11,9 +11,11 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
-    SupportedOrientations="Portrait"
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.IsVisible="True"
+    shell:SystemTray.Opacity="1"
+    shell:SystemTray.ForegroundColor="{StaticResource TimeTableHilighthColor}"
+    shell:SystemTray.BackgroundColor="{StaticResource TimeTableBackgorundColor}"
     d:DataContext="{d:DesignInstance viewModel:LessonsViewModel}">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -56,15 +58,18 @@
     </Grid>
     <bindableApplicationBar:Bindable.ApplicationBar>
         <bindableApplicationBar:BindableApplicationBar
+            ButtonsSource="{Binding AppbarButtons}"
+            Name="BindableApplicationBar"
             BackgroundColor="{StaticResource TimeTableHilighthColor}">
-            <bindableApplicationBar:BindableApplicationBarButton
-                Text="{Binding  Strings.Settings, Source={StaticResource LocalizedStrings}}"
-                Command="{Binding GoToSettingsCommand}"
-                IconUri="/Resources/Icons/appbar.cog.png" />
-            <bindableApplicationBar:BindableApplicationBarButton
-                Text="{Binding  Strings.ToFavorites, Source={StaticResource LocalizedStrings}}"
-                Command="{Binding AddToFavoritesCommand}"
-                IconUri="/Resources/Icons/favs.addto.png" />
+<!--            <bindableApplicationBar:BindableApplicationBarButton-->
+<!--                Text="{Binding  Strings.Settings, Source={StaticResource LocalizedStrings}}"-->
+<!--                Command="{Binding GoToSettingsCommand}"-->
+<!--                IconUri="/Resources/Icons/appbar.cog.png" />-->
+<!--            <bindableApplicationBar:BindableApplicationBarButton-->
+<!--                Name="AddToFavoritesButton"-->
+<!--                Text="{Binding  Strings.ToFavorites, Source={StaticResource LocalizedStrings}}"-->
+<!--                Command="{Binding AddToFavoritesCommand}"-->
+<!--                IconUri="/Resources/Icons/favs.addto.png" />-->
             <bindableApplicationBar:BindableApplicationBar.MenuItems>
                     <bindableApplicationBar:BindableApplicationBarMenuItem
                     Text="{Binding Strings.Favorite , Source={StaticResource LocalizedStrings}}"

@@ -61,6 +61,15 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to добавить.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to расписание вузов.
         /// </summary>
         public static string AppName {
@@ -228,6 +237,15 @@ namespace TimeTable.Resources {
         public static string ToFavorites {
             get {
                 return ResourceManager.GetString("ToFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to из избранного.
+        /// </summary>
+        public static string Unfavorite {
+            get {
+                return ResourceManager.GetString("Unfavorite", resourceCulture);
             }
         }
         

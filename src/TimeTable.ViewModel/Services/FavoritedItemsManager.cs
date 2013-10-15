@@ -43,7 +43,7 @@ namespace TimeTable.ViewModel.Services
 
         private static string SerializeToStrng(Favorites favs)
         {
-           return JsonConvert.SerializeObject(favs);
+            return JsonConvert.SerializeObject(favs);
         }
 
         [NotNull, Pure]
@@ -59,10 +59,7 @@ namespace TimeTable.ViewModel.Services
         [CanBeNull]
         public FavoritedItem this[int id]
         {
-            get
-            {
-               return _favoritedItems.Items.FirstOrDefault(i => i.Id == id);
-            }
+            get { return _favoritedItems.Items.FirstOrDefault(i => i.Id == id); }
         }
 
         public bool IsFavorited(int id)
@@ -76,16 +73,58 @@ namespace TimeTable.ViewModel.Services
             return new List<FavoritedItem>(_favoritedItems.Items);
         }
 
-        public void Add(bool isTeacher, int id, string title, University university)
+        public void Add(bool isTeacher, int id, string title, University university, int facultyId)
         {
             var newItem = new FavoritedItem
             {
                 Id = id,
                 Type = isTeacher ? FavoritedItemType.Teacher : FavoritedItemType.Group,
                 Title = title,
-                University = university
+                University = university,
+                Faculty = new Faculty
+                {
+                    Id = facultyId
+                }
             };
             _favoritedItems.Items.Add(newItem);
+        }
+
+        public void Remove(bool isTeacher, int id, string name, University university, int facultyId)
+        {
+            if (isTeacher)
+            {
+                var teacher = _favoritedItems.Items.FirstOrDefault(
+                    i => i.Type == FavoritedItemType.Teacher && i.University.Id == university.Id && id == i.Id);
+                if (teacher != null)
+                {
+                    _favoritedItems.Items.Remove(teacher);
+                }
+            }
+            else
+            {
+                var group = _favoritedItems.Items.FirstOrDefault(
+                    i => i.Type == FavoritedItemType.Group && i.Faculty.Id == facultyId && id == i.Id);
+                if (group != null)
+                {
+                    _favoritedItems.Items.Remove(group);
+                }
+            }
+        }
+
+        [Pure]
+        public bool IsGroupFavorited(int facultyId, int groupId)
+        {
+            return _favoritedItems.Items
+                .Where(item => item.Type == FavoritedItemType.Group)
+                .Any(itm => itm.Faculty.Id == facultyId && itm.Id == groupId);
+        }
+
+        [Pure]
+        public bool IsTeacherFavorited(int universityId, int groupId)
+        {
+            return _favoritedItems.Items
+                .Where(item => item.Type == FavoritedItemType.Teacher)
+                .Any(itm => itm.University.Id == universityId && itm.Id == groupId);
         }
 
         public void Save()

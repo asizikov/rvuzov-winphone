@@ -9,9 +9,9 @@ namespace TimeTable.ViewModel.Extensions
     internal static class FavoritedExtensions
     {
         [Pure]
-        public static List<FavoritedItemViewModel> ToViewModels(this IEnumerable<FavoritedItem> items, IUiStringsProviders stringsProviders)
+        public static List<FavoritedItemViewModel> ToViewModels(this IEnumerable<FavoritedItem> items, IUiStringsProviders stringsProviders, INavigationService navigationService)
         {
-            return items.Select(i => new FavoritedItemViewModel(i, stringsProviders)).ToList();
+            return items.Select(i => new FavoritedItemViewModel(i, stringsProviders, navigationService)).ToList();
         }
     }
 }

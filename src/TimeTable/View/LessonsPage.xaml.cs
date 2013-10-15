@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows.Navigation;
 using TimeTable.ViewModel;
 using TimeTable.ViewModel.Services;
 
@@ -11,10 +12,14 @@ namespace TimeTable.View
         public LessonsPage()
         {
             InitializeComponent();
+            BindableApplicationBar.Buttons.Clear();
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            BindableApplicationBar.Buttons.Clear();
+            ApplicationBar.Buttons.Clear();
+
             base.OnNavigatedTo(e);
 
             string rawGroupId;
@@ -40,6 +45,7 @@ namespace TimeTable.View
                     }
                     DataContext = ViewModelLocator.GetLessonsViewModel(id, isTeacher,
                         Int32.Parse(rawUniversityId), isTeacher ? -1 : Int32.Parse(rawFacultyId));
+                    ;
                 }
             }
             else
@@ -47,6 +53,11 @@ namespace TimeTable.View
                 Debug.WriteLine("LessonsPage::failed to get parameters from QueryString");
                 throw new KeyNotFoundException("LessonsPage::failed to get parameters from QueryString");
             }
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            BindableApplicationBar.MenuItemsSource = null;
         }
     }
 }

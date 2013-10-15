@@ -17,8 +17,10 @@ namespace TimeTable.ViewModel
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly AsyncDataProvider _dataProvider;
         private readonly FlurryPublisher _flurryPublisher;
+        private readonly FavoritedItemsManager _favoritedItemsManager;
         private readonly int _universityId;
         private readonly int _facultyId;
+        private readonly bool _isAddingFavorites;
         private ObservableCollection<ListGroup<Group>> _groupsList;
         private ObservableCollection<ListGroup<Teacher>> _teachersList;
         private Group _selectedGroup;
@@ -30,10 +32,12 @@ namespace TimeTable.ViewModel
 
         public GroupPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurryPublisher, int universityId, int facultyId)
+            [NotNull] FlurryPublisher flurryPublisher, [NotNull] FavoritedItemsManager favoritedItemsManager,
+            int universityId, int facultyId, bool isAddingFavorites)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
+            if (favoritedItemsManager == null) throw new ArgumentNullException("favoritedItemsManager");
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
 
@@ -41,8 +45,10 @@ namespace TimeTable.ViewModel
             _applicationSettings = applicationSettings;
             _dataProvider = dataProvider;
             _flurryPublisher = flurryPublisher;
+            _favoritedItemsManager = favoritedItemsManager;
             _universityId = universityId;
             _facultyId = facultyId;
+            _isAddingFavorites = isAddingFavorites;
             _groupFunc = group => group.GroupName[0];
             _teachersGroupFunc = teacher => teacher.Name[0];
 
@@ -89,7 +95,7 @@ namespace TimeTable.ViewModel
                         .Subscribe(university =>
                         {
                             _flurryPublisher.PublishGroupSelected(_selectedGroup, university);
-                            NavigateToLessonsPage(_selectedGroup);
+                            NavigateToLessonsPage(_selectedGroup, university);
                         });
                 }
             }
@@ -154,14 +160,28 @@ namespace TimeTable.ViewModel
             }
         }
 
-        private void NavigateToLessonsPage(Group group)
+        private void NavigateToLessonsPage(Group group, University university)
         {
-            if (!_applicationSettings.IsRegistrationCompleted)
+            if (_isAddingFavorites)
             {
-                _applicationSettings.GroupId = group.Id;
-                _applicationSettings.GroupName = group.GroupName;
+                AddGoupToFavorites(group, university);
             }
-            _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group));
+            else
+            {
+                if (!_applicationSettings.IsRegistrationCompleted)
+                {
+                    _applicationSettings.GroupId = group.Id;
+                    _applicationSettings.GroupName = group.GroupName;
+                }
+                _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group));
+            }
+            
+        }
+
+        private void AddGoupToFavorites(Group group, University university)
+        {
+            _favoritedItemsManager.Add(false, group.Id, group.GroupName, university, _facultyId);
+            _navigation.GoToPage(Pages.FarovitesPage, null, 4);
         }
 
         private IEnumerable<NavigationParameter> GetNavitationParameters(Group group)

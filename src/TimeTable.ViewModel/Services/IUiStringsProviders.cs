@@ -5,5 +5,9 @@
         string Auditory { get; }
         string TeachersTimeTable { get; }
         string Group { get;}
+        string Settings { get; }
+        string AddToFavorited { get; }
+        string Favorites { get; }
+        string Unfavorite { get;}
     }
 }
