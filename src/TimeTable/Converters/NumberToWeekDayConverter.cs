@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace TimeTable.Converters
 {
-    public class NumberToWeekDayConverter: IValueConverter
+    public class NumberToWeekDayConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -13,7 +13,7 @@ namespace TimeTable.Converters
             {
                 throw new ArgumentException("Day number value is out of range");
             }
-            return CultureInfo.CurrentCulture.DateTimeFormat.DayNames[dayNumber];
+            return CultureInfo.CurrentCulture.DateTimeFormat.DayNames[dayNumber == 7 ? 0 : dayNumber];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

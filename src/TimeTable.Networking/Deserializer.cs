@@ -5,7 +5,7 @@ namespace TimeTable.Networking
 {
     public class Deserializer
     {
-        [CanBeNull]
+        [CanBeNull, Pure]
         public T Deserialize<T>([CanBeNull] string json)
         {
             var result = JsonConvert.DeserializeObject<T>(json);

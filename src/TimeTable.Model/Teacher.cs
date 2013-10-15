@@ -10,7 +10,7 @@ namespace TimeTable.Model
         public string Name { get; set; }
 
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [CanBeNull, JsonProperty("personalPage")]
         public string PersonalPage { get; set; }

@@ -7,7 +7,7 @@ namespace TimeTable.Services
 {
     public class ApplicationSettings : BaseApplicationSettings
     {
-        private void SaveInStorage(string key, object value)
+        private static void SaveToStorage(string key, object value)
         {
             if (IsolatedStorageSettings.ApplicationSettings.Contains(key))
             {
@@ -20,49 +20,50 @@ namespace TimeTable.Services
             IsolatedStorageSettings.ApplicationSettings.Save();
         }
 
-        private object LoadFromStorage(string key)
+        [CanBeNull]
+        private static object LoadFromStorage(string key)
         {
             return IsolatedStorageSettings.ApplicationSettings.Contains(key)
                 ? IsolatedStorageSettings.ApplicationSettings[key]
                 : null;
         }
 
-        [NotNull] private const string RoleKey = "Role";
-        [NotNull] private const string UniversityKey = "University";
-        [NotNull] private const string GroupKey = "Group";
-        [NotNull] private const string GroupNameKey = "GroupName";
-        [NotNull] private const string FacultyKey = "FacultyId";
+        [NotNull] private const string ROLE_KEY = "Role";
+        [NotNull] private const string UNIVERSITY_KEY = "University";
+        [NotNull] private const string GROUP_KEY = "Group";
+        [NotNull] private const string GROUP_NAME_KEY = "GroupName";
+        [NotNull] private const string FACULTY_KEY = "FacultyId";
 
         public override UserRole? Role
         {
-            get { return (UserRole?) LoadFromStorage(RoleKey); }
-            set { SaveInStorage(RoleKey, value); }
+            get { return (UserRole?) LoadFromStorage(ROLE_KEY); }
+            set { SaveToStorage(ROLE_KEY, value); }
         }
 
         public override int? UniversityId
         {
-            get { return (int?) LoadFromStorage(UniversityKey); }
-            set { SaveInStorage(UniversityKey, value); }
+            get { return (int?) LoadFromStorage(UNIVERSITY_KEY); }
+            set { SaveToStorage(UNIVERSITY_KEY, value); }
         }
 
         public override int? GroupId
         {
-            get { return (int?) LoadFromStorage(GroupKey); }
-            set { SaveInStorage(GroupKey, value); }
+            get { return (int?) LoadFromStorage(GROUP_KEY); }
+            set { SaveToStorage(GROUP_KEY, value); }
         }
 
         public override string GroupName
         {
-            get { return (string) LoadFromStorage(GroupNameKey); }
-            set { SaveInStorage(GroupNameKey, value); }
+            get { return (string) LoadFromStorage(GROUP_NAME_KEY); }
+            set { SaveToStorage(GROUP_NAME_KEY, value); }
         }
 
         public override int? FacultyId
         {
-            get { return (int?) LoadFromStorage(FacultyKey); }
+            get { return (int?) LoadFromStorage(FACULTY_KEY); }
             set
             {
-                SaveInStorage(FacultyKey, value);
+                SaveToStorage(FACULTY_KEY, value);
             }
 
         }

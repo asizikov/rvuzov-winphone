@@ -6,18 +6,37 @@ namespace TimeTable.Resources
     {
         public string Auditory
         {
-            get
-            {
-                return Strings.Auditory;
-            }
+            get { return Strings.Auditory; }
         }
 
         public string TeachersTimeTable
         {
-            get
-            {
-                return Strings.TeachersTimeTable;
-            }
+            get { return Strings.TeachersTimeTable; }
+        }
+
+        public string Group
+        {
+            get { return Strings.Group; }
+        }
+
+        public string Settings
+        {
+            get { return Strings.Settings; }
+        }
+
+        public string AddToFavorited
+        {
+            get { return Strings.ToFavorites; }
+        }
+
+        public string Favorites
+        {
+            get { return Strings.Favorite; }
+        }
+
+        public string Unfavorite
+        {
+            get { return Strings.Unfavorite; }
         }
     }
 }

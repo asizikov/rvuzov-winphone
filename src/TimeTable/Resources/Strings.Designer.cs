@@ -61,8 +61,19 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+
         ///   Ищет локализованную строку, похожую на расписание вузов.
+
         /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///
+           /// </summary>
         public static string AppName {
             get {
                 return ResourceManager.GetString("AppName", resourceCulture);
@@ -88,8 +99,9 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+
         ///   Ищет локализованную строку, похожую на Группа:.
-        /// </summary>
+      /// </summary>
         public static string Group {
             get {
                 return ResourceManager.GetString("Group", resourceCulture);
@@ -177,18 +189,32 @@ namespace TimeTable.Resources {
             }
         }
         
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Сегодня.
+        /// <summary>        ///   Ищет локализованную строку, похожую на Сегодня.
         /// </summary>
         public static string Today {
             get {
                 return ResourceManager.GetString("Today", resourceCulture);
+
+		}
+	}
+        public static string ToFavorites {
+            get {
+                return ResourceManager.GetString("ToFavorites", resourceCulture);
+
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {0} неделя.
+       ///   Ищет локализованную строку, похожую на {0} неделя.
         /// </summary>
+        public static string Unfavorite {
+            get {
+                return ResourceManager.GetString("Unfavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+       /// </summary>
         public static string WeekNumber {
             get {
                 return ResourceManager.GetString("WeekNumber", resourceCulture);

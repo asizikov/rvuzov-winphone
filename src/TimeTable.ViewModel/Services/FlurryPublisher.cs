@@ -160,11 +160,12 @@ namespace TimeTable.ViewModel.Services
             PublishEvent(FlurryEvents.EVENT_CONTEXT_TEACHER_SCHEDULE, parameters);
         }
 
-        public void PublishActionbarScheduleSettings([NotNull] University university, bool mode,  string name, int id)
+        public void PublishActionbarScheduleSettings([NotNull] University university, bool isTeacher,  string name, int id)
         {
-            string _mode = "student";
+           var mode = "teacher";
+
             if (university == null) throw new ArgumentNullException("university");
-            if(mode == false) _mode = "teacher";
+            if(isTeacher == false) mode = "student";
 
             var parameters = new[]
             {
@@ -172,17 +173,38 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
                 new EventParameter("Object name", name),
                 new EventParameter("Object Id", id.ToString(CultureInfo.InvariantCulture)),
-                new EventParameter("Mode", _mode)
+                new EventParameter("Mode", mode)
             };
 
             PublishEvent(FlurryEvents.EVENT_ACTIONBAR_SCHEDULE_SETTINGS, parameters);
         }
 
-        public void PublishActionbarToday([NotNull] University university, bool mode, string name, int id)
+
+        public void PublishActionbarToday([NotNull] University university, bool isTeacher,  string name, int id)
         {
-            string _mode = "student";
+           var mode = "teacher";
+
             if (university == null) throw new ArgumentNullException("university");
-            if (mode == false) _mode = "teacher";
+            if(isTeacher == false) mode = "student";
+var parameters = new[]
+            {
+                new EventParameter("University shortname", university.ShortName),
+                new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("Object name", name),
+                new EventParameter("Object Id", id.ToString(CultureInfo.InvariantCulture)),
+	new EventParameter("Mode", _mode)
+
+   };
+
+            PublishEvent(FlurryEvents.EVENT_ACTIONBAR_TODAY, parameters);
+}
+
+        public void PublishMarkFavorite([NotNull] University university, bool isTeacher, string name, int id)
+        {
+            var mode = "teacher";
+            if (university == null) throw new ArgumentNullException("university");
+            if (isTeacher == false) mode = "student";
+
 
             var parameters = new[]
             {
@@ -190,11 +212,9 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
                 new EventParameter("Object name", name),
                 new EventParameter("Object Id", id.ToString(CultureInfo.InvariantCulture)),
-                new EventParameter("Mode", _mode)
+              new EventParameter("Mode", mode)
             };
-
-            PublishEvent(FlurryEvents.EVENT_ACTIONBAR_TODAY, parameters);
-
-        }
+            PublishEvent(FlurryEvents.EVENT_ACTIONBAR_MARK_FAVORITE, parameters);
+     }
     }
 }

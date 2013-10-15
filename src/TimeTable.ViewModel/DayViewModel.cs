@@ -14,7 +14,8 @@ namespace TimeTable.ViewModel
         private readonly int _parity;
         private ObservableCollection<TimeTableItemViewModel> _lessons;
 
-        public DayViewModel([NotNull] Day day, WeekType weekType, int parity, [NotNull] ICommandFactory commandFactory, University university)
+        public DayViewModel([NotNull] Day day, WeekType weekType, int parity, [NotNull] ICommandFactory commandFactory,
+            University university)
         {
             if (day == null) throw new ArgumentNullException("day");
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
@@ -28,8 +29,8 @@ namespace TimeTable.ViewModel
                 Lessons =
                     new ObservableCollection<TimeTableItemViewModel>(
                         _day.Lessons.Where(IsVisibleInCurrentWeek)
-                        .OrderBy(lesson => lesson.TimeStart)
-                        .Select(lesson => new TimeTableItemViewModel(lesson, commandFactory, university)));
+                            .OrderBy(lesson => lesson.TimeStart)
+                            .Select(lesson => new TimeTableItemViewModel(lesson, commandFactory, university)));
             }
             else
             {
@@ -54,7 +55,7 @@ namespace TimeTable.ViewModel
             var today = DateTime.Now;
             var delta = DayOfWeek.Monday - today.DayOfWeek;
             var monday = today.AddDays(delta);
-            
+
 
             switch (weekType)
             {

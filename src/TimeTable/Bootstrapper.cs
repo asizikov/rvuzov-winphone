@@ -36,6 +36,7 @@ namespace TimeTable
             ioc.Register<IUiStringsProviders>(new UiStringsProvider());
             ioc.Register<ICommandFactory>(new CommandsFactory(ioc.Resolve<INavigationService>(),
                 ioc.Resolve<FlurryPublisher>(), ioc.Resolve<IUiStringsProviders>()));
+            ioc.Register(new FavoritedItemsManager());
         }
     }
 }

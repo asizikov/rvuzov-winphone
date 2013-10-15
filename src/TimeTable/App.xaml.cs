@@ -100,9 +100,10 @@ namespace TimeTable
         {
             var flurryPublisher = ContainerInstance.Current.Resolve<FlurryPublisher>();
             var cache = ContainerInstance.Current.Resolve<ICache>();
-
+            var favoritedItemsManager = ContainerInstance.Current.Resolve<FavoritedItemsManager>();
             flurryPublisher.EndSession();
             cache.PushToStorage();
+            favoritedItemsManager.Save();
         }
 
         // Code to execute if a navigation fails

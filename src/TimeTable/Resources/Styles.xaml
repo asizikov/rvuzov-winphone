@@ -13,6 +13,7 @@
     <SolidColorBrush x:Key="TimeTableSecondaryTextColorBrush">#A1ACB7</SolidColorBrush>
     <SolidColorBrush x:Key="TimeTableButtonBackgroundColorBrush">#46659E</SolidColorBrush>
     <Color x:Key="TimeTableHilighthColor">#4C6DA7</Color>
+    <Color x:Key="TimeTableBackgorundColor">#2D3541</Color>
 
     <DataTemplate x:Key="TimeTableGroupItemTemplate">
         <Border Background="{StaticResource TimeTableHilighthBrush}"
@@ -238,4 +239,42 @@
             </ItemsControl>
         </StackPanel>
     </DataTemplate>
+
+    <Style x:Key="ButtonNoBorder" TargetType="Button">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid
+                        Margin="0"
+                        Background="Transparent">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver"/>
+                                <VisualState x:Name="Pressed"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentContainer">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ButtonBackground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonBackground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
