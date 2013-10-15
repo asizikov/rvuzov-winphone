@@ -11,8 +11,8 @@ namespace TimeTable.ViewModel.Services
     {
         [NotNull] private const string DEFAULTPARAMS = "Defaultparams";
         [NotNull] private DefaultParams _defaultParams;
-        public string defaultUniversity;
-        public string defaultGroup;
+        public string defaultUniversity {get; set;}
+        public string defaultGroup { get; set; }
 
 
         public DefaultUniversityAndGroupManager()
@@ -24,7 +24,7 @@ namespace TimeTable.ViewModel.Services
             Add(universityName, groupName);
             LoadDefaultParams();
         }
-        [NotNull, Pure]
+        [NotNull]
         private void LoadDefaultParams()
         {
             DefaultParams defParams;
