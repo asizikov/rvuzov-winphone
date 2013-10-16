@@ -90,9 +90,7 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Ищет локализованную строку, похожую на избранное.
-=======
         ///   Looks up a localized string similar to расписание по умолчанию.
         /// </summary>
         public static string DefaultUniversityAndGroup {
@@ -103,7 +101,6 @@ namespace TimeTable.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to избранное.
->>>>>>> master
         /// </summary>
         public static string Favorite {
             get {
@@ -149,9 +146,7 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Ищет локализованную строку, похожую на поиск.
-=======
         ///   Looks up a localized string similar to Лабороторные работы.
         /// </summary>
         public static string LaboratoryWork {
@@ -180,7 +175,6 @@ namespace TimeTable.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to поиск.
->>>>>>> master
         /// </summary>
         public static string Search {
             get {
@@ -216,9 +210,7 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Ищет локализованную строку, похожую на преподаватели.
-=======
         ///   Looks up a localized string similar to отображать в расписании.
         /// </summary>
         public static string ShowInTheSchedule {
@@ -229,7 +221,6 @@ namespace TimeTable.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to преподаватели.
->>>>>>> master
         /// </summary>
         public static string Teachers {
             get {
