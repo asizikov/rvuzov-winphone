@@ -36,8 +36,7 @@
                 <ListBox 
                     ItemTemplate="{StaticResource TimeTableWeekDataTemplate}"
                     ItemsSource="{Binding Days}"
-                    SelectedIndex="{Binding SelectedDayIndex, Mode=TwoWay}">
-                    
+                    SelectedItem="{Binding SelectedDayItem, Mode=TwoWay}">  
                 </ListBox>
             </controls:PivotItem>
             <controls:PivotItem

@@ -38,5 +38,10 @@ namespace TimeTable.Resources
         {
             get { return Strings.Unfavorite; }
         }
+
+        public string Today
+        {
+            get { return Strings.Today; }
+        }
     }
 }

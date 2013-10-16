@@ -9,5 +9,6 @@
         string AddToFavorited { get; }
         string Favorites { get; }
         string Unfavorite { get;}
+        string Today { get; }
     }
 }

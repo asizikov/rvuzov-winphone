@@ -186,13 +186,13 @@ namespace TimeTable.ViewModel.Services
 
             if (university == null) throw new ArgumentNullException("university");
             if(isTeacher == false) mode = "student";
-var parameters = new[]
+            var parameters = new[]
             {
                 new EventParameter("University shortname", university.ShortName),
                 new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
                 new EventParameter("Object name", name),
                 new EventParameter("Object Id", id.ToString(CultureInfo.InvariantCulture)),
-	new EventParameter("Mode", _mode)
+	            new EventParameter("Mode", mode)
 
    };
 

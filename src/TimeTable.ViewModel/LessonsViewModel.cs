@@ -75,6 +75,13 @@ namespace TimeTable.ViewModel
                     Text = _stringsProviders.Settings,
                     Command = GoToSettingsCommand,
                     IconUri = "/Resources/Icons/appbar.cog.png"
+                },
+
+                new AppbarButtonViewModel
+                {
+                Text = _stringsProviders.Today,
+                IconUri = "/Resources/Icons/feature.calendar.png",
+                Command = GoToTodayCommand,
                 }
             };
             _favoriteAppbarButton = new AppbarButtonViewModel
@@ -90,6 +97,7 @@ namespace TimeTable.ViewModel
                 IconUri = "/Resources/Icons/appbar.star.minus.png",
                 Command = RemoveFromFavoritesCommand,
             };
+            
         }
 
         private void Init(int universityId)
@@ -309,10 +317,12 @@ namespace TimeTable.ViewModel
 
         private void SelectTodayItem()
         {
-            SelectedWeekIndex = 0;
             DateTime today = DateTime.UtcNow;
-            CurrentWeek.SelectedDayIndex = (int)today.DayOfWeek - 1;
-            CurrentWeek.SelectedDayIndex = -1;
+            int todayIndex = (int)today.DayOfWeek - 1;
+
+            SelectedWeekIndex = 0;
+            CurrentWeek.SelectedDayItem = CurrentWeek.Days[todayIndex];
+            CurrentWeek.SelectedDayItem = null;
             _flurryPublisher.PublishActionbarToday(_university, _isTeacher, _group.GroupName, _group.Id);
         }
 
