@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -93,7 +94,7 @@ namespace TimeTable
             var cache = ContainerInstance.Current.Resolve<ICache>();
 
             cache.PullFromStorage();
-            flurryPublisher.StartSession("secret key"); //change to normal key, after we got flurry lib
+            ThreadPool.QueueUserWorkItem(o => flurryPublisher.StartSession("testPhone"));
         }
 
         private static void CommonDeactivated()

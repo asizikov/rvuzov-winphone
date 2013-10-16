@@ -31,7 +31,8 @@ namespace TimeTable
             var ioc = ContainerInstance.Current;
             ioc.Register<INavigationService>(new NavigationService(rootFrame));
             ioc.Register<BaseApplicationSettings>(new ApplicationSettings());
-            ioc.Register<FlurryPublisher>(new DebugFlurryPublisher());
+            //ioc.Register<FlurryPublisher>(new DebugFlurryPublisher());
+            ioc.Register<FlurryPublisher>(new FlurryPublisherImpl());
             ioc.Register<ICache>(new InMemoryCache());
             ioc.Register<IUiStringsProviders>(new UiStringsProvider());
             ioc.Register<ICommandFactory>(new CommandsFactory(ioc.Resolve<INavigationService>(),

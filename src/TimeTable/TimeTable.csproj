@@ -51,6 +51,9 @@
     <Reference Include="BindableApplicationBar">
       <HintPath>..\Lib\BindableApplicationBar.dll</HintPath>
     </Reference>
+    <Reference Include="FlurryWP7SDK">
+      <HintPath>..\Lib\FlurryWP7SDK.dll</HintPath>
+    </Reference>
     <Reference Include="Funq">
       <HintPath>..\Lib\Funq.dll</HintPath>
     </Reference>
@@ -108,6 +111,7 @@
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\ApplicationSettings.cs" />
+    <Compile Include="Services\FlurryPublisherImpl.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\TilesSetter.cs" />
     <Compile Include="TimeTableUriMapper.cs" />
