@@ -1,19 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FlurryWP7SDK.Models;
+using Microsoft.Phone.Info;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.Services
 {
     public sealed class FlurryPublisherImpl : FlurryPublisher
     {
+        private static string GetPhoneUniqueId()
+        {
+            object uniqueId;
+            if (DeviceExtendedProperties.TryGetValue("DeviceUniqueId", out uniqueId))
+            {
+                var result = (byte[]) uniqueId;
+                return Convert.ToBase64String(result);
+            }
+            else
+            {
+                return "unknown";
+            }
+            
+        }
+
         protected override void InitSession(string userId)
         {
             FlurryWP7SDK.Api.StartSession("B7ZKJVBYQFMP8V683XRY");
-            FlurryWP7SDK.Api.SetUserId(userId);
-            FlurryWP7SDK.Api.SetVersion("dev_phone");
+            FlurryWP7SDK.Api.SetUserId(GetPhoneUniqueId());
+            FlurryWP7SDK.Api.SetVersion("dev version");
         }
 
         protected override void FlushEvent(string eventName, EventParameter[] parameters)
