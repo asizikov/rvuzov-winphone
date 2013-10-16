@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
 using JetBrains.Annotations;
+using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
-using TimeTable.ViewModel.Enums;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel
@@ -38,7 +38,7 @@ namespace TimeTable.ViewModel
 
         private void SaveUserRoleAndNavigateToNextPage(UserRole role)
         {
-            _applicationSettings.Role = role;
+            _applicationSettings.Me.Role = role;
             _navigation.GoToPage(Pages.Universities);
         }
     }

@@ -65,5 +65,9 @@ namespace TimeTable.ViewModel
             return new FavoritesViewModel(C.Resolve<INavigationService>(), C.Resolve<FavoritedItemsManager>(),
                 C.Resolve<IUiStringsProviders>());
         }
+        public static BaseViewModel GetSettingsViewModel()
+        {
+            return new SettingsViewModel(C.Resolve<BaseApplicationSettings>(), C.Resolve<INavigationService>());
+        }
     }
 }

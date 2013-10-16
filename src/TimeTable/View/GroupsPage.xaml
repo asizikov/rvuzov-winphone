@@ -76,7 +76,7 @@
                 <toolkit:LongListSelector
                         Background="Transparent"
                         Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
-                        SelectedItem="{Binding SelectedGroup, Mode=TwoWay}"
+                        SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
                         ItemsSource="{Binding TeachersList}"
                         GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
                         GroupItemTemplate="{StaticResource TimeTableGroupItemTemplate}"

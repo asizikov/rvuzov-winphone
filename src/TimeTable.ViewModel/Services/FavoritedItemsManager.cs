@@ -56,17 +56,6 @@ namespace TimeTable.ViewModel.Services
             return favs;
         }
 
-        [CanBeNull]
-        public FavoritedItem this[int id]
-        {
-            get { return _favoritedItems.Items.FirstOrDefault(i => i.Id == id); }
-        }
-
-        public bool IsFavorited(int id)
-        {
-            return _favoritedItems.Items.Any(i => i.Id == id);
-        }
-
         [NotNull, Pure]
         public IEnumerable<FavoritedItem> GetFavorites()
         {

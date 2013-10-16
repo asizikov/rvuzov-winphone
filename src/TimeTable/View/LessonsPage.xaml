@@ -13,9 +13,8 @@
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.IsVisible="True"
-    shell:SystemTray.Opacity="1"
+    shell:SystemTray.Opacity="0"
     shell:SystemTray.ForegroundColor="{StaticResource TimeTableHilighthColor}"
-    shell:SystemTray.BackgroundColor="{StaticResource TimeTableBackgorundColor}"
     d:DataContext="{d:DesignInstance viewModel:LessonsViewModel}">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -24,9 +23,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding Path=Strings.Group, Source ={StaticResource LocalizedStrings} }"/>
-            <TextBlock Text="{Binding GroupName}"/>
+        <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+            <TextBlock Margin="24,0,0,0" Foreground="White" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Title}"/>
         </StackPanel>
         <toolkit:LockablePivot SelectedIndex="{Binding SelectedWeekIndex, Mode=TwoWay}"
             Grid.Row="1" >
