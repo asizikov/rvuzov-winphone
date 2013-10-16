@@ -57,6 +57,7 @@ namespace TimeTable.ViewModel
             var monday = today.AddDays(delta);
 
 
+
             switch (weekType)
             {
                 case WeekType.Previous:
@@ -92,7 +93,10 @@ namespace TimeTable.ViewModel
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public int Weekday
         {
-            get { return _day.Weekday; }
+            get
+            {
+                return _day.Weekday;
+            }
         }
     }
 }
