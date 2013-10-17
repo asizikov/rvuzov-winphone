@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Navigation;
 using JetBrains.Annotations;
+using TimeTable.Model;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable
@@ -22,23 +23,29 @@ namespace TimeTable
                 return uri;
             }
 
-            string updatedUri = null;
+            string updatedUri;
 
-            if (_applicationSettings.GroupId != null)
+            if (_applicationSettings.Me.DefaultGroup != null || _applicationSettings.Me.Teacher != null)
             {
-                updatedUri = string.Format("{0}?id={1}&is_teacher={2}&university_id={3}&faculty_id={4}", Pages.Lessons, _applicationSettings.GroupId, false, _applicationSettings.UniversityId, _applicationSettings.FacultyId);
+                var isTeacher = _applicationSettings.Me.Teacher != null;
+                updatedUri = string.Format("{0}?id={1}&is_teacher={2}&university_id={3}&faculty_id={4}", 
+                    Pages.Lessons, 
+                    isTeacher ? _applicationSettings.Me.Teacher.Id : _applicationSettings.Me.DefaultGroup.Id,
+                    isTeacher, 
+                    _applicationSettings.Me.University.Id, 
+                    _applicationSettings.Me.Faculty.Id);
             }
-            else if (_applicationSettings.FacultyId != null)
+            else if (_applicationSettings.Me.Faculty != null)
             {
-                updatedUri = string.Format("{0}?id={1}&university_id={2}", Pages.Groups, _applicationSettings.FacultyId, _applicationSettings.UniversityId);
+                updatedUri = string.Format("{0}?id={1}&university_id={2}", Pages.Groups, _applicationSettings.Me.Faculty.Id, _applicationSettings.Me.University.Id);
             }
-            else if (_applicationSettings.UniversityId != null)
+            else if (_applicationSettings.Me.University != null)
             {
-                updatedUri = string.Format("{0}?id={1}", Pages.Faculties, _applicationSettings.UniversityId);
+                updatedUri = string.Format("{0}?id={1}", Pages.Faculties, _applicationSettings.Me.University.Id);
             }
-            else if (_applicationSettings.Role != null)
+            else if (_applicationSettings.Me.Role != UserRole.None)
             {
-                updatedUri = string.Format("{0}?id={1}", Pages.Universities, _applicationSettings.Role);
+                updatedUri = string.Format("{0}?id={1}", Pages.Universities, _applicationSettings.Me.Role);
             }
             else
             {

@@ -126,6 +126,9 @@
   <data name="Auditory" xml:space="preserve">
     <value>аудитория</value>
   </data>
+  <data name="DefaultUniversityAndGroup" xml:space="preserve">
+    <value>расписание по умолчанию</value>
+  </data>
   <data name="Favorite" xml:space="preserve">
     <value>избранное</value>
   </data>
@@ -141,6 +144,15 @@
   <data name="ImTeacher" xml:space="preserve">
     <value>я - преподаватель</value>
   </data>
+  <data name="LaboratoryWork" xml:space="preserve">
+    <value>Лабороторные работы</value>
+  </data>
+  <data name="Lectures" xml:space="preserve">
+    <value>Лекции</value>
+  </data>
+  <data name="Practice" xml:space="preserve">
+    <value>Практические занятия</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>поиск</value>
   </data>
@@ -152,6 +164,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>настройки</value>
+  </data>
+  <data name="ShowInTheSchedule" xml:space="preserve">
+    <value>отображать в расписании</value>
   </data>
   <data name="Teachers" xml:space="preserve">
     <value>преподаватели</value>

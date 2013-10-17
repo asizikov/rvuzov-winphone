@@ -91,6 +91,16 @@ namespace TimeTable.Resources {
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на избранное.
+        ///   Looks up a localized string similar to расписание по умолчанию.
+        /// </summary>
+        public static string DefaultUniversityAndGroup {
+            get {
+                return ResourceManager.GetString("DefaultUniversityAndGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to избранное.
         /// </summary>
         public static string Favorite {
             get {
@@ -137,6 +147,34 @@ namespace TimeTable.Resources {
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на поиск.
+        ///   Looks up a localized string similar to Лабороторные работы.
+        /// </summary>
+        public static string LaboratoryWork {
+            get {
+                return ResourceManager.GetString("LaboratoryWork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Лекции.
+        /// </summary>
+        public static string Lectures {
+            get {
+                return ResourceManager.GetString("Lectures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Практические занятия.
+        /// </summary>
+        public static string Practice {
+            get {
+                return ResourceManager.GetString("Practice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to поиск.
         /// </summary>
         public static string Search {
             get {
@@ -173,6 +211,16 @@ namespace TimeTable.Resources {
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на преподаватели.
+        ///   Looks up a localized string similar to отображать в расписании.
+        /// </summary>
+        public static string ShowInTheSchedule {
+            get {
+                return ResourceManager.GetString("ShowInTheSchedule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to преподаватели.
         /// </summary>
         public static string Teachers {
             get {
