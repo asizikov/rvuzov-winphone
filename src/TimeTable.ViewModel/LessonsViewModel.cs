@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -333,12 +334,8 @@ namespace TimeTable.ViewModel
             int todayIndex = (int)today.DayOfWeek - 1;
 
             SelectedWeekIndex = 0;
-            foreach (DayViewModel day in CurrentWeek.Days)
-            {
-                if (day.Weekday == todayIndex + 1)
-                   CurrentWeek.SelectedDayItem = day;
-            }
-            CurrentWeek.SelectedDayItem = null;
+            CurrentWeek.SelectedDayItem = CurrentWeek.Days.FirstOrDefault(d => d.Weekday == (todayIndex + 1));
+            CurrentWeek.SelectedDayItem = null; 
             
             _flurryPublisher.PublishActionbarToday(_university, _isTeacher,
                 (_isTeacher ? _teacher.Name : _group.GroupName), (_isTeacher ? _teacher.Id : _group.Id));
