@@ -23,12 +23,11 @@ namespace TimeTable.ViewModel
 
             Days =
                 new ObservableCollection<DayViewModel>(days.ToViewModelList(commandFactory, _type, parity, university));
-   
+              
         }
 
         public int WeekNumber { get; private set; }
 
-        [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public ObservableCollection<DayViewModel> Days
         {
             get { return _days; }
@@ -45,7 +44,9 @@ namespace TimeTable.ViewModel
             get {return _selectedDayItem;}
             set 
             {
+                
                 if(Equals(_selectedDayItem,value)) return;
+
                 _selectedDayItem = value;
                 OnPropertyChanged("SelectedDayItem");
             }
