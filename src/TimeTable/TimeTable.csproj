@@ -94,6 +94,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Commands\CommandsFactory.cs" />
     <Compile Include="Controls\CommandReadyContextMenu.cs" />
+    <Compile Include="Converters\AnyCountToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\NumberToWeekDayConverter.cs" />
