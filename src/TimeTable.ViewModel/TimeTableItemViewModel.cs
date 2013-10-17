@@ -66,7 +66,7 @@ namespace TimeTable.ViewModel
                 sb.Append(_lesson.Groups[index].GroupName);
                 if (index != _lesson.Groups.Count - 1)
                 {
-                    sb.Append(",");
+                    sb.Append(", ");
                 }
             }
             return sb.ToString();
@@ -92,7 +92,7 @@ namespace TimeTable.ViewModel
                 sb.Append(_lesson.Teachers[index].Name);
                 if (index != _lesson.Teachers.Count - 1)
                 {
-                    sb.Append(",");
+                    sb.Append(", ");
                 }
             }
             _teachersList = sb.ToString();
@@ -120,7 +120,7 @@ namespace TimeTable.ViewModel
                 }
                 if (index != _lesson.Auditories.Count - 1)
                 {
-                    sb.Append(",");
+                    sb.Append(", ");
                 }
             }
             _auditoriesList = sb.ToString();
