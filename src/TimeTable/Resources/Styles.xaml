@@ -149,7 +149,7 @@
     </Style>
 
     <DataTemplate x:Key="TimeTableWeekDataTemplate">
-        <StackPanel>
+        <StackPanel Visibility="{Binding Lessons, Converter={StaticResource AnyCountToVisibeConverterKey}}">
             <StackPanel
                 Orientation="Horizontal">
                 <TextBlock
