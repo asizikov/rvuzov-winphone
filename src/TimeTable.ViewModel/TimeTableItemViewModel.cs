@@ -16,8 +16,7 @@ namespace TimeTable.ViewModel
         private string _auditoriesList;
         private string _teachersList;
 
-        public TimeTableItemViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory,
-            [NotNull] University university)
+        public TimeTableItemViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory, [NotNull] University university, DateTime date)
         {
             if (lesson == null) throw new ArgumentNullException("lesson");
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");

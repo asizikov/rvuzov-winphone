@@ -2,6 +2,6 @@
 {
     public interface IUpdatableModel
     {
-        int LastUpdated { get; set; }
+        int LastUpdated { get;}
     }
 }

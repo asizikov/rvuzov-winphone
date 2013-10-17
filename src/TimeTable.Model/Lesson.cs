@@ -43,7 +43,7 @@ namespace TimeTable.Model
         [JsonProperty("date_end")]
         public string DateEnd { get; set; }
 
-        [JsonProperty("dates")]
-        public List<object> Dates { get; set; }
+        [CanBeNull,JsonProperty("dates")]
+        public List<string> Dates { get; set; }
     }
 }
