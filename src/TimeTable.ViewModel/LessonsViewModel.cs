@@ -36,6 +36,7 @@ namespace TimeTable.ViewModel
         private AppbarButtonViewModel _favoriteAppbarButton;
         private AppbarButtonViewModel _unfavoriteAppbarButton;
         private string _title;
+        private Faculty _faculty;
 
         public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
@@ -62,7 +63,7 @@ namespace TimeTable.ViewModel
             _isTeacher = isTeacher;
             _facultyId = facultyId;
 
-            Init(universityId);
+            Init(universityId, facultyId);
 
             InitCommands();
             BuildAppBarButtons();
@@ -79,12 +80,11 @@ namespace TimeTable.ViewModel
                     Command = GoToSettingsCommand,
                     IconUri = "/Resources/Icons/appbar.cog.png"
                 },
-
                 new AppbarButtonViewModel
                 {
-                Text = _stringsProviders.Today,
-                IconUri = "/Resources/Icons/feature.calendar.png",
-                Command = GoToTodayCommand,
+                    Text = _stringsProviders.Today,
+                    IconUri = "/Resources/Icons/feature.calendar.png",
+                    Command = GoToTodayCommand,
                 }
             };
             _favoriteAppbarButton = new AppbarButtonViewModel
@@ -100,10 +100,9 @@ namespace TimeTable.ViewModel
                 IconUri = "/Resources/Icons/appbar.star.minus.png",
                 Command = RemoveFromFavoritesCommand,
             };
-            
         }
 
-        private void Init(int universityId)
+        private void Init(int universityId, int facultyId)
         {
             IsLoading = true;
             _dataProvider.GetUniversityByIdAsync(universityId).Subscribe(university =>
@@ -117,17 +116,23 @@ namespace TimeTable.ViewModel
                         Title = _teacher.Name;
                         UpdateFaforitedSate();
                     });
+                    LoadLessons();
                 }
                 else
                 {
-                    _dataProvider.GetGroupByIdAsync(_facultyId, _id).Subscribe(group =>
+                    _dataProvider.GetFacultyByIdAsync(universityId, facultyId).Subscribe(faculty =>
                     {
-                        _group = group;
-                        Title = _group.GroupName;
-                        UpdateFaforitedSate();
+                        _faculty = faculty;
+                        //we need to go deeper :)
+                        _dataProvider.GetGroupByIdAsync(_facultyId, _id).Subscribe(group =>
+                        {
+                            _group = group;
+                            Title = _group.GroupName;
+                            UpdateFaforitedSate();
+                        });
+                        LoadLessons();
                     });
                 }
-                LoadLessons();
             });
         }
 
@@ -300,10 +305,9 @@ namespace TimeTable.ViewModel
             FavoritedState = FavoritedState.Favorited;
             _flurryPublisher.PublishMarkFavorite(_university, _isTeacher,
                 (_isTeacher ? _teacher.Name : _group.GroupName), (_isTeacher ? _teacher.Id : _group.Id));
-
         }
 
-        
+
         private void NavigateToFavoritesPage()
         {
             _navigation.GoToPage(Pages.FarovitesPage);
@@ -320,23 +324,24 @@ namespace TimeTable.ViewModel
         public int SelectedWeekIndex
         {
             get { return _selectedWeekIndex; }
-            
+
             set
-            { if (Equals(value, _selectedWeekIndex)) return;
-            _selectedWeekIndex = value;
-            OnPropertyChanged("SelectedWeekIndex");
+            {
+                if (Equals(value, _selectedWeekIndex)) return;
+                _selectedWeekIndex = value;
+                OnPropertyChanged("SelectedWeekIndex");
             }
         }
 
         private void SelectTodayItem()
         {
             DateTime today = DateTime.UtcNow;
-            int todayIndex = (int)today.DayOfWeek - 1;
+            int todayIndex = (int) today.DayOfWeek - 1;
 
             SelectedWeekIndex = 0;
             CurrentWeek.SelectedDayItem = CurrentWeek.Days.FirstOrDefault(d => d.Weekday == (todayIndex + 1));
-            CurrentWeek.SelectedDayItem = null; 
-            
+            CurrentWeek.SelectedDayItem = null;
+
             _flurryPublisher.PublishActionbarToday(_university, _isTeacher,
                 (_isTeacher ? _teacher.Name : _group.GroupName), (_isTeacher ? _teacher.Id : _group.Id));
         }
@@ -392,6 +397,5 @@ namespace TimeTable.ViewModel
                 OnPropertyChanged("AppbarButtons");
             }
         }
-
     }
 }

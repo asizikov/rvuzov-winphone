@@ -23,10 +23,17 @@ namespace TimeTable.Commands
             _stringsProviders = stringsProviders;
         }
 
+        [NotNull]
         public ITitledCommand GetShowTeachersTimeTableCommand(University university, LessonTeacher teacher)
         {
             return new ShowTeachersTimeTableCommand(_navigationService, _flurryPublisher, _stringsProviders, university,
                 teacher);
+        }
+
+        [NotNull]
+        public ITitledCommand GetShowGroupTimeTableCommand(University university, LessonGroup group)
+        {
+            return new ShowGroupTimeTableCommand(_navigationService, _flurryPublisher, _stringsProviders, university, group);
         }
     }
 }

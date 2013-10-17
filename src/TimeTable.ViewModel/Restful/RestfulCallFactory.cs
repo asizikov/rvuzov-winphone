@@ -8,7 +8,7 @@ namespace TimeTable.ViewModel.Restful
 
         private const string URL_PREFIX = "http://new.raspisaniye-vuzov.ru/api/v1/";
         private const string UNIVERSITIES_ALL = "universities";
-        private const string LAST_UPDATED = "/last-updated";
+        private const string LAST_UPDATED = "/lastupdated";
 
         private const string ALL_FACULTIES_TEMPLATE = "universities/{0}/faculties";
         private const string ALL_GROUPS_TEMPLATE = "faculties/{0}/groups";

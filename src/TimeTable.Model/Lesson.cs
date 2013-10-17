@@ -35,7 +35,7 @@ namespace TimeTable.Model
         public List<LessonGroup> Groups { get; set; }
 
         [JsonProperty("auditories")]
-        public List<Auditory> Auditories { get; set; }
+        public List<Auditorium> Auditoriums { get; set; }
 
         [JsonProperty("date_start")]
         public string DateStart { get; set; }

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
+using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel
@@ -11,18 +13,24 @@ namespace TimeTable.ViewModel
     {
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
+        private readonly AsyncDataProvider _asyncDataProvider;
 
         public FirstPageViewModel([NotNull] INavigationService navigation,
-                                  [NotNull] BaseApplicationSettings applicationSettings)
+            [NotNull] BaseApplicationSettings applicationSettings,
+            [NotNull] AsyncDataProvider asyncDataProvider)
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
+            if (asyncDataProvider == null) throw new ArgumentNullException("asyncDataProvider");
 
             _navigation = navigation;
             _applicationSettings = applicationSettings;
+            _asyncDataProvider = asyncDataProvider;
 
             InitCommands();
         }
+
+        
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public ICommand ImStudentCommand { get; private set; }

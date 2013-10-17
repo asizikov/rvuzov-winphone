@@ -24,7 +24,7 @@ namespace TimeTable.Services
             
         }
 
-        protected override void InitSession(string userId)
+        protected override void InitSession()
         {
             FlurryWP7SDK.Api.StartSession("B7ZKJVBYQFMP8V683XRY");
             FlurryWP7SDK.Api.SetUserId(GetPhoneUniqueId());

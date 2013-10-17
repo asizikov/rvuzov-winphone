@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="AppbarButtonViewModel.cs" />
+    <Compile Include="Commands\ShowGroupTimeTableCommand.cs" />
     <Compile Include="Extensions\FavoritedExtensions.cs" />
     <Compile Include="FavoritedState.cs" />
     <Compile Include="FavoritesViewModel.cs" />

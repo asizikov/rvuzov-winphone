@@ -145,13 +145,13 @@
     <value>я - преподаватель</value>
   </data>
   <data name="LaboratoryWork" xml:space="preserve">
-    <value>Лабороторные работы</value>
+    <value>лабороторные работы</value>
   </data>
   <data name="Lectures" xml:space="preserve">
-    <value>Лекции</value>
+    <value>лекции</value>
   </data>
   <data name="Practice" xml:space="preserve">
-    <value>Практические занятия</value>
+    <value>практические занятия</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>поиск</value>
@@ -174,18 +174,19 @@
   <data name="TeachersTimeTable" xml:space="preserve">
     <value>расписание преподавателя</value>
   </data>
-
   <data name="Today" xml:space="preserve">
-    <value>Сегодня</value>
-</data>
-<data name="ToFavorites" xml:space="preserve">
+    <value>сегодня</value>
+  </data>
+  <data name="ToFavorites" xml:space="preserve">
     <value>в избранное</value>
   </data>
   <data name="Unfavorite" xml:space="preserve">
     <value>из избранного</value>
-
   </data>
   <data name="WeekNumber" xml:space="preserve">
     <value>{0} неделя</value>
+  </data>
+  <data name="GroupTimeTable" xml:space="preserve">
+    <value>расписание группы</value>
   </data>
 </root>

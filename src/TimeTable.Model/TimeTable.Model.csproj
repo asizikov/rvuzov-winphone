@@ -52,7 +52,7 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auditory.cs" />
+    <Compile Include="Auditorium.cs" />
     <Compile Include="UserRole.cs" />
     <Compile Include="FavoritedItem.cs" />
     <Compile Include="Faculty.cs" />

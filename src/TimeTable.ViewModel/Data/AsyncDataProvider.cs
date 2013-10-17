@@ -13,6 +13,7 @@ namespace TimeTable.ViewModel.Data
         private readonly Dictionary<int, University> _universities = new Dictionary<int, University>();
         private readonly Dictionary<int, Teacher> _teachers = new Dictionary<int, Teacher>();
         private readonly Dictionary<int, Group> _groups = new Dictionary<int, Group>();
+        private readonly Dictionary<int, Faculty> _faculties = new Dictionary<int, Faculty>();
 
         public AsyncDataProvider([NotNull] ICache cache) : base(cache)
         {
@@ -115,6 +116,27 @@ namespace TimeTable.ViewModel.Data
                         });
                     }
                 }));
+        }
+
+        public IObservable<Faculty> GetFacultyByIdAsync(int universityId, int facultyId)
+        {
+            return Observable.Create<Faculty>(observer =>
+               Scheduler.Default.Schedule(() =>
+               {
+                   if (_faculties.ContainsKey(facultyId))
+                   {
+                       observer.OnNext(_faculties[facultyId]);
+                   }
+                   else
+                   {
+                       GetUniversitesFacultiesAsync(universityId).Subscribe(faculties =>
+                       {
+                           var faculty = faculties.Data.FirstOrDefault(u => u.Id == facultyId);
+                           _faculties.Add(facultyId, faculty);
+                           observer.OnNext(faculty);
+                       });
+                   }
+               }));
         }
     }
 }

@@ -13,9 +13,9 @@ namespace TimeTable.ViewModel.Services
 
         protected bool IsSessionActive;
 
-        public void StartSession(string userId)
+        public void StartSession()
         {
-            InitSession(userId);
+            InitSession();
 
             if (IsSessionActive) throw new InvalidOperationException();
             IsSessionActive = true;
@@ -96,7 +96,7 @@ namespace TimeTable.ViewModel.Services
 
         protected abstract void SendError(Exception exception);
         protected abstract void CloseSesstion();
-        protected abstract void InitSession(string userId);
+        protected abstract void InitSession();
         protected abstract void FlushEvent(string eventName, EventParameter[] parameters);
 
         public void PublishUniversitySelected([NotNull] University university)
@@ -231,6 +231,11 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("Teacher Id", selectedTeacher.Id.ToString(CultureInfo.InvariantCulture))
             };
             PublishEvent(FlurryEvents.EVENT_CHOOSE_TEACHER, parameters);
+        }
+
+        public void PublishContextMenuShowGroupTimeTable(University university, string groupName, string id)
+        {
+            //throw new NotImplementedException();
         }
     }
 }

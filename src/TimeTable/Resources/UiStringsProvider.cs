@@ -43,5 +43,10 @@ namespace TimeTable.Resources
         {
             get { return Strings.Today; }
         }
+
+        public string GroupTimeTable
+        {
+            get { return Strings.GroupTimeTable; }
+        }
     }
 }

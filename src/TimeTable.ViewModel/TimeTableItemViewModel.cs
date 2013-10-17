@@ -16,7 +16,8 @@ namespace TimeTable.ViewModel
         private string _auditoriesList;
         private string _teachersList;
 
-        public TimeTableItemViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory, [NotNull] University university, DateTime date)
+        public TimeTableItemViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory,
+            [NotNull] University university, DateTime date)
         {
             if (lesson == null) throw new ArgumentNullException("lesson");
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
@@ -97,6 +98,7 @@ namespace TimeTable.ViewModel
             _teachersList = sb.ToString();
             return _teachersList;
         }
+
         [CanBeNull]
         private string FormatAuditories()
         {
@@ -104,20 +106,20 @@ namespace TimeTable.ViewModel
             {
                 return _auditoriesList;
             }
-            if (_lesson.Auditories ==null || !_lesson.Auditories.Any())
+            if (_lesson.Auditoriums == null || !_lesson.Auditoriums.Any())
             {
                 return null;
             }
 
             var sb = new StringBuilder();
-            for (var index = 0; index < _lesson.Auditories.Count; index++)
+            for (var index = 0; index < _lesson.Auditoriums.Count; index++)
             {
-                var name = _lesson.Auditories[index].Name;
+                var name = _lesson.Auditoriums[index].Name;
                 if (!string.IsNullOrEmpty(name))
                 {
                     sb.Append(name);
                 }
-                if (index != _lesson.Auditories.Count - 1)
+                if (index != _lesson.Auditoriums.Count - 1)
                 {
                     sb.Append(", ");
                 }
@@ -131,14 +133,19 @@ namespace TimeTable.ViewModel
         {
             get
             {
-                yield return new AbstractMenuItem
+                if (_lesson.Auditoriums != null && _lesson.Auditoriums.Any())
                 {
-                    Command = null,
-                    Header = "аудитория" //todo: extract strings
-                };
+                    yield return new AbstractMenuItem
+                    {
+                        Command = null,
+                        Header = "аудитория"
+                    };
+                }
+
                 if (_lesson.Teachers != null && _lesson.Teachers.Any())
                 {
-                    var  showTeachersTimeTableCommand = _commandFactory.GetShowTeachersTimeTableCommand(_university, _lesson.Teachers.First());
+                    var showTeachersTimeTableCommand = _commandFactory.GetShowTeachersTimeTableCommand(_university,
+                        _lesson.Teachers.First());
                     yield return new AbstractMenuItem
                     {
                         CommandParameter = _lesson.Teachers.First().Id,
@@ -146,6 +153,24 @@ namespace TimeTable.ViewModel
                         Header = showTeachersTimeTableCommand.Title
                     };
                 }
+
+                if (_lesson.Groups != null && _lesson.Groups.Any())
+                {
+//                    var showTeachersTimeTableCommand = _commandFactory.GetShowGroupTimeTableCommand(_university,
+//                        _lesson.Groups.First());
+//                    yield return new AbstractMenuItem
+//                    {
+//                        CommandParameter = _lesson.Groups.First().Id,
+//                        Command = showTeachersTimeTableCommand,
+//                        Header = showTeachersTimeTableCommand.Title
+//                    };
+                }
+
+                yield return new AbstractMenuItem
+                {
+                    Command = null,
+                    Header = "сообщить об ошибке"
+                };
             }
         }
     }

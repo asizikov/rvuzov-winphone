@@ -2,7 +2,7 @@
 
 namespace TimeTable.Model
 {
-    public sealed class TimeTable //: IUpdatableModel
+    public sealed class TimeTable: IUpdatableModel
     {
         [JsonProperty("success")]
         public bool Success { get; set; }

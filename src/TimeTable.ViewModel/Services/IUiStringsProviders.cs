@@ -10,5 +10,6 @@
         string Favorites { get; }
         string Unfavorite { get;}
         string Today { get; }
+        string GroupTimeTable { get; }
     }
 }

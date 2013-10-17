@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace TimeTable.Model
 {
     [UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
-    public sealed class Auditory
+    public sealed class Auditorium
     {
         [JsonProperty("auditory_id")]
         public int Id { get; set; }

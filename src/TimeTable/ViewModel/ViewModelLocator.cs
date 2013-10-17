@@ -34,7 +34,8 @@ namespace TimeTable.ViewModel
 
         public static BaseViewModel GetFirstPageViewModel()
         {
-            return new FirstPageViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>());
+            return new FirstPageViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>(),
+                DataProvider);
         }
 
         public static BaseViewModel GetGroupsPageViewModel(int facultyId, int universityId, bool isAddingFavorites)
@@ -42,7 +43,8 @@ namespace TimeTable.ViewModel
             return new GroupPageViewModel(C.Resolve<INavigationService>(),
                 C.Resolve<BaseApplicationSettings>(),
                 DataProvider,
-                C.Resolve<FlurryPublisher>(), C.Resolve<FavoritedItemsManager>() ,universityId, facultyId, isAddingFavorites);
+                C.Resolve<FlurryPublisher>(), C.Resolve<FavoritedItemsManager>(), universityId, facultyId,
+                isAddingFavorites);
         }
 
         public static BaseViewModel GetFacultiesPageViewModel(int universityId, bool isAddingFavorites)
@@ -57,7 +59,8 @@ namespace TimeTable.ViewModel
         {
             return new LessonsViewModel(C.Resolve<INavigationService>(), C.Resolve<FlurryPublisher>(),
                 C.Resolve<BaseApplicationSettings>(), C.Resolve<ICommandFactory>(),
-                DataProvider, C.Resolve<FavoritedItemsManager>(),C.Resolve<IUiStringsProviders>(), id, isTeacher, universityId, facultyId);
+                DataProvider, C.Resolve<FavoritedItemsManager>(), C.Resolve<IUiStringsProviders>(), id, isTeacher,
+                universityId, facultyId);
         }
 
         public static BaseViewModel GetFavoritesViewModel()
@@ -65,6 +68,7 @@ namespace TimeTable.ViewModel
             return new FavoritesViewModel(C.Resolve<INavigationService>(), C.Resolve<FavoritedItemsManager>(),
                 C.Resolve<IUiStringsProviders>());
         }
+
         public static BaseViewModel GetSettingsViewModel()
         {
             return new SettingsViewModel(C.Resolve<BaseApplicationSettings>(), C.Resolve<INavigationService>());

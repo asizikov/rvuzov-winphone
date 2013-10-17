@@ -94,7 +94,7 @@ namespace TimeTable
             var cache = ContainerInstance.Current.Resolve<ICache>();
 
             cache.PullFromStorage();
-            ThreadPool.QueueUserWorkItem(o => flurryPublisher.StartSession("testPhone"));
+            ThreadPool.QueueUserWorkItem(o => flurryPublisher.StartSession());
         }
 
         private static void CommonDeactivated()
