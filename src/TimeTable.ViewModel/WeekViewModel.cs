@@ -45,7 +45,9 @@ namespace TimeTable.ViewModel
             get {return _selectedDayItem;}
             set 
             {
+                
                 if(Equals(_selectedDayItem,value)) return;
+
                 _selectedDayItem = value;
                 OnPropertyChanged("SelectedDayItem");
             }

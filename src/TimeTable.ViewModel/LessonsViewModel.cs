@@ -255,6 +255,8 @@ namespace TimeTable.ViewModel
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public ICommand GoToFavoritesListCommand { get; private set; }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public ICommand GoToTodayCommand { get; private set; }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -321,9 +323,15 @@ namespace TimeTable.ViewModel
             int todayIndex = (int)today.DayOfWeek - 1;
 
             SelectedWeekIndex = 0;
-            CurrentWeek.SelectedDayItem = CurrentWeek.Days[todayIndex];
+            foreach (DayViewModel day in CurrentWeek.Days)
+            {
+                if (day.Weekday == todayIndex + 1)
+                   CurrentWeek.SelectedDayItem = day;
+            }
             CurrentWeek.SelectedDayItem = null;
-            _flurryPublisher.PublishActionbarToday(_university, _isTeacher, _group.GroupName, _group.Id);
+            
+            _flurryPublisher.PublishActionbarToday(_university, _isTeacher,
+                (_isTeacher ? _teacher.Name : _group.GroupName), (_isTeacher ? _teacher.Id : _group.Id));
         }
 
         private void UpdateFaforitedSate()
