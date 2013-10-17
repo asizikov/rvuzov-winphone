@@ -1,20 +1,20 @@
-﻿using TimeTable.ViewModel.Enums;
+﻿using TimeTable.Model;
 
 namespace TimeTable.ViewModel.Services
 {
     public abstract class BaseApplicationSettings
     {
-        public abstract UserRole? Role { get; set; }
-        public abstract int? UniversityId { get; set; }
-        public abstract int? GroupId { get; set; }
-        public abstract string GroupName { get; set; }
-        public abstract int? FacultyId { get; set; }
+        public Me Me { get; protected set; }
 
-        public bool FirstLoad { get; set; }
-
-        protected BaseApplicationSettings()
+        public bool IsRegistrationCompleted
         {
-            FirstLoad = true;
+            get
+            {
+                return Me.University != null && Me.Faculty != null && (Me.DefaultGroup != null || Me.Teacher != null);
+            }
         }
+
+
+        public abstract void Save();
     }
 }

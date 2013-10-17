@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace TimeTable.Model
 {
+    [DebuggerDisplay("Faculty Id = {Id} ,Title = {Title}")]
     public sealed class Faculty
     {
         [JsonProperty("id")]

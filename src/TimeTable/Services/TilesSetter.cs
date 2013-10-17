@@ -1,19 +1,21 @@
 ﻿using Microsoft.Phone.Shell;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace TimeTable.Services
 {
     public static class TilesSetter
     {
-        private static readonly Version targetVersion = new Version(7, 10, 8858);
-        private static bool isTargetVersion { get { return Environment.OSVersion.Version >= targetVersion;} }
+        private static readonly Version TargetVersion = new Version(7, 10, 8858);
+
+        private static bool IsTargetVersion
+        {
+            get { return Environment.OSVersion.Version >= TargetVersion; }
+        }
 
         public static void SetTiles()
         {
-            if (isTargetVersion)
+            if (IsTargetVersion)
             {
                 // Get the new FlipTileData type.
                 var flipTileDataType = Type.GetType("Microsoft.Phone.Shell.FlipTileData, Microsoft.Phone");
@@ -25,7 +27,7 @@ namespace TimeTable.Services
                 var tileToUpdate = ShellTile.ActiveTiles.First();
 
                 // Get the constructor for the new FlipTileData class and assign it to our variable to hold the Tile properties.
-                var UpdateTileData = flipTileDataType.GetConstructor(new Type[] { }).Invoke(null);
+                var UpdateTileData = flipTileDataType.GetConstructor(new Type[] {}).Invoke(null);
 
                 // Set the properties. 
                 SetProperty(UpdateTileData, "Title", "");
@@ -34,14 +36,14 @@ namespace TimeTable.Services
                 SetProperty(UpdateTileData, "WideBackgroundImage", new Uri("Images/WideTile.png", UriKind.Relative));
 
                 // Invoke the new version of ShellTile.Update.
-                shellTileType.GetMethod("Update").Invoke(tileToUpdate, new Object[] { UpdateTileData });   
+                shellTileType.GetMethod("Update").Invoke(tileToUpdate, new[] {UpdateTileData});
             }
         }
 
         private static void SetProperty(object instance, string name, object value)
         {
             var setMethod = instance.GetType().GetProperty(name).GetSetMethod();
-            setMethod.Invoke(instance, new object[] { value });
+            setMethod.Invoke(instance, new[] {value});
         }
     }
 }

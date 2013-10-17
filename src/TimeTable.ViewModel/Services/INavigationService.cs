@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace TimeTable.ViewModel.Services
 {
@@ -15,6 +16,8 @@ namespace TimeTable.ViewModel.Services
         public const string Id = "id";
         public const string Name = "name";
         public const string IsTeacher = "is_teacher";
+        public const string FacultyId = "faculty_id";
+        public const string AddFavorites = "add_favorites";
     }
 
     public interface INavigationService
@@ -23,5 +26,6 @@ namespace TimeTable.ViewModel.Services
         bool CanGoBack();
         void GoToPage(string page, IEnumerable<NavigationParameter> parameters = null);
         void CleanNavigationStack();
+        void GoToPage(string page, [CanBeNull] IEnumerable<NavigationParameter> parameters, int numberOfItemsToRemove);
     }
 }

@@ -34,7 +34,7 @@ namespace TimeTable.ViewModel.Utils
             return currentCulture.Calendar.GetWeekOfYear(
                 date,
                 currentCulture.DateTimeFormat.CalendarWeekRule,
-                currentCulture.DateTimeFormat.FirstDayOfWeek);
+                DayOfWeek.Monday);
         }
     }
 }

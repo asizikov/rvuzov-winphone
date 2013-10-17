@@ -1,70 +1,67 @@
 ﻿using System.IO.IsolatedStorage;
 using JetBrains.Annotations;
-using TimeTable.ViewModel.Enums;
+using Newtonsoft.Json;
+using TimeTable.Model;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.Services
 {
     public class ApplicationSettings : BaseApplicationSettings
     {
-        private void SaveInStorage(string key, object value)
+        private const string KEY = "Settings";
+
+        public ApplicationSettings()
         {
-            if (IsolatedStorageSettings.ApplicationSettings.Contains(key))
+            Me = Settings();
+        }
+
+
+        [NotNull, Pure]
+        private static Me Settings()
+        {
+            Me settings;
+            if (!IsolatedStorageSettings.ApplicationSettings.Contains(KEY))
             {
-                IsolatedStorageSettings.ApplicationSettings[key] = value;
+                settings = GetEmptySettings();
+                IsolatedStorageSettings.ApplicationSettings.Add(KEY, SerializeToStrng(settings));
             }
             else
             {
-                IsolatedStorageSettings.ApplicationSettings.Add(key, value);
+                var favsJsonString = (string)IsolatedStorageSettings.ApplicationSettings[KEY];
+                settings = DeserializeFromString(favsJsonString);
             }
-            IsolatedStorageSettings.ApplicationSettings.Save();
+            return settings;
         }
 
-        private object LoadFromStorage(string key)
+        [NotNull, Pure]
+        private static Me DeserializeFromString(string favsJsonString)
         {
-            return IsolatedStorageSettings.ApplicationSettings.Contains(key)
-                ? IsolatedStorageSettings.ApplicationSettings[key]
-                : null;
+            var deserializedFavs = JsonConvert.DeserializeObject<Me>(favsJsonString);
+            return deserializedFavs ?? GetEmptySettings();
         }
 
-        [NotNull] private const string RoleKey = "Role";
-        [NotNull] private const string UniversityKey = "University";
-        [NotNull] private const string GroupKey = "Group";
-        [NotNull] private const string GroupNameKey = "GroupName";
-        [NotNull] private const string FacultyKey = "FacultyId";
-
-        public override UserRole? Role
+        private static string SerializeToStrng(Me favs)
         {
-            get { return (UserRole?) LoadFromStorage(RoleKey); }
-            set { SaveInStorage(RoleKey, value); }
+            return JsonConvert.SerializeObject(favs);
         }
 
-        public override int? UniversityId
+        [NotNull, Pure]
+        private static Me GetEmptySettings()
         {
-            get { return (int?) LoadFromStorage(UniversityKey); }
-            set { SaveInStorage(UniversityKey, value); }
+            var favs = new Me();
+            return favs;
         }
 
-        public override int? GroupId
+        public override void Save()
         {
-            get { return (int?) LoadFromStorage(GroupKey); }
-            set { SaveInStorage(GroupKey, value); }
-        }
-
-        public override string GroupName
-        {
-            get { return (string) LoadFromStorage(GroupNameKey); }
-            set { SaveInStorage(GroupNameKey, value); }
-        }
-
-        public override int? FacultyId
-        {
-            get { return (int?) LoadFromStorage(FacultyKey); }
-            set
+            if (!IsolatedStorageSettings.ApplicationSettings.Contains(KEY))
             {
-                SaveInStorage(FacultyKey, value);
+                IsolatedStorageSettings.ApplicationSettings.Add(KEY, SerializeToStrng(Me));
             }
-
+            else
+            {
+                IsolatedStorageSettings.ApplicationSettings[KEY] = SerializeToStrng(Me);
+            }
         }
     }
 }

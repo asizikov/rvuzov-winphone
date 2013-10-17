@@ -18,6 +18,7 @@ namespace TimeTable.ViewModel
         private readonly AsyncDataProvider _dataProvider;
         private readonly FlurryPublisher _flurryPublisher;
         private readonly int _universityId;
+        private readonly bool _isAddingFavorites;
         private ObservableCollection<ListGroup<Faculty>> _facultiesList;
         private Faculty _selectedFaculty;
         private Faculties _storedGroupsRequest;
@@ -25,7 +26,7 @@ namespace TimeTable.ViewModel
 
         public FacultiesPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurryPublisher, int universityId)
+            [NotNull] FlurryPublisher flurryPublisher, int universityId, bool isAddingFavorites)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
@@ -37,8 +38,9 @@ namespace TimeTable.ViewModel
             _dataProvider = dataProvider;
             _flurryPublisher = flurryPublisher;
             _universityId = universityId;
+            _isAddingFavorites = isAddingFavorites;
 
-            _applicationSettings.UniversityId = _universityId;
+           // _applicationSettings.UniversityId = _universityId;
 
             _facultyGroupFunc = faculty => faculty.Title[0];
 
@@ -108,13 +110,16 @@ namespace TimeTable.ViewModel
 
         private void NavigateToGroupsPage(Faculty faculty)
         {
-            _applicationSettings.FacultyId = faculty.Id;
+            if (!_applicationSettings.IsRegistrationCompleted)
+            {
+                _applicationSettings.Me.Faculty = faculty;
+            }
             _navigation.GoToPage(Pages.Groups, GetNavitationParameters(faculty));
         }
 
         private IEnumerable<NavigationParameter> GetNavitationParameters(Faculty faculty)
         {
-            return new List<NavigationParameter>
+            var list = new List<NavigationParameter>
             {
                 new NavigationParameter
                 {
@@ -137,6 +142,15 @@ namespace TimeTable.ViewModel
                     Value = faculty.Title
                 },
             };
+            if (_isAddingFavorites)
+            {
+                list.Add(new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.AddFavorites,
+                    Value = true.ToString()
+                });
+            }
+            return list;
         }
     }
 }

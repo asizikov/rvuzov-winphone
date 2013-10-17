@@ -51,6 +51,9 @@
     <Reference Include="BindableApplicationBar">
       <HintPath>..\Lib\BindableApplicationBar.dll</HintPath>
     </Reference>
+    <Reference Include="FlurryWP7SDK">
+      <HintPath>..\Lib\FlurryWP7SDK.dll</HintPath>
+    </Reference>
     <Reference Include="Funq">
       <HintPath>..\Lib\Funq.dll</HintPath>
     </Reference>
@@ -101,6 +104,7 @@
     <Compile Include="Converters\WeekNumberToTextConverter.cs" />
     <Compile Include="IoC\Container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\UiStringsProvider.cs" />
     <Compile Include="Resources\LocalizedStrings.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -108,6 +112,7 @@
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\ApplicationSettings.cs" />
+    <Compile Include="Services\FlurryPublisherImpl.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\TilesSetter.cs" />
     <Compile Include="TimeTableUriMapper.cs" />
@@ -119,6 +124,9 @@
     <Compile Include="View\EntryPoint.xaml.cs">
       <DependentUpon>EntryPoint.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FavoritesPage.xaml.cs">
+      <DependentUpon>FavoritesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FirstPage.xaml.cs">
       <DependentUpon>FirstPage.xaml</DependentUpon>
     </Compile>
@@ -129,6 +137,9 @@
       <DependentUpon>LessonsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SearchPage.cs" />
+    <Compile Include="View\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UniversitiesPage.xaml.cs">
       <DependentUpon>UniversitiesPage.xaml</DependentUpon>
     </Compile>
@@ -161,7 +172,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\appbar.cog.png" />
+
+    <Content Include="Resources\Icons\feature.calendar.png" />
+    <Content Include="Resources\Icons\appbar.star.minus.png" />
+    <Content Include="Resources\Icons\favs.addto.png" />
+
     <Content Include="Resources\Icons\feature.search.png" />
+    <Content Include="Resources\Icons\new.png" />
     <Content Include="Resources\Images\bg.png" />
     <Content Include="Resources\Images\Lesson\students.png" />
     <Content Include="Resources\Images\Lesson\target.png" />
@@ -204,6 +221,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FavoritesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FirstPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -213,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LessonsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

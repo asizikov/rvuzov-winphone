@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>добавить</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>расписание вузов</value>
   </data>
+  <data name="Auditory" xml:space="preserve">
+    <value>аудитория</value>
+  </data>
+  <data name="DefaultUniversityAndGroup" xml:space="preserve">
+    <value>расписание по умолчанию</value>
+  </data>
+  <data name="Favorite" xml:space="preserve">
+    <value>избранное</value>
+  </data>
   <data name="Group" xml:space="preserve">
-    <value>Группа:</value>
+    <value>группа</value>
   </data>
   <data name="Groups" xml:space="preserve">
     <value>группы</value>
@@ -132,6 +144,15 @@
   <data name="ImTeacher" xml:space="preserve">
     <value>я - преподаватель</value>
   </data>
+  <data name="LaboratoryWork" xml:space="preserve">
+    <value>лабороторные работы</value>
+  </data>
+  <data name="Lectures" xml:space="preserve">
+    <value>лекции</value>
+  </data>
+  <data name="Practice" xml:space="preserve">
+    <value>практические занятия</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>поиск</value>
   </data>
@@ -141,10 +162,31 @@
   <data name="SelectUniversity" xml:space="preserve">
     <value>ВУЗы</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>настройки</value>
+  </data>
+  <data name="ShowInTheSchedule" xml:space="preserve">
+    <value>отображать в расписании</value>
+  </data>
   <data name="Teachers" xml:space="preserve">
     <value>преподаватели</value>
   </data>
+  <data name="TeachersTimeTable" xml:space="preserve">
+    <value>расписание преподавателя</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>сегодня</value>
+  </data>
+  <data name="ToFavorites" xml:space="preserve">
+    <value>в избранное</value>
+  </data>
+  <data name="Unfavorite" xml:space="preserve">
+    <value>из избранного</value>
+  </data>
   <data name="WeekNumber" xml:space="preserve">
     <value>{0} неделя</value>
+  </data>
+  <data name="GroupTimeTable" xml:space="preserve">
+    <value>расписание группы</value>
   </data>
 </root>

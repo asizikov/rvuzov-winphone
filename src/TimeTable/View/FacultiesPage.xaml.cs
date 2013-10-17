@@ -22,7 +22,7 @@ namespace TimeTable.View
                 int universityId;
                 if (Int32.TryParse(parameter, out universityId))
                 {
-                    ViewModel = ViewModelLocator.GetFacultiesPageViewModel(universityId) as SearchViewModel;
+                    ViewModel = ViewModelLocator.GetFacultiesPageViewModel(universityId, IsAddingFavorites()) as SearchViewModel;
                     DataContext = ViewModel;
                 }
             }

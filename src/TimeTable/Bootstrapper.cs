@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using Microsoft.Phone.Controls;
 using TimeTable.Commands;
 using TimeTable.IoC;
+using TimeTable.Resources;
 using TimeTable.Services;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
@@ -30,9 +31,13 @@ namespace TimeTable
             var ioc = ContainerInstance.Current;
             ioc.Register<INavigationService>(new NavigationService(rootFrame));
             ioc.Register<BaseApplicationSettings>(new ApplicationSettings());
-            ioc.Register<FlurryPublisher>(new DebugFlurryPublisher());
+            //ioc.Register<FlurryPublisher>(new DebugFlurryPublisher());
+            ioc.Register<FlurryPublisher>(new FlurryPublisherImpl());
             ioc.Register<ICache>(new InMemoryCache());
-            ioc.Register<ICommandFactory>(new CommandsFactory(ioc.Resolve<INavigationService>(), ioc.Resolve<FlurryPublisher>()));
+            ioc.Register<IUiStringsProviders>(new UiStringsProvider());
+            ioc.Register<ICommandFactory>(new CommandsFactory(ioc.Resolve<INavigationService>(),
+                ioc.Resolve<FlurryPublisher>(), ioc.Resolve<IUiStringsProviders>()));
+            ioc.Register(new FavoritedItemsManager());
         }
     }
 }

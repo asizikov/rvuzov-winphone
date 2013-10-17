@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Data;
@@ -15,18 +16,18 @@ namespace TimeTable.ViewModel
     {
         private readonly AsyncDataProvider _dataProvider;
         private readonly FlurryPublisher _flurry;
+        private readonly bool _isAddingFavorites;
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private ObservableCollection<ListGroup<University>> _universitesList;
         private University _selectedUniversity;
-        
+
         private Universities _storedRequest;
         private static Func<University, char> _resultGrouper;
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
-            [NotNull] BaseApplicationSettings applicationSettings,
-            [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurry)
+            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
+            [NotNull] FlurryPublisher flurry, bool isAddingFavorites)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurry == null) throw new ArgumentNullException("flurry");
@@ -34,6 +35,7 @@ namespace TimeTable.ViewModel
 
             _dataProvider = dataProvider;
             _flurry = flurry;
+            _isAddingFavorites = isAddingFavorites;
             _navigation = navigation;
             _applicationSettings = applicationSettings;
             _resultGrouper = u => u.ShortName[0];
@@ -90,19 +92,50 @@ namespace TimeTable.ViewModel
                 if (_selectedUniversity != null)
                 {
                     _flurry.PublishUniversitySelected(_selectedUniversity);
-                    NavigateToFaculties(_selectedUniversity.Id);
+                    NavigateToFaculties(_selectedUniversity);
+                    StartDownloader(_selectedUniversity.Id);
                 }
             }
         }
 
-        private void NavigateToFaculties(int id)
+        private void StartDownloader(int universityId)
+        {
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                _dataProvider.GetUniversitesFacultiesAsync(universityId).Subscribe(f =>
+                {
+                    if (f == null || !f.Success || f.Data == null) return;
+                    foreach (var faculty in f.Data)
+                    {
+                        _dataProvider.GetFacultyGroupsAsync(faculty.Id).Subscribe(g => { }, ex => { });
+                    }
+                }, ex => { });
+                _dataProvider.GetUniversityTeachersAsync(universityId).Subscribe(t => { }, ex => { });
+                ;
+            });
+        }
+
+        private void NavigateToFaculties(University university)
         {
             var navigationParameter = new NavigationParameter
             {
                 Parameter = NavigationParameterName.Id,
-                Value = id.ToString(CultureInfo.InvariantCulture)
+                Value = university.Id.ToString(CultureInfo.InvariantCulture)
             };
-            _navigation.GoToPage(Pages.Faculties, new List<NavigationParameter> {navigationParameter});
+            if (!_applicationSettings.IsRegistrationCompleted)
+            {
+                _applicationSettings.Me.University = university;
+            }
+            var parameters = new List<NavigationParameter> {navigationParameter};
+            if (_isAddingFavorites)
+            {
+                parameters.Add(new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.AddFavorites,
+                    Value = true.ToString()
+                });
+            }
+            _navigation.GoToPage(Pages.Faculties, parameters);
         }
 
         protected override void GetResults(string search)

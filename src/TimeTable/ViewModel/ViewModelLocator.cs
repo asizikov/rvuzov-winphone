@@ -11,49 +11,67 @@ namespace TimeTable.ViewModel
     {
         private static Container C
         {
-            get
-            {
-                return ContainerInstance.Current;
-            }
+            get { return ContainerInstance.Current; }
         }
 
         private static UniversitiesViewModel _universitiesViewModel;
+        private static readonly AsyncDataProvider DataProvider;
 
-        [NotNull] public static BaseViewModel GetUniversitiesViewModel()
+        static ViewModelLocator()
+        {
+            DataProvider = new AsyncDataProvider(C.Resolve<ICache>());
+        }
+
+        [NotNull]
+        public static BaseViewModel GetUniversitiesViewModel(bool isAddingFavorites)
         {
             return _universitiesViewModel ??
                    (_universitiesViewModel =
                        new UniversitiesViewModel(C.Resolve<INavigationService>(),
-                           C.Resolve<BaseApplicationSettings>(), new AsyncDataProvider(C.Resolve<ICache>()), 
-                           C.Resolve<FlurryPublisher>()));
+                           C.Resolve<BaseApplicationSettings>(), DataProvider,
+                           C.Resolve<FlurryPublisher>(), isAddingFavorites));
         }
 
         public static BaseViewModel GetFirstPageViewModel()
         {
-            return new FirstPageViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>());
+            return new FirstPageViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>(),
+                DataProvider);
         }
 
-        public static BaseViewModel GetGroupsPageViewModel(int facultyId, int universityId)
+        public static BaseViewModel GetGroupsPageViewModel(int facultyId, int universityId, bool isAddingFavorites)
         {
-            return new GroupPageViewModel(C.Resolve<INavigationService>(), 
-                C.Resolve<BaseApplicationSettings>(), 
-                new AsyncDataProvider(C.Resolve<ICache>()), 
-                C.Resolve<FlurryPublisher>(),universityId, facultyId);
+            return new GroupPageViewModel(C.Resolve<INavigationService>(),
+                C.Resolve<BaseApplicationSettings>(),
+                DataProvider,
+                C.Resolve<FlurryPublisher>(), C.Resolve<FavoritedItemsManager>(), universityId, facultyId,
+                isAddingFavorites);
         }
 
-        public static BaseViewModel GetFacultiesPageViewModel(int universityId)
+        public static BaseViewModel GetFacultiesPageViewModel(int universityId, bool isAddingFavorites)
         {
             return new FacultiesPageViewModel(C.Resolve<INavigationService>(),
                 C.Resolve<BaseApplicationSettings>(),
-                new AsyncDataProvider(C.Resolve<ICache>()),
-                C.Resolve<FlurryPublisher>(), universityId);
+                DataProvider,
+                C.Resolve<FlurryPublisher>(), universityId, isAddingFavorites);
         }
 
-        public static BaseViewModel GetLessonsViewModel(int id, bool isTeacher, int universityId)
+        public static LessonsViewModel GetLessonsViewModel(int id, bool isTeacher, int universityId, int facultyId)
         {
-            return new LessonsViewModel(C.Resolve<INavigationService>(), 
+            return new LessonsViewModel(C.Resolve<INavigationService>(), C.Resolve<FlurryPublisher>(),
                 C.Resolve<BaseApplicationSettings>(), C.Resolve<ICommandFactory>(),
-                new AsyncDataProvider(C.Resolve<ICache>()), id, isTeacher, universityId);
+                DataProvider, C.Resolve<FavoritedItemsManager>(), C.Resolve<IUiStringsProviders>(), id, isTeacher,
+                universityId, facultyId);
+        }
+
+        public static BaseViewModel GetFavoritesViewModel()
+        {
+            return new FavoritesViewModel(C.Resolve<INavigationService>(), C.Resolve<FavoritedItemsManager>(),
+                C.Resolve<IUiStringsProviders>());
+        }
+
+        public static BaseViewModel GetSettingsViewModel()
+        {
+            return new SettingsViewModel(C.Resolve<BaseApplicationSettings>(), C.Resolve<INavigationService>());
         }
     }
 }

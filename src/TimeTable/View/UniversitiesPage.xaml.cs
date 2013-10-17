@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using TimeTable.ViewModel;
+using TimeTable.ViewModel.Services;
 
 namespace TimeTable.View
 {
@@ -14,7 +15,7 @@ namespace TimeTable.View
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            ViewModel = ViewModelLocator.GetUniversitiesViewModel() as SearchViewModel;
+            ViewModel = ViewModelLocator.GetUniversitiesViewModel(IsAddingFavorites()) as SearchViewModel;
             DataContext = ViewModel;
         }
 

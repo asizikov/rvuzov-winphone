@@ -61,6 +61,15 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to добавить.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to расписание вузов.
         /// </summary>
         public static string AppName {
@@ -70,7 +79,34 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Группа:.
+        ///   Looks up a localized string similar to аудитория.
+        /// </summary>
+        public static string Auditory {
+            get {
+                return ResourceManager.GetString("Auditory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to расписание по умолчанию.
+        /// </summary>
+        public static string DefaultUniversityAndGroup {
+            get {
+                return ResourceManager.GetString("DefaultUniversityAndGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to избранное.
+        /// </summary>
+        public static string Favorite {
+            get {
+                return ResourceManager.GetString("Favorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to группа.
         /// </summary>
         public static string Group {
             get {
@@ -84,6 +120,15 @@ namespace TimeTable.Resources {
         public static string Groups {
             get {
                 return ResourceManager.GetString("Groups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to расписание группы.
+        /// </summary>
+        public static string GroupTimeTable {
+            get {
+                return ResourceManager.GetString("GroupTimeTable", resourceCulture);
             }
         }
         
@@ -102,6 +147,33 @@ namespace TimeTable.Resources {
         public static string ImTeacher {
             get {
                 return ResourceManager.GetString("ImTeacher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to лабороторные работы.
+        /// </summary>
+        public static string LaboratoryWork {
+            get {
+                return ResourceManager.GetString("LaboratoryWork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to лекции.
+        /// </summary>
+        public static string Lectures {
+            get {
+                return ResourceManager.GetString("Lectures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to практические занятия.
+        /// </summary>
+        public static string Practice {
+            get {
+                return ResourceManager.GetString("Practice", resourceCulture);
             }
         }
         
@@ -133,11 +205,65 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to настройки.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to отображать в расписании.
+        /// </summary>
+        public static string ShowInTheSchedule {
+            get {
+                return ResourceManager.GetString("ShowInTheSchedule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to преподаватели.
         /// </summary>
         public static string Teachers {
             get {
                 return ResourceManager.GetString("Teachers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to расписание преподавателя.
+        /// </summary>
+        public static string TeachersTimeTable {
+            get {
+                return ResourceManager.GetString("TeachersTimeTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to сегодня.
+        /// </summary>
+        public static string Today {
+            get {
+                return ResourceManager.GetString("Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to в избранное.
+        /// </summary>
+        public static string ToFavorites {
+            get {
+                return ResourceManager.GetString("ToFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to из избранного.
+        /// </summary>
+        public static string Unfavorite {
+            get {
+                return ResourceManager.GetString("Unfavorite", resourceCulture);
             }
         }
         

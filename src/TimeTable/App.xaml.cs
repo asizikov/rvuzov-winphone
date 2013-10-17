@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -93,16 +94,19 @@ namespace TimeTable
             var cache = ContainerInstance.Current.Resolve<ICache>();
 
             cache.PullFromStorage();
-            flurryPublisher.StartSession("secret key"); //change to normal key, after we got flurry lib
+            ThreadPool.QueueUserWorkItem(o => flurryPublisher.StartSession());
         }
 
         private static void CommonDeactivated()
         {
             var flurryPublisher = ContainerInstance.Current.Resolve<FlurryPublisher>();
             var cache = ContainerInstance.Current.Resolve<ICache>();
-
+            var favoritedItemsManager = ContainerInstance.Current.Resolve<FavoritedItemsManager>();
+            var settings = ContainerInstance.Current.Resolve<BaseApplicationSettings>();
             flurryPublisher.EndSession();
             cache.PushToStorage();
+            favoritedItemsManager.Save();
+            settings.Save();
         }
 
         // Code to execute if a navigation fails

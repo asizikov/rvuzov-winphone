@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
@@ -9,33 +10,71 @@ namespace TimeTable.ViewModel
 {
     public class DayViewModel : BaseViewModel
     {
-        private readonly Day _day;
-        private readonly WeekType _weekType;
+        private readonly Day _dayData;
         private readonly int _parity;
         private ObservableCollection<TimeTableItemViewModel> _lessons;
+        private DateTime _date;
 
-        public DayViewModel([NotNull] Day day, WeekType weekType, int parity, [NotNull] ICommandFactory commandFactory, University university)
+        public DayViewModel([NotNull] Day dayData, WeekType weekType, int parity,
+            [NotNull] ICommandFactory commandFactory,
+            University university)
         {
-            if (day == null) throw new ArgumentNullException("day");
+            if (dayData == null) throw new ArgumentNullException("dayData");
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
 
-            _day = day;
-            _weekType = weekType;
+            _dayData = dayData;
             _parity = parity;
+            _date = SetUpDayName(weekType);
 
-            if (_day.Lessons != null)
+            if (_dayData.Lessons != null)
             {
                 Lessons =
                     new ObservableCollection<TimeTableItemViewModel>(
-                        _day.Lessons.Where(IsVisibleInCurrentWeek)
-                        .OrderBy(lesson => lesson.TimeStart)
-                        .Select(lesson => new TimeTableItemViewModel(lesson, commandFactory, university)));
+                        FilterLessons(_dayData.Lessons, commandFactory, university));
             }
             else
             {
                 Lessons = new ObservableCollection<TimeTableItemViewModel>();
             }
-            SetUpDayName(_weekType);
+        }
+
+        private IEnumerable<TimeTableItemViewModel> FilterLessons(IEnumerable<Lesson> lessons,
+            ICommandFactory commandFactory, University university)
+        {
+            var ordered = lessons.OrderBy(lesson => lesson.TimeStart);
+            foreach (var lesson in ordered)
+            {
+                if (lesson.Dates != null && lesson.Dates.Any())
+                {
+                    var formattedDay = _date.ToString("dd.MM.yyyy");
+                    if (lesson.Dates.Contains(formattedDay))
+                    {
+                        yield return new TimeTableItemViewModel(lesson, commandFactory, university, _date);
+                    }
+                }
+                else
+                {
+                    DateTime startDate;
+                    DateTime endDate;
+                    if (DateTime.TryParse(lesson.DateStart, out startDate) &&
+                        DateTime.TryParse(lesson.DateEnd, out endDate))
+                    {
+                        if (_date < startDate || _date > endDate) continue;
+
+                        if (IsVisibleInCurrentWeek(lesson))
+                        {
+                            yield return new TimeTableItemViewModel(lesson, commandFactory, university, _date);
+                        }
+                    }
+                    else
+                    {
+                        if (IsVisibleInCurrentWeek(lesson))
+                        {
+                            yield return new TimeTableItemViewModel(lesson, commandFactory, university, _date);
+                        }
+                    }
+                }
+            }
         }
 
         private bool IsVisibleInCurrentWeek(Lesson lesson)
@@ -49,12 +88,11 @@ namespace TimeTable.ViewModel
             return lesson.Parity == 1;
         }
 
-        private void SetUpDayName(WeekType weekType)
+        private DateTime SetUpDayName(WeekType weekType)
         {
             var today = DateTime.Now;
             var delta = DayOfWeek.Monday - today.DayOfWeek;
             var monday = today.AddDays(delta);
-            
 
             switch (weekType)
             {
@@ -69,11 +107,14 @@ namespace TimeTable.ViewModel
                 default:
                     throw new ArgumentOutOfRangeException("weekType");
             }
-            NameForTheDay = (monday + TimeSpan.FromDays(_day.Weekday - 1)).ToString("d MMMM");
+            return (monday + TimeSpan.FromDays(_dayData.Weekday - 1));
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public string NameForTheDay { get; private set; }
+        public string NameForTheDay
+        {
+            get { return _date.ToString("d MMMM"); }
+        }
 
         [NotNull]
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -91,7 +132,7 @@ namespace TimeTable.ViewModel
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public int Weekday
         {
-            get { return _day.Weekday; }
+            get { return _dayData.Weekday; }
         }
     }
 }

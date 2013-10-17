@@ -6,7 +6,7 @@ namespace TimeTable.ViewModel.Services
 {
     public class DebugFlurryPublisher : FlurryPublisher
     {
-        protected override void InitSession(string userId)
+        protected override void InitSession()
         {
             Debug.WriteLine("Flurry::StartSession");
         }

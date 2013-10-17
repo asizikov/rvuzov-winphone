@@ -68,8 +68,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseViewModel.cs" />
+    <Compile Include="AppbarButtonViewModel.cs" />
+    <Compile Include="Commands\ShowGroupTimeTableCommand.cs" />
+    <Compile Include="Extensions\FavoritedExtensions.cs" />
+    <Compile Include="FavoritedState.cs" />
+    <Compile Include="FavoritesViewModel.cs" />
     <Compile Include="Commands\AbstractMenuItem.cs" />
     <Compile Include="Commands\ICommandFactory.cs" />
+    <Compile Include="Commands\ITitledCommand.cs" />
     <Compile Include="Commands\ShowTeachersTimeTableCommand.cs" />
     <Compile Include="Commands\SimpleCommand.cs" />
     <Compile Include="FacultiesPageViewModel.cs" />
@@ -91,6 +97,9 @@
     <Compile Include="Restful\UniversitiesGroupsRequest.cs" />
     <Compile Include="Restful\UniversityFacultiesRequest.cs" />
     <Compile Include="Restful\UniversityTeachersRequest.cs" />
+    <Compile Include="Services\FavoritedItemsManager.cs" />
+    <Compile Include="Services\IUiStringsProviders.cs" />
+    <Compile Include="SettingsViewModel.cs" />
     <Compile Include="TimeTableItemViewModel.cs" />
     <Compile Include="SearchViewModel.cs" />
     <Compile Include="Services\BaseApplicationSettings.cs" />

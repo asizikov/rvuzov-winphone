@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.IsolatedStorage;
-using System.Xml.Linq;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
@@ -22,7 +21,7 @@ namespace TimeTable.ViewModel.Data
         [NotNull] private readonly IsolatedStorageFile _storageFile = IsolatedStorageFile.GetUserStoreForApplication();
         [NotNull] private readonly object _readLock = new object();
 
-        private const string StorageFileName = "TimeTableData";
+        private const string STORAGE_FILE_NAME = "Cache";
 
         public bool IsCached<T>(string url) where T : new()
         {
@@ -68,7 +67,7 @@ namespace TimeTable.ViewModel.Data
         {
             lock (_readLock)
             {
-                using (var storageFileStream = _storageFile.CreateFile(StorageFileName))
+                using (var storageFileStream = _storageFile.CreateFile(STORAGE_FILE_NAME))
                 {
                     WriteFile(storageFileStream);
                 }
@@ -79,9 +78,9 @@ namespace TimeTable.ViewModel.Data
         {
             lock (_readLock)
             {
-                if (_storageFile.FileExists(StorageFileName))
+                if (_storageFile.FileExists(STORAGE_FILE_NAME))
                 {
-                    using (var storageFileStream = _storageFile.OpenFile(StorageFileName, FileMode.Open))
+                    using (var storageFileStream = _storageFile.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
                     {
                         _cache = new Dictionary<string, CacheItem>(ReadFile(storageFileStream));
                     }

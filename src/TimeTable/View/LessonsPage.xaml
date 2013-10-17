@@ -11,9 +11,10 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
-    SupportedOrientations="Portrait"  Orientation="Portrait"
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.IsVisible="True"
+    shell:SystemTray.Opacity="0"
+    shell:SystemTray.ForegroundColor="{StaticResource TimeTableHilighthColor}"
     d:DataContext="{d:DesignInstance viewModel:LessonsViewModel}">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -22,18 +23,18 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding Path=Strings.Group, Source ={StaticResource LocalizedStrings} }"/>
-            <TextBlock Text="{Binding GroupName}"/>
+        <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+            <TextBlock Margin="24,0,0,0" Foreground="White" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Title}"/>
         </StackPanel>
-        <toolkit:LockablePivot 
+        <toolkit:LockablePivot SelectedIndex="{Binding SelectedWeekIndex, Mode=TwoWay}"
             Grid.Row="1" >
             <controls:PivotItem
                 DataContext="{Binding CurrentWeek}"
                 Header="{Binding WeekNumber, Converter={StaticResource WeekNumberToTextConverter}}">
                 <ListBox 
                     ItemTemplate="{StaticResource TimeTableWeekDataTemplate}"
-                    ItemsSource="{Binding Days}">
+                    ItemsSource="{Binding Days}"
+                    SelectedItem="{Binding SelectedDayItem, Mode=TwoWay}">  
                 </ListBox>
             </controls:PivotItem>
             <controls:PivotItem
@@ -56,11 +57,30 @@
     </Grid>
     <bindableApplicationBar:Bindable.ApplicationBar>
         <bindableApplicationBar:BindableApplicationBar
+            ButtonsSource="{Binding AppbarButtons}"
+            Name="BindableApplicationBar"
             BackgroundColor="{StaticResource TimeTableHilighthColor}">
-            <bindableApplicationBar:BindableApplicationBarButton
-                Text="{Binding  Strings.Search, Source={StaticResource LocalizedStrings}}"
-                Command="{Binding GoToSettingsCommand}"
-                IconUri="/Resources/Icons/appbar.cog.png" />
+<!--            <bindableApplicationBar:BindableApplicationBarButton -->
+<!--                Text="{Binding Strings.Today, Source={StaticResource LocalizedStrings}}"-->
+<!--                Command="{Binding GoToTodayCommand}"-->
+<!--                IconUri="/Resources/Icons/feature.calendar.png" -->
+<!--                />-->     
+
+ <!--            <bindableApplicationBar:BindableApplicationBarButton-->
+<!--                Text="{Binding  Strings.Settings, Source={StaticResource LocalizedStrings}}"-->
+<!--                Command="{Binding GoToSettingsCommand}"-->
+<!--                IconUri="/Resources/Icons/appbar.cog.png" />-->
+<!--            <bindableApplicationBar:BindableApplicationBarButton-->
+<!--                Name="AddToFavoritesButton"-->
+<!--                Text="{Binding  Strings.ToFavorites, Source={StaticResource LocalizedStrings}}"-->
+<!--                Command="{Binding AddToFavoritesCommand}"-->
+<!--                IconUri="/Resources/Icons/favs.addto.png" />-->
+            <bindableApplicationBar:BindableApplicationBar.MenuItems>
+                    <bindableApplicationBar:BindableApplicationBarMenuItem
+                    Text="{Binding Strings.Favorite , Source={StaticResource LocalizedStrings}}"
+                    Command="{Binding GoToFavoritesListCommand}"
+                    />
+            </bindableApplicationBar:BindableApplicationBar.MenuItems>
         </bindableApplicationBar:BindableApplicationBar>
     </bindableApplicationBar:Bindable.ApplicationBar>
 </phone:PhoneApplicationPage>

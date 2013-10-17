@@ -8,7 +8,7 @@ using TimeTable.ViewModel.Commands;
 
 namespace TimeTable.ViewModel
 {
-    public class TimeTableItemViewModel : BaseViewModel
+    public sealed class TimeTableItemViewModel : BaseViewModel
     {
         private readonly Lesson _lesson;
         private readonly ICommandFactory _commandFactory;
@@ -17,7 +17,7 @@ namespace TimeTable.ViewModel
         private string _teachersList;
 
         public TimeTableItemViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory,
-            [NotNull] University university)
+            [NotNull] University university, DateTime date)
         {
             if (lesson == null) throw new ArgumentNullException("lesson");
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
@@ -55,7 +55,7 @@ namespace TimeTable.ViewModel
         [CanBeNull]
         private string FormatGroupsList()
         {
-            if (_lesson.Groups == null || _lesson.Groups.Count == 0)
+            if (_lesson.Groups == null || !_lesson.Groups.Any())
             {
                 return null;
             }
@@ -66,7 +66,7 @@ namespace TimeTable.ViewModel
                 sb.Append(_lesson.Groups[index].GroupName);
                 if (index != _lesson.Groups.Count - 1)
                 {
-                    sb.Append(",");
+                    sb.Append(", ");
                 }
             }
             return sb.ToString();
@@ -80,7 +80,7 @@ namespace TimeTable.ViewModel
                 return _teachersList;
             }
 
-            if (_lesson.Teachers == null || _lesson.Teachers.Count == 0)
+            if (_lesson.Teachers == null || !_lesson.Teachers.Any())
             {
                 return null;
             }
@@ -92,12 +92,13 @@ namespace TimeTable.ViewModel
                 sb.Append(_lesson.Teachers[index].Name);
                 if (index != _lesson.Teachers.Count - 1)
                 {
-                    sb.Append(",");
+                    sb.Append(", ");
                 }
             }
             _teachersList = sb.ToString();
             return _teachersList;
         }
+
         [CanBeNull]
         private string FormatAuditories()
         {
@@ -105,21 +106,22 @@ namespace TimeTable.ViewModel
             {
                 return _auditoriesList;
             }
-            if (_lesson.Auditories ==null || !_lesson.Auditories.Any())
+            if (_lesson.Auditoriums == null || !_lesson.Auditoriums.Any())
             {
                 return null;
             }
 
             var sb = new StringBuilder();
-            for (var index = 0; index < _lesson.Auditories.Count; index++)
+            for (var index = 0; index < _lesson.Auditoriums.Count; index++)
             {
-                if (!string.IsNullOrEmpty(_lesson.Auditories[index].Name))
+                var name = _lesson.Auditoriums[index].Name;
+                if (!string.IsNullOrEmpty(name))
                 {
-                    sb.Append(_lesson.Auditories[index].Name);
+                    sb.Append(name);
                 }
-                if (index != _lesson.Auditories.Count - 1)
+                if (index != _lesson.Auditoriums.Count - 1)
                 {
-                    sb.Append(",");
+                    sb.Append(", ");
                 }
             }
             _auditoriesList = sb.ToString();
@@ -131,20 +133,44 @@ namespace TimeTable.ViewModel
         {
             get
             {
-                yield return new AbstractMenuItem
-                {
-                    Command = null,
-                    Header = "аудитория"
-                };
-                if (_lesson.Teachers != null && _lesson.Teachers.Any())
+                if (_lesson.Auditoriums != null && _lesson.Auditoriums.Any())
                 {
                     yield return new AbstractMenuItem
                     {
-                        CommandParameter = _lesson.Teachers.First().Id,
-                        Command = _commandFactory.GetShowTeachersTimeTableCommand(_university, _lesson.Teachers.First()),
-                        Header = "расписание преподавателя"
+                        Command = null,
+                        Header = "аудитория"
                     };
                 }
+
+                if (_lesson.Teachers != null && _lesson.Teachers.Any())
+                {
+                    var showTeachersTimeTableCommand = _commandFactory.GetShowTeachersTimeTableCommand(_university,
+                        _lesson.Teachers.First());
+                    yield return new AbstractMenuItem
+                    {
+                        CommandParameter = _lesson.Teachers.First().Id,
+                        Command = showTeachersTimeTableCommand,
+                        Header = showTeachersTimeTableCommand.Title
+                    };
+                }
+
+                if (_lesson.Groups != null && _lesson.Groups.Any())
+                {
+//                    var showTeachersTimeTableCommand = _commandFactory.GetShowGroupTimeTableCommand(_university,
+//                        _lesson.Groups.First());
+//                    yield return new AbstractMenuItem
+//                    {
+//                        CommandParameter = _lesson.Groups.First().Id,
+//                        Command = showTeachersTimeTableCommand,
+//                        Header = showTeachersTimeTableCommand.Title
+//                    };
+                }
+
+                yield return new AbstractMenuItem
+                {
+                    Command = null,
+                    Header = "сообщить об ошибке"
+                };
             }
         }
     }
