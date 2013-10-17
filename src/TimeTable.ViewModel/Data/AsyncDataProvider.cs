@@ -76,6 +76,20 @@ namespace TimeTable.ViewModel.Data
                 }));
         }
 
+       public IObservable<Faculty> GetFacultyByUniversityAndGroupId(int universityId, int groupId)
+        {
+           return Observable.Create<Faculty>(observer =>
+                Scheduler.Default.Schedule(() =>
+                {
+                    GetUniversitesFacultiesAsync(universityId)
+                        .Subscribe(f =>
+                        {
+                            observer.OnNext(new Faculty());
+                            //f.Data
+                        });
+                }));
+        } 
+
         public IObservable<Teacher> GetTeacherByIdAsync(int universityId,int id)
         {
             return Observable.Create<Teacher>(observer =>
