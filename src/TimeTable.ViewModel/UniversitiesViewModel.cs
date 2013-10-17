@@ -91,9 +91,9 @@ namespace TimeTable.ViewModel
 
                 if (_selectedUniversity != null)
                 {
+                    StartDownloader(_selectedUniversity.Id);
                     _flurry.PublishUniversitySelected(_selectedUniversity);
                     NavigateToFaculties(_selectedUniversity);
-                    StartDownloader(_selectedUniversity.Id);
                 }
             }
         }
