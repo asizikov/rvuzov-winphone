@@ -11,10 +11,10 @@ namespace TimeTable.ViewModel.Data
 {
     public abstract class BaseAsyncDataProvider
     {
-        private readonly ICache _cache;
+        private readonly IWebCache _cache;
         protected readonly RestfulCallFactory CallFactory = new RestfulCallFactory();
 
-        protected BaseAsyncDataProvider([NotNull] ICache cache)
+        protected BaseAsyncDataProvider([NotNull] IWebCache cache)
         {
             if (cache == null) throw new ArgumentNullException("cache");
             _cache = cache;

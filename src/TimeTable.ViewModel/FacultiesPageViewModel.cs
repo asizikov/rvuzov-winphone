@@ -88,7 +88,10 @@ namespace TimeTable.ViewModel
             _dataProvider.GetUniversitesFacultiesAsync(_universityId).Subscribe(
                 result =>
                 {
+                    if (!result.Success) return;
+
                     _storedGroupsRequest = result;
+                    _dataProvider.PutFaculties(_universityId, result.Data);
                     FacultiesList = FormatResult(result.Data, _facultyGroupFunc);
                     IsLoading = false;
                 },

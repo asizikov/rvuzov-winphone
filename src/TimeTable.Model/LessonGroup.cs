@@ -7,7 +7,7 @@ namespace TimeTable.Model
     public sealed class LessonGroup
     {
         [JsonProperty("group_id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("group_name")]
         public string GroupName { get; set; }

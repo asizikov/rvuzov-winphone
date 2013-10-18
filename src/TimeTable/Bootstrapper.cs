@@ -33,10 +33,12 @@ namespace TimeTable
             ioc.Register<BaseApplicationSettings>(new ApplicationSettings());
             //ioc.Register<FlurryPublisher>(new DebugFlurryPublisher());
             ioc.Register<FlurryPublisher>(new FlurryPublisherImpl());
-            ioc.Register<ICache>(new InMemoryCache());
+            ioc.Register<IWebCache>(new InMemoryCache());
+            ioc.Register(new UniversitiesCache());
+            ioc.Register(new AsyncDataProvider(ioc.Resolve<IWebCache>(),ioc.Resolve<UniversitiesCache>()));
             ioc.Register<IUiStringsProviders>(new UiStringsProvider());
             ioc.Register<ICommandFactory>(new CommandsFactory(ioc.Resolve<INavigationService>(),
-                ioc.Resolve<FlurryPublisher>(), ioc.Resolve<IUiStringsProviders>()));
+                ioc.Resolve<FlurryPublisher>(), ioc.Resolve<IUiStringsProviders>(), ioc.Resolve<AsyncDataProvider>()));
             ioc.Register(new FavoritedItemsManager());
         }
     }
