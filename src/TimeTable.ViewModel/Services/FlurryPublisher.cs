@@ -245,5 +245,10 @@ namespace TimeTable.ViewModel.Services
             };
             PublishEvent(FlurryEvents.EVENT_CONTEXT_GROUP_SCHEDULE,parameters);
         }
+
+        public void PublishUniversitiesPageLoaded()
+        {
+            PublishEvent(FlurryEvents.EventUniversitiesPageLoaded);
+        }
     }
 }

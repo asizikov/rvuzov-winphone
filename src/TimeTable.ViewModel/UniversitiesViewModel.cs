@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Data;
@@ -41,6 +40,7 @@ namespace TimeTable.ViewModel
             _resultGrouper = u => u.ShortName[0];
             SubscribeToQuery();
             Init();
+            _flurry.PublishUniversitiesPageLoaded();
         }
 
 

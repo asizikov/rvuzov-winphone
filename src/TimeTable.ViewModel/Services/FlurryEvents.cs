@@ -31,5 +31,6 @@
         public static readonly string EVENT_TASKS_PREFERENCES = "TASKS_PREFERENCES";
         public static readonly string EVENT_UPDATE_SCHEDULE_CHOOSE = "UPDATE_SCHEDULE_CHOOSE";
         public static readonly string EVENT_UPDATE_SCHEDULE_PULL = "UPDATE_SCHEDULE_PULL";
+        public static readonly string EventUniversitiesPageLoaded = "universities page loaded";
     }
 }
