@@ -48,7 +48,7 @@ namespace TimeTable.ViewModel.Commands
             _dataProvider.GetFacultyByUniversityAndGroupId(_university.Id, _group.Id)
                 .Subscribe(faculty =>
                 {
-                    //_flurryPublisher.PublishContextMenuShowGroupTimeTable(_university, _group.GroupName, _group.Id);
+                    _flurryPublisher.PublishContextMenuShowGroupTimeTable(_university, _group.GroupName, _group.Id);
                     _navigationService.GoToPage(Pages.Lessons, new List<NavigationParameter>
                     {
                         new NavigationParameter

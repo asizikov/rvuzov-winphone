@@ -166,10 +166,11 @@ namespace TimeTable.ViewModel
                     };
                 }
 
+                var reportErrorCommand = _commandFactory.GetReportErrorCommand();
                 yield return new AbstractMenuItem
                 {
-                    Command = null,
-                    Header = "сообщить об ошибке"
+                    Command = reportErrorCommand,
+                    Header = reportErrorCommand.Title
                 };
             }
         }

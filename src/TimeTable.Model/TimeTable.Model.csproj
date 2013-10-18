@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auditorium.cs" />
-    <Compile Include="Internal\Class1.cs" />
+    <Compile Include="Internal\FacultyItem.cs" />
+    <Compile Include="Internal\Storage.cs" />
+    <Compile Include="Internal\UniversityItem.cs" />
     <Compile Include="Internal\UserRole.cs" />
     <Compile Include="Internal\FavoritedItem.cs" />
     <Compile Include="Faculty.cs" />

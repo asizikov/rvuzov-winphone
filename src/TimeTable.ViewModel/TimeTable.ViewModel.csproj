@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="AppbarButtonViewModel.cs" />
+    <Compile Include="Commands\ReportErrorCommand.cs" />
     <Compile Include="Commands\ShowGroupTimeTableCommand.cs" />
     <Compile Include="Data\DataWriter.cs" />
     <Compile Include="Data\UniversitiesCache.cs" />

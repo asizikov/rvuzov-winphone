@@ -40,5 +40,10 @@ namespace TimeTable.Commands
             return new ShowGroupTimeTableCommand(_navigationService, _flurryPublisher, _dataProvider, _stringsProviders,
                 university, group);
         }
+
+        public ITitledCommand GetReportErrorCommand()
+        {
+            return new ReportErrorCommand(_navigationService, _flurryPublisher, _stringsProviders);
+        }
     }
 }

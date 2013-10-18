@@ -189,4 +189,7 @@
   <data name="GroupTimeTable" xml:space="preserve">
     <value>расписание группы</value>
   </data>
+  <data name="ReportError" xml:space="preserve">
+    <value>сообщить об ошибке</value>
+  </data>
 </root>
