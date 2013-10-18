@@ -91,28 +91,11 @@ namespace TimeTable.ViewModel
 
                 if (_selectedUniversity != null)
                 {
+                    _dataProvider.PutUniversity(_selectedUniversity);
                     _flurry.PublishUniversitySelected(_selectedUniversity);
                     NavigateToFaculties(_selectedUniversity);
-                    StartDownloader(_selectedUniversity.Id);
                 }
             }
-        }
-
-        private void StartDownloader(int universityId)
-        {
-            ThreadPool.QueueUserWorkItem(_ =>
-            {
-                _dataProvider.GetUniversitesFacultiesAsync(universityId).Subscribe(f =>
-                {
-                    if (f == null || !f.Success || f.Data == null) return;
-                    foreach (var faculty in f.Data)
-                    {
-                        _dataProvider.GetFacultyGroupsAsync(faculty.Id).Subscribe(g => { }, ex => { });
-                    }
-                }, ex => { });
-                _dataProvider.GetUniversityTeachersAsync(universityId).Subscribe(t => { }, ex => { });
-                ;
-            });
         }
 
         private void NavigateToFaculties(University university)

@@ -142,6 +142,7 @@ namespace TimeTable.ViewModel
                 result =>
                 {
                     result.GroupsList = result.GroupsList.OrderBy(g => g.GroupName).ToList();
+                    _dataProvider.PutGroups(_universityId, _facultyId, result.GroupsList);
                     _storedGroupsRequest = result;
                     GroupsList = FormatResult(result.GroupsList, _groupFunc);
                     IsLoading = false;

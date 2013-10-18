@@ -1,6 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
-using TimeTable.Model;
+using TimeTable.Model.Internal;
 using TimeTable.ViewModel.Services;
 
 

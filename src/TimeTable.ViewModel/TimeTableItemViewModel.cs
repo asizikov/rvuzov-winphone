@@ -156,14 +156,14 @@ namespace TimeTable.ViewModel
 
                 if (_lesson.Groups != null && _lesson.Groups.Any())
                 {
-//                    var showTeachersTimeTableCommand = _commandFactory.GetShowGroupTimeTableCommand(_university,
-//                        _lesson.Groups.First());
-//                    yield return new AbstractMenuItem
-//                    {
-//                        CommandParameter = _lesson.Groups.First().Id,
-//                        Command = showTeachersTimeTableCommand,
-//                        Header = showTeachersTimeTableCommand.Title
-//                    };
+                    var showTeachersTimeTableCommand = _commandFactory.GetShowGroupTimeTableCommand(_university,
+                        _lesson.Groups.First());
+                    yield return new AbstractMenuItem
+                    {
+                        CommandParameter = _lesson.Groups.First().Id,
+                        Command = showTeachersTimeTableCommand,
+                        Header = showTeachersTimeTableCommand.Title
+                    };
                 }
 
                 yield return new AbstractMenuItem

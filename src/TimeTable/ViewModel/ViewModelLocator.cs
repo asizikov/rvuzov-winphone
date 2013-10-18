@@ -19,7 +19,7 @@ namespace TimeTable.ViewModel
 
         static ViewModelLocator()
         {
-            DataProvider = new AsyncDataProvider(C.Resolve<ICache>());
+            DataProvider = C.Resolve<AsyncDataProvider>();
         }
 
         [NotNull]
