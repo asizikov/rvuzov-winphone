@@ -58,23 +58,9 @@
     <bindableApplicationBar:Bindable.ApplicationBar>
         <bindableApplicationBar:BindableApplicationBar
             ButtonsSource="{Binding AppbarButtons}"
+            ForegroundColor="White"
             Name="BindableApplicationBar"
             BackgroundColor="{StaticResource TimeTableHilighthColor}">
-<!--            <bindableApplicationBar:BindableApplicationBarButton -->
-<!--                Text="{Binding Strings.Today, Source={StaticResource LocalizedStrings}}"-->
-<!--                Command="{Binding GoToTodayCommand}"-->
-<!--                IconUri="/Resources/Icons/feature.calendar.png" -->
-<!--                />-->     
-
- <!--            <bindableApplicationBar:BindableApplicationBarButton-->
-<!--                Text="{Binding  Strings.Settings, Source={StaticResource LocalizedStrings}}"-->
-<!--                Command="{Binding GoToSettingsCommand}"-->
-<!--                IconUri="/Resources/Icons/appbar.cog.png" />-->
-<!--            <bindableApplicationBar:BindableApplicationBarButton-->
-<!--                Name="AddToFavoritesButton"-->
-<!--                Text="{Binding  Strings.ToFavorites, Source={StaticResource LocalizedStrings}}"-->
-<!--                Command="{Binding AddToFavoritesCommand}"-->
-<!--                IconUri="/Resources/Icons/favs.addto.png" />-->
             <bindableApplicationBar:BindableApplicationBar.MenuItems>
                     <bindableApplicationBar:BindableApplicationBarMenuItem
                     Text="{Binding Strings.Favorite , Source={StaticResource LocalizedStrings}}"
