@@ -42,7 +42,7 @@
             <bindableApplicationBar:BindableApplicationBarButton
             Text="{Binding  Strings.Search, Source={StaticResource LocalizedStrings}}"
             Command="{Binding ShowSearchBoxCommand}"
-            IconUri="/Resources/Icons/feature.search.png"/>
+            IconUri="/Resources/Icons/appbar.message.send.png"/>
         </bindableApplicationBar:BindableApplicationBar>
     </bindableApplicationBar:Bindable.ApplicationBar>
 </phone:PhoneApplicationPage>
