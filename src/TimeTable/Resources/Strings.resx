@@ -192,4 +192,7 @@
   <data name="ReportError" xml:space="preserve">
     <value>сообщить об ошибке</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>отправить</value>
+  </data>
 </root>

@@ -50,7 +50,5 @@ namespace TimeTable.ViewModel
                 return _model.University.Name;
             }
         }
-
-        
     }
 }

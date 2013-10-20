@@ -93,6 +93,7 @@
     <Compile Include="GroupPageViewModel.cs" />
     <Compile Include="LessonsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportErrorViewModel.cs" />
     <Compile Include="Restful\TimeTableRequest.cs" />
     <Compile Include="Restful\LastUpdatedRequest.cs" />
     <Compile Include="Restful\RestfulCallFactory.cs" />

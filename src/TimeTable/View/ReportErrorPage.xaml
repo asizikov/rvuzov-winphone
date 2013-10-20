@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
+    xmlns:utils="clr-namespace:TimeTable.Utils"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -28,20 +29,24 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBox Foreground="Black">
-                
+        <Grid x:Name="ContentPanel" 
+              Grid.Row="1" Margin="0">
+            <TextBox
+                Margin="0"
+                Background="White"
+                Foreground="Black"
+                Text="{Binding Text,Mode=TwoWay}"
+                utils:BindingUtility.UpdateSourceOnChange="True">
             </TextBox>
         </Grid>
     </Grid>
     <bindableApplicationBar:Bindable.ApplicationBar>
         <bindableApplicationBar:BindableApplicationBar 
             ForegroundColor="White"
-                IsVisible="{Binding IsSearchBoxVisible, Converter={StaticResource ReversedBoolConverter }}"
-                BackgroundColor="{StaticResource TimeTableHilighthColor}">
+            BackgroundColor="{StaticResource TimeTableHilighthColor}">
             <bindableApplicationBar:BindableApplicationBarButton
-            Text="{Binding  Strings.Search, Source={StaticResource LocalizedStrings}}"
-            Command="{Binding ShowSearchBoxCommand}"
+            Text="{Binding  Strings.Send, Source={StaticResource LocalizedStrings}}"
+            Command="{Binding SendErrorTextCommand}"
             IconUri="/Resources/Icons/appbar.message.send.png"/>
         </bindableApplicationBar:BindableApplicationBar>
     </bindableApplicationBar:Bindable.ApplicationBar>

@@ -73,5 +73,10 @@ namespace TimeTable.ViewModel
         {
             return new SettingsViewModel(C.Resolve<BaseApplicationSettings>(), C.Resolve<INavigationService>());
         }
+
+        public static BaseViewModel GetReportErrorViewModel()
+        {
+            return new ReportErrorViewModel(C.Resolve<INavigationService>());
+        }
     }
 }
