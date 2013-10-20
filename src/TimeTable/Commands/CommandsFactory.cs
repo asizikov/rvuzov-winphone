@@ -35,5 +35,11 @@ namespace TimeTable.Commands
         {
             return new ShowGroupTimeTableCommand(_navigationService, _flurryPublisher, _stringsProviders, university, group);
         }
+
+        [NotNull]
+        public ITitledCommand GetShowAuditoriumCommand(Auditorium auditorium)
+        {
+            return new ShowAuditoriumCommand(_navigationService, _stringsProviders, auditorium);
+        }
     }
 }

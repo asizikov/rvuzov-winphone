@@ -9,6 +9,11 @@ namespace TimeTable.Resources
             get { return Strings.Auditory; }
         }
 
+        public string AuditoryNameTemplate
+        {
+            get { return Strings.AuditoryNameTemplate; }
+        }
+
         public string TeachersTimeTable
         {
             get { return Strings.TeachersTimeTable; }

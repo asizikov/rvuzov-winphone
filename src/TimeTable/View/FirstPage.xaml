@@ -9,7 +9,7 @@
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="False"
+    shell:SystemTray.IsVisible="{StaticResource SystemTrayVisibility}"
     Style="{StaticResource TimeTablePageStyle}"
     d:DataContext="{d:DesignInstance viewModel:FirstPageViewModel}">
     <!--LayoutRoot is the root grid where all page content is placed-->

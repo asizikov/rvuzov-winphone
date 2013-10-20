@@ -135,10 +135,15 @@ namespace TimeTable.ViewModel
             {
                 if (_lesson.Auditoriums != null && _lesson.Auditoriums.Any())
                 {
+                    //TODO _lesson.Auditoriums.Single(), ибо контекстное меню мы можем выбрать только для одной конкретной пары (если оно вообще есть),
+                    //TODO если же у нас несколько аудиторий для одной пары, то что-то не то (или я чего-то не понимаю?)
+                    var auditoriumInfoCommand = _commandFactory.GetShowAuditoriumCommand(_lesson.Auditoriums.Single());
                     yield return new AbstractMenuItem
                     {
-                        Command = null,
-                        Header = "аудитория"
+                        //TODO честно говоря не знаю для чего CommandParameter
+                        CommandParameter = _lesson.Auditoriums,
+                        Command = auditoriumInfoCommand,
+                        Header = auditoriumInfoCommand.Title
                     };
                 }
 

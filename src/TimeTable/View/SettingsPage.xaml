@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Foreground="{StaticResource PhoneForegroundBrush}"
     Style="{StaticResource TimeTablePageStyle}"
-    shell:SystemTray.IsVisible="False"
+    shell:SystemTray.IsVisible="{StaticResource SystemTrayVisibility}"
     SupportedOrientations="Portrait"
     mc:Ignorable="d" FontSize="22">
 

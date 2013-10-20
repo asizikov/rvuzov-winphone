@@ -189,4 +189,13 @@
   <data name="GroupTimeTable" xml:space="preserve">
     <value>расписание группы</value>
   </data>
+  <data name="AuditoriumBisyButton" xml:space="preserve">
+    <value>занятость аудитории</value>
+  </data>
+  <data name="AuditoryNameTemplate" xml:space="preserve">
+    <value>Аудитория {0}</value>
+  </data>
+  <data name="ErrorReport" xml:space="preserve">
+    <value>сообщить об ошибке</value>
+  </data>
 </root>
