@@ -14,8 +14,7 @@ namespace TimeTable.ViewModel.Data
         public Type Type { private get; set; }
     }
 
-    public class InMemoryCache : ICache
-        //todo: thread safe!
+    public class InMemoryCache : IWebCache
     {
         [NotNull] private Dictionary<string, CacheItem> _cache = new Dictionary<string, CacheItem>();
         [NotNull] private readonly IsolatedStorageFile _storageFile = IsolatedStorageFile.GetUserStoreForApplication();
@@ -25,7 +24,6 @@ namespace TimeTable.ViewModel.Data
 
         public bool IsCached<T>(string url) where T : new()
         {
-            //todo: thread safe!
             return _cache.ContainsKey(url);
         }
 

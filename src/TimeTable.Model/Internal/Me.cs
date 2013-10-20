@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace TimeTable.Model
+namespace TimeTable.Model.Internal
 {
     public sealed class Me
     {
@@ -18,5 +18,11 @@ namespace TimeTable.Model
 
         [JsonProperty("teacher")]
         public Teacher Teacher { get; set; }
+
+        [JsonProperty("tmp_university")]
+        public University TemporaryUniversity { get; set; }
+
+        [JsonProperty("tmp_faculty")]
+        public Faculty TemporaryFaculty { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using TimeTable.Model;
+﻿using TimeTable.Model.Internal;
 
 namespace TimeTable.ViewModel.Services
 {

@@ -69,7 +69,11 @@
   <ItemGroup>
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="AppbarButtonViewModel.cs" />
+    <Compile Include="Commands\ReportErrorCommand.cs" />
     <Compile Include="Commands\ShowGroupTimeTableCommand.cs" />
+    <Compile Include="Data\DataWriter.cs" />
+    <Compile Include="Data\UniversitiesCache.cs" />
+    <Compile Include="DefaultViewModel.cs" />
     <Compile Include="Extensions\FavoritedExtensions.cs" />
     <Compile Include="FavoritedState.cs" />
     <Compile Include="FavoritesViewModel.cs" />
@@ -81,7 +85,7 @@
     <Compile Include="FacultiesPageViewModel.cs" />
     <Compile Include="Data\AsyncDataProvider.cs" />
     <Compile Include="Data\BaseAsyncDataProvider.cs" />
-    <Compile Include="Data\ICache.cs" />
+    <Compile Include="Data\IWebCache.cs" />
     <Compile Include="Data\InMemoryCache.cs" />
     <Compile Include="DayViewModel.cs" />
     <Compile Include="Enums\UserRole.cs" />
@@ -90,6 +94,7 @@
     <Compile Include="GroupPageViewModel.cs" />
     <Compile Include="LessonsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportErrorViewModel.cs" />
     <Compile Include="Restful\TimeTableRequest.cs" />
     <Compile Include="Restful\LastUpdatedRequest.cs" />
     <Compile Include="Restful\RestfulCallFactory.cs" />

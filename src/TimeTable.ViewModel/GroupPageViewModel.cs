@@ -20,7 +20,7 @@ namespace TimeTable.ViewModel
         private readonly FavoritedItemsManager _favoritedItemsManager;
         private readonly int _universityId;
         private readonly int _facultyId;
-        private readonly bool _isAddingFavorites;
+        private readonly Reason _reason;
         private ObservableCollection<ListGroup<Group>> _groupsList;
         private ObservableCollection<ListGroup<Teacher>> _teachersList;
         private Group _selectedGroup;
@@ -34,7 +34,7 @@ namespace TimeTable.ViewModel
         public GroupPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
             [NotNull] FlurryPublisher flurryPublisher, [NotNull] FavoritedItemsManager favoritedItemsManager,
-            int universityId, int facultyId, bool isAddingFavorites)
+            int universityId, int facultyId, Reason reason)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
@@ -49,7 +49,7 @@ namespace TimeTable.ViewModel
             _favoritedItemsManager = favoritedItemsManager;
             _universityId = universityId;
             _facultyId = facultyId;
-            _isAddingFavorites = isAddingFavorites;
+            _reason = reason;
             _groupFunc = group => group.GroupName[0];
             _teachersGroupFunc = teacher => !String.IsNullOrEmpty(teacher.Name) ? teacher.Name[0] : ' ';
 
@@ -142,6 +142,7 @@ namespace TimeTable.ViewModel
                 result =>
                 {
                     result.GroupsList = result.GroupsList.OrderBy(g => g.GroupName).ToList();
+                    _dataProvider.PutGroups(_universityId, _facultyId, result.GroupsList);
                     _storedGroupsRequest = result;
                     GroupsList = FormatResult(result.GroupsList, _groupFunc);
                     IsLoading = false;
@@ -184,33 +185,58 @@ namespace TimeTable.ViewModel
 
         private void NavigateToLessonsPage(Group group, University university)
         {
-            if (_isAddingFavorites)
+
+            switch (_reason)
             {
-                AddGoupToFavorites(group, university);
-            }
-            else
-            {
-                if (!_applicationSettings.IsRegistrationCompleted)
+                case Reason.Registration:
+                    if (!_applicationSettings.IsRegistrationCompleted)
                 {
                     _applicationSettings.Me.DefaultGroup = group;
+                    _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group), 4);
                 }
-                _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group));
+                    break;
+                case Reason.AddingFavorites:
+                    AddGoupToFavorites(group, university);
+                    break;
+                case Reason.ChangeDefault:
+                    _applicationSettings.Me.University = _applicationSettings.Me.TemporaryUniversity;
+                    _applicationSettings.Me.Faculty = _applicationSettings.Me.TemporaryFaculty;
+                    _applicationSettings.Me.DefaultGroup = group;
+                    _applicationSettings.Me.Teacher = null;
+                    _applicationSettings.Me.TemporaryFaculty = null;
+                    _applicationSettings.Me.TemporaryUniversity = null;
+                    _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group), 5);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
         private void NavigateToLessonsPage(Teacher teacher, University university)
         {
-            if (_isAddingFavorites)
+            switch (_reason)
             {
-                AddTeacherToFavorites(teacher, university);
-            }
-            else
-            {
-                if (!_applicationSettings.IsRegistrationCompleted)
+                case Reason.Registration:
+                    if (!_applicationSettings.IsRegistrationCompleted)
                 {
                     _applicationSettings.Me.Teacher = teacher;
+                    _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(teacher), 4);
                 }
-                _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(teacher));
+                    break;
+                case Reason.AddingFavorites:
+                    AddTeacherToFavorites(teacher, university);
+                    break;
+                case Reason.ChangeDefault:
+                    _applicationSettings.Me.University = _applicationSettings.Me.TemporaryUniversity;
+                    _applicationSettings.Me.Faculty = _applicationSettings.Me.TemporaryFaculty;
+                    _applicationSettings.Me.Teacher = teacher;
+                    _applicationSettings.Me.DefaultGroup = null;
+                    _applicationSettings.Me.TemporaryFaculty = null;
+                    _applicationSettings.Me.TemporaryUniversity = null;
+                    _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(teacher), 5);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

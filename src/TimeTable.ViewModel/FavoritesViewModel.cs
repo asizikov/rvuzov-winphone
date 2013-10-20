@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Input;
@@ -100,7 +101,12 @@ namespace TimeTable.ViewModel
 
         private void NavigateToTimetable()
         {
-            _navigationService.GoToPage(Pages.Lessons, new[]
+            _navigationService.GoToPage(Pages.Lessons, GetParameters(), 1);
+        }
+
+        private IEnumerable<NavigationParameter> GetParameters()
+        {
+            return new[]
             {
                 new NavigationParameter
                 {
@@ -125,7 +131,7 @@ namespace TimeTable.ViewModel
                             ? _item.Faculty.Id.ToString(CultureInfo.InvariantCulture)
                             : "0")
                 }
-            }, 1);
+            };
         }
     }
 }

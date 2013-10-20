@@ -94,7 +94,7 @@ namespace TimeTable
         private static void CommonActivated()
         {
             var flurryPublisher = ContainerInstance.Current.Resolve<FlurryPublisher>();
-            var cache = ContainerInstance.Current.Resolve<ICache>();
+            var cache = ContainerInstance.Current.Resolve<IWebCache>();
 
             cache.PullFromStorage();
             ThreadPool.QueueUserWorkItem(o => flurryPublisher.StartSession());
@@ -103,13 +103,15 @@ namespace TimeTable
         private static void CommonDeactivated()
         {
             var flurryPublisher = ContainerInstance.Current.Resolve<FlurryPublisher>();
-            var cache = ContainerInstance.Current.Resolve<ICache>();
+            var cache = ContainerInstance.Current.Resolve<IWebCache>();
             var favoritedItemsManager = ContainerInstance.Current.Resolve<FavoritedItemsManager>();
             var settings = ContainerInstance.Current.Resolve<BaseApplicationSettings>();
+            var universitiesCache = ContainerInstance.Current.Resolve<UniversitiesCache>();
             flurryPublisher.EndSession();
             cache.PushToStorage();
             favoritedItemsManager.Save();
             settings.Save();
+            universitiesCache.Save();
         }
 
         // Code to execute if a navigation fails

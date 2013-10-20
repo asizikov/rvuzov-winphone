@@ -178,6 +178,15 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to сообщить об ошибке.
+        /// </summary>
+        public static string ReportError {
+            get {
+                return ResourceManager.GetString("ReportError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to поиск.
         /// </summary>
         public static string Search {
@@ -201,6 +210,15 @@ namespace TimeTable.Resources {
         public static string SelectUniversity {
             get {
                 return ResourceManager.GetString("SelectUniversity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to отправить.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
             }
         }
         

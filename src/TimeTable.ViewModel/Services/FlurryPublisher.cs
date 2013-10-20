@@ -233,9 +233,22 @@ namespace TimeTable.ViewModel.Services
             PublishEvent(FlurryEvents.EVENT_CHOOSE_TEACHER, parameters);
         }
 
-        public void PublishContextMenuShowGroupTimeTable(University university, string groupName, string id)
+        public void PublishContextMenuShowGroupTimeTable(University university, string groupName, int id)
         {
-            //throw new NotImplementedException();
+            var parameters = new[]
+            {
+                new EventParameter("University name", university.Name),
+                new EventParameter("University shortname", university.ShortName),
+                new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("Group name", groupName),
+                new EventParameter("Teacher Id", id.ToString(CultureInfo.InvariantCulture))
+            };
+            PublishEvent(FlurryEvents.EVENT_CONTEXT_GROUP_SCHEDULE,parameters);
+        }
+
+        public void PublishUniversitiesPageLoaded()
+        {
+            PublishEvent(FlurryEvents.EventUniversitiesPageLoaded);
         }
     }
 }

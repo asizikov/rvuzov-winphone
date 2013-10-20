@@ -14,22 +14,20 @@ namespace TimeTable.ViewModel
             get { return ContainerInstance.Current; }
         }
 
-        private static UniversitiesViewModel _universitiesViewModel;
         private static readonly AsyncDataProvider DataProvider;
 
         static ViewModelLocator()
         {
-            DataProvider = new AsyncDataProvider(C.Resolve<ICache>());
+            DataProvider = C.Resolve<AsyncDataProvider>();
         }
 
         [NotNull]
-        public static BaseViewModel GetUniversitiesViewModel(bool isAddingFavorites)
+        public static BaseViewModel GetUniversitiesViewModel(Reason reason)
         {
-            return _universitiesViewModel ??
-                   (_universitiesViewModel =
-                       new UniversitiesViewModel(C.Resolve<INavigationService>(),
-                           C.Resolve<BaseApplicationSettings>(), DataProvider,
-                           C.Resolve<FlurryPublisher>(), isAddingFavorites));
+            return
+                new UniversitiesViewModel(C.Resolve<INavigationService>(),
+                    C.Resolve<BaseApplicationSettings>(), DataProvider,
+                    C.Resolve<FlurryPublisher>(), reason);
         }
 
         public static BaseViewModel GetFirstPageViewModel()
@@ -38,21 +36,21 @@ namespace TimeTable.ViewModel
                 DataProvider);
         }
 
-        public static BaseViewModel GetGroupsPageViewModel(int facultyId, int universityId, bool isAddingFavorites)
+        public static BaseViewModel GetGroupsPageViewModel(int facultyId, int universityId, Reason reason)
         {
             return new GroupPageViewModel(C.Resolve<INavigationService>(),
                 C.Resolve<BaseApplicationSettings>(),
                 DataProvider,
                 C.Resolve<FlurryPublisher>(), C.Resolve<FavoritedItemsManager>(), universityId, facultyId,
-                isAddingFavorites);
+                reason);
         }
 
-        public static BaseViewModel GetFacultiesPageViewModel(int universityId, bool isAddingFavorites)
+        public static BaseViewModel GetFacultiesPageViewModel(int universityId, Reason reason)
         {
             return new FacultiesPageViewModel(C.Resolve<INavigationService>(),
                 C.Resolve<BaseApplicationSettings>(),
                 DataProvider,
-                C.Resolve<FlurryPublisher>(), universityId, isAddingFavorites);
+                C.Resolve<FlurryPublisher>(), universityId, reason);
         }
 
         public static LessonsViewModel GetLessonsViewModel(int id, bool isTeacher, int universityId, int facultyId)
@@ -72,6 +70,11 @@ namespace TimeTable.ViewModel
         public static BaseViewModel GetSettingsViewModel()
         {
             return new SettingsViewModel(C.Resolve<BaseApplicationSettings>(), C.Resolve<INavigationService>());
+        }
+
+        public static BaseViewModel GetReportErrorViewModel()
+        {
+            return new ReportErrorViewModel(C.Resolve<INavigationService>());
         }
     }
 }

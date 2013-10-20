@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Data;
@@ -12,11 +11,18 @@ using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.ViewModel
 {
+    public enum Reason
+    {
+        Registration = 0,
+        AddingFavorites = 1,
+        ChangeDefault = 2
+    }
+
     public class UniversitiesViewModel : SearchViewModel
     {
         private readonly AsyncDataProvider _dataProvider;
         private readonly FlurryPublisher _flurry;
-        private readonly bool _isAddingFavorites;
+        private readonly Reason _reason;
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private ObservableCollection<ListGroup<University>> _universitesList;
@@ -27,7 +33,7 @@ namespace TimeTable.ViewModel
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurry, bool isAddingFavorites)
+            [NotNull] FlurryPublisher flurry, Reason reason)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurry == null) throw new ArgumentNullException("flurry");
@@ -35,12 +41,13 @@ namespace TimeTable.ViewModel
 
             _dataProvider = dataProvider;
             _flurry = flurry;
-            _isAddingFavorites = isAddingFavorites;
+            _reason = reason;
             _navigation = navigation;
             _applicationSettings = applicationSettings;
             _resultGrouper = u => u.ShortName[0];
             SubscribeToQuery();
             Init();
+            _flurry.PublishUniversitiesPageLoaded();
         }
 
 
@@ -91,28 +98,11 @@ namespace TimeTable.ViewModel
 
                 if (_selectedUniversity != null)
                 {
+                    _dataProvider.PutUniversity(_selectedUniversity);
                     _flurry.PublishUniversitySelected(_selectedUniversity);
                     NavigateToFaculties(_selectedUniversity);
-                    StartDownloader(_selectedUniversity.Id);
                 }
             }
-        }
-
-        private void StartDownloader(int universityId)
-        {
-            ThreadPool.QueueUserWorkItem(_ =>
-            {
-                _dataProvider.GetUniversitesFacultiesAsync(universityId).Subscribe(f =>
-                {
-                    if (f == null || !f.Success || f.Data == null) return;
-                    foreach (var faculty in f.Data)
-                    {
-                        _dataProvider.GetFacultyGroupsAsync(faculty.Id).Subscribe(g => { }, ex => { });
-                    }
-                }, ex => { });
-                _dataProvider.GetUniversityTeachersAsync(universityId).Subscribe(t => { }, ex => { });
-                ;
-            });
         }
 
         private void NavigateToFaculties(University university)
@@ -127,11 +117,20 @@ namespace TimeTable.ViewModel
                 _applicationSettings.Me.University = university;
             }
             var parameters = new List<NavigationParameter> {navigationParameter};
-            if (_isAddingFavorites)
+            if (_reason == Reason.AddingFavorites)
             {
                 parameters.Add(new NavigationParameter
                 {
                     Parameter = NavigationParameterName.AddFavorites,
+                    Value = true.ToString()
+                });
+            }
+            else if (_reason == Reason.ChangeDefault)
+            {
+                _applicationSettings.Me.TemporaryUniversity = university;
+                parameters.Add(new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.ChangeDefault,
                     Value = true.ToString()
                 });
             }
