@@ -9,9 +9,21 @@ namespace TimeTable.View
     {
         protected SearchViewModel ViewModel;
 
-        protected bool IsAddingFavorites()
+        private bool IsAddingFavorites()
         {
             return NavigationContext.QueryString.ContainsKey(NavigationParameterName.AddFavorites);
+        }
+
+        protected Reason GetReason()
+        {
+            if(IsAddingFavorites()) return Reason.AddingFavorites;
+            if (IsChangingDefault()) return Reason.ChangeDefault;
+            return Reason.Registration;
+        }
+
+        private bool IsChangingDefault()
+        {
+            return NavigationContext.QueryString.ContainsKey(NavigationParameterName.ChangeDefault);
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)

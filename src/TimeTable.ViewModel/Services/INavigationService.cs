@@ -18,6 +18,7 @@ namespace TimeTable.ViewModel.Services
         public const string IsTeacher = "is_teacher";
         public const string FacultyId = "faculty_id";
         public const string AddFavorites = "add_favorites";
+        public const string ChangeDefault = "change_default";
     }
 
     public interface INavigationService
