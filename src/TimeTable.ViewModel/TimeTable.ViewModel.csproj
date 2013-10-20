@@ -75,6 +75,7 @@
     <Compile Include="Data\UniversitiesCache.cs" />
     <Compile Include="DefaultViewModel.cs" />
     <Compile Include="Extensions\FavoritedExtensions.cs" />
+    <Compile Include="FavoritedItemViewModel.cs" />
     <Compile Include="FavoritedState.cs" />
     <Compile Include="FavoritesViewModel.cs" />
     <Compile Include="Commands\AbstractMenuItem.cs" />

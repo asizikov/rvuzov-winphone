@@ -1,16 +1,12 @@
 ﻿using System.Threading;
 using System.Windows;
 using System.Windows.Navigation;
-using System.IO;
-using System.IO.IsolatedStorage;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using TimeTable.IoC;
 using TimeTable.Services;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
-using System;
-using System.Linq;
 
 namespace TimeTable
 {
@@ -36,7 +32,8 @@ namespace TimeTable
             // Phone-specific initialization
             InitializePhoneApplication();
             Bootstrapper.InitApplication(RootFrame);
-
+            ThemeManager.OverrideOptions = ThemeManagerOverrideOptions.None;
+            ThemeManager.ToDarkTheme();
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
             {

@@ -32,6 +32,7 @@
                 </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Center" 
                        Grid.Row="0" 
+                       Foreground="White"
                        Text="{Binding Path=Strings.AppName, Source ={StaticResource LocalizedStrings}}"
                        FontFamily="{StaticResource PhoneFontFamilyLight}"
                        TextWrapping="Wrap"

@@ -8,8 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
-    Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait"
     mc:Ignorable="d"
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.IsVisible="False">
@@ -24,7 +22,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,12,0">
             <TextBlock 
-                Foreground="{StaticResource TimeTableHilighthBrush}"
+                Foreground="White"
                 Text="{Binding Strings.Favorite, Source={StaticResource LocalizedStrings}}" 
                 Margin="9,-7,0,0" 
                 Style="{StaticResource PhoneTextTitle1Style}"/>
@@ -64,7 +62,7 @@
     </Grid>
     <bindableApplicationBar:Bindable.ApplicationBar>
         <bindableApplicationBar:BindableApplicationBar
-            BackgroundColor="{StaticResource TimeTableHilighthColor}">
+            Style="{StaticResource TimeTableAppBarStyle}">
                         <bindableApplicationBar:BindableApplicationBarButton
                             Text="{Binding  Strings.Add, Source={StaticResource LocalizedStrings}}"
                             Command="{Binding AddCommand}"
