@@ -6,6 +6,7 @@ using System.IO.IsolatedStorage;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using TimeTable.IoC;
+using TimeTable.Services;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 using System;
@@ -124,31 +125,7 @@ namespace TimeTable
         // Code to execute on Unhandled Exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
-            
-            string innerMessage = "";
-            string innerStackTrace = "";
-            string date = DateTime.UtcNow.Date.ToString();
-            string time = DateTime.UtcNow.TimeOfDay.ToString();
-            string message = e.ExceptionObject.Message;
-            string stackTrace = e.ExceptionObject.StackTrace;
-            string directoryName = "CrashReports";
-            string folderName = message + date + time;
-
-            if (e.ExceptionObject.InnerException != null)
-            {
-                innerMessage = e.ExceptionObject.InnerException.Message;
-                innerStackTrace = e.ExceptionObject.InnerException.StackTrace;
-            }
-
-            IsolatedStorageFile fileStorage = IsolatedStorageFile.GetUserStoreForApplication();
-
-            if (!fileStorage.GetDirectoryNames().Contains(directoryName))
-            {
-                fileStorage.CreateDirectory(directoryName);
-            }
-            StreamWriter fileWriter = new StreamWriter(fileStorage.OpenFile(directoryName + "\\" + folderName + ".txt", FileMode.Append));
-            fileWriter.WriteLine(message + stackTrace + innerMessage + innerStackTrace);
-            fileWriter.Close();
+            CrashLogger.SaveCrashInfo(e);
 
             if (System.Diagnostics.Debugger.IsAttached)
             {
