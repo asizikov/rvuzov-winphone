@@ -126,7 +126,7 @@ namespace TimeTable
         {
             
             string innerMessage = "";
-            string innerSrackTrace = "";
+            string innerStackTrace = "";
             string date = DateTime.UtcNow.Date.ToString();
             string time = DateTime.UtcNow.TimeOfDay.ToString();
             string message = e.ExceptionObject.Message;
@@ -137,7 +137,7 @@ namespace TimeTable
             if (e.ExceptionObject.InnerException != null)
             {
                 innerMessage = e.ExceptionObject.InnerException.Message;
-                innerSrackTrace = e.ExceptionObject.InnerException.StackTrace;
+                innerStackTrace = e.ExceptionObject.InnerException.StackTrace;
             }
 
             IsolatedStorageFile fileStorage = IsolatedStorageFile.GetUserStoreForApplication();
@@ -147,7 +147,7 @@ namespace TimeTable
                 fileStorage.CreateDirectory(directoryName);
             }
             StreamWriter fileWriter = new StreamWriter(fileStorage.OpenFile(directoryName + "\\" + folderName + ".txt", FileMode.Append));
-            fileWriter.WriteLine(message + date + time + innerMessage + innerSrackTrace);
+            fileWriter.WriteLine(message + stackTrace + innerMessage + innerStackTrace);
             fileWriter.Close();
 
             if (System.Diagnostics.Debugger.IsAttached)
