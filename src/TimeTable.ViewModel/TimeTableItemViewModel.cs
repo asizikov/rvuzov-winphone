@@ -115,7 +115,7 @@ namespace TimeTable.ViewModel
             for (var index = 0; index < _lesson.Auditoriums.Count; index++)
             {
                 var name = _lesson.Auditoriums[index].Name;
-                if (!string.IsNullOrEmpty(name))
+                if (!string.IsNullOrWhiteSpace(name))
                 {
                     sb.Append(name);
                 }
