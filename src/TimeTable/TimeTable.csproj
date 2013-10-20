@@ -100,6 +100,7 @@
     <Compile Include="Converters\NumberToWeekDayConverter.cs" />
     <Compile Include="Converters\ReversedBoolConverter.cs" />
     <Compile Include="Converters\ReversedBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\StringContentToBoolConverter.cs" />
     <Compile Include="Converters\StringContentToVisibilityConverter.cs" />
     <Compile Include="Converters\WeekNumberToTextConverter.cs" />
     <Compile Include="Services\CrashLogger.cs" />
@@ -138,6 +139,9 @@
     <Compile Include="View\LessonsPage.xaml.cs">
       <DependentUpon>LessonsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ReportErrorPage.xaml.cs">
+      <DependentUpon>ReportErrorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SearchPage.cs" />
     <Compile Include="View\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -174,6 +178,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\appbar.cog.png" />
+    <Content Include="Resources\Icons\appbar.message.send.png" />
     <Content Include="Resources\Icons\feature.calendar.png" />
     <Content Include="Resources\Icons\appbar.star.minus.png" />
     <Content Include="Resources\Icons\favs.addto.png" />
@@ -236,6 +241,10 @@
     <Page Include="View\LessonsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ReportErrorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\SettingsPage.xaml">
       <SubType>Designer</SubType>
