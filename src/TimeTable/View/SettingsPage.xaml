@@ -26,75 +26,76 @@
                        Style="{StaticResource PhoneTextLargeStyle}"
                        FontSize="60"/>
         </StackPanel>
-
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,32,0">
-            <TextBlock Text="{Binding Strings.ShowInTheSchedule, Source={StaticResource LocalizedStrings}}" 
-                       Margin="12,0"
-                       Style="{StaticResource PhoneTextLargeStyle}"
-                       Foreground="{StaticResource TimeTableHilighthBrush}"/>
-            <toolkit:ToggleSwitch Margin="0, 30, 0, 0">
-                <toolkit:ToggleSwitch.ContentTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <ContentControl HorizontalAlignment="Left"
-                                                Content="{Binding  Strings.Lectures, Source={StaticResource LocalizedStrings}}"
-                                                FontSize="23"
-                                                Margin="0,0,0,7"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </toolkit:ToggleSwitch.ContentTemplate>
-            </toolkit:ToggleSwitch>
-            <toolkit:ToggleSwitch Margin="0, 90, 0, 0">
-                <toolkit:ToggleSwitch.ContentTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <ContentControl HorizontalAlignment="Left"
-                                                Content="{Binding  Strings.Practice, Source={StaticResource LocalizedStrings}}"
-                                                FontSize="23"
-                                                Margin="0,0,0,7"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </toolkit:ToggleSwitch.ContentTemplate>
-            </toolkit:ToggleSwitch>
-            <toolkit:ToggleSwitch Margin="0, 150, 0, 0">
-                <toolkit:ToggleSwitch.ContentTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <ContentControl HorizontalAlignment="Left"
-                                                Content="{Binding  Strings.LaboratoryWork, Source={StaticResource LocalizedStrings}}"
-                                                FontSize="23"
-                                                Margin="0,0,0,7"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </toolkit:ToggleSwitch.ContentTemplate>
-            </toolkit:ToggleSwitch>
+        <StackPanel VerticalAlignment="Top" Grid.Row="1" Margin="12,0,32,0">
             <Button 
                 toolkit:TiltEffect.IsTiltEnabled="True"
                 Command="{Binding Default.ChangeDefacultCommand }"
-                Style="{StaticResource ButtonNoBorder}" Margin="12,250,0,0">
+                Style="{StaticResource ButtonNoBorder}" Margin="12,12,0,0">
                 <StackPanel >
-            <TextBlock Text="{Binding Strings.DefaultUniversityAndGroup, Source={StaticResource LocalizedStrings}}" 
+                    <TextBlock Text="{Binding Strings.DefaultUniversityAndGroup, Source={StaticResource LocalizedStrings}}" 
                        Margin="0,12,0,0"
                        Style="{StaticResource PhoneTextLargeStyle}"
                        Foreground="{StaticResource TimeTableHilighthBrush}"/>
-            <TextBlock Text="{Binding Default.Name}" 
+                    <TextBlock Text="{Binding Default.Name}" 
                        Margin="0,12,0,0"
                        Foreground="White"
                        Style="{StaticResource PhoneTextLargeStyle}"/>
-            <TextBlock Text="{Binding Default.University}" 
+                    <TextBlock Text="{Binding Default.University}" 
                        Margin="0,12,0,0" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
                        FontSize="{StaticResource PhoneFontSizeNormal}"
                        TextWrapping="Wrap"/>
                 </StackPanel>
             </Button>
-        </Grid>
+        </StackPanel>
+<!--        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,32,0">-->
+<!--            <TextBlock Text="{Binding Strings.ShowInTheSchedule, Source={StaticResource LocalizedStrings}}" -->
+<!--                       Margin="12,0"-->
+<!--                       Style="{StaticResource PhoneTextLargeStyle}"-->
+<!--                       Foreground="{StaticResource TimeTableHilighthBrush}"/>-->
+<!--            <toolkit:ToggleSwitch Margin="0, 30, 0, 0">-->
+<!--                <toolkit:ToggleSwitch.ContentTemplate>-->
+<!--                    <DataTemplate>-->
+<!--                        <StackPanel>-->
+<!--                            <StackPanel Orientation="Horizontal">-->
+<!--                                <ContentControl HorizontalAlignment="Left"-->
+<!--                                                Content="{Binding  Strings.Lectures, Source={StaticResource LocalizedStrings}}"-->
+<!--                                                FontSize="23"-->
+<!--                                                Margin="0,0,0,7"/>-->
+<!--                            </StackPanel>-->
+<!--                        </StackPanel>-->
+<!--                    </DataTemplate>-->
+<!--                </toolkit:ToggleSwitch.ContentTemplate>-->
+<!--            </toolkit:ToggleSwitch>-->
+<!--            <toolkit:ToggleSwitch Margin="0, 90, 0, 0">-->
+<!--                <toolkit:ToggleSwitch.ContentTemplate>-->
+<!--                    <DataTemplate>-->
+<!--                        <StackPanel>-->
+<!--                            <StackPanel Orientation="Horizontal">-->
+<!--                                <ContentControl HorizontalAlignment="Left"-->
+<!--                                                Content="{Binding  Strings.Practice, Source={StaticResource LocalizedStrings}}"-->
+<!--                                                FontSize="23"-->
+<!--                                                Margin="0,0,0,7"/>-->
+<!--                            </StackPanel>-->
+<!--                        </StackPanel>-->
+<!--                    </DataTemplate>-->
+<!--                </toolkit:ToggleSwitch.ContentTemplate>-->
+<!--            </toolkit:ToggleSwitch>-->
+<!--            <toolkit:ToggleSwitch Margin="0, 150, 0, 0">-->
+<!--                <toolkit:ToggleSwitch.ContentTemplate>-->
+<!--                    <DataTemplate>-->
+<!--                        <StackPanel>-->
+<!--                            <StackPanel Orientation="Horizontal">-->
+<!--                                <ContentControl HorizontalAlignment="Left"-->
+<!--                                                Content="{Binding  Strings.LaboratoryWork, Source={StaticResource LocalizedStrings}}"-->
+<!--                                                FontSize="23"-->
+<!--                                                Margin="0,0,0,7"/>-->
+<!--                            </StackPanel>-->
+<!--                        </StackPanel>-->
+<!--                    </DataTemplate>-->
+<!--                </toolkit:ToggleSwitch.ContentTemplate>-->
+<!--            </toolkit:ToggleSwitch>-->
+<!---->
+<!--        </Grid>-->
     </Grid>
     
 
