@@ -115,6 +115,7 @@ namespace TimeTable.ViewModel
             if (!_applicationSettings.IsRegistrationCompleted)
             {
                 _applicationSettings.Me.University = university;
+                _applicationSettings.Save();
             }
             var parameters = new List<NavigationParameter> {navigationParameter};
             if (_reason == Reason.AddingFavorites)

@@ -116,6 +116,7 @@ namespace TimeTable.ViewModel
             if (!_applicationSettings.IsRegistrationCompleted)
             {
                 _applicationSettings.Me.Faculty = faculty;
+                _applicationSettings.Save();
             }
             _navigation.GoToPage(Pages.Groups, GetNavitationParameters(faculty));
         }
