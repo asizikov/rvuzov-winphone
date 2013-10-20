@@ -135,11 +135,11 @@ namespace TimeTable.ViewModel
             {
                 if (_lesson.Auditoriums != null && _lesson.Auditoriums.Any())
                 {
-                    yield return new AbstractMenuItem
-                    {
-                        Command = null,
-                        Header = "аудитория"
-                    };
+//                    yield return new AbstractMenuItem
+//                    {
+//                        Command = null,
+//                        Header = "аудитория"
+//                    };
                 }
 
                 if (_lesson.Teachers != null && _lesson.Teachers.Any())
