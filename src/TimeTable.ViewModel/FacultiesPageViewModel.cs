@@ -39,9 +39,7 @@ namespace TimeTable.ViewModel
             _flurryPublisher = flurryPublisher;
             _universityId = universityId;
             _reason = reason;
-
-            // _applicationSettings.UniversityId = _universityId;
-
+            _flurryPublisher.PublishPageLoadedFaculties();
             _facultyGroupFunc = faculty => faculty.Title[0];
 
             SubscribeToQuery();

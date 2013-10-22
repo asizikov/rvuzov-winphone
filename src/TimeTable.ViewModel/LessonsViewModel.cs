@@ -62,7 +62,7 @@ namespace TimeTable.ViewModel
             _id = id;
             _isTeacher = isTeacher;
             _facultyId = facultyId;
-
+            _flurryPublisher.PublishPageLoadedLessons();
             Init(universityId, facultyId);
 
             InitCommands();

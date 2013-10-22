@@ -1,7 +1,6 @@
 ﻿using Funq;
 using JetBrains.Annotations;
 using TimeTable.IoC;
-using TimeTable.Networking;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
@@ -34,7 +33,7 @@ namespace TimeTable.ViewModel
         public static BaseViewModel GetFirstPageViewModel()
         {
             return new FirstPageViewModel(C.Resolve<INavigationService>(), C.Resolve<BaseApplicationSettings>(),
-                DataProvider);
+                DataProvider, C.Resolve<FlurryPublisher>());
         }
 
         public static BaseViewModel GetGroupsPageViewModel(int facultyId, int universityId, Reason reason)
@@ -65,17 +64,19 @@ namespace TimeTable.ViewModel
         public static BaseViewModel GetFavoritesViewModel()
         {
             return new FavoritesViewModel(C.Resolve<INavigationService>(), C.Resolve<FavoritedItemsManager>(),
-                C.Resolve<IUiStringsProviders>());
+                C.Resolve<IUiStringsProviders>(), C.Resolve<FlurryPublisher>());
         }
 
         public static BaseViewModel GetSettingsViewModel()
         {
-            return new SettingsViewModel(C.Resolve<BaseApplicationSettings>(), C.Resolve<INavigationService>());
+            return new SettingsViewModel(C.Resolve<BaseApplicationSettings>(), C.Resolve<INavigationService>(),
+                C.Resolve<FlurryPublisher>());
         }
 
         public static BaseViewModel GetReportErrorViewModel(int id, int lessonId, bool isTeacher)
         {
-            return new ReportErrorViewModel(C.Resolve<INavigationService>(), id, lessonId, isTeacher,
+            return new ReportErrorViewModel(C.Resolve<INavigationService>(), C.Resolve<FlurryPublisher>(), id, lessonId,
+                isTeacher,
                 new AsyncWebClient(new NoCache()));
         }
     }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Input;
 using System.Windows.Threading;
 using JetBrains.Annotations;
 using TimeTable.ViewModel.Commands;
@@ -11,6 +10,7 @@ namespace TimeTable.ViewModel
     public sealed class ReportErrorViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly FlurryPublisher _flurryPublisher;
         private readonly int _id;
         private readonly int _lessonId;
         private readonly bool _isTeacher;
@@ -18,15 +18,19 @@ namespace TimeTable.ViewModel
         private string _errorText;
         private SimpleCommand _sendErrorTextCommand;
 
-        public ReportErrorViewModel([NotNull] INavigationService navigationService, int id, int lessonId, bool isTeacher,
+        public ReportErrorViewModel([NotNull] INavigationService navigationService,
+            [NotNull] FlurryPublisher flurryPublisher ,int id, int lessonId, bool isTeacher,
             AsyncWebClient webClient)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
+            if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
             _navigationService = navigationService;
+            _flurryPublisher = flurryPublisher;
             _id = id;
             _lessonId = lessonId;
             _isTeacher = isTeacher;
             _webClient = webClient;
+            _flurryPublisher.PublishPageLoadedReportError();
             SendErrorTextCommand = new SimpleCommand(SendError, () => !string.IsNullOrWhiteSpace(ErrorText));
         }
 
@@ -63,17 +67,22 @@ namespace TimeTable.ViewModel
                 {
                     if (result.Success)
                     {
-                        SmartDispatcher.BeginInvoke(() =>
-                        {
-                            if (_navigationService.CanGoBack())
-                            {
-                                _navigationService.GoBack();
-                            }
-                        });
+                        GoBack();
                     }
                 }
             });
             
+        }
+
+        private void GoBack()
+        {
+            SmartDispatcher.BeginInvoke(() =>
+            {
+                if (_navigationService.CanGoBack())
+                {
+                    _navigationService.GoBack();
+                }
+            });
         }
     }
 }

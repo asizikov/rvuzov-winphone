@@ -47,7 +47,7 @@ namespace TimeTable.ViewModel
             _resultGrouper = u => u.ShortName[0];
             SubscribeToQuery();
             Init();
-            _flurry.PublishUniversitiesPageLoaded();
+            _flurry.PublishPageLoadedUniversities();
         }
 
 

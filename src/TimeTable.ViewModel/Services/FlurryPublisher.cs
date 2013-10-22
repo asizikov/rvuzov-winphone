@@ -246,9 +246,44 @@ namespace TimeTable.ViewModel.Services
             PublishEvent(FlurryEvents.EVENT_CONTEXT_GROUP_SCHEDULE,parameters);
         }
 
-        public void PublishUniversitiesPageLoaded()
+        public void PublishPageLoadedUniversities()
         {
             PublishEvent(FlurryEvents.EventUniversitiesPageLoaded);
+        }
+
+        public void PublishPageLoadedReportError()
+        {
+            PublishEvent(FlurryEvents.EventReportErrorPageLoaded);
+        }
+
+        public void PublishPageLoadedSelectRole()
+        {
+            PublishEvent(FlurryEvents.EventSelectRolePageLoaded);
+        }
+
+        public void PublishPageLoadedGroups()
+        {
+            PublishEvent(FlurryEvents.EventSelectGroupsPageLoaded);
+        }
+
+        public void PublishPageLoadedFaculties()
+        {
+            PublishEvent(FlurryEvents.EventSelectUniversityPageLoaded);
+        }
+
+        public void PublishPageLoadedLessons()
+        {
+            PublishEvent(FlurryEvents.EventLessonsPageLoaded);
+        }
+
+        public void PublishPageLoadedFavorites()
+        {
+            PublishEvent(FlurryEvents.EventFavoritesPageLoaded);
+        }
+
+        public void PublishPageLoadedSettings()
+        {
+            PublishEvent(FlurryEvents.EventSettingsPageLoaded);
         }
     }
 }
