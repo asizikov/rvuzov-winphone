@@ -13,11 +13,13 @@ namespace TimeTable.ViewModel
         private readonly Lesson _lesson;
         private readonly ICommandFactory _commandFactory;
         private readonly University _university;
+        private readonly bool _isTeacher;
+        private readonly int _holderId;
         private string _auditoriesList;
         private string _teachersList;
 
         public TimeTableItemViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory,
-            [NotNull] University university, DateTime date)
+            [NotNull] University university, DateTime date, bool isTeacher, int holderId)
         {
             if (lesson == null) throw new ArgumentNullException("lesson");
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
@@ -25,6 +27,8 @@ namespace TimeTable.ViewModel
             _lesson = lesson;
             _commandFactory = commandFactory;
             _university = university;
+            _isTeacher = isTeacher;
+            _holderId = holderId;
         }
 
 
@@ -166,7 +170,7 @@ namespace TimeTable.ViewModel
                     };
                 }
 
-                var reportErrorCommand = _commandFactory.GetReportErrorCommand();
+                var reportErrorCommand = _commandFactory.GetReportErrorCommand(_holderId,_lesson.Id, _isTeacher);
                 yield return new AbstractMenuItem
                 {
                     Command = reportErrorCommand,

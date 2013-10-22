@@ -41,9 +41,9 @@ namespace TimeTable.Commands
                 university, group);
         }
 
-        public ITitledCommand GetReportErrorCommand()
+        public ITitledCommand GetReportErrorCommand(int holderId,int lessonId, bool isTeacher)
         {
-            return new ReportErrorCommand(_navigationService, _flurryPublisher, _stringsProviders);
+            return new ReportErrorCommand(_navigationService, _flurryPublisher, _stringsProviders,lessonId, isTeacher, holderId );
         }
     }
 }

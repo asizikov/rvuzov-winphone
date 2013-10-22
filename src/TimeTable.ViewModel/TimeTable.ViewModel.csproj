@@ -71,6 +71,7 @@
     <Compile Include="AppbarButtonViewModel.cs" />
     <Compile Include="Commands\ReportErrorCommand.cs" />
     <Compile Include="Commands\ShowGroupTimeTableCommand.cs" />
+    <Compile Include="Data\AsyncWebClient.cs" />
     <Compile Include="Data\DataWriter.cs" />
     <Compile Include="Data\UniversitiesCache.cs" />
     <Compile Include="DefaultViewModel.cs" />
@@ -85,7 +86,7 @@
     <Compile Include="Commands\SimpleCommand.cs" />
     <Compile Include="FacultiesPageViewModel.cs" />
     <Compile Include="Data\AsyncDataProvider.cs" />
-    <Compile Include="Data\BaseAsyncDataProvider.cs" />
+    <Compile Include="Data\BaseAsyncWebClient.cs" />
     <Compile Include="Data\IWebCache.cs" />
     <Compile Include="Data\InMemoryCache.cs" />
     <Compile Include="DayViewModel.cs" />

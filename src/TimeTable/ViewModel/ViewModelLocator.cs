@@ -1,6 +1,7 @@
 ﻿using Funq;
 using JetBrains.Annotations;
 using TimeTable.IoC;
+using TimeTable.Networking;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
@@ -72,9 +73,10 @@ namespace TimeTable.ViewModel
             return new SettingsViewModel(C.Resolve<BaseApplicationSettings>(), C.Resolve<INavigationService>());
         }
 
-        public static BaseViewModel GetReportErrorViewModel()
+        public static BaseViewModel GetReportErrorViewModel(int id, int lessonId, bool isTeacher)
         {
-            return new ReportErrorViewModel(C.Resolve<INavigationService>());
+            return new ReportErrorViewModel(C.Resolve<INavigationService>(), id, lessonId, isTeacher,
+                new AsyncWebClient(new NoCache()));
         }
     }
 }

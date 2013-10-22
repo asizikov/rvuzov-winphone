@@ -12,13 +12,13 @@ namespace TimeTable.ViewModel
         private DayViewModel _selectedDayItem; 
 
         public WeekViewModel(IEnumerable<Day> days, int weekNumber, ICommandFactory commandFactory, WeekType type,
-            University university)
+            University university, bool isTeacher, int holderId)
         {
             var parity = weekNumber%2;
             WeekNumber = weekNumber;
 
             Days =
-                new ObservableCollection<DayViewModel>(days.ToViewModelList(commandFactory, type, parity, university));
+                new ObservableCollection<DayViewModel>(days.ToViewModelList(commandFactory, type, parity, university, isTeacher, holderId));
               
         }
 

@@ -8,7 +8,7 @@ using TimeTable.Model;
 
 namespace TimeTable.ViewModel.Data
 {
-    public class AsyncDataProvider : BaseAsyncDataProvider
+    public class AsyncDataProvider : BaseAsyncWebClient
     {
         private readonly Dictionary<int, University> _universities = new Dictionary<int, University>();
         private readonly Dictionary<int, Teacher> _teachers = new Dictionary<int, Teacher>();

@@ -12,18 +12,22 @@ namespace TimeTable.ViewModel
     {
         private readonly Day _dayData;
         private readonly int _parity;
+        private readonly bool _isTeacher;
+        private readonly int _holderId;
         private ObservableCollection<TimeTableItemViewModel> _lessons;
         private DateTime _date;
 
         public DayViewModel([NotNull] Day dayData, WeekType weekType, int parity,
             [NotNull] ICommandFactory commandFactory,
-            University university)
+            University university, bool isTeacher, int holderId)
         {
             if (dayData == null) throw new ArgumentNullException("dayData");
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
 
             _dayData = dayData;
             _parity = parity;
+            _isTeacher = isTeacher;
+            _holderId = holderId;
             _date = SetUpDayName(weekType);
 
             if (_dayData.Lessons != null)
@@ -49,7 +53,7 @@ namespace TimeTable.ViewModel
                     var formattedDay = _date.ToString("dd.MM.yyyy");
                     if (lesson.Dates.Contains(formattedDay))
                     {
-                        yield return new TimeTableItemViewModel(lesson, commandFactory, university, _date);
+                        yield return new TimeTableItemViewModel(lesson, commandFactory, university, _date, _isTeacher, _holderId);
                     }
                 }
                 else
@@ -63,14 +67,14 @@ namespace TimeTable.ViewModel
 
                         if (IsVisibleInCurrentWeek(lesson))
                         {
-                            yield return new TimeTableItemViewModel(lesson, commandFactory, university, _date);
+                            yield return new TimeTableItemViewModel(lesson, commandFactory, university, _date, _isTeacher, _holderId);
                         }
                     }
                     else
                     {
                         if (IsVisibleInCurrentWeek(lesson))
                         {
-                            yield return new TimeTableItemViewModel(lesson, commandFactory, university, _date);
+                            yield return new TimeTableItemViewModel(lesson, commandFactory, university, _date, _isTeacher, _holderId);
                         }
                     }
                 }

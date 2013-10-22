@@ -38,10 +38,66 @@ namespace TimeTable.Networking
                 ));
         }
 
+        public IObservable<T> Post<T>(string url, string body, TimeSpan timeoutTimeSpan) where T : new()
+        {
+            return Observable.Create<T>(
+               observer =>
+               Scheduler.Default.Schedule(() =>
+               {
+                   var fullUrl = url;
+                   var webRequest = (HttpWebRequest)WebRequest.Create(fullUrl);
+                   webRequest.Method = "POST";
+                   webRequest.ContentType = "application/json;charset=utf-8";
+
+                   var fetchRequestStream = Observable.FromAsyncPattern<Stream>(webRequest.BeginGetRequestStream, webRequest.EndGetRequestStream);
+                   var fetchResponse = Observable.FromAsyncPattern<WebResponse>(webRequest.BeginGetResponse, webRequest.EndGetResponse);
+
+                   Func<Stream, IObservable<HttpWebResponse>> postDataAndFetchResponse = st =>
+                   {
+                       using (var writer = new StreamWriter(st))
+                           writer.Write(body);
+                       var temp = fetchResponse().Select(
+                           rp => (HttpWebResponse)rp);
+                       return temp;
+                   };
+
+                   Func<HttpWebResponse, IObservable<HttpWebResponse>> fetchResult = rp =>
+                   {
+                       if (rp.StatusCode == HttpStatusCode.OK)
+                       {
+                           return Observable.Return(rp);
+                       }
+                       var msg = "HttpStatusCode == " + rp.StatusCode.ToString();
+                       var ex = new WebException(msg);
+                       return Observable.Throw<HttpWebResponse>(ex);
+                   };
+
+                   var postResponse =
+                       from st in fetchRequestStream()
+                       from rp in postDataAndFetchResponse(st)
+                       from s in fetchResult(rp)
+                       select s;
+
+
+                   postResponse
+                       .Timeout(timeoutTimeSpan)
+                       .Take(1)
+                       .Subscribe(response => HandleResponce(response, observer),
+                           ex =>
+                           {
+                               HandleException(ex);
+                               observer.OnError(ex);
+                               observer.OnCompleted();
+                           },
+                           observer.OnCompleted);
+               }
+               ));
+        } 
+
         private void HandleResponce<T>(WebResponse response, IObserver<T> observer) where T: new()
         {
             string json;
-            using (Stream stream = response.GetResponseStream())
+            using (var stream = response.GetResponseStream())
             {
                 var reader = new StreamReader(stream, Encoding.UTF8);
                 json = reader.ReadToEnd();

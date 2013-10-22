@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.ViewModel.Commands;
+using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel
@@ -9,13 +10,22 @@ namespace TimeTable.ViewModel
     public sealed class ReportErrorViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly int _id;
+        private readonly int _lessonId;
+        private readonly bool _isTeacher;
+        private readonly AsyncWebClient _webClient;
         private string _errorText;
         private ICommand _sendErrorTextCommand;
 
-        public ReportErrorViewModel([NotNull] INavigationService navigationService)
+        public ReportErrorViewModel([NotNull] INavigationService navigationService, int id, int lessonId, bool isTeacher,
+            AsyncWebClient webClient)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
             _navigationService = navigationService;
+            _id = id;
+            _lessonId = lessonId;
+            _isTeacher = isTeacher;
+            _webClient = webClient;
             SendErrorTextCommand = new SimpleCommand(SendError);
         }
 
@@ -45,10 +55,20 @@ namespace TimeTable.ViewModel
 
         private void SendError()
         {
-            if (_navigationService.CanGoBack())
+            _webClient.PostErrorMessageAsync(_id, _lessonId, _isTeacher, _errorText).Subscribe(result =>
             {
-                _navigationService.GoBack();
-            }
+                if (result != null)
+                {
+                    if (result.Success)
+                    {
+                        if (_navigationService.CanGoBack())
+                        {
+                            _navigationService.GoBack();
+                        }
+                    }
+                }
+            });
+            
         }
     }
 }
