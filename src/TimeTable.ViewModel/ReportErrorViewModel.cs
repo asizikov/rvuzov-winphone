@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using System.Windows.Threading;
 using JetBrains.Annotations;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
@@ -15,7 +16,7 @@ namespace TimeTable.ViewModel
         private readonly bool _isTeacher;
         private readonly AsyncWebClient _webClient;
         private string _errorText;
-        private ICommand _sendErrorTextCommand;
+        private SimpleCommand _sendErrorTextCommand;
 
         public ReportErrorViewModel([NotNull] INavigationService navigationService, int id, int lessonId, bool isTeacher,
             AsyncWebClient webClient)
@@ -26,7 +27,7 @@ namespace TimeTable.ViewModel
             _lessonId = lessonId;
             _isTeacher = isTeacher;
             _webClient = webClient;
-            SendErrorTextCommand = new SimpleCommand(SendError);
+            SendErrorTextCommand = new SimpleCommand(SendError, () => !string.IsNullOrWhiteSpace(ErrorText));
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Default)]
@@ -37,12 +38,13 @@ namespace TimeTable.ViewModel
             {
                 if (value == _errorText) return;
                 _errorText = value;
+                SendErrorTextCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged("ErrorText");
             }
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public ICommand SendErrorTextCommand
+        public SimpleCommand SendErrorTextCommand
         {
             get { return _sendErrorTextCommand; }
             private set
@@ -61,10 +63,13 @@ namespace TimeTable.ViewModel
                 {
                     if (result.Success)
                     {
-                        if (_navigationService.CanGoBack())
+                        SmartDispatcher.BeginInvoke(() =>
                         {
-                            _navigationService.GoBack();
-                        }
+                            if (_navigationService.CanGoBack())
+                            {
+                                _navigationService.GoBack();
+                            }
+                        });
                     }
                 }
             });

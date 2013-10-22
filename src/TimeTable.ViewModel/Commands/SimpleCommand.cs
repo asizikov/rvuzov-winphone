@@ -8,25 +8,45 @@ namespace TimeTable.ViewModel.Commands
     {
         public event EventHandler CanExecuteChanged;
         [NotNull]
-        private readonly Action action;
-
-        private readonly bool canExecute;
+        private readonly Action _action;
+        [CanBeNull]
+        private readonly Func<bool> _canExecuteEvaluetor;
+        private readonly bool _canExecute;
 
         public SimpleCommand([NotNull] Action action, bool canExecute = true)
         {
             if (action == null) throw new ArgumentNullException("action");
-            this.action = action;
-            this.canExecute = canExecute;
+            _action = action;
+            _canExecute = canExecute;
+        }
+
+        public SimpleCommand([NotNull] Action action, Func<bool> canExecuteEvaluetor)
+        {
+            if (action == null) throw new ArgumentNullException("action");
+            _action = action;
+            _canExecuteEvaluetor = canExecuteEvaluetor;
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            if (CanExecuteChanged != null)
+            {
+               CanExecuteChanged(this, new EventArgs()); 
+            }
         }
 
         public bool CanExecute(object parameter)
         {
-            return canExecute;
+            return _canExecuteEvaluetor != null ? _canExecuteEvaluetor() : _canExecute;
         }
 
         public void Execute(object parameter)
         {
-            action();
+            if (CanExecute(null))
+            {
+                _action();
+            }
+            
         }
     }
 }

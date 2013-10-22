@@ -47,7 +47,6 @@
             <bindableApplicationBar:BindableApplicationBarButton
             Text="{Binding  Strings.Send, Source={StaticResource LocalizedStrings}}"
             Command="{Binding SendErrorTextCommand}"
-            IsEnabled="{Binding ErrorText, Converter={StaticResource StringContentToBoolConverter}}"
             IconUri="/Resources/Icons/appbar.message.send.png"/>
         </bindableApplicationBar:BindableApplicationBar>
     </bindableApplicationBar:Bindable.ApplicationBar>

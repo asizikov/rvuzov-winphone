@@ -75,7 +75,7 @@ namespace TimeTable.Services
 
         public bool CanGoBack()
         {
-            return _rootFrame.CanGoBack;
+            return  _rootFrame.CanGoBack;
         }
     }
 }
