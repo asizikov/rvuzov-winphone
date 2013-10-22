@@ -120,6 +120,7 @@
     <Compile Include="ThemeManager.cs" />
     <Compile Include="TimeTableUriMapper.cs" />
     <Compile Include="Utils\BindingUtility.cs" />
+    <Compile Include="Utils\TombstoneHelper.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\FacultiesPage.xaml.cs">
       <DependentUpon>FacultiesPage.xaml</DependentUpon>
