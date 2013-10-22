@@ -71,6 +71,7 @@ namespace TimeTable.ViewModel
                     }
                 }
             });
+            _flurryPublisher.PublishReportError(_errorText);
             
         }
 

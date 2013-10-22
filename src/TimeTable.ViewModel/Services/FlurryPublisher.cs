@@ -246,6 +246,22 @@ namespace TimeTable.ViewModel.Services
             PublishEvent(FlurryEvents.EVENT_CONTEXT_GROUP_SCHEDULE,parameters);
         }
 
+        public void PublishReportError(string message)
+        {
+            var parameters = new[]
+            {
+                //new EventParameter("University name", data.getUniversityName()),
+                //new EventParameter("University shortname", data.getUniversityShortName()),
+//            new EventParameter("University id", data.getUniversityId()),
+//            new EventParameter("Object name", data.getObjectName()),
+//            new EventParameter("Object Id", data.getObjectId()),
+//            new EventParameter("Mode", data.getMode()),
+                new EventParameter("Error message", message)
+            };
+            PublishEvent(FlurryEvents.EVENT_CONTEXT_REPORT_ERROR, parameters);
+        }
+
+        #region PagesLoadedEvents
         public void PublishPageLoadedUniversities()
         {
             PublishEvent(FlurryEvents.EventUniversitiesPageLoaded);
@@ -285,5 +301,6 @@ namespace TimeTable.ViewModel.Services
         {
             PublishEvent(FlurryEvents.EventSettingsPageLoaded);
         }
+        #endregion
     }
 }
