@@ -12,5 +12,6 @@
         string Unfavorite { get;}
         string Today { get; }
         string GroupTimeTable { get; }
+        string ReportError { get;}
     }
 }

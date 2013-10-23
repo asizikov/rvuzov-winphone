@@ -53,12 +53,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auditorium.cs" />
-    <Compile Include="UserRole.cs" />
-    <Compile Include="FavoritedItem.cs" />
+    <Compile Include="Internal\FacultyItem.cs" />
+    <Compile Include="Internal\Storage.cs" />
+    <Compile Include="Internal\UniversityItem.cs" />
+    <Compile Include="Internal\UserRole.cs" />
+    <Compile Include="Internal\FavoritedItem.cs" />
     <Compile Include="Faculty.cs" />
     <Compile Include="LessonGroup.cs" />
     <Compile Include="LessonTeacher.cs" />
-    <Compile Include="Me.cs" />
+    <Compile Include="Internal\Me.cs" />
     <Compile Include="Teachers.cs" />
     <Compile Include="ListGroup.cs" />
     <Compile Include="Day.cs" />

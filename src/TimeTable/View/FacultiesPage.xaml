@@ -72,6 +72,7 @@
     </Grid>
         <bar:Bindable.ApplicationBar>
             <bar:BindableApplicationBar 
+                ForegroundColor="White"
                 IsVisible="{Binding IsSearchBoxVisible, Converter={StaticResource ReversedBoolConverter }}"
                 BackgroundColor="{StaticResource TimeTableHilighthColor}">
                 <bar:BindableApplicationBarButton

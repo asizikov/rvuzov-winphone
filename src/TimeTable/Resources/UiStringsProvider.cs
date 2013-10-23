@@ -53,5 +53,10 @@ namespace TimeTable.Resources
         {
             get { return Strings.GroupTimeTable; }
         }
+
+        public string ReportError
+        {
+            get { return Strings.ReportError; }
+        }
     }
 }

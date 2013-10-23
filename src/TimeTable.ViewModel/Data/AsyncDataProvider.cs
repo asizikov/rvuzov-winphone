@@ -15,8 +15,34 @@ namespace TimeTable.ViewModel.Data
         private readonly Dictionary<int, Group> _groups = new Dictionary<int, Group>();
         private readonly Dictionary<int, Faculty> _faculties = new Dictionary<int, Faculty>();
 
-        public AsyncDataProvider([NotNull] ICache cache) : base(cache)
+        private readonly UniversitiesCache _universitiesCache;
+
+        public AsyncDataProvider([NotNull] IWebCache cache, [NotNull] UniversitiesCache universitiesCache) : base(cache)
         {
+            if (universitiesCache == null) throw new ArgumentNullException("universitiesCache");
+            _universitiesCache = universitiesCache;
+            _universitiesCache.Load();
+        }
+
+        public void PutUniversity(University university)
+        {
+            _universitiesCache.AddUniversity(university);
+        }
+
+        public void PutFaculties(int universityId, IEnumerable<Faculty> faculties)
+        {
+            foreach (var faculty in faculties)
+            {
+                _universitiesCache.AddFaculty(universityId, faculty);
+            }
+        }
+
+        public void PutGroups(int universityId, int facultyId, IEnumerable<Group> groupsList)
+        {
+            foreach (var group in groupsList)
+            {
+                _universitiesCache.AddGroup(universityId, facultyId, group);
+            }
         }
 
         public IObservable<Universities> GetUniversitesAsync()
@@ -76,7 +102,22 @@ namespace TimeTable.ViewModel.Data
                 }));
         }
 
-        public IObservable<Teacher> GetTeacherByIdAsync(int universityId,int id)
+        public IObservable<Faculty> GetFacultyByUniversityAndGroupId(int universityId, int groupId)
+        {
+            return Observable.Create<Faculty>(observer =>
+                Scheduler.Default.Schedule(
+                    () =>
+                    {
+                        var faculty = _universitiesCache.GetFacultyByGroupAndUniversityIds(universityId, groupId);
+                        if (faculty != null)
+                        {
+                            observer.OnNext(faculty);
+                        }
+                        
+                    }));
+        }
+
+        public IObservable<Teacher> GetTeacherByIdAsync(int universityId, int id)
         {
             return Observable.Create<Teacher>(observer =>
                 Scheduler.Default.Schedule(() =>
@@ -121,22 +162,22 @@ namespace TimeTable.ViewModel.Data
         public IObservable<Faculty> GetFacultyByIdAsync(int universityId, int facultyId)
         {
             return Observable.Create<Faculty>(observer =>
-               Scheduler.Default.Schedule(() =>
-               {
-                   if (_faculties.ContainsKey(facultyId))
-                   {
-                       observer.OnNext(_faculties[facultyId]);
-                   }
-                   else
-                   {
-                       GetUniversitesFacultiesAsync(universityId).Subscribe(faculties =>
-                       {
-                           var faculty = faculties.Data.FirstOrDefault(u => u.Id == facultyId);
-                           _faculties.Add(facultyId, faculty);
-                           observer.OnNext(faculty);
-                       });
-                   }
-               }));
+                Scheduler.Default.Schedule(() =>
+                {
+                    if (_faculties.ContainsKey(facultyId))
+                    {
+                        observer.OnNext(_faculties[facultyId]);
+                    }
+                    else
+                    {
+                        GetUniversitesFacultiesAsync(universityId).Subscribe(faculties =>
+                        {
+                            var faculty = faculties.Data.FirstOrDefault(u => u.Id == facultyId);
+                            _faculties.Add(facultyId, faculty);
+                            observer.OnNext(faculty);
+                        });
+                    }
+                }));
         }
     }
 }

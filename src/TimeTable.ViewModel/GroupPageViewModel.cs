@@ -142,6 +142,7 @@ namespace TimeTable.ViewModel
                 result =>
                 {
                     result.GroupsList = result.GroupsList.OrderBy(g => g.GroupName).ToList();
+                    _dataProvider.PutGroups(_universityId, _facultyId, result.GroupsList);
                     _storedGroupsRequest = result;
                     GroupsList = FormatResult(result.GroupsList, _groupFunc);
                     IsLoading = false;
@@ -193,8 +194,13 @@ namespace TimeTable.ViewModel
                 if (!_applicationSettings.IsRegistrationCompleted)
                 {
                     _applicationSettings.Me.DefaultGroup = group;
+                    _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group), 4);
                 }
-                _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group));
+                else
+                {
+                    _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group));
+                }
+                
             }
         }
 
@@ -209,8 +215,13 @@ namespace TimeTable.ViewModel
                 if (!_applicationSettings.IsRegistrationCompleted)
                 {
                     _applicationSettings.Me.Teacher = teacher;
+                    _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(teacher), 4);
                 }
-                _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(teacher));
+                else
+                {
+                    _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(teacher));
+                }
+                
             }
         }
 

@@ -19,7 +19,7 @@ namespace TimeTable.ViewModel
 
         static ViewModelLocator()
         {
-            DataProvider = new AsyncDataProvider(C.Resolve<ICache>());
+            DataProvider = C.Resolve<AsyncDataProvider>();
         }
 
         [NotNull]
@@ -77,6 +77,11 @@ namespace TimeTable.ViewModel
         public static BaseViewModel GetSettingsViewModel()
         {
             return new SettingsViewModel(C.Resolve<BaseApplicationSettings>(), C.Resolve<INavigationService>());
+        }
+
+        public static BaseViewModel GetReportErrorViewModel()
+        {
+            return new ReportErrorViewModel(C.Resolve<INavigationService>());
         }
     }
 }
