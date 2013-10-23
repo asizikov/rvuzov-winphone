@@ -8,10 +8,12 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:TimeTable.Controls"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     mc:Ignorable="d">
     <SolidColorBrush x:Key="TimeTableBackgorundColorBrush">#2D3541</SolidColorBrush>
     <SolidColorBrush x:Key="TimeTableHilighthBrush">#4C6DA7</SolidColorBrush>
     <SolidColorBrush x:Key="TimeTableSecondaryTextColorBrush">#A1ACB7</SolidColorBrush>
+    <SolidColorBrush x:Key="TimeTablePrimaryTextColorBrush">White</SolidColorBrush>
     <SolidColorBrush x:Key="TimeTableButtonBackgroundColorBrush">#46659E</SolidColorBrush>
     <Color x:Key="TimeTableHilighthColor">#4C6DA7</Color>
     <Color x:Key="TimeTableBackgorundColor">#2D3541</Color>
@@ -46,7 +48,7 @@
         <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}" />
         <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}" />
         <Setter Property="Foreground" Value="{StaticResource TimeTableSecondaryTextColorBrush}" />
-        <Setter Property="SupportedOrientations" Value="PortraitOrLandscape" />
+        <Setter Property="SupportedOrientations" Value="Portrait" />
         <Setter Property="Orientation" Value="Portrait" />
         <Setter Property="shell:SystemTray.IsVisible" Value="True" />
         <Setter Property="shell:SystemTray.Opacity" Value="0.1" />
@@ -158,14 +160,14 @@
                     Margin="12,0,0,12"
                     Text="{Binding Weekday, Converter={StaticResource NumberToWeekDayConverter}}"
                     Style="{StaticResource PhoneTextTitle2Style}"
-                    Foreground="{StaticResource TimeTableHilighthBrush}" />
+                    Foreground="White" />
                 <TextBlock Text=","
                            Margin="0,0,0,12"
-                           Foreground="{StaticResource TimeTableHilighthBrush}"
+                           Foreground="White" 
                            Style="{StaticResource PhoneTextTitle2Style}" />
                 <TextBlock Text="{Binding NameForTheDay}"
                            Margin="12,0,0,12"
-                           Foreground="{StaticResource TimeTableHilighthBrush}"
+                           Foreground="White" 
                            Style="{StaticResource PhoneTextTitle2Style}" />
             </StackPanel>
 
@@ -277,5 +279,19 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    <Style x:Key="TimeTableAppBarStyle" TargetType="bindableApplicationBar:BindableApplicationBar">
+        <Setter Property="ForegroundColor" Value="White"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource TimeTableHilighthColor}"/>
+    </Style>
+    <Style x:Key="TimeTableSearchTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Width" Value="467" />
+        <Setter Property="Height" Value="72" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="InputScope" Value="Search" />
+        <Setter Property="MaxLength" Value="128" />
+        <Setter Property="Padding" Value="2,2,8,2" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
     </Style>
 </ResourceDictionary>

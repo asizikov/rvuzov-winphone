@@ -32,5 +32,12 @@
         public static readonly string EVENT_UPDATE_SCHEDULE_CHOOSE = "UPDATE_SCHEDULE_CHOOSE";
         public static readonly string EVENT_UPDATE_SCHEDULE_PULL = "UPDATE_SCHEDULE_PULL";
         public static readonly string EventUniversitiesPageLoaded = "universities page loaded";
+        public static readonly string EventReportErrorPageLoaded = "report error page loaded";
+        public static readonly string EventSelectRolePageLoaded = "select role page loaded";
+        public static readonly string EventSelectGroupsPageLoaded = "groups page loaded";
+        public static readonly string EventSelectUniversityPageLoaded = "faculties page loaded";
+        public static readonly string EventLessonsPageLoaded = "lessons page loaded";
+        public static readonly string EventFavoritesPageLoaded = "favorites page loaded";
+        public static readonly string  EventSettingsPageLoaded = "settings page loaded";
     }
 }

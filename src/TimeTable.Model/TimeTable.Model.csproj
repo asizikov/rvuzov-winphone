@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auditorium.cs" />
+    <Compile Include="Confirmation.cs" />
     <Compile Include="Internal\FacultyItem.cs" />
     <Compile Include="Internal\Storage.cs" />
     <Compile Include="Internal\UniversityItem.cs" />

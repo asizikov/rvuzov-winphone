@@ -11,11 +11,18 @@ using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.ViewModel
 {
+    public enum Reason
+    {
+        Registration = 0,
+        AddingFavorites = 1,
+        ChangeDefault = 2
+    }
+
     public class UniversitiesViewModel : SearchViewModel
     {
         private readonly AsyncDataProvider _dataProvider;
         private readonly FlurryPublisher _flurry;
-        private readonly bool _isAddingFavorites;
+        private readonly Reason _reason;
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private ObservableCollection<ListGroup<University>> _universitesList;
@@ -26,7 +33,7 @@ namespace TimeTable.ViewModel
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurry, bool isAddingFavorites)
+            [NotNull] FlurryPublisher flurry, Reason reason)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurry == null) throw new ArgumentNullException("flurry");
@@ -34,13 +41,13 @@ namespace TimeTable.ViewModel
 
             _dataProvider = dataProvider;
             _flurry = flurry;
-            _isAddingFavorites = isAddingFavorites;
+            _reason = reason;
             _navigation = navigation;
             _applicationSettings = applicationSettings;
             _resultGrouper = u => u.ShortName[0];
             SubscribeToQuery();
             Init();
-            _flurry.PublishUniversitiesPageLoaded();
+            _flurry.PublishPageLoadedUniversities();
         }
 
 
@@ -108,13 +115,23 @@ namespace TimeTable.ViewModel
             if (!_applicationSettings.IsRegistrationCompleted)
             {
                 _applicationSettings.Me.University = university;
+                _applicationSettings.Save();
             }
             var parameters = new List<NavigationParameter> {navigationParameter};
-            if (_isAddingFavorites)
+            if (_reason == Reason.AddingFavorites)
             {
                 parameters.Add(new NavigationParameter
                 {
                     Parameter = NavigationParameterName.AddFavorites,
+                    Value = true.ToString()
+                });
+            }
+            else if (_reason == Reason.ChangeDefault)
+            {
+                _applicationSettings.Me.TemporaryUniversity = university;
+                parameters.Add(new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.ChangeDefault,
                     Value = true.ToString()
                 });
             }

@@ -23,21 +23,16 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="{Binding Strings.SelectUniversity, Source={StaticResource LocalizedStrings}}" 
+            <TextBlock Text="{Binding Strings.SelectUniversity, Source={StaticResource LocalizedStrings}}"
+                       Foreground="{StaticResource TimeTablePrimaryTextColorBrush}"
                        Style="{StaticResource PhoneTextLargeStyle}"/>
             <TextBox x:Name="Search"
-                             Width="467"
-                             Height="72"
-                             HorizontalAlignment="Left"
-                             GotFocus="Search_GotFocus"
-                             InputScope="Search"
-                             MaxLength="128"
-                             Padding="2,2,8,2"
+                     GotFocus="Search_GotFocus"
                              Visibility="{Binding IsSearchBoxVisible, Converter={StaticResource BoolToVisibilityConverter}}"
                              Text="{Binding Query,
                                             Mode=TwoWay}"
                              utils:BindingUtility.UpdateSourceOnChange="True"
-                             x:FieldModifier="private" />
+                             x:FieldModifier="private" Style="{StaticResource TimeTableSearchTextBoxStyle}" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -65,7 +60,9 @@
                 <toolkit:LongListSelector.ItemTemplate>
                     <DataTemplate>
                         <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
-                            <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding ShortName}"/>
+                            <TextBlock Style="{StaticResource PhoneTextLargeStyle}"
+                                       Foreground="{StaticResource TimeTablePrimaryTextColorBrush}"
+                                       Text="{Binding ShortName}"/>
                             <TextBlock Style="{StaticResource PhoneTextSmallStyle}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" TextWrapping="Wrap" Text="{Binding Name}"/>
                         </StackPanel>
                     </DataTemplate>
@@ -75,8 +72,8 @@
     </Grid>
         <bar:Bindable.ApplicationBar>
             <bar:BindableApplicationBar 
-                IsVisible="{Binding IsSearchBoxVisible, Converter={StaticResource ReversedBoolConverter }}"
-                BackgroundColor="{StaticResource TimeTableHilighthColor}">
+                Style="{StaticResource TimeTableAppBarStyle}"
+                IsVisible="{Binding IsSearchBoxVisible, Converter={StaticResource ReversedBoolConverter }}">
                 <bar:BindableApplicationBarButton
             Text="{Binding  Strings.Search, Source={StaticResource LocalizedStrings}}"
             Command="{Binding ShowSearchBoxCommand}"

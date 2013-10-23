@@ -69,13 +69,16 @@
   <ItemGroup>
     <Compile Include="AuditoriumViewModel.cs" />
     <Compile Include="BaseViewModel.cs" />
-    <Compile Include="AppbarButtonViewModel.cs" />
-    <Compile Include="Commands\ShowAuditoriumCommand.cs" />
+	<Compile Include="AppbarButtonViewModel.cs" />
+	<Compile Include="Commands\ShowAuditoriumCommand.cs" />
     <Compile Include="Commands\ReportErrorCommand.cs" />
     <Compile Include="Commands\ShowGroupTimeTableCommand.cs" />
+    <Compile Include="Data\AsyncWebClient.cs" />
     <Compile Include="Data\DataWriter.cs" />
     <Compile Include="Data\UniversitiesCache.cs" />
+    <Compile Include="DefaultViewModel.cs" />
     <Compile Include="Extensions\FavoritedExtensions.cs" />
+    <Compile Include="FavoritedItemViewModel.cs" />
     <Compile Include="FavoritedState.cs" />
     <Compile Include="FavoritesViewModel.cs" />
     <Compile Include="Commands\AbstractMenuItem.cs" />
@@ -85,7 +88,7 @@
     <Compile Include="Commands\SimpleCommand.cs" />
     <Compile Include="FacultiesPageViewModel.cs" />
     <Compile Include="Data\AsyncDataProvider.cs" />
-    <Compile Include="Data\BaseAsyncDataProvider.cs" />
+    <Compile Include="Data\BaseAsyncWebClient.cs" />
     <Compile Include="Data\IWebCache.cs" />
     <Compile Include="Data\InMemoryCache.cs" />
     <Compile Include="DayViewModel.cs" />

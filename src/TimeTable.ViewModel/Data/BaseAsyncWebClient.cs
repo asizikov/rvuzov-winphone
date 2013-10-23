@@ -9,12 +9,12 @@ using TimeTable.ViewModel.Restful;
 
 namespace TimeTable.ViewModel.Data
 {
-    public abstract class BaseAsyncDataProvider
+    public abstract class BaseAsyncWebClient
     {
         private readonly IWebCache _cache;
         protected readonly RestfulCallFactory CallFactory = new RestfulCallFactory();
 
-        protected BaseAsyncDataProvider([NotNull] IWebCache cache)
+        protected BaseAsyncWebClient([NotNull] IWebCache cache)
         {
             if (cache == null) throw new ArgumentNullException("cache");
             _cache = cache;

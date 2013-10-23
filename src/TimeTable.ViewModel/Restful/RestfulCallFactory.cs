@@ -1,4 +1,5 @@
-﻿using TimeTable.Networking;
+﻿using System;
+using TimeTable.Networking;
 
 namespace TimeTable.ViewModel.Restful
 {
@@ -14,7 +15,9 @@ namespace TimeTable.ViewModel.Restful
         private const string ALL_GROUPS_TEMPLATE = "faculties/{0}/groups";
         private const string ALL_TEACHERS_TEMPLATE = "universities/{0}/teachers";
         private const string GROUP_TIMETABLE_TEMPLATE = "groups/{0}";
+        private const string GROUP_ERROR__TEMPLATE = "groups/{0}/link-bug";
         private const string TEACHER_TIMETABLE_TEMPLATE = "teachers/{0}";
+        private const string TEACHER_ERROR_TEMPLATE = "teachers/{0}/link-bug";
 
         private static string InjectIdToTemplate(string template, int universityId)
         {
@@ -56,6 +59,12 @@ namespace TimeTable.ViewModel.Restful
         public UniversityFacultiesRequest GetUniversityFacultiesRequest(int universityId)
         {
             return new UniversityFacultiesRequest(URL_PREFIX, InjectIdToTemplate(ALL_FACULTIES_TEMPLATE, universityId), _webService);
+        }
+
+        public SendErrorRequest CreateSendErrorRequest(int id, bool isTeacher, string body)
+        {
+            var suffix = InjectIdToTemplate((isTeacher ? TEACHER_ERROR_TEMPLATE : GROUP_ERROR__TEMPLATE), id);
+            return new SendErrorRequest(_webService, URL_PREFIX, suffix , body);
         }
     }
 }

@@ -12,4 +12,19 @@ namespace TimeTable.Model
         [JsonProperty("weekday")]
         public int Weekday { get; set; }
     }
+
+    public sealed class ErrorMessage
+    {
+        [JsonProperty("lesson")]
+        public ErrorLesson Lesson { get; set; }
+        [JsonProperty("message")]
+        public string ErrorText { get; set; }
+    }
+
+    public sealed class ErrorLesson
+    {
+        [JsonProperty("id")]
+        public int Id { get; set; }
+        
+    }
 }

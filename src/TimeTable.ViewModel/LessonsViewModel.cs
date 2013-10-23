@@ -62,7 +62,7 @@ namespace TimeTable.ViewModel
             _id = id;
             _isTeacher = isTeacher;
             _facultyId = facultyId;
-
+            _flurryPublisher.PublishPageLoadedLessons();
             Init(universityId, facultyId);
 
             InitCommands();
@@ -157,11 +157,11 @@ namespace TimeTable.ViewModel
             var weekNumber = GetWeekNumber(timeTable.Data.ParityCountdown);
 
             CurrentWeek = new WeekViewModel(timeTable.Data.Days, weekNumber, _commandFactory,
-                WeekType.Current, _university);
+                WeekType.Current, _university, _isTeacher, _id);
             NextWeek = new WeekViewModel(timeTable.Data.Days, weekNumber + 1, _commandFactory,
-                WeekType.Next, _university);
+                WeekType.Next, _university, _isTeacher, _id);
             PreviousWeek = new WeekViewModel(timeTable.Data.Days, weekNumber - 1, _commandFactory,
-                WeekType.Previous, _university);
+                WeekType.Previous, _university, _isTeacher, _id);
             IsLoading = false;
         }
 

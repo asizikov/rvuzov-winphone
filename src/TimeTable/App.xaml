@@ -16,6 +16,7 @@
                     <converters:WeekNumberToTextConverter x:Key="WeekNumberToTextConverter"/>
                     <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
                     <converters:StringContentToVisibilityConverter x:Key="StringContentToVisibilityConverter"/>
+                    <converters:StringContentToBoolConverter x:Key="StringContentToBoolConverter"/>
                     <converters:AnyCountToVisibilityConverter AnyVisibility="Visible" EmptyVisibility="Collapsed" x:Key="AnyCountToVisibeConverterKey"/>
                     <local:LocalizedStrings xmlns:local="clr-namespace:TimeTable.Resources" x:Key="LocalizedStrings" />
                 </ResourceDictionary>

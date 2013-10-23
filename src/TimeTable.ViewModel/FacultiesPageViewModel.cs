@@ -18,7 +18,7 @@ namespace TimeTable.ViewModel
         private readonly AsyncDataProvider _dataProvider;
         private readonly FlurryPublisher _flurryPublisher;
         private readonly int _universityId;
-        private readonly bool _isAddingFavorites;
+        private readonly Reason _reason;
         private ObservableCollection<ListGroup<Faculty>> _facultiesList;
         private Faculty _selectedFaculty;
         private Faculties _storedGroupsRequest;
@@ -26,7 +26,7 @@ namespace TimeTable.ViewModel
 
         public FacultiesPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurryPublisher, int universityId, bool isAddingFavorites)
+            [NotNull] FlurryPublisher flurryPublisher, int universityId, Reason reason)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
@@ -38,10 +38,8 @@ namespace TimeTable.ViewModel
             _dataProvider = dataProvider;
             _flurryPublisher = flurryPublisher;
             _universityId = universityId;
-            _isAddingFavorites = isAddingFavorites;
-
-           // _applicationSettings.UniversityId = _universityId;
-
+            _reason = reason;
+            _flurryPublisher.PublishPageLoadedFaculties();
             _facultyGroupFunc = faculty => faculty.Title[0];
 
             SubscribeToQuery();
@@ -116,6 +114,7 @@ namespace TimeTable.ViewModel
             if (!_applicationSettings.IsRegistrationCompleted)
             {
                 _applicationSettings.Me.Faculty = faculty;
+                _applicationSettings.Save();
             }
             _navigation.GoToPage(Pages.Groups, GetNavitationParameters(faculty));
         }
@@ -145,11 +144,20 @@ namespace TimeTable.ViewModel
                     Value = faculty.Title
                 },
             };
-            if (_isAddingFavorites)
+            if (_reason == Reason.AddingFavorites)
             {
                 list.Add(new NavigationParameter
                 {
                     Parameter = NavigationParameterName.AddFavorites,
+                    Value = true.ToString()
+                });
+            }
+            else if (_reason == Reason.ChangeDefault)
+            {
+                _applicationSettings.Me.TemporaryFaculty = faculty;
+                list.Add(new NavigationParameter
+                {
+                    Parameter = NavigationParameterName.ChangeDefault,
                     Value = true.ToString()
                 });
             }

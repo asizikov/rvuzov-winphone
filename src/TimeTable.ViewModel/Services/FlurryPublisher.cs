@@ -246,9 +246,61 @@ namespace TimeTable.ViewModel.Services
             PublishEvent(FlurryEvents.EVENT_CONTEXT_GROUP_SCHEDULE,parameters);
         }
 
-        public void PublishUniversitiesPageLoaded()
+        public void PublishReportError(string message)
+        {
+            var parameters = new[]
+            {
+                //new EventParameter("University name", data.getUniversityName()),
+                //new EventParameter("University shortname", data.getUniversityShortName()),
+//            new EventParameter("University id", data.getUniversityId()),
+//            new EventParameter("Object name", data.getObjectName()),
+//            new EventParameter("Object Id", data.getObjectId()),
+//            new EventParameter("Mode", data.getMode()),
+                new EventParameter("Error message", message)
+            };
+            PublishEvent(FlurryEvents.EVENT_CONTEXT_REPORT_ERROR, parameters);
+        }
+
+        #region PagesLoadedEvents
+        public void PublishPageLoadedUniversities()
         {
             PublishEvent(FlurryEvents.EventUniversitiesPageLoaded);
         }
+
+        public void PublishPageLoadedReportError()
+        {
+            PublishEvent(FlurryEvents.EventReportErrorPageLoaded);
+        }
+
+        public void PublishPageLoadedSelectRole()
+        {
+            PublishEvent(FlurryEvents.EventSelectRolePageLoaded);
+        }
+
+        public void PublishPageLoadedGroups()
+        {
+            PublishEvent(FlurryEvents.EventSelectGroupsPageLoaded);
+        }
+
+        public void PublishPageLoadedFaculties()
+        {
+            PublishEvent(FlurryEvents.EventSelectUniversityPageLoaded);
+        }
+
+        public void PublishPageLoadedLessons()
+        {
+            PublishEvent(FlurryEvents.EventLessonsPageLoaded);
+        }
+
+        public void PublishPageLoadedFavorites()
+        {
+            PublishEvent(FlurryEvents.EventFavoritesPageLoaded);
+        }
+
+        public void PublishPageLoadedSettings()
+        {
+            PublishEvent(FlurryEvents.EventSettingsPageLoaded);
+        }
+        #endregion
     }
 }

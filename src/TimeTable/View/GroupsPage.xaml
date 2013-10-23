@@ -26,13 +26,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBox x:Name="Search"
-                 Width="467"
-                 Height="72"
-                 HorizontalAlignment="Left"
+                 Style="{StaticResource TimeTableSearchTextBoxStyle}"
                  GotFocus="Search_GotFocus"
-                 InputScope="Search"
-                 MaxLength="128"
-                 Padding="2,2,8,2"
                  Visibility="{Binding IsSearchBoxVisible, Converter={StaticResource BoolToVisibilityConverter}}"
                  Text="{Binding Query, Mode=TwoWay}"
                  utils:BindingUtility.UpdateSourceOnChange="True"
@@ -94,8 +89,8 @@
     </Grid>
     <bar:Bindable.ApplicationBar>
         <bar:BindableApplicationBar
-            IsVisible="{Binding IsSearchBoxVisible, Converter={StaticResource ReversedBoolConverter }}"
-            BackgroundColor="{StaticResource TimeTableHilighthColor}">
+            Style="{StaticResource TimeTableAppBarStyle}"
+            IsVisible="{Binding IsSearchBoxVisible, Converter={StaticResource ReversedBoolConverter }}">
             <bar:BindableApplicationBarButton
                 Text="{Binding  Strings.Search, Source={StaticResource LocalizedStrings}}"
                 Command="{Binding ShowSearchBoxCommand}"

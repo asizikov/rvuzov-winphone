@@ -32,10 +32,11 @@
         <Grid x:Name="ContentPanel" 
               Grid.Row="1" Margin="0">
             <TextBox
+                x:Name="ErrorTextTextBox"
                 Margin="0"
                 Background="White"
                 Foreground="Black"
-                Text="{Binding Text,Mode=TwoWay}"
+                Text="{Binding ErrorText, Mode=TwoWay}"
                 utils:BindingUtility.UpdateSourceOnChange="True">
             </TextBox>
         </Grid>

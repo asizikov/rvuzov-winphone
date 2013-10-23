@@ -4,10 +4,9 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using TimeTable.IoC;
+using TimeTable.Services;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
-using System;
-using System.Linq;
 
 namespace TimeTable
 {
@@ -33,7 +32,8 @@ namespace TimeTable
             // Phone-specific initialization
             InitializePhoneApplication();
             Bootstrapper.InitApplication(RootFrame);
-
+            ThemeManager.OverrideOptions = ThemeManagerOverrideOptions.None;
+            ThemeManager.ToDarkTheme();
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -124,6 +124,8 @@ namespace TimeTable
         // Code to execute on Unhandled Exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
+            CrashLogger.SaveCrashInfo(e);
+
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // An unhandled exception has occurred; break into the debugger
