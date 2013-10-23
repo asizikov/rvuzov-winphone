@@ -45,5 +45,11 @@ namespace TimeTable.Commands
         {
             return new ReportErrorCommand(_navigationService, _flurryPublisher, _stringsProviders,lessonId, isTeacher, holderId );
         }
+
+        [NotNull]
+        public ITitledCommand GetShowAuditoriumCommand(Auditorium auditorium)
+        {
+            return new ShowAuditoriumCommand(_navigationService, _stringsProviders, auditorium);
+        }
     }
 }

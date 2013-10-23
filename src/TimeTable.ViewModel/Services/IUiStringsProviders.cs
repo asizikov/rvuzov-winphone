@@ -3,6 +3,7 @@
     public interface IUiStringsProviders
     {
         string Auditory { get; }
+        string AuditoryNameTemplate { get; }
         string TeachersTimeTable { get; }
         string Group { get;}
         string Settings { get; }
