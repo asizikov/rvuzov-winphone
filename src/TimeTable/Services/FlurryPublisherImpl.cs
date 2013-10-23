@@ -26,9 +26,9 @@ namespace TimeTable.Services
 
         protected override void InitSession()
         {
-            FlurryWP7SDK.Api.StartSession("B7ZKJVBYQFMP8V683XRY");
+            FlurryWP7SDK.Api.StartSession(Configuration.FlurryApiKey);
             FlurryWP7SDK.Api.SetUserId(GetPhoneUniqueId());
-            FlurryWP7SDK.Api.SetVersion("dev version");
+            FlurryWP7SDK.Api.SetVersion(Configuration.Version);
         }
 
         protected override void FlushEvent(string eventName, EventParameter[] parameters)

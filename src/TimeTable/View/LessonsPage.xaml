@@ -24,7 +24,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
-            <TextBlock Margin="24,0,0,0" Foreground="White" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Title}"/>
+            <TextBlock Margin="12,0,0,0" 
+                       Foreground="White" 
+                       Style="{StaticResource PhoneTextLargeStyle}" 
+                       Text="{Binding Title}"/>
         </StackPanel>
         <toolkit:LockablePivot SelectedIndex="{Binding SelectedWeekIndex, Mode=TwoWay}"
             Grid.Row="1" >
