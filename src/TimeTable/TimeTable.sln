@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTable", "TimeTable.csproj", "{E934C9FF-C5D9-4A69-A95F-B414B9E47190}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTable.Networking", "..\TimeTable.Networking\TimeTable.Networking.csproj", "{98BDF17B-A349-4A0F-8437-0306BC1C1308}"
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetBrains.Annotations", "..\JetBrains.Annotations\JetBrains.Annotations.csproj", "{C9E415F3-1FE2-4838-B421-93B02288D05E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTable.Model", "..\TimeTable.Model\TimeTable.Model.csproj", "{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTable.Configuration", "..\TimeTable.Configuration\TimeTable.Configuration.csproj", "{1BA688FA-3255-452F-8999-8C38EB1B413C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BA688FA-3255-452F-8999-8C38EB1B413C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BA688FA-3255-452F-8999-8C38EB1B413C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BA688FA-3255-452F-8999-8C38EB1B413C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BA688FA-3255-452F-8999-8C38EB1B413C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
