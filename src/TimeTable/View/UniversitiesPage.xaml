@@ -12,7 +12,7 @@
     xmlns:view="clr-namespace:TimeTable.View"
     SupportedOrientations="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="False"
+    shell:SystemTray.IsVisible="{StaticResource SystemTrayVisibility}"
     d:DataContext="{d:DesignInstance viewModel:UniversitiesViewModel}">
 
     <Grid Background="{StaticResource TimeTableBackgorundColorBrush}">

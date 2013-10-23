@@ -122,6 +122,9 @@
     <Compile Include="Utils\BindingUtility.cs" />
     <Compile Include="Utils\TombstoneHelper.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\AuditoriumsPage.xaml.cs">
+      <DependentUpon>AuditoriumsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FacultiesPage.xaml.cs">
       <DependentUpon>FacultiesPage.xaml</DependentUpon>
     </Compile>
@@ -220,6 +223,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AuditoriumsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

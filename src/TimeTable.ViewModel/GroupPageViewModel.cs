@@ -190,10 +190,10 @@ namespace TimeTable.ViewModel
             {
                 case Reason.Registration:
                     if (!_applicationSettings.IsRegistrationCompleted)
-                {
-                    _applicationSettings.Me.DefaultGroup = group;
-                    _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group), 4);
-                }
+                    {
+                        _applicationSettings.Me.DefaultGroup = group;
+                        _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group), 4);
+                    }
                     break;
                 case Reason.AddingFavorites:
                     AddGoupToFavorites(group, university);
@@ -218,10 +218,10 @@ namespace TimeTable.ViewModel
             {
                 case Reason.Registration:
                     if (!_applicationSettings.IsRegistrationCompleted)
-                {
-                    _applicationSettings.Me.Teacher = teacher;
-                    _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(teacher), 4);
-                }
+                    {
+                        _applicationSettings.Me.Teacher = teacher;
+                        _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(teacher), 4);
+                    }
                     break;
                 case Reason.AddingFavorites:
                     AddTeacherToFavorites(teacher, university);

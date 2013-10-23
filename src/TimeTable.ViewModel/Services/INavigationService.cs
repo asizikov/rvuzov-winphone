@@ -15,6 +15,7 @@ namespace TimeTable.ViewModel.Services
         public const string UniversityId = "university_id";
         public const string Id = "id";
         public const string Name = "name";
+        public const string Address = "address";
         public const string IsTeacher = "is_teacher";
         public const string FacultyId = "faculty_id";
         public const string AddFavorites = "add_favorites";

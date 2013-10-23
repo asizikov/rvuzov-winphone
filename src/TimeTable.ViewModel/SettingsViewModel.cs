@@ -2,7 +2,6 @@
 using JetBrains.Annotations;
 using TimeTable.ViewModel.Services;
 
-
 namespace TimeTable.ViewModel
 {
     public sealed class SettingsViewModel : BaseViewModel
