@@ -48,7 +48,7 @@
         <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}" />
         <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}" />
         <Setter Property="Foreground" Value="{StaticResource TimeTableSecondaryTextColorBrush}" />
-        <Setter Property="SupportedOrientations" Value="PortraitOrLandscape" />
+        <Setter Property="SupportedOrientations" Value="Portrait" />
         <Setter Property="Orientation" Value="Portrait" />
         <Setter Property="shell:SystemTray.IsVisible" Value="True" />
         <Setter Property="shell:SystemTray.Opacity" Value="0.1" />
