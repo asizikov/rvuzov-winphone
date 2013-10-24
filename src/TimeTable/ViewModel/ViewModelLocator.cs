@@ -84,5 +84,10 @@ namespace TimeTable.ViewModel
                 isTeacher,
                 new AsyncWebClient(new NoCache()));
         }
+
+        public static BaseViewModel  GetAboutViewModel()
+        {
+            return new AboutViewModel(C.Resolve<FlurryPublisher>());
+        }
     }
 }

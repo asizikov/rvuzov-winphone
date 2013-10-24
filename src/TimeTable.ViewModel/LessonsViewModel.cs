@@ -281,6 +281,10 @@ namespace TimeTable.ViewModel
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public ICommand RemoveFromFavoritesCommand { get; private set; }
 
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public ICommand GoToAboutPage { get; private set; }
+
         private void InitCommands()
         {
             GoToSettingsCommand = new SimpleCommand(NavigateToSettingsPage);
@@ -289,6 +293,7 @@ namespace TimeTable.ViewModel
             GoToTodayCommand = new SimpleCommand(SelectTodayItem);
             AddToFavoritesCommand = new SimpleCommand(AddToFavorites);
             RemoveFromFavoritesCommand = new SimpleCommand(RemoveFromFavorites);
+            GoToAboutPage = new SimpleCommand(() => { _navigation.GoToPage(Pages.AboutPage); });
         }
 
         private void RemoveFromFavorites()

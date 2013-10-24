@@ -204,4 +204,10 @@
   <data name="Send" xml:space="preserve">
     <value>отправить</value>
   </data>
+  <data name="About" xml:space="preserve">
+    <value>о программе</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>версия:</value>
+  </data>
 </root>

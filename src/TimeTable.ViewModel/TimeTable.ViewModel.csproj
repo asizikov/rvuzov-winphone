@@ -67,10 +67,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutViewModel.cs" />
     <Compile Include="AuditoriumViewModel.cs" />
     <Compile Include="BaseViewModel.cs" />
-	<Compile Include="AppbarButtonViewModel.cs" />
-	<Compile Include="Commands\ShowAuditoriumCommand.cs" />
+    <Compile Include="AppbarButtonViewModel.cs" />
+    <Compile Include="Commands\ShowAuditoriumCommand.cs" />
     <Compile Include="Commands\ReportErrorCommand.cs" />
     <Compile Include="Commands\ShowGroupTimeTableCommand.cs" />
     <Compile Include="Data\AsyncWebClient.cs" />
@@ -130,6 +131,10 @@
     <ProjectReference Include="..\JetBrains.Annotations\JetBrains.Annotations.csproj">
       <Project>{C9E415F3-1FE2-4838-B421-93B02288D05E}</Project>
       <Name>JetBrains.Annotations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeTable.Configuration\TimeTable.Configuration.csproj">
+      <Project>{1BA688FA-3255-452F-8999-8C38EB1B413C}</Project>
+      <Name>TimeTable.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeTable.Model\TimeTable.Model.csproj">
       <Project>{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}</Project>

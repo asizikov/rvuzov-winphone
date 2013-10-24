@@ -301,6 +301,13 @@ namespace TimeTable.ViewModel.Services
         {
             PublishEvent(FlurryEvents.EventSettingsPageLoaded);
         }
+
+        public void PublishPageLoadedAbout()
+        {
+            PublishEvent(FlurryEvents.EventAboutPageLoaded);
+        }
         #endregion
+
+
     }
 }

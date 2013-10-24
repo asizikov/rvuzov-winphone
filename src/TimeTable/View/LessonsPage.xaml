@@ -71,7 +71,11 @@
                     Text="{Binding Strings.Favorite , Source={StaticResource LocalizedStrings}}"
                     Command="{Binding GoToFavoritesListCommand}"
                     />
-            </bindableApplicationBar:BindableApplicationBar.MenuItems>
+                    <bindableApplicationBar:BindableApplicationBarMenuItem
+                    Text="{Binding Strings.About , Source={StaticResource LocalizedStrings}}"
+                    Command="{Binding GoToAboutPage}"
+                    />
+                </bindableApplicationBar:BindableApplicationBar.MenuItems>
         </bindableApplicationBar:BindableApplicationBar>
     </bindableApplicationBar:Bindable.ApplicationBar>
 </phone:PhoneApplicationPage>

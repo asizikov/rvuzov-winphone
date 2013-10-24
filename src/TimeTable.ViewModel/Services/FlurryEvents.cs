@@ -39,5 +39,6 @@
         public static readonly string EventLessonsPageLoaded = "lessons page loaded";
         public static readonly string EventFavoritesPageLoaded = "favorites page loaded";
         public static readonly string  EventSettingsPageLoaded = "settings page loaded";
+        public static readonly string EventAboutPageLoaded = "about page loaded";
     }
 }

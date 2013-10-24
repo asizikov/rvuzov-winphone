@@ -33,5 +33,8 @@ namespace TimeTable.ViewModel.Services
 
         [NotNull]
         public const string ReportErrorPage = "/View/ReportErrorPage.xaml";
+
+        [NotNull]
+        public const string AboutPage = "/View/AboutPage.xaml";
     }
 }
