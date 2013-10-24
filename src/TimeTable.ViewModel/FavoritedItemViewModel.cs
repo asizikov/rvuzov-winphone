@@ -32,9 +32,7 @@ namespace TimeTable.ViewModel
         {
             get
             {
-                return _item.Type == FavoritedItemType.Group
-                    ? string.Format("{0}: {1}", _stringsProviders.Group, _item.Title)
-                    : _item.Title;
+                return _item.Title.Trim();
             }
         }
 

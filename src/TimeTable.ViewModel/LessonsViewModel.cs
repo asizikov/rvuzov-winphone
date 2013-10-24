@@ -113,7 +113,7 @@ namespace TimeTable.ViewModel
                     _dataProvider.GetTeacherByIdAsync(universityId, _id).Subscribe(teacher =>
                     {
                         _teacher = teacher;
-                        Title = _teacher.Name;
+                        Title = (_teacher != null && _teacher.Name != null) ?  _teacher.Name.Trim() : string.Empty;
                         UpdateFaforitedSate();
                     });
                     LoadLessons();
@@ -127,7 +127,7 @@ namespace TimeTable.ViewModel
                         _dataProvider.GetGroupByIdAsync(_facultyId, _id).Subscribe(group =>
                         {
                             _group = group;
-                            Title = _group.GroupName;
+                            Title = (_group != null && _group.GroupName != null) ? _group.GroupName.Trim() : string.Empty;
                             UpdateFaforitedSate();
                         });
                         LoadLessons();
