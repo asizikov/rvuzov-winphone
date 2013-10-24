@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Navigation;
+using TimeTable.Utils;
 using TimeTable.ViewModel;
 using TimeTable.ViewModel.Services;
 
@@ -45,13 +46,26 @@ namespace TimeTable.View
                     }
                     DataContext = ViewModelLocator.GetLessonsViewModel(id, isTeacher,
                         Int32.Parse(rawUniversityId), isTeacher ? -1 : Int32.Parse(rawFacultyId));
-                    ;
+                    if (State.Count > 0)
+                    {
+                        this.RestoreState(Pivot);
+                    }
                 }
             }
             else
             {
                 Debug.WriteLine("LessonsPage::failed to get parameters from QueryString");
                 throw new KeyNotFoundException("LessonsPage::failed to get parameters from QueryString");
+            }
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+            State.Clear();
+            if (this.ShouldTombstone(e))
+            {
+                this.SaveState(Pivot);
             }
         }
 

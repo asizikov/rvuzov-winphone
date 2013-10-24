@@ -29,7 +29,9 @@
                        Style="{StaticResource PhoneTextLargeStyle}" 
                        Text="{Binding Title}"/>
         </StackPanel>
-        <toolkit:LockablePivot SelectedIndex="{Binding SelectedWeekIndex, Mode=TwoWay}"
+        <toolkit:LockablePivot 
+            x:Name="Pivot"
+            SelectedIndex="{Binding SelectedWeekIndex, Mode=TwoWay}"
             Grid.Row="1" >
             <controls:PivotItem
                 DataContext="{Binding CurrentWeek}"
