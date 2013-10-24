@@ -1,13 +1,16 @@
 ﻿using System.ComponentModel;
+using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
+using TimeTable.Utils;
 using TimeTable.ViewModel;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.View
 {
-    public class SearchPage : PhoneApplicationPage
+    public abstract class SearchPage : PhoneApplicationPage
     {
         protected SearchViewModel ViewModel;
+        protected const string SEARCH_KEY = "search_visibility_key";
 
         private bool IsAddingFavorites()
         {
@@ -34,6 +37,18 @@ namespace TimeTable.View
             {
                 ViewModel.ResetSearchState();
                 e.Cancel = true;
+            }
+        }
+
+        protected abstract void SaveState(NavigatingCancelEventArgs e);
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+            State.Clear();
+            if (this.ShouldTombstone(e))
+            {
+                SaveState(e);
             }
         }
     }

@@ -40,10 +40,11 @@ namespace TimeTable.ViewModel
             get { return _showSearchBoxCommand; }
         }
 
+        [UsedImplicitly(ImplicitUseKindFlags.Assign)]
         public bool IsSearchBoxVisible
         {
             get { return _isSearchBoxVisible; }
-            private set
+            set
             {
                 if (value.Equals(_isSearchBoxVisible)) return;
                 _isSearchBoxVisible = value;

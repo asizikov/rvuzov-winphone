@@ -41,8 +41,8 @@ namespace TimeTable.View
             State.Clear();
             if (this.ShouldTombstone(e))
             {
-                this.SaveState(this.ErrorTextTextBox);
-                if (!string.IsNullOrEmpty(this._errotText))
+                this.SaveState(ErrorTextTextBox);
+                if (!string.IsNullOrEmpty(_errotText))
                 {
                     this.SaveState(ERROR_TEXT_KEY, _errotText);
                 }

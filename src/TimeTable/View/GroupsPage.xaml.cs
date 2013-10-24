@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
+using TimeTable.Utils;
 using TimeTable.ViewModel;
 using TimeTable.ViewModel.Services;
 
@@ -13,7 +15,7 @@ namespace TimeTable.View
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
@@ -31,6 +33,13 @@ namespace TimeTable.View
                         ViewModelLocator.GetGroupsPageViewModel(facultyId, universityId, GetReason()) as
                             SearchViewModel;
                     DataContext = ViewModel;
+
+                    if (State.Count > 0)
+                    {
+                        this.RestoreState(Search);
+                        Search.Visibility = (Visibility) this.RestoreState(SEARCH_KEY);
+                        this.RestoreState(Pivot);
+                    }
                 }
                 else
                 {
@@ -47,6 +56,16 @@ namespace TimeTable.View
         {
             var textBox = sender as TextBox;
             if (textBox != null) textBox.SelectAll();
+        }
+
+        protected override void SaveState(NavigatingCancelEventArgs e)
+        {
+            if (this.ShouldTombstone(e))
+            {
+                this.SaveState(Search);
+                this.SaveState(SEARCH_KEY, Search.Visibility);
+                this.SaveState(Pivot);
+            }
         }
     }
 }

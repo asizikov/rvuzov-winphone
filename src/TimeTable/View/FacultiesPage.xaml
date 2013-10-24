@@ -26,7 +26,7 @@
             <TextBox x:Name="Search"
                      Style="{StaticResource TimeTableSearchTextBoxStyle}"
                              GotFocus="Search_GotFocus"
-                             Visibility="{Binding IsSearchBoxVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                             Visibility="{Binding IsSearchBoxVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay}"
                              Text="{Binding Query,
                                             Mode=TwoWay}"
                              utils:BindingUtility.UpdateSourceOnChange="True"

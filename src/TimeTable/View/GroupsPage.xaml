@@ -28,15 +28,17 @@
         <TextBox x:Name="Search"
                  Style="{StaticResource TimeTableSearchTextBoxStyle}"
                  GotFocus="Search_GotFocus"
-                 Visibility="{Binding IsSearchBoxVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                 Visibility="{Binding IsSearchBoxVisible, Converter={StaticResource BoolToVisibilityConverter},Mode=TwoWay}"
                  Text="{Binding Query, Mode=TwoWay}"
                  utils:BindingUtility.UpdateSourceOnChange="True"
                              x:FieldModifier="private" />
         <toolkit:LockablePivot 
+            x:Name="Pivot"
             IsLocked="{Binding IsSearchBoxVisible}"
             SelectedIndex="{Binding SelectedPivotIndex, Mode=TwoWay}"
             Grid.Row="1">
-            <controls:PivotItem  Header="{Binding Strings.Groups ,Source={StaticResource LocalizedStrings}}">
+            <controls:PivotItem  
+                Header="{Binding Strings.Groups ,Source={StaticResource LocalizedStrings}}">
                 <Grid x:Name="ContentPanel"  Margin="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
