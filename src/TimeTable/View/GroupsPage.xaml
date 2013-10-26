@@ -57,9 +57,10 @@
                         GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}">
                         <toolkit:LongListSelector.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
-                                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding GroupName}" />
-                                </StackPanel>
+                                    <TextBlock 
+                                        toolkit:TiltEffect.IsTiltEnabled="True" Margin="12,0,12,12"
+                                        TextWrapping="Wrap"
+                                        Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding GroupName}" />
                             </DataTemplate>
                         </toolkit:LongListSelector.ItemTemplate>
                     </toolkit:LongListSelector>
@@ -76,9 +77,10 @@
                         GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}">
                     <toolkit:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
-                                <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Name}" />
-                            </StackPanel>
+                                <TextBlock 
+                                    TextWrapping="Wrap"
+                                    toolkit:TiltEffect.IsTiltEnabled="True" Margin="12,0,12,12"
+                                    Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Name}" />
                         </DataTemplate>
                     </toolkit:LongListSelector.ItemTemplate>
                 </toolkit:LongListSelector>
