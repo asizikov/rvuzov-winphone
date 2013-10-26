@@ -61,9 +61,11 @@ namespace TimeTable.ViewModel
                 universityId, facultyId);
         }
 
-        public static AuditoriumViewModel GetAuditoriumViewModel(int auditoiumID, string auditoriumName, string auditoriumAddress)
+        public static AuditoriumViewModel GetAuditoriumViewModel(int auditoiumID, string auditoriumName,
+            string auditoriumAddress)
         {
-            return new AuditoriumViewModel(C.Resolve<INavigationService>(), DataProvider, C.Resolve<IUiStringsProviders>(), auditoiumID, auditoriumName, auditoriumAddress);
+            return new AuditoriumViewModel(C.Resolve<INavigationService>(), DataProvider,
+                C.Resolve<IUiStringsProviders>(), auditoiumID, auditoriumName, auditoriumAddress);
         }
 
         public static BaseViewModel GetFavoritesViewModel()
@@ -82,10 +84,10 @@ namespace TimeTable.ViewModel
         {
             return new ReportErrorViewModel(C.Resolve<INavigationService>(), C.Resolve<FlurryPublisher>(), id, lessonId,
                 isTeacher,
-                new AsyncWebClient(new NoCache()));
+                new AsyncWebClient(new NoCache()), C.Resolve<INotificationService>(), C.Resolve<IUiStringsProviders>());
         }
 
-        public static BaseViewModel  GetAboutViewModel()
+        public static BaseViewModel GetAboutViewModel()
         {
             return new AboutViewModel(C.Resolve<FlurryPublisher>());
         }

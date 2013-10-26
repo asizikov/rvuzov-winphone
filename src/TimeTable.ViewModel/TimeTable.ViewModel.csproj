@@ -108,6 +108,7 @@
     <Compile Include="Restful\UniversityFacultiesRequest.cs" />
     <Compile Include="Restful\UniversityTeachersRequest.cs" />
     <Compile Include="Services\FavoritedItemsManager.cs" />
+    <Compile Include="Services\INotificationService.cs" />
     <Compile Include="Services\IUiStringsProviders.cs" />
     <Compile Include="SettingsViewModel.cs" />
     <Compile Include="TimeTableItemViewModel.cs" />

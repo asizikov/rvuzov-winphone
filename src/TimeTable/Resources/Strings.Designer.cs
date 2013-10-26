@@ -205,6 +205,15 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Упс..
+        /// </summary>
+        public static string Ooops {
+            get {
+                return ResourceManager.GetString("Ooops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to практические занятия.
         /// </summary>
         public static string Practice {
@@ -219,6 +228,15 @@ namespace TimeTable.Resources {
         public static string ReportError {
             get {
                 return ResourceManager.GetString("ReportError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Мы получили данные и потараемся всё исправить в ближайшее время..
+        /// </summary>
+        public static string ReportErrorOk {
+            get {
+                return ResourceManager.GetString("ReportErrorOk", resourceCulture);
             }
         }
         
@@ -277,6 +295,15 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Что-то пошло не так. Может быть проблемы с сетью, а может,что-то сломалось у нас.
+        /// </summary>
+        public static string SomethingWentWrong {
+            get {
+                return ResourceManager.GetString("SomethingWentWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to преподаватели.
         /// </summary>
         public static string Teachers {
@@ -291,6 +318,15 @@ namespace TimeTable.Resources {
         public static string TeachersTimeTable {
             get {
                 return ResourceManager.GetString("TeachersTimeTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Спасибо.
+        /// </summary>
+        public static string ThankYou {
+            get {
+                return ResourceManager.GetString("ThankYou", resourceCulture);
             }
         }
         

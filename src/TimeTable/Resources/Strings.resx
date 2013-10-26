@@ -210,4 +210,16 @@
   <data name="Version" xml:space="preserve">
     <value>версия:</value>
   </data>
+  <data name="Ooops" xml:space="preserve">
+    <value>Упс.</value>
+  </data>
+  <data name="ReportErrorOk" xml:space="preserve">
+    <value>Мы получили данные и потараемся всё исправить в ближайшее время.</value>
+  </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Что-то пошло не так. Может быть проблемы с сетью, а может,что-то сломалось у нас</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Спасибо</value>
+  </data>
 </root>

@@ -51,6 +51,9 @@
     <Reference Include="BindableApplicationBar">
       <HintPath>..\Lib\BindableApplicationBar.dll</HintPath>
     </Reference>
+    <Reference Include="Coding4Fun.Toolkit.Controls">
+      <HintPath>..\Lib\Coding4Fun.Toolkit.Controls.dll</HintPath>
+    </Reference>
     <Reference Include="FlurryWP7SDK">
       <HintPath>..\Lib\FlurryWP7SDK.dll</HintPath>
     </Reference>
@@ -116,6 +119,7 @@
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\FlurryPublisherImpl.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\Notification.cs" />
     <Compile Include="Services\TilesSetter.cs" />
     <Compile Include="ThemeManager.cs" />
     <Compile Include="TimeTableUriMapper.cs" />
@@ -196,6 +200,7 @@
     <Content Include="Resources\Images\Lesson\target.png" />
     <Content Include="Resources\Images\Lesson\teacher.png" />
     <Content Include="Resources\Images\logo.png" />
+    <Content Include="Resources\Images\notification_logo.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Resource Include="Toolkit.Content\ApplicationBar.Check.png" />

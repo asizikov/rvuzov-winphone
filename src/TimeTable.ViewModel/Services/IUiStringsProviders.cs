@@ -13,5 +13,9 @@
         string Today { get; }
         string GroupTimeTable { get; }
         string ReportError { get;}
+        string Oops { get; }
+        string ThankYou { get; }
+        string ReportErrorOk { get; }
+        string SomethingWentWrong { get; }
     }
 }

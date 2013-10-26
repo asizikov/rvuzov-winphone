@@ -58,5 +58,37 @@ namespace TimeTable.Resources
         {
             get { return Strings.ReportError; }
         }
+
+        public string Oops
+        {
+            get
+            {
+                return Strings.Ooops;
+            }
+        }
+
+        public string ThankYou
+        {
+            get
+            {
+                return Strings.ThankYou;
+            }
+        }
+
+        public string ReportErrorOk
+        {
+            get
+            {
+                return Strings.ReportErrorOk;
+            }
+        }
+
+        public string SomethingWentWrong
+        {
+            get
+            {
+                return Strings.SomethingWentWrong;
+            }
+        }
     }
 }
