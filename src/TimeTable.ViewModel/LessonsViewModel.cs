@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
+using TimeTable.ViewModel.Factories;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.Utils;
 
@@ -37,6 +38,7 @@ namespace TimeTable.ViewModel
         private AppbarButtonViewModel _unfavoriteAppbarButton;
         private string _title;
         private Faculty _faculty;
+        private WeekViewModelFactory _weekViewModelFactory;
 
         public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
@@ -108,12 +110,13 @@ namespace TimeTable.ViewModel
             _dataProvider.GetUniversityByIdAsync(universityId).Subscribe(university =>
             {
                 _university = university;
+                _weekViewModelFactory = new WeekViewModelFactory(_commandFactory, _university, _isTeacher, _id);
                 if (_isTeacher)
                 {
                     _dataProvider.GetTeacherByIdAsync(universityId, _id).Subscribe(teacher =>
                     {
                         _teacher = teacher;
-                        Title = (_teacher != null && _teacher.Name != null) ?  _teacher.Name.Trim() : string.Empty;
+                        Title = (_teacher != null && _teacher.Name != null) ? _teacher.Name.Trim() : string.Empty;
                         UpdateFaforitedSate();
                     });
                     LoadLessons();
@@ -127,7 +130,9 @@ namespace TimeTable.ViewModel
                         _dataProvider.GetGroupByIdAsync(_facultyId, _id).Subscribe(group =>
                         {
                             _group = group;
-                            Title = (_group != null && _group.GroupName != null) ? _group.GroupName.Trim() : string.Empty;
+                            Title = (_group != null && _group.GroupName != null)
+                                ? _group.GroupName.Trim()
+                                : string.Empty;
                             UpdateFaforitedSate();
                         });
                         LoadLessons();
@@ -154,29 +159,12 @@ namespace TimeTable.ViewModel
 
         private void FormatTimeTable(Model.TimeTable timeTable)
         {
-            var weekNumber = GetWeekNumber(timeTable.Data.ParityCountdown);
+            var weekNumber = DateTimeUtils.GetRelativeWeekNumber(timeTable.Data.ParityCountdown);
 
-            CurrentWeek = new WeekViewModel(timeTable.Data.Days, weekNumber, _commandFactory,
-                WeekType.Current, _university, _isTeacher, _id);
-            NextWeek = new WeekViewModel(timeTable.Data.Days, weekNumber + 1, _commandFactory,
-                WeekType.Next, _university, _isTeacher, _id);
-            PreviousWeek = new WeekViewModel(timeTable.Data.Days, weekNumber - 1, _commandFactory,
-                WeekType.Previous, _university, _isTeacher, _id);
+            CurrentWeek = _weekViewModelFactory.Create(timeTable.Data.Days, weekNumber, WeekType.Current);
+            NextWeek = _weekViewModelFactory.Create(timeTable.Data.Days, weekNumber + 1, WeekType.Next);
+            PreviousWeek = _weekViewModelFactory.Create(timeTable.Data.Days, weekNumber - 1, WeekType.Previous);
             IsLoading = false;
-        }
-
-        private static int GetWeekNumber(long parityCountdown)
-        {
-            var parityCountDown = DateTimeUtils.DateTimeFromUnixTimestampSeconds(parityCountdown);
-
-            var currentWeekNumber = DateTimeUtils.GetWeekNumber(DateTime.UtcNow);
-            var firstWeekNumber = DateTimeUtils.GetWeekNumber(parityCountDown);
-
-            if (currentWeekNumber > firstWeekNumber)
-            {
-                return currentWeekNumber - firstWeekNumber + 1;
-            }
-            return currentWeekNumber + (53 - firstWeekNumber) + 1; //todo: fixme
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]

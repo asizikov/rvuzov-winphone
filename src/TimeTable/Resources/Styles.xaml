@@ -7,7 +7,6 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:TimeTable.Controls"
-    xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     mc:Ignorable="d">
     <SolidColorBrush x:Key="TimeTableBackgorundColorBrush">#2D3541</SolidColorBrush>
@@ -202,7 +201,7 @@
                                            Foreground="{StaticResource TimeTableBackgorundColorBrush}"
                                            Style="{StaticResource PhoneTextLargeStyle}" />
                             </StackPanel>
-                            <TextBlock Grid.Row="1" Margin="12,0,0,0" Text="{Binding Lesson.TypeName}"
+                            <TextBlock Grid.Row="1" Margin="12,0,12,0" Text="{Binding Lesson.TypeName}"
                                        Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
                                        TextWrapping="Wrap" />
                             <TextBlock Grid.Row="2" Text="{Binding Lesson.Subject}"

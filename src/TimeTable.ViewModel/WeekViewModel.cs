@@ -1,25 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
-using TimeTable.ViewModel.Extensions;
+using TimeTable.ViewModel.Factories;
 
 namespace TimeTable.ViewModel
 {
     public sealed class WeekViewModel : BaseViewModel
     {
         private ObservableCollection<DayViewModel> _days;
-        private DayViewModel _selectedDayItem; 
+        private DayViewModel _selectedDayItem;
 
-        public WeekViewModel(IEnumerable<Day> days, int weekNumber, ICommandFactory commandFactory, WeekType type,
-            University university, bool isTeacher, int holderId)
+        public WeekViewModel(IEnumerable<Day> days, int weekNumber, [NotNull] DayViewModelFactory dayViewModelFactory,
+            WeekType type)
         {
+            if (dayViewModelFactory == null) throw new ArgumentNullException("dayViewModelFactory");
             var parity = weekNumber%2;
             WeekNumber = weekNumber;
 
-            Days =
-                new ObservableCollection<DayViewModel>(days.ToViewModelList(commandFactory, type, parity, university, isTeacher, holderId));
-              
+            Days = new ObservableCollection<DayViewModel>(dayViewModelFactory.CreateList(days, type, parity));
         }
 
         public int WeekNumber { get; private set; }
@@ -35,13 +36,12 @@ namespace TimeTable.ViewModel
             }
         }
 
-        public DayViewModel SelectedDayItem 
+        public DayViewModel SelectedDayItem
         {
-            get {return _selectedDayItem;}
-            set 
+            get { return _selectedDayItem; }
+            set
             {
-                
-                if(Equals(_selectedDayItem,value)) return;
+                if (Equals(_selectedDayItem, value)) return;
 
                 _selectedDayItem = value;
                 OnPropertyChanged("SelectedDayItem");
