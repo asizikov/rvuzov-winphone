@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
@@ -13,6 +14,7 @@ namespace TimeTable.ViewModel
         private readonly Lesson _lesson;
         private readonly ICommandFactory _commandFactory;
         private readonly University _university;
+        private readonly DateTime _date;
         private readonly bool _isTeacher;
         private readonly int _holderId;
         private string _auditoriesList;
@@ -27,6 +29,7 @@ namespace TimeTable.ViewModel
             _lesson = lesson;
             _commandFactory = commandFactory;
             _university = university;
+            _date = date;
             _isTeacher = isTeacher;
             _holderId = holderId;
         }
@@ -54,6 +57,12 @@ namespace TimeTable.ViewModel
         public string Groups
         {
             get { return FormatGroupsList(); }
+        }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public bool IsCurrent
+        {
+            get { return IsLessonCurrent(); }
         }
 
         [CanBeNull]
@@ -144,8 +153,6 @@ namespace TimeTable.ViewModel
                     var auditoriumInfoCommand = _commandFactory.GetShowAuditoriumCommand(_lesson.Auditoriums.Single());
                     yield return new AbstractMenuItem
                     {
-                        //TODO честно говоря не знаю для чего CommandParameter
-                        CommandParameter = _lesson.Auditoriums,
                         Command = auditoriumInfoCommand,
                         Header = auditoriumInfoCommand.Title
                     };
@@ -157,7 +164,6 @@ namespace TimeTable.ViewModel
                         _lesson.Teachers.First());
                     yield return new AbstractMenuItem
                     {
-                        CommandParameter = _lesson.Teachers.First().Id,
                         Command = showTeachersTimeTableCommand,
                         Header = showTeachersTimeTableCommand.Title
                     };
@@ -169,19 +175,34 @@ namespace TimeTable.ViewModel
                         _lesson.Groups.First());
                     yield return new AbstractMenuItem
                     {
-                        CommandParameter = _lesson.Groups.First().Id,
                         Command = showTeachersTimeTableCommand,
                         Header = showTeachersTimeTableCommand.Title
                     };
                 }
 
-                var reportErrorCommand = _commandFactory.GetReportErrorCommand(_holderId,_lesson.Id, _isTeacher);
+                var reportErrorCommand = _commandFactory.GetReportErrorCommand(_holderId, _lesson.Id, _isTeacher);
                 yield return new AbstractMenuItem
                 {
                     Command = reportErrorCommand,
                     Header = reportErrorCommand.Title
                 };
             }
+        }
+
+        private bool IsLessonCurrent()
+        {
+            if (DateTime.Now.Day != _date.Day) return false;
+
+            const string format = "HH:mm";
+            DateTime start;
+            if (!DateTime.TryParseExact(_lesson.TimeStart, format, CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out start)) return false;
+
+            DateTime end;
+            if (!DateTime.TryParseExact(_lesson.TimeEnd, format, CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out end)) return false;
+
+            return _date >= start && _date <= end;
         }
     }
 }

@@ -17,6 +17,7 @@
                     <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
                     <converters:StringContentToVisibilityConverter x:Key="StringContentToVisibilityConverter"/>
                     <converters:StringContentToBoolConverter x:Key="StringContentToBoolConverter"/>
+                    <converters:BoolToLessonColorConverter x:Key="BoolToLessonColorConverter"/>
                     <converters:AnyCountToVisibilityConverter AnyVisibility="Visible" EmptyVisibility="Collapsed" x:Key="AnyCountToVisibeConverterKey"/>
                     <local:LocalizedStrings xmlns:local="clr-namespace:TimeTable.Resources" x:Key="LocalizedStrings" />
                     <system:Boolean x:Key="SystemTrayVisibility">True</system:Boolean>
