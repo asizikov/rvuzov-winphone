@@ -32,8 +32,10 @@ namespace TimeTable.ViewModel
         private readonly Func<Teacher, char> _teachersGroupFunc;
         private Teacher _selectedTeacher;
 
-        public GroupPageViewModel([NotNull] INavigationService navigation, [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] INotificationService notificationService, [NotNull] FlurryPublisher flurryPublisher, [NotNull] FavoritedItemsManager favoritedItemsManager, int universityId, int facultyId, Reason reason)
+        public GroupPageViewModel([NotNull] INavigationService navigation,
+            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
+            [NotNull] INotificationService notificationService, [NotNull] FlurryPublisher flurryPublisher,
+            [NotNull] FavoritedItemsManager favoritedItemsManager, int universityId, int facultyId, Reason reason)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (notificationService == null) throw new ArgumentNullException("notificationService");
@@ -173,7 +175,6 @@ namespace TimeTable.ViewModel
                 TeachersList = FormatResult(_storedTeachersRequest.TeachersList, _teachersGroupFunc);
                 return;
             }
-            //TODO: use enum here.
             if (SelectedPivotIndex == 0) // Groups
             {
                 GroupsList =
@@ -191,7 +192,6 @@ namespace TimeTable.ViewModel
 
         private void NavigateToLessonsPage(Group group, University university)
         {
-
             switch (_reason)
             {
                 case Reason.Registration:
