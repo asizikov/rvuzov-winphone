@@ -65,11 +65,12 @@ namespace TimeTable.ViewModel
             _isTeacher = isTeacher;
             _facultyId = facultyId;
             _flurryPublisher.PublishPageLoadedLessons();
-            Init(universityId, facultyId);
+            Options = new OptionsMonitor();
 
             InitCommands();
             BuildAppBarButtons();
             UpdateFaforitedSate();
+            Init(universityId, facultyId);
         }
 
         private void BuildAppBarButtons()
@@ -110,7 +111,7 @@ namespace TimeTable.ViewModel
             _dataProvider.GetUniversityByIdAsync(universityId).Subscribe(university =>
             {
                 _university = university;
-                _weekViewModelFactory = new WeekViewModelFactory(_commandFactory, _university, _isTeacher, _id);
+                _weekViewModelFactory = new WeekViewModelFactory(_commandFactory, _university, Options, _isTeacher, _id);
                 if (_isTeacher)
                 {
                     _dataProvider.GetTeacherByIdAsync(universityId, _id).Subscribe(teacher =>
@@ -395,6 +396,12 @@ namespace TimeTable.ViewModel
                 _appbarButtons = value;
                 OnPropertyChanged("AppbarButtons");
             }
+        }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        public OptionsMonitor Options
+        {
+            get; private set;
         }
     }
 }

@@ -62,6 +62,26 @@
                 </ListBox>
             </controls:PivotItem>
         </toolkit:LockablePivot>
+        <ScrollViewer 
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Background="{StaticResource TimeTableBackgorundColorBrush}"
+            Visibility="{Binding Options.IsVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+            Margin="0">
+            <ItemsControl
+                x:Name="OptionsList"
+                ItemsSource="{Binding Options.Items}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button 
+                            Margin="24,12,24,12"
+                            Style="{StaticResource ButtonNoBorder}"
+                                Content="{Binding Title}"
+                                Command="{Binding Command}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
     </Grid>
     <bindableApplicationBar:Bindable.ApplicationBar>
         <bindableApplicationBar:BindableApplicationBar

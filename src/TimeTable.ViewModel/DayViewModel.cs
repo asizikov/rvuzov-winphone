@@ -12,20 +12,23 @@ namespace TimeTable.ViewModel
     {
         private readonly Day _dayData;
         private readonly int _parity;
+        private readonly OptionsMonitor _optionsMonitor;
         private readonly bool _isTeacher;
         private readonly int _holderId;
         private ObservableCollection<LessonViewModel> _lessons;
         private DateTime _date;
 
         public DayViewModel([NotNull] Day dayData, WeekType weekType, int parity,
-            [NotNull] ICommandFactory commandFactory,
-            University university, bool isTeacher, int holderId)
+            [NotNull] ICommandFactory commandFactory, University university, [NotNull] OptionsMonitor optionsMonitor,
+            bool isTeacher, int holderId)
         {
             if (dayData == null) throw new ArgumentNullException("dayData");
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
+            if (optionsMonitor == null) throw new ArgumentNullException("optionsMonitor");
 
             _dayData = dayData;
             _parity = parity;
+            _optionsMonitor = optionsMonitor;
             _isTeacher = isTeacher;
             _holderId = holderId;
             _date = SetUpDayName(weekType);
@@ -53,7 +56,8 @@ namespace TimeTable.ViewModel
                     var formattedDay = _date.ToString("dd.MM.yyyy");
                     if (lesson.Dates.Contains(formattedDay))
                     {
-                        yield return new LessonViewModel(lesson, commandFactory, university, _date, _isTeacher, _holderId);
+                        yield return
+                            CreateLessonViewModel(commandFactory, university, lesson);
                     }
                 }
                 else
@@ -67,18 +71,24 @@ namespace TimeTable.ViewModel
 
                         if (IsVisibleInCurrentWeek(lesson))
                         {
-                            yield return new LessonViewModel(lesson, commandFactory, university, _date, _isTeacher, _holderId);
+                            yield return CreateLessonViewModel(commandFactory, university, lesson);
                         }
                     }
                     else
                     {
                         if (IsVisibleInCurrentWeek(lesson))
                         {
-                            yield return new LessonViewModel(lesson, commandFactory, university, _date, _isTeacher, _holderId);
+                            yield return CreateLessonViewModel(commandFactory, university, lesson);
                         }
                     }
                 }
             }
+        }
+
+        private LessonViewModel CreateLessonViewModel(ICommandFactory commandFactory, University university,
+            Lesson lesson)
+        {
+            return new LessonViewModel(lesson, commandFactory, university,_optionsMonitor, _date, _isTeacher, _holderId);
         }
 
         private bool IsVisibleInCurrentWeek(Lesson lesson)

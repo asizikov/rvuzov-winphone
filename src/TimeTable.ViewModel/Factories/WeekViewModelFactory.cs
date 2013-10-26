@@ -11,11 +11,12 @@ namespace TimeTable.ViewModel.Factories
         private readonly DayViewModelFactory _dayViewModelFactory;
 
         public WeekViewModelFactory([NotNull] ICommandFactory commandFactory, [NotNull] University university,
-            bool isTeacher, int id)
+            [NotNull] OptionsMonitor optionsMonitor, bool isTeacher, int id)
         {
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
             if (university == null) throw new ArgumentNullException("university");
-            _dayViewModelFactory = new DayViewModelFactory(university, commandFactory, isTeacher, id);
+            if (optionsMonitor == null) throw new ArgumentNullException("optionsMonitor");
+            _dayViewModelFactory = new DayViewModelFactory(university, commandFactory, optionsMonitor,isTeacher, id);
         }
 
         public WeekViewModel Create(IEnumerable<Day> days, int weekNumber, WeekType weekType)

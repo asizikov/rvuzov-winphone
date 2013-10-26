@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace TimeTable.ViewModel
         private readonly Lesson _lesson;
         private readonly ICommandFactory _commandFactory;
         private readonly University _university;
+        private readonly OptionsMonitor _optionsMonitor;
         private readonly DateTime _date;
         private readonly bool _isTeacher;
         private readonly int _holderId;
@@ -21,7 +23,7 @@ namespace TimeTable.ViewModel
         private string _teachersList;
 
         public LessonViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory,
-            [NotNull] University university, DateTime date, bool isTeacher, int holderId)
+            [NotNull] University university, OptionsMonitor optionsMonitor, DateTime date, bool isTeacher, int holderId)
         {
             if (lesson == null) throw new ArgumentNullException("lesson");
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
@@ -29,6 +31,7 @@ namespace TimeTable.ViewModel
             _lesson = lesson;
             _commandFactory = commandFactory;
             _university = university;
+            _optionsMonitor = optionsMonitor;
             _date = date;
             _isTeacher = isTeacher;
             _holderId = holderId;
@@ -171,13 +174,34 @@ namespace TimeTable.ViewModel
 
                 if (_lesson.Groups != null && _lesson.Groups.Any())
                 {
-                    var showTeachersTimeTableCommand = _commandFactory.GetShowGroupTimeTableCommand(_university,
-                        _lesson.Groups.First());
-                    yield return new AbstractMenuItem
+                    //_lesson.Groups.Add(_lesson.Groups.First());
+                    if (_lesson.Groups.Count > 1)
                     {
-                        Command = showTeachersTimeTableCommand,
-                        Header = showTeachersTimeTableCommand.Title
-                    };
+                        var options = _lesson.Groups.Select(g => new OptionsItem
+                        {
+                            Title = g.GroupName,
+                            Command = _commandFactory.GetShowGroupTimeTableCommand(_university,g)
+                        });
+                        yield return new AbstractMenuItem
+                        {
+                            Command = new SimpleCommand(() =>
+                            {
+                                _optionsMonitor.Items = new ObservableCollection<OptionsItem>(options);
+                                _optionsMonitor.IsVisible = true;
+                            }),
+                            Header = options.First().Command.Title
+                        };
+                    }
+                    else
+                    {
+                        var showTeachersTimeTableCommand = _commandFactory.GetShowGroupTimeTableCommand(_university,
+                            _lesson.Groups.First());
+                        yield return new AbstractMenuItem
+                        {
+                            Command = showTeachersTimeTableCommand,
+                            Header = showTeachersTimeTableCommand.Title
+                        };
+                    }
                 }
 
                 var reportErrorCommand = _commandFactory.GetReportErrorCommand(_holderId, _lesson.Id, _isTeacher);

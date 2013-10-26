@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Navigation;
 using TimeTable.Utils;
@@ -56,6 +57,16 @@ namespace TimeTable.View
             {
                 Debug.WriteLine("LessonsPage::failed to get parameters from QueryString");
                 throw new KeyNotFoundException("LessonsPage::failed to get parameters from QueryString");
+            }
+        }
+
+        protected override void OnBackKeyPress(CancelEventArgs e)
+        {
+            base.OnBackKeyPress(e);
+            if (OptionsList.Visibility == System.Windows.Visibility.Visible)
+            {
+                OptionsList.Visibility = System.Windows.Visibility.Collapsed;
+                e.Cancel = true;
             }
         }
 

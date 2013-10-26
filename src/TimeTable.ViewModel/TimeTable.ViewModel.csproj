@@ -99,6 +99,7 @@
     <Compile Include="FirstPageViewModel.cs" />
     <Compile Include="GroupPageViewModel.cs" />
     <Compile Include="LessonsViewModel.cs" />
+    <Compile Include="OptionsMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportErrorViewModel.cs" />
     <Compile Include="Restful\TimeTableRequest.cs" />
