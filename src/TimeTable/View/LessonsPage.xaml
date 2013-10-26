@@ -14,8 +14,12 @@
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0"
-    shell:SystemTray.ForegroundColor="{StaticResource TimeTableHilighthColor}"
+    shell:SystemTray.ForegroundColor="White"
     d:DataContext="{d:DesignInstance viewModel:LessonsViewModel}">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="{Binding IsLoading}"
+                                 IsVisible="{Binding IsLoading}" />
+    </shell:SystemTray.ProgressIndicator>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{StaticResource TimeTableBackgorundColorBrush}">
@@ -24,7 +28,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
-            <TextBlock Margin="12,24,0,0" 
+            <TextBlock Margin="24,24,0,0" 
                        Foreground="White" 
                        Style="{StaticResource PhoneTextLargeStyle}" 
                        Text="{Binding Title}"/>

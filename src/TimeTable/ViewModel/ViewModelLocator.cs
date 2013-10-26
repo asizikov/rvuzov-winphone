@@ -82,7 +82,7 @@ namespace TimeTable.ViewModel
 
         public static BaseViewModel GetReportErrorViewModel(int id, int lessonId, bool isTeacher)
         {
-            return new ReportErrorViewModel(C.Resolve<INavigationService>(), C.Resolve<FlurryPublisher>(), id, lessonId,
+            return new ReportErrorViewModel(C.Resolve<FlurryPublisher>(), id, lessonId,
                 isTeacher,
                 new AsyncWebClient(new NoCache()), C.Resolve<INotificationService>(), C.Resolve<IUiStringsProviders>());
         }
