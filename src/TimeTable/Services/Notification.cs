@@ -4,12 +4,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Coding4Fun.Toolkit.Controls;
+using JetBrains.Annotations;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.Services
 {
     public class NotificationService : INotificationService
     {
+        private readonly IUiStringsProviders _stringsProviders;
+
+        public NotificationService([NotNull] IUiStringsProviders stringsProviders)
+        {
+            if (stringsProviders == null) throw new ArgumentNullException("stringsProviders");
+            _stringsProviders = stringsProviders;
+        }
+
         public void ShowToast(string title, string message)
         {
             SmartDispatcher.BeginInvoke(() =>
@@ -26,7 +35,11 @@ namespace TimeTable.Services
 
                 toast.Show();
             });
-            
+        }
+
+        public void ShowSomethingWentWrongToast()
+        {
+            ShowToast(_stringsProviders.Oops, _stringsProviders.SomethingWentWrong);
         }
     }
 }

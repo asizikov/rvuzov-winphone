@@ -19,7 +19,7 @@
                     <converters:StringContentToBoolConverter x:Key="StringContentToBoolConverter"/>
                     <converters:AnyCountToVisibilityConverter AnyVisibility="Visible" EmptyVisibility="Collapsed" x:Key="AnyCountToVisibeConverterKey"/>
                     <local:LocalizedStrings xmlns:local="clr-namespace:TimeTable.Resources" x:Key="LocalizedStrings" />
-                    <system:Boolean x:Key="SystemTrayVisibility">False</system:Boolean>
+                    <system:Boolean x:Key="SystemTrayVisibility">True</system:Boolean>
                 </ResourceDictionary>
                 <ResourceDictionary Source="Resources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>

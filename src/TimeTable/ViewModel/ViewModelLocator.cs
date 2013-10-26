@@ -27,7 +27,7 @@ namespace TimeTable.ViewModel
             return
                 new UniversitiesViewModel(C.Resolve<INavigationService>(),
                     C.Resolve<BaseApplicationSettings>(), DataProvider,
-                    C.Resolve<FlurryPublisher>(), reason);
+                    C.Resolve<FlurryPublisher>(), C.Resolve<INotificationService>(), reason);
         }
 
         public static BaseViewModel GetFirstPageViewModel()
@@ -40,7 +40,7 @@ namespace TimeTable.ViewModel
         {
             return new GroupPageViewModel(C.Resolve<INavigationService>(),
                 C.Resolve<BaseApplicationSettings>(),
-                DataProvider,
+                DataProvider, C.Resolve<INotificationService>(),
                 C.Resolve<FlurryPublisher>(), C.Resolve<FavoritedItemsManager>(), universityId, facultyId,
                 reason);
         }
@@ -50,14 +50,14 @@ namespace TimeTable.ViewModel
             return new FacultiesPageViewModel(C.Resolve<INavigationService>(),
                 C.Resolve<BaseApplicationSettings>(),
                 DataProvider,
-                C.Resolve<FlurryPublisher>(), universityId, reason);
+                C.Resolve<FlurryPublisher>(), C.Resolve<INotificationService>(), universityId, reason);
         }
 
         public static LessonsViewModel GetLessonsViewModel(int id, bool isTeacher, int universityId, int facultyId)
         {
             return new LessonsViewModel(C.Resolve<INavigationService>(), C.Resolve<FlurryPublisher>(),
                 C.Resolve<BaseApplicationSettings>(), C.Resolve<ICommandFactory>(),
-                DataProvider, C.Resolve<FavoritedItemsManager>(), C.Resolve<IUiStringsProviders>(), id, isTeacher,
+                DataProvider, C.Resolve<FavoritedItemsManager>(), C.Resolve<IUiStringsProviders>(), C.Resolve<INotificationService>(), id, isTeacher,
                 universityId, facultyId);
         }
 

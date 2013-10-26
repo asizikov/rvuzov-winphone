@@ -11,14 +11,16 @@
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
     xmlns:view="clr-namespace:TimeTable.View"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    Style="{StaticResource TimeTablePageStyle}"
+    shell:SystemTray.ForegroundColor="White"
+    shell:SystemTray.Opacity="0"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="{StaticResource SystemTrayVisibility}"
     d:DataContext="{d:DesignInstance viewModel:GroupPageViewModel}">
-
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="{Binding IsLoading}"
+                                 IsVisible="{Binding IsLoading}" />
+    </shell:SystemTray.ProgressIndicator>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{StaticResource TimeTableBackgorundColorBrush}">
         <Grid.RowDefinitions>
@@ -44,12 +46,6 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <toolkit:PerformanceProgressBar
-                        IsIndeterminate="true"
-                        Height="12"
-                        Width="480"
-                        Grid.Row="0"
-                        Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
                     <toolkit:LongListSelector
                         Grid.Row="0"
                         Background="Transparent"

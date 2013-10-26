@@ -21,6 +21,7 @@ namespace TimeTable.ViewModel
         private readonly AsyncDataProvider _dataProvider;
         private readonly FavoritedItemsManager _favoritedItemsManager;
         private readonly IUiStringsProviders _stringsProviders;
+        private readonly INotificationService _notificationService;
         private readonly int _id;
         private readonly FlurryPublisher _flurryPublisher;
         private readonly bool _isTeacher;
@@ -40,11 +41,8 @@ namespace TimeTable.ViewModel
         private Faculty _faculty;
         private WeekViewModelFactory _weekViewModelFactory;
 
-        public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
-            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
-            [NotNull] AsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager,
-            [NotNull] IUiStringsProviders stringsProviders, int id,
-            bool isTeacher, int universityId, int facultyId)
+        public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher, [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory, [NotNull] AsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager, [NotNull] IUiStringsProviders stringsProviders,
+            [NotNull] INotificationService notificationService, int id, bool isTeacher, int universityId, int facultyId)
 
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
@@ -53,6 +51,7 @@ namespace TimeTable.ViewModel
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (favoritedItemsManager == null) throw new ArgumentNullException("favoritedItemsManager");
             if (stringsProviders == null) throw new ArgumentNullException("stringsProviders");
+            if (notificationService == null) throw new ArgumentNullException("notificationService");
 
             _navigation = navigation;
             _applicationSettings = applicationSettings;
@@ -61,6 +60,7 @@ namespace TimeTable.ViewModel
             _dataProvider = dataProvider;
             _favoritedItemsManager = favoritedItemsManager;
             _stringsProviders = stringsProviders;
+            _notificationService = notificationService;
             _id = id;
             _isTeacher = isTeacher;
             _facultyId = facultyId;
@@ -146,15 +146,21 @@ namespace TimeTable.ViewModel
             if (_isTeacher)
             {
                 _dataProvider.GetLessonsForTeacherAsync(_id)
-                    .Subscribe(FormatTimeTable, ex => { IsLoading = false; });
+                    .Subscribe(FormatTimeTable, ex => OnError());
             }
             else
             {
                 _dataProvider.GetLessonsForGroupAsync(_id).Subscribe(
                     FormatTimeTable,
-                    ex => { IsLoading = false; }
+                    ex => OnError()
                     );
             }
+        }
+
+        private void OnError()
+        {
+            IsLoading = false;
+            _notificationService.ShowSomethingWentWrongToast();
         }
 
         private void FormatTimeTable(Model.TimeTable timeTable)

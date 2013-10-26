@@ -22,6 +22,7 @@ namespace TimeTable.ViewModel
     {
         private readonly AsyncDataProvider _dataProvider;
         private readonly FlurryPublisher _flurry;
+        private readonly INotificationService _notificationService;
         private readonly Reason _reason;
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
@@ -33,14 +34,16 @@ namespace TimeTable.ViewModel
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurry, Reason reason)
+            [NotNull] FlurryPublisher flurry, [NotNull] INotificationService notificationService, Reason reason)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurry == null) throw new ArgumentNullException("flurry");
+            if (notificationService == null) throw new ArgumentNullException("notificationService");
             if (navigation == null) throw new ArgumentNullException("navigation");
 
             _dataProvider = dataProvider;
             _flurry = flurry;
+            _notificationService = notificationService;
             _reason = reason;
             _navigation = navigation;
             _applicationSettings = applicationSettings;
@@ -65,11 +68,7 @@ namespace TimeTable.ViewModel
                 ex =>
                 {
                     IsLoading = false;
-                    //handle exception
-                },
-                () =>
-                {
-                    //handle loaded
+                    _notificationService.ShowSomethingWentWrongToast();
                 }
                 );
         }

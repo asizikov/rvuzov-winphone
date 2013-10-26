@@ -9,10 +9,12 @@
     xmlns:utils="clr-namespace:TimeTable.Utils"
     xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     xmlns:view="clr-namespace:TimeTable.View"
-    SupportedOrientations="Portrait"
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="{StaticResource SystemTrayVisibility}">
-
+    Style="{StaticResource TimeTablePageStyle}"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="{Binding IsLoading}"
+                                 IsVisible="{Binding IsLoading}" />
+    </shell:SystemTray.ProgressIndicator>
     <Grid Background="{StaticResource TimeTableBackgorundColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -39,12 +41,6 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <toolkit:PerformanceProgressBar 
-                IsIndeterminate="true"
-                Foreground="{StaticResource PhoneAccentBrush}"
-                Height="150" 
-                 Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"
-                Margin="0" />
             <toolkit:LongListSelector Grid.Row="0"
                 Background="Transparent"
                 IsFlatList="False"

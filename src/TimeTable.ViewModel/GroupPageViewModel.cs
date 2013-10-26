@@ -16,6 +16,7 @@ namespace TimeTable.ViewModel
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly AsyncDataProvider _dataProvider;
+        private readonly INotificationService _notificationService;
         private readonly FlurryPublisher _flurryPublisher;
         private readonly FavoritedItemsManager _favoritedItemsManager;
         private readonly int _universityId;
@@ -31,12 +32,11 @@ namespace TimeTable.ViewModel
         private readonly Func<Teacher, char> _teachersGroupFunc;
         private Teacher _selectedTeacher;
 
-        public GroupPageViewModel([NotNull] INavigationService navigation,
-            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurryPublisher, [NotNull] FavoritedItemsManager favoritedItemsManager,
-            int universityId, int facultyId, Reason reason)
+        public GroupPageViewModel([NotNull] INavigationService navigation, [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
+            [NotNull] INotificationService notificationService, [NotNull] FlurryPublisher flurryPublisher, [NotNull] FavoritedItemsManager favoritedItemsManager, int universityId, int facultyId, Reason reason)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
+            if (notificationService == null) throw new ArgumentNullException("notificationService");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
             if (favoritedItemsManager == null) throw new ArgumentNullException("favoritedItemsManager");
             if (navigation == null) throw new ArgumentNullException("navigation");
@@ -45,6 +45,7 @@ namespace TimeTable.ViewModel
             _navigation = navigation;
             _applicationSettings = applicationSettings;
             _dataProvider = dataProvider;
+            _notificationService = notificationService;
             _flurryPublisher = flurryPublisher;
             _favoritedItemsManager = favoritedItemsManager;
             _universityId = universityId;
@@ -147,16 +148,21 @@ namespace TimeTable.ViewModel
                     GroupsList = FormatResult(result.GroupsList, _groupFunc);
                     IsLoading = false;
                 },
-                ex => { IsLoading = false; }
-                );
+                ex => OnError());
 
             _dataProvider.GetUniversityTeachersAsync(_universityId).Subscribe(
                 result =>
                 {
                     _storedTeachersRequest = result;
                     TeachersList = FormatResult(result.TeachersList, _teachersGroupFunc);
-                }, ex => { IsLoading = false; }
+                }, ex => OnError()
                 );
+        }
+
+        private void OnError()
+        {
+            IsLoading = false;
+            _notificationService.ShowSomethingWentWrongToast();
         }
 
         protected override void GetResults(string search)

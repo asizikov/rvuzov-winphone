@@ -17,6 +17,7 @@ namespace TimeTable.ViewModel
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly AsyncDataProvider _dataProvider;
         private readonly FlurryPublisher _flurryPublisher;
+        private readonly INotificationService _notificationService;
         private readonly int _universityId;
         private readonly Reason _reason;
         private ObservableCollection<ListGroup<Faculty>> _facultiesList;
@@ -26,10 +27,12 @@ namespace TimeTable.ViewModel
 
         public FacultiesPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurryPublisher, int universityId, Reason reason)
+            [NotNull] FlurryPublisher flurryPublisher, [NotNull] INotificationService notificationService,
+            int universityId, Reason reason)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
+            if (notificationService == null) throw new ArgumentNullException("notificationService");
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
 
@@ -37,6 +40,7 @@ namespace TimeTable.ViewModel
             _applicationSettings = applicationSettings;
             _dataProvider = dataProvider;
             _flurryPublisher = flurryPublisher;
+            _notificationService = notificationService;
             _universityId = universityId;
             _reason = reason;
             _flurryPublisher.PublishPageLoadedFaculties();
@@ -93,7 +97,11 @@ namespace TimeTable.ViewModel
                     FacultiesList = FormatResult(result.Data, _facultyGroupFunc);
                     IsLoading = false;
                 },
-                ex => { IsLoading = false; }
+                ex =>
+                {
+                    IsLoading = false;
+                    _notificationService.ShowSomethingWentWrongToast();
+                }
                 );
         }
 
