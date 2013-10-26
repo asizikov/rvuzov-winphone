@@ -14,7 +14,7 @@ namespace TimeTable.ViewModel
         private readonly int _parity;
         private readonly bool _isTeacher;
         private readonly int _holderId;
-        private ObservableCollection<TimeTableItemViewModel> _lessons;
+        private ObservableCollection<LessonViewModel> _lessons;
         private DateTime _date;
 
         public DayViewModel([NotNull] Day dayData, WeekType weekType, int parity,
@@ -33,16 +33,16 @@ namespace TimeTable.ViewModel
             if (_dayData.Lessons != null)
             {
                 Lessons =
-                    new ObservableCollection<TimeTableItemViewModel>(
+                    new ObservableCollection<LessonViewModel>(
                         FilterLessons(_dayData.Lessons, commandFactory, university));
             }
             else
             {
-                Lessons = new ObservableCollection<TimeTableItemViewModel>();
+                Lessons = new ObservableCollection<LessonViewModel>();
             }
         }
 
-        private IEnumerable<TimeTableItemViewModel> FilterLessons(IEnumerable<Lesson> lessons,
+        private IEnumerable<LessonViewModel> FilterLessons(IEnumerable<Lesson> lessons,
             ICommandFactory commandFactory, University university)
         {
             var ordered = lessons.OrderBy(lesson => lesson.TimeStart);
@@ -53,7 +53,7 @@ namespace TimeTable.ViewModel
                     var formattedDay = _date.ToString("dd.MM.yyyy");
                     if (lesson.Dates.Contains(formattedDay))
                     {
-                        yield return new TimeTableItemViewModel(lesson, commandFactory, university, _date, _isTeacher, _holderId);
+                        yield return new LessonViewModel(lesson, commandFactory, university, _date, _isTeacher, _holderId);
                     }
                 }
                 else
@@ -67,14 +67,14 @@ namespace TimeTable.ViewModel
 
                         if (IsVisibleInCurrentWeek(lesson))
                         {
-                            yield return new TimeTableItemViewModel(lesson, commandFactory, university, _date, _isTeacher, _holderId);
+                            yield return new LessonViewModel(lesson, commandFactory, university, _date, _isTeacher, _holderId);
                         }
                     }
                     else
                     {
                         if (IsVisibleInCurrentWeek(lesson))
                         {
-                            yield return new TimeTableItemViewModel(lesson, commandFactory, university, _date, _isTeacher, _holderId);
+                            yield return new LessonViewModel(lesson, commandFactory, university, _date, _isTeacher, _holderId);
                         }
                     }
                 }
@@ -122,7 +122,7 @@ namespace TimeTable.ViewModel
 
         [NotNull]
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public ObservableCollection<TimeTableItemViewModel> Lessons
+        public ObservableCollection<LessonViewModel> Lessons
         {
             get { return _lessons; }
             private set

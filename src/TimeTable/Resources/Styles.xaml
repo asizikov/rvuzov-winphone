@@ -155,6 +155,7 @@
     <DataTemplate x:Key="TimeTableWeekDataTemplate">
         <StackPanel Visibility="{Binding Lessons, Converter={StaticResource AnyCountToVisibeConverterKey}}">
             <StackPanel
+                CacheMode="BitmapCache"
                 Orientation="Horizontal">
                 <TextBlock
                     Margin="12,0,0,12"
@@ -175,6 +176,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="White"
+                              CacheMode="BitmapCache"
                               Width="432"
                               Margin="0,0,0,12">
                             <toolkit:ContextMenuService.ContextMenu>
@@ -194,7 +196,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Rectangle 
-
+                                CacheMode="BitmapCache"
                                 Fill="{Binding IsCurrent, Converter={StaticResource BoolToLessonColorConverter}}"
                                 Grid.RowSpan="5"
                                 Grid.Row="0"
@@ -206,19 +208,24 @@
                                 Grid.ColumnSpan="2"
                                 Grid.Column="1"
                                 Orientation="Horizontal">
-                                <TextBlock Text="{Binding Lesson.TimeStart}" Margin="0"
+                                <TextBlock 
+                                    CacheMode="BitmapCache"
+                                    Text="{Binding Lesson.TimeStart}" Margin="0"
                                            Foreground="{StaticResource TimeTableBackgorundColorBrush}"
                                            Style="{StaticResource PhoneTextLargeStyle}" />
                                 <TextBlock Text="-" Margin="0"
+                                           CacheMode="BitmapCache"
                                            Foreground="{StaticResource TimeTableBackgorundColorBrush}"
                                            Style="{StaticResource PhoneTextLargeStyle}" />
                                 <TextBlock Text="{Binding Lesson.TimeEnd}" Margin="0 "
+                                           CacheMode="BitmapCache"
                                            Foreground="{StaticResource TimeTableBackgorundColorBrush}"
                                            Style="{StaticResource PhoneTextLargeStyle}" />
                             </StackPanel>
                             <TextBlock
                                 Grid.ColumnSpan="2"
                                 Grid.Column="1"
+                                CacheMode="BitmapCache"
                                 Grid.Row="1" Margin="12,0,24,0" Text="{Binding Lesson.TypeName}"
                                 Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
                                 TextWrapping="Wrap" />
@@ -226,6 +233,7 @@
                                 Grid.ColumnSpan="2"
                                 Grid.Column="1"
                                 Margin="12,0,12,12"
+                                CacheMode="BitmapCache"
                                 Grid.Row="2" Text="{Binding Lesson.Subject}"
                                 Foreground="{StaticResource TimeTableBackgorundColorBrush}"
                                 Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" />
@@ -241,6 +249,7 @@
                                 Grid.Column="2"
                                 Grid.Row="4"
                                 Margin="0,0,12,12"
+                                CacheMode="BitmapCache"
                                 Visibility="{Binding Auditory, 
                                 Converter={StaticResource StringContentToVisibilityConverter}}"
                                 Text="{Binding Auditory}"
@@ -254,6 +263,7 @@
                                 Margin="12,0,12,12" CacheMode="BitmapCache"
                                 Source="../Resources/Images/Lesson/teacher.png" />
                             <TextBlock
+                                CacheMode="BitmapCache"
                                 Grid.Row="3"
                                 Grid.Column="2"
                                 Margin="0,0,12,12"
@@ -275,6 +285,7 @@
                                 Grid.Column="2"
                                 Grid.Row="3"
                                 Margin="0,0,12,12"
+                                CacheMode="BitmapCache"
                                 Visibility="{Binding Groups, 
                                 Converter={StaticResource StringContentToVisibilityConverter}}"
                                 Text="{Binding Groups}"

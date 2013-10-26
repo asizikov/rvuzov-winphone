@@ -9,7 +9,7 @@ using TimeTable.ViewModel.Commands;
 
 namespace TimeTable.ViewModel
 {
-    public sealed class TimeTableItemViewModel : BaseViewModel
+    public sealed class LessonViewModel : BaseViewModel
     {
         private readonly Lesson _lesson;
         private readonly ICommandFactory _commandFactory;
@@ -20,7 +20,7 @@ namespace TimeTable.ViewModel
         private string _auditoriesList;
         private string _teachersList;
 
-        public TimeTableItemViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory,
+        public LessonViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory,
             [NotNull] University university, DateTime date, bool isTeacher, int holderId)
         {
             if (lesson == null) throw new ArgumentNullException("lesson");
@@ -193,16 +193,12 @@ namespace TimeTable.ViewModel
         {
             if (DateTime.Now.Day != _date.Day) return false;
 
-            const string format = "HH:mm";
-            DateTime start;
-            if (!DateTime.TryParseExact(_lesson.TimeStart, format, CultureInfo.InvariantCulture,
-                DateTimeStyles.None, out start)) return false;
-
-            DateTime end;
-            if (!DateTime.TryParseExact(_lesson.TimeEnd, format, CultureInfo.InvariantCulture,
-                DateTimeStyles.None, out end)) return false;
-
-            return _date >= start && _date <= end;
+            var now = DateTime.Now.ToString("HH:mm");
+            var lessonStarted = string.Compare(now, _lesson.TimeStart, CultureInfo.InvariantCulture,
+                CompareOptions.IgnoreCase);
+            var lessonEnded = string.Compare(now, _lesson.TimeEnd, CultureInfo.InvariantCulture,
+                CompareOptions.IgnoreCase);
+            return lessonStarted >= 0 && lessonEnded <= 0;
         }
     }
 }

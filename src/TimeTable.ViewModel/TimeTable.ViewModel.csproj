@@ -112,7 +112,7 @@
     <Compile Include="Services\INotificationService.cs" />
     <Compile Include="Services\IUiStringsProviders.cs" />
     <Compile Include="SettingsViewModel.cs" />
-    <Compile Include="TimeTableItemViewModel.cs" />
+    <Compile Include="LessonViewModel.cs" />
     <Compile Include="SearchViewModel.cs" />
     <Compile Include="Services\BaseApplicationSettings.cs" />
     <Compile Include="Services\DebugFlurryPublisher.cs" />
