@@ -79,6 +79,7 @@
     <Compile Include="Data\UniversitiesCache.cs" />
     <Compile Include="DefaultViewModel.cs" />
     <Compile Include="Extensions\FavoritedExtensions.cs" />
+    <Compile Include="Factories\DayViewModelFactory.cs" />
     <Compile Include="Factories\WeekViewModelFactory.cs" />
     <Compile Include="FavoritedItemViewModel.cs" />
     <Compile Include="FavoritedState.cs" />
@@ -95,7 +96,6 @@
     <Compile Include="Data\InMemoryCache.cs" />
     <Compile Include="DayViewModel.cs" />
     <Compile Include="Enums\UserRole.cs" />
-    <Compile Include="Extensions\DayExtensions.cs" />
     <Compile Include="FirstPageViewModel.cs" />
     <Compile Include="GroupPageViewModel.cs" />
     <Compile Include="LessonsViewModel.cs" />

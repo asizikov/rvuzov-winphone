@@ -6,6 +6,7 @@ using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Text;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace TimeTable.Networking
 {
@@ -104,7 +105,16 @@ namespace TimeTable.Networking
             }
             Debug.WriteLine(json);
             var result = _deserializer.Deserialize<T>(json);
-            observer.OnNext(result);
+// ReSharper disable once CompareNonConstrainedGenericWithNull
+            if (result != null)
+            {
+                observer.OnNext(result);
+            }
+            else
+            {
+                observer.OnError(new JsonSerializationException("Can't deserialize the responce : " + json));
+            }
+            
         }
 
         private static void HandleException(Exception ignored)
