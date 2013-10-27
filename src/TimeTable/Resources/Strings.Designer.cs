@@ -205,6 +205,15 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to расписания для этой недели у нас нет..
+        /// </summary>
+        public static string NoLessons {
+            get {
+                return ResourceManager.GetString("NoLessons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Упс..
         /// </summary>
         public static string Ooops {
@@ -295,7 +304,7 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Что-то пошло не так. Может быть проблемы с сетью, а может,что-то сломалось у нас.
+        ///   Looks up a localized string similar to Что-то пошло не так. Может быть проблемы с сетью, а может, что-то сломалось у нас..
         /// </summary>
         public static string SomethingWentWrong {
             get {

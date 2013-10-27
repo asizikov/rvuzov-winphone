@@ -217,9 +217,12 @@
     <value>Мы получили данные и потараемся всё исправить в ближайшее время.</value>
   </data>
   <data name="SomethingWentWrong" xml:space="preserve">
-    <value>Что-то пошло не так. Может быть проблемы с сетью, а может,что-то сломалось у нас</value>
+    <value>Что-то пошло не так. Может быть проблемы с сетью, а может, что-то сломалось у нас.</value>
   </data>
   <data name="ThankYou" xml:space="preserve">
     <value>Спасибо</value>
+  </data>
+  <data name="NoLessons" xml:space="preserve">
+    <value>расписания для этой недели у нас нет.</value>
   </data>
 </root>

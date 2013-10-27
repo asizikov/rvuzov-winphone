@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
@@ -20,7 +21,9 @@ namespace TimeTable.ViewModel
             var parity = weekNumber%2;
             WeekNumber = weekNumber;
 
-            Days = new ObservableCollection<DayViewModel>(dayViewModelFactory.CreateList(days, type, parity));
+            Days =
+                new ObservableCollection<DayViewModel>(
+                    dayViewModelFactory.CreateList(days, type, parity).Where(d => d.Lessons.Any()));
         }
 
         public int WeekNumber { get; private set; }
