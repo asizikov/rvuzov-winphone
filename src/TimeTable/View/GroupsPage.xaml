@@ -42,10 +42,6 @@
             <controls:PivotItem  
                 Header="{Binding Strings.Groups ,Source={StaticResource LocalizedStrings}}">
                 <Grid x:Name="ContentPanel"  Margin="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
                     <toolkit:LongListSelector
                         Grid.Row="0"
                         Background="Transparent"
@@ -64,9 +60,17 @@
                             </DataTemplate>
                         </toolkit:LongListSelector.ItemTemplate>
                     </toolkit:LongListSelector>
+                    <TextBlock
+                        TextWrapping="Wrap"
+                        Style="{StaticResource PhoneTextLargeStyle}"
+                        Visibility="{Binding GroupsList, 
+                        Converter={StaticResource ReversedAnyCountToVisibeConverterKey},
+                        FallbackValue='Collapsed'}"
+                        Text="{Binding Strings.NoData, Source={StaticResource LocalizedStrings}}" />
                 </Grid>
             </controls:PivotItem>
             <controls:PivotItem Header="{Binding Strings.Teachers, Source={StaticResource LocalizedStrings}}">
+                <Grid>
                 <toolkit:LongListSelector
                         Background="Transparent"
                         Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
@@ -84,6 +88,14 @@
                         </DataTemplate>
                     </toolkit:LongListSelector.ItemTemplate>
                 </toolkit:LongListSelector>
+                    <TextBlock
+                        TextWrapping="Wrap"
+                        Style="{StaticResource PhoneTextLargeStyle}"
+                        Visibility="{Binding TeachersList, 
+                        Converter={StaticResource ReversedAnyCountToVisibeConverterKey},
+                        FallbackValue='Collapsed'}"
+                        Text="{Binding Strings.NoData, Source={StaticResource LocalizedStrings}}" />
+                </Grid>
     </controls:PivotItem>
         </toolkit:LockablePivot>
     </Grid>

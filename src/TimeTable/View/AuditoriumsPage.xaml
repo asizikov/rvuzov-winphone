@@ -40,7 +40,7 @@
             <ContentControl>
                 <TextBlock
                     toolkit:TiltEffect.IsTiltEnabled="True"
-                    Text="посмотреть в приложении"
+                    Text="{Binding Path=Strings.ShowMap, Source={StaticResource LocalizedStrings}}"
                     Foreground="{StaticResource PhoneAccentBrush}"
                     Style="{StaticResource PhoneTextLargeStyle}" />
             </ContentControl>

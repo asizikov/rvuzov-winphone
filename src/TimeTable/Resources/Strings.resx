@@ -160,7 +160,7 @@
     <value>факультеты</value>
   </data>
   <data name="SelectUniversity" xml:space="preserve">
-    <value>ВУЗы</value>
+    <value>университеты</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>настройки</value>
@@ -193,7 +193,7 @@
     <value>занятость аудитории</value>
   </data>
   <data name="AuditoryNameTemplate" xml:space="preserve">
-    <value>Аудитория {0}</value>
+    <value>аудитория {0}</value>
   </data>
   <data name="ErrorReport" xml:space="preserve">
     <value>сообщить об ошибке</value>
@@ -224,5 +224,11 @@
   </data>
   <data name="NoLessons" xml:space="preserve">
     <value>расписания для этой недели у нас нет.</value>
+  </data>
+  <data name="ShowMap" xml:space="preserve">
+    <value>посмотреть на карте</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>нет данных</value>
   </data>
 </root>

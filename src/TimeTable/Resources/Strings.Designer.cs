@@ -106,7 +106,7 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Аудитория {0}.
+        ///   Looks up a localized string similar to аудитория {0}.
         /// </summary>
         public static string AuditoryNameTemplate {
             get {
@@ -205,6 +205,15 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to нет данных.
+        /// </summary>
+        public static string NoData {
+            get {
+                return ResourceManager.GetString("NoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to расписания для этой недели у нас нет..
         /// </summary>
         public static string NoLessons {
@@ -268,7 +277,7 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ВУЗы.
+        ///   Looks up a localized string similar to университеты.
         /// </summary>
         public static string SelectUniversity {
             get {
@@ -300,6 +309,15 @@ namespace TimeTable.Resources {
         public static string ShowInTheSchedule {
             get {
                 return ResourceManager.GetString("ShowInTheSchedule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to посмотреть на карте.
+        /// </summary>
+        public static string ShowMap {
+            get {
+                return ResourceManager.GetString("ShowMap", resourceCulture);
             }
         }
         
