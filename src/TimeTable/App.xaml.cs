@@ -124,6 +124,9 @@ namespace TimeTable
         // Code to execute on Unhandled Exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
+            var flurry = ContainerInstance.Current.Resolve<FlurryPublisher>();
+            flurry.PublishException(e.ExceptionObject);
+            flurry.EndSession();
             CrashLogger.SaveCrashInfo(e);
 
             if (System.Diagnostics.Debugger.IsAttached)

@@ -36,7 +36,7 @@ namespace TimeTable.ViewModel.Utils
         [PublicAPI]
         public static int GetWeekNumber(DateTime date)
         {
-            var currentCulture = CultureInfo.InvariantCulture;
+            var currentCulture = new CultureInfo("Ru-ru");
             return currentCulture.Calendar.GetWeekOfYear(
                 date,
                 currentCulture.DateTimeFormat.CalendarWeekRule,

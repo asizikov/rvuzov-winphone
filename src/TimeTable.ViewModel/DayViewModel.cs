@@ -102,8 +102,8 @@ namespace TimeTable.ViewModel
         private DateTime SetUpDayName(WeekType weekType)
         {
             var today = DateTime.Now;
-            var delta = DayOfWeek.Monday - today.DayOfWeek;
-            var monday = today.AddDays(delta);
+            var delta = (7 + (today.DayOfWeek - DayOfWeek.Monday)) % 7;
+            var monday = today.AddDays(-delta);
 
             switch (weekType)
             {
