@@ -7,9 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
-    SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="{StaticResource SystemTrayVisibility}"
+    shell:SystemTray.IsVisible="False"
     Style="{StaticResource TimeTablePageStyle}"
     d:DataContext="{d:DesignInstance viewModel:FirstPageViewModel}">
     <!--LayoutRoot is the root grid where all page content is placed-->
