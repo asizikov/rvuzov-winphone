@@ -51,5 +51,10 @@ namespace TimeTable.View
                 this.SaveState(SEARCH_KEY, Search.Visibility);
             }
         }
+
+        protected override void SetFocuse()
+        {
+            Search.Focus();
+        }
     }
 }

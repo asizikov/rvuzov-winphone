@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using TimeTable.Utils;
@@ -41,5 +42,10 @@ namespace TimeTable.View
             }
         }
 
+        
+        protected override void SetFocuse()
+        {
+            Search.Focus();
+        }
     }
 }

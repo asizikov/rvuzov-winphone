@@ -67,5 +67,10 @@ namespace TimeTable.View
                 this.SaveState(Pivot);
             }
         }
+
+        protected override void SetFocuse()
+        {
+            Search.Focus();
+        }
     }
 }
