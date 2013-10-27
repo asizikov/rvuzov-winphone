@@ -8,6 +8,7 @@ using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Factories;
+using TimeTable.ViewModel.MenuItems;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.Utils;
 
@@ -111,7 +112,8 @@ namespace TimeTable.ViewModel
             _dataProvider.GetUniversityByIdAsync(universityId).Subscribe(university =>
             {
                 _university = university;
-                _weekViewModelFactory = new WeekViewModelFactory(_commandFactory, _university, Options, _isTeacher, _id);
+                var menuItemsFactory = new LessonMenuItemsFactory(_commandFactory, _university, Options);
+                _weekViewModelFactory = new WeekViewModelFactory(menuItemsFactory, _isTeacher, _id);
                 if (_isTeacher)
                 {
                     _dataProvider.GetTeacherByIdAsync(universityId, _id).Subscribe(teacher =>
@@ -288,7 +290,7 @@ namespace TimeTable.ViewModel
             GoToTodayCommand = new SimpleCommand(SelectTodayItem);
             AddToFavoritesCommand = new SimpleCommand(AddToFavorites);
             RemoveFromFavoritesCommand = new SimpleCommand(RemoveFromFavorites);
-            GoToAboutPage = new SimpleCommand(() => { _navigation.GoToPage(Pages.AboutPage); });
+            GoToAboutPage = new SimpleCommand(() => _navigation.GoToPage(Pages.AboutPage));
         }
 
         private void RemoveFromFavorites()

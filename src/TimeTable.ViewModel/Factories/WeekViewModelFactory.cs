@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using TimeTable.Model;
-using TimeTable.ViewModel.Commands;
+using TimeTable.ViewModel.MenuItems;
 
 namespace TimeTable.ViewModel.Factories
 {
@@ -10,13 +10,11 @@ namespace TimeTable.ViewModel.Factories
     {
         private readonly DayViewModelFactory _dayViewModelFactory;
 
-        public WeekViewModelFactory([NotNull] ICommandFactory commandFactory, [NotNull] University university,
-            [NotNull] OptionsMonitor optionsMonitor, bool isTeacher, int id)
+        public WeekViewModelFactory([NotNull] LessonMenuItemsFactory menuItemsFactory, bool isTeacher, int id)
         {
-            if (commandFactory == null) throw new ArgumentNullException("commandFactory");
-            if (university == null) throw new ArgumentNullException("university");
-            if (optionsMonitor == null) throw new ArgumentNullException("optionsMonitor");
-            _dayViewModelFactory = new DayViewModelFactory(university, commandFactory, optionsMonitor,isTeacher, id);
+            if (menuItemsFactory == null) throw new ArgumentNullException("menuItemsFactory");
+
+            _dayViewModelFactory = new DayViewModelFactory(menuItemsFactory, isTeacher, id);
         }
 
         public WeekViewModel Create(IEnumerable<Day> days, int weekNumber, WeekType weekType)

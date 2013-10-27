@@ -63,13 +63,14 @@
             </controls:PivotItem>
         </toolkit:LockablePivot>
         <ScrollViewer 
+            x:Name="OptionsList"
             Grid.Row="0"
             Grid.RowSpan="2"
             Background="{StaticResource TimeTableBackgorundColorBrush}"
-            Visibility="{Binding Options.IsVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+            Visibility="{Binding Options.IsVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay}"
             Margin="0">
             <ItemsControl
-                x:Name="OptionsList"
+                Margin="12,37,12,12"
                 ItemsSource="{Binding Options.Items}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

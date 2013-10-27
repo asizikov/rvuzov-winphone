@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Model;
-using TimeTable.ViewModel.Commands;
+using TimeTable.ViewModel.MenuItems;
 
 namespace TimeTable.ViewModel
 {
@@ -12,23 +12,20 @@ namespace TimeTable.ViewModel
     {
         private readonly Day _dayData;
         private readonly int _parity;
-        private readonly OptionsMonitor _optionsMonitor;
         private readonly bool _isTeacher;
         private readonly int _holderId;
         private ObservableCollection<LessonViewModel> _lessons;
         private DateTime _date;
 
         public DayViewModel([NotNull] Day dayData, WeekType weekType, int parity,
-            [NotNull] ICommandFactory commandFactory, University university, [NotNull] OptionsMonitor optionsMonitor,
+            [NotNull] LessonMenuItemsFactory menuItemsFactory,
             bool isTeacher, int holderId)
         {
             if (dayData == null) throw new ArgumentNullException("dayData");
-            if (commandFactory == null) throw new ArgumentNullException("commandFactory");
-            if (optionsMonitor == null) throw new ArgumentNullException("optionsMonitor");
+            if (menuItemsFactory == null) throw new ArgumentNullException("menuItemsFactory");
 
             _dayData = dayData;
             _parity = parity;
-            _optionsMonitor = optionsMonitor;
             _isTeacher = isTeacher;
             _holderId = holderId;
             _date = SetUpDayName(weekType);
@@ -37,7 +34,7 @@ namespace TimeTable.ViewModel
             {
                 Lessons =
                     new ObservableCollection<LessonViewModel>(
-                        FilterLessons(_dayData.Lessons, commandFactory, university));
+                        FilterLessons(_dayData.Lessons, menuItemsFactory));
             }
             else
             {
@@ -46,7 +43,7 @@ namespace TimeTable.ViewModel
         }
 
         private IEnumerable<LessonViewModel> FilterLessons(IEnumerable<Lesson> lessons,
-            ICommandFactory commandFactory, University university)
+            LessonMenuItemsFactory menuItemsFactory)
         {
             var ordered = lessons.OrderBy(lesson => lesson.TimeStart);
             foreach (var lesson in ordered)
@@ -57,7 +54,7 @@ namespace TimeTable.ViewModel
                     if (lesson.Dates.Contains(formattedDay))
                     {
                         yield return
-                            CreateLessonViewModel(commandFactory, university, lesson);
+                            CreateLessonViewModel(menuItemsFactory, lesson);
                     }
                 }
                 else
@@ -71,24 +68,24 @@ namespace TimeTable.ViewModel
 
                         if (IsVisibleInCurrentWeek(lesson))
                         {
-                            yield return CreateLessonViewModel(commandFactory, university, lesson);
+                            yield return CreateLessonViewModel(menuItemsFactory, lesson);
                         }
                     }
                     else
                     {
                         if (IsVisibleInCurrentWeek(lesson))
                         {
-                            yield return CreateLessonViewModel(commandFactory, university, lesson);
+                            yield return CreateLessonViewModel(menuItemsFactory, lesson);
                         }
                     }
                 }
             }
         }
 
-        private LessonViewModel CreateLessonViewModel(ICommandFactory commandFactory, University university,
+        private LessonViewModel CreateLessonViewModel(LessonMenuItemsFactory menuItemsFactory,
             Lesson lesson)
         {
-            return new LessonViewModel(lesson, commandFactory, university,_optionsMonitor, _date, _isTeacher, _holderId);
+            return new LessonViewModel(lesson, menuItemsFactory, _date, _isTeacher, _holderId);
         }
 
         private bool IsVisibleInCurrentWeek(Lesson lesson)

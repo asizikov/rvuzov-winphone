@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace TimeTable.ViewModel.Commands
+namespace TimeTable.ViewModel.MenuItems
 {
     public class AbstractMenuItem
     {

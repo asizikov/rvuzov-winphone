@@ -1,44 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using TimeTable.Model;
-using TimeTable.ViewModel.Commands;
+using TimeTable.ViewModel.MenuItems;
 
 namespace TimeTable.ViewModel
 {
     public sealed class LessonViewModel : BaseViewModel
     {
         private readonly Lesson _lesson;
-        private readonly ICommandFactory _commandFactory;
-        private readonly University _university;
-        private readonly OptionsMonitor _optionsMonitor;
         private readonly DateTime _date;
         private readonly bool _isTeacher;
         private readonly int _holderId;
         private string _auditoriesList;
         private string _teachersList;
+        private readonly LessonMenuItemsFactory _menuItemsFactory;
 
-        public LessonViewModel([NotNull] Lesson lesson, [NotNull] ICommandFactory commandFactory,
-            [NotNull] University university, OptionsMonitor optionsMonitor, DateTime date, bool isTeacher, int holderId)
+        public LessonViewModel([NotNull] Lesson lesson, [NotNull] LessonMenuItemsFactory menuItemsFactory, DateTime date,
+            bool isTeacher, int holderId)
         {
-            if (lesson == null) throw new ArgumentNullException("lesson");
-            if (commandFactory == null) throw new ArgumentNullException("commandFactory");
-            if (university == null) throw new ArgumentNullException("university");
             _lesson = lesson;
-            _commandFactory = commandFactory;
-            _university = university;
-            _optionsMonitor = optionsMonitor;
             _date = date;
             _isTeacher = isTeacher;
             _holderId = holderId;
+            _menuItemsFactory = menuItemsFactory;
         }
 
 
         [NotNull]
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public Lesson Lesson
         {
             get { return _lesson; }
@@ -151,65 +144,20 @@ namespace TimeTable.ViewModel
             {
                 if (_lesson.Auditoriums != null && _lesson.Auditoriums.Any())
                 {
-                    //TODO _lesson.Auditoriums.Single(), ибо контекстное меню мы можем выбрать только для одной конкретной пары (если оно вообще есть),
-                    //TODO если же у нас несколько аудиторий для одной пары, то что-то не то (или я чего-то не понимаю?)
-                    var auditoriumInfoCommand = _commandFactory.GetShowAuditoriumCommand(_lesson.Auditoriums.Single());
-                    yield return new AbstractMenuItem
-                    {
-                        Command = auditoriumInfoCommand,
-                        Header = auditoriumInfoCommand.Title
-                    };
+                    yield return _menuItemsFactory.CreateForAuditoriums(_lesson);
                 }
 
                 if (_lesson.Teachers != null && _lesson.Teachers.Any())
                 {
-                    var showTeachersTimeTableCommand = _commandFactory.GetShowTeachersTimeTableCommand(_university,
-                        _lesson.Teachers.First());
-                    yield return new AbstractMenuItem
-                    {
-                        Command = showTeachersTimeTableCommand,
-                        Header = showTeachersTimeTableCommand.Title
-                    };
+                    yield return _menuItemsFactory.CreateForTeachers(_lesson);
                 }
 
                 if (_lesson.Groups != null && _lesson.Groups.Any())
                 {
-                    //_lesson.Groups.Add(_lesson.Groups.First());
-                    if (_lesson.Groups.Count > 1)
-                    {
-                        var options = _lesson.Groups.Select(g => new OptionsItem
-                        {
-                            Title = g.GroupName,
-                            Command = _commandFactory.GetShowGroupTimeTableCommand(_university,g)
-                        });
-                        yield return new AbstractMenuItem
-                        {
-                            Command = new SimpleCommand(() =>
-                            {
-                                _optionsMonitor.Items = new ObservableCollection<OptionsItem>(options);
-                                _optionsMonitor.IsVisible = true;
-                            }),
-                            Header = options.First().Command.Title
-                        };
-                    }
-                    else
-                    {
-                        var showTeachersTimeTableCommand = _commandFactory.GetShowGroupTimeTableCommand(_university,
-                            _lesson.Groups.First());
-                        yield return new AbstractMenuItem
-                        {
-                            Command = showTeachersTimeTableCommand,
-                            Header = showTeachersTimeTableCommand.Title
-                        };
-                    }
+                    yield return _menuItemsFactory.CreateForGroups(_lesson);
                 }
 
-                var reportErrorCommand = _commandFactory.GetReportErrorCommand(_holderId, _lesson.Id, _isTeacher);
-                yield return new AbstractMenuItem
-                {
-                    Command = reportErrorCommand,
-                    Header = reportErrorCommand.Title
-                };
+                yield return _menuItemsFactory.CreateReportError(_holderId, _lesson.Id, _isTeacher);
             }
         }
 

@@ -84,7 +84,6 @@
     <Compile Include="FavoritedItemViewModel.cs" />
     <Compile Include="FavoritedState.cs" />
     <Compile Include="FavoritesViewModel.cs" />
-    <Compile Include="Commands\AbstractMenuItem.cs" />
     <Compile Include="Commands\ICommandFactory.cs" />
     <Compile Include="Commands\ITitledCommand.cs" />
     <Compile Include="Commands\ShowTeachersTimeTableCommand.cs" />
@@ -99,6 +98,8 @@
     <Compile Include="FirstPageViewModel.cs" />
     <Compile Include="GroupPageViewModel.cs" />
     <Compile Include="LessonsViewModel.cs" />
+    <Compile Include="MenuItems\AbstractMenuItem.cs" />
+    <Compile Include="MenuItems\LessonMenuItemsFactory.cs" />
     <Compile Include="OptionsMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportErrorViewModel.cs" />
