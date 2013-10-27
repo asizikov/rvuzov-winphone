@@ -41,15 +41,16 @@ namespace TimeTable.Commands
                 university, group);
         }
 
-        public ITitledCommand GetReportErrorCommand(int holderId,int lessonId, bool isTeacher)
+        public ITitledCommand GetReportErrorCommand(int holderId, int lessonId, bool isTeacher)
         {
-            return new ReportErrorCommand(_navigationService, _flurryPublisher, _stringsProviders,lessonId, isTeacher, holderId );
+            return new ReportErrorCommand(_navigationService, _flurryPublisher, _stringsProviders, lessonId, isTeacher,
+                holderId);
         }
 
         [NotNull]
-        public ITitledCommand GetShowAuditoriumCommand(Auditorium auditorium)
+        public ITitledCommand GetShowAuditoriumCommand(Auditorium auditorium, int universityId)
         {
-            return new ShowAuditoriumCommand(_navigationService, _stringsProviders, auditorium);
+            return new ShowAuditoriumCommand(_navigationService, _stringsProviders, universityId, auditorium);
         }
     }
 }

@@ -18,15 +18,19 @@ namespace TimeTable.View
             string auditoriumIDString;
             string name;
             string address;
+            string universityIdString;
 
             if (NavigationContext.QueryString.TryGetValue(NavigationParameterName.Id, out auditoriumIDString) &&
                 NavigationContext.QueryString.TryGetValue(NavigationParameterName.Name, out name) &&
+                NavigationContext.QueryString.TryGetValue(NavigationParameterName.UniversityId, out universityIdString) &&
                 NavigationContext.QueryString.TryGetValue(NavigationParameterName.Address, out address))
             {
-                int auditoriumID;
-                if (Int32.TryParse(auditoriumIDString, out auditoriumID))
+                int auditoiumId;
+                int universityId;
+                if (Int32.TryParse(auditoriumIDString, out auditoiumId) &&
+                    Int32.TryParse(universityIdString, out universityId))
                 {
-                    DataContext = ViewModelLocator.GetAuditoriumViewModel(auditoriumID, name, address);
+                    DataContext = ViewModelLocator.GetAuditoriumViewModel(auditoiumId, universityId ,name, address);
                 }
                 else
                 {

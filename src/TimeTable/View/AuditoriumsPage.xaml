@@ -4,38 +4,47 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.IsVisible="{StaticResource SystemTrayVisibility}">
 
     <Grid Background="{StaticResource TimeTableBackgorundColorBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock TextAlignment="Center"
-                   Text="{Binding Name}" />
-        
-        <Border Grid.Row="1"
-                Background="Black"
-                Margin="4">
-            <TextBlock TextAlignment="Center"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Text="{Binding Address}"/>
-        </Border>
+        <TextBlock
+            Margin="24,24"
+            Grid.Row="0" Style="{StaticResource PhoneTextExtraLargeStyle}"
+            Text="{Binding  Strings.Auditory, Source={StaticResource LocalizedStrings}}" />
+        <StackPanel Margin="12" Grid.Row="1">
+            <TextBlock
+                Style="{StaticResource PhoneTextLargeStyle}"
+                TextWrapping="Wrap"
+                Text="{Binding Name}" />
+            <TextBlock
+                TextWrapping="Wrap"
+                Style="{StaticResource PhoneTextNormalStyle}"
+                Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+                Text="{Binding Address}" />
+        </StackPanel>
 
         <Button Grid.Row="2"
-                Content="{Binding Path=Strings.ErrorReport, Source ={StaticResource LocalizedStrings}}"
-                Style="{StaticResource TimeTableButtonStyle}"/>
-        <Button Grid.Row="3"
-                Content="{Binding Path=Strings.AuditoriumBisyButton, Source ={StaticResource LocalizedStrings}}"
-                Style="{StaticResource TimeTableButtonStyle}"/>
+                Margin="12"
+                Command="{Binding ShowInApp}"
+                Style="{StaticResource ButtonNoBorder}">
+            <ContentControl>
+                <TextBlock
+                    toolkit:TiltEffect.IsTiltEnabled="True"
+                    Text="посмотреть в приложении"
+                    Foreground="{StaticResource PhoneAccentBrush}"
+                    Style="{StaticResource PhoneTextLargeStyle}" />
+            </ContentControl>
+        </Button>
     </Grid>
 
 </phone:PhoneApplicationPage>

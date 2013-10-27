@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Windows.Input;
+using Microsoft.Phone.Tasks;
 using JetBrains.Annotations;
+using TimeTable.Model;
+using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
@@ -10,51 +14,18 @@ namespace TimeTable.ViewModel
         private readonly INavigationService _navigation;
         private readonly AsyncDataProvider _dataProvider;
         private readonly IUiStringsProviders _stringProvider;
-
-        #region ID
         private int _id;
-
-        public int ID
-        {
-            get { return _id; }
-            set
-            {
-                _id = value;
-                OnPropertyChanged("ID");
-            }
-        }
-        #endregion
-
-        #region Name
         private string _name;
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                _name = String.Format(_stringProvider.AuditoryNameTemplate, value);
-                OnPropertyChanged("Name");
-            }
-        }
-        #endregion
 
-        #region Address
+
         private string _address;
-        public string Address
-        {
-            get { return _address; }
-            set
-            {
-                _address = value;
-                OnPropertyChanged("Address");
-            }
-        }
-        #endregion
+        private University _university;
 
         public AuditoriumViewModel([NotNull] INavigationService navigation,
                                    [NotNull] AsyncDataProvider dataProvider,
                                    [NotNull] IUiStringsProviders stringProvider,
-                                   int auditoiumID,
+                                   int auditoiumId,
+                                   int universityId,
                                    string auditoriumName,
                                    string auditoriumAddress)
         {
@@ -67,11 +38,74 @@ namespace TimeTable.ViewModel
             _navigation = navigation;
             _stringProvider = stringProvider;
 
-            ID = auditoiumID;
-
-            //TODO нужно выпилить сохранение имени и адреса, ибо все через АПИ
+            ID = auditoiumId;
+            Init(universityId);
             Name = auditoriumName;
             Address = auditoriumAddress;
+            ShowInApp = new SimpleCommand(GoToExternalMap);
+        }
+
+        private void Init(int universityId)
+        {
+            _dataProvider.GetUniversityByIdAsync(universityId).Subscribe(university =>
+            {
+                _university = university;
+            });
+        }
+
+        public ICommand ShowInApp
+        {
+            get; private set;
+        }
+
+        public string Address
+        {
+            get { return _address; }
+            set
+            {
+                _address = value;
+                OnPropertyChanged("Address");
+            }
+        }
+
+        public int ID
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+                OnPropertyChanged("ID");
+            }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = String.Format(_stringProvider.AuditoryNameTemplate, value);
+                OnPropertyChanged("Name");
+            }
+        }
+
+        private void GoToExternalMap()
+        {
+            var mapsTask = new BingMapsTask
+            {
+                SearchTerm = GetSearchQuery(), 
+                ZoomLevel = 2
+            };
+
+            mapsTask.Show();
+        }
+
+        private string GetSearchQuery()
+        {
+            if (!string.IsNullOrWhiteSpace(Address))
+            {
+                return Address;
+            }
+            return _university == null?  string.Empty: _university.Name;
         }
     }
 }

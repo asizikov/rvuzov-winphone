@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using JetBrains.Annotations;
 using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
@@ -62,7 +61,7 @@ namespace TimeTable.ViewModel.MenuItems
                 var options = lesson.Auditoriums.Select(a => new OptionsItem
                 {
                     Title = a.Name,
-                    Command = _commandFactory.GetShowAuditoriumCommand(a)
+                    Command = _commandFactory.GetShowAuditoriumCommand(a, _university.Id)
                 });
                 return FormatAbstractMenuItem(_optionsMonitor, options);
             }
@@ -94,7 +93,8 @@ namespace TimeTable.ViewModel.MenuItems
 
         private AbstractMenuItem CreateForOneAuditorium(Lesson lesson)
         {
-            var auditoriumInfoCommand = _commandFactory.GetShowAuditoriumCommand(lesson.Auditoriums.Single());
+            var auditoriumInfoCommand = _commandFactory.GetShowAuditoriumCommand(lesson.Auditoriums.Single(),
+                _university.Id);
             return new AbstractMenuItem
             {
                 Command = auditoriumInfoCommand,

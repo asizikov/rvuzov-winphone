@@ -61,11 +61,11 @@ namespace TimeTable.ViewModel
                 universityId, facultyId);
         }
 
-        public static AuditoriumViewModel GetAuditoriumViewModel(int auditoiumID, string auditoriumName,
+        public static AuditoriumViewModel GetAuditoriumViewModel(int auditoiumId,int universityId ,string auditoriumName,
             string auditoriumAddress)
         {
             return new AuditoriumViewModel(C.Resolve<INavigationService>(), DataProvider,
-                C.Resolve<IUiStringsProviders>(), auditoiumID, auditoriumName, auditoriumAddress);
+                C.Resolve<IUiStringsProviders>(), auditoiumId, universityId, auditoriumName, auditoriumAddress);
         }
 
         public static BaseViewModel GetFavoritesViewModel()
