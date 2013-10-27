@@ -32,7 +32,7 @@ namespace TimeTable
             // Phone-specific initialization
             InitializePhoneApplication();
             Bootstrapper.InitApplication(RootFrame);
-            ThemeManager.OverrideOptions = ThemeManagerOverrideOptions.None;
+            ThemeManager.OverrideOptions = ThemeManagerOverrideOptions.SystemTrayColors;
             ThemeManager.ToDarkTheme();
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
