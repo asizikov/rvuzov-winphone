@@ -62,27 +62,42 @@
                 </ListBox>
             </controls:PivotItem>
         </toolkit:LockablePivot>
-        <ScrollViewer 
-            x:Name="OptionsList"
+        <Grid
             Grid.Row="0"
             Grid.RowSpan="2"
+            x:Name="OptionsList"
+            Visibility="{Binding Options.IsVisible, 
+            Converter={StaticResource BoolToVisibilityConverter},
+            Mode=TwoWay}"
             Background="{StaticResource TimeTableBackgorundColorBrush}"
-            Visibility="{Binding Options.IsVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay}"
+            >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                    Margin="24,24"
+                    Text="{Binding Options.Title}"
+                    Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+        <ScrollViewer    
+            Grid.Row="1"
             Margin="0">
             <ItemsControl
-                Margin="12,37,12,12"
+                Margin="12,24,12,12"
                 ItemsSource="{Binding Options.Items}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Button 
-                            Margin="24,12,24,12"
+                            Margin="12,12,24,12"
                             Style="{StaticResource ButtonNoBorder}"
                                 Content="{Binding Title}"
                                 Command="{Binding Command}"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        </Grid>
     </Grid>
     <bindableApplicationBar:Bindable.ApplicationBar>
         <bindableApplicationBar:BindableApplicationBar

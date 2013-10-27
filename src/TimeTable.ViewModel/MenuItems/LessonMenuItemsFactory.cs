@@ -33,7 +33,7 @@ namespace TimeTable.ViewModel.MenuItems
                 var options = lesson.Groups.Select(g => new OptionsItem
                 {
                     Title = g.GroupName,
-                    Command = _commandFactory.GetShowGroupTimeTableCommand(_university, g)
+                    Command = _commandFactory.GetShowGroupTimeTableCommand(_university, g),
                 });
                 var menuItem = FormatAbstractMenuItem(_optionsMonitor, options);
                 return menuItem;
@@ -122,6 +122,7 @@ namespace TimeTable.ViewModel.MenuItems
                 {
                     optionsMonitor.Items = new ObservableCollection<OptionsItem>(options);
                     optionsMonitor.IsVisible = true;
+                    optionsMonitor.Title = optionsMonitor.Items.First().Command.Title;
                 }),
                 Header = options.First().Command.Title
             };
