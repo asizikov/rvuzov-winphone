@@ -30,6 +30,7 @@
         <TextBlock Margin="24,24,0,0"
                    Foreground="White"
                    TextWrapping="Wrap"
+                   MaxHeight="87"
                    Style="{StaticResource PhoneTextLargeStyle}"
                    Text="{Binding Title}" />
         <toolkit:LockablePivot

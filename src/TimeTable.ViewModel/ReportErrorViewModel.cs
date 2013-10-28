@@ -35,7 +35,8 @@ namespace TimeTable.ViewModel
             _notificationService = notificationService;
             _stringsProviders = stringsProviders;
             _flurryPublisher.PublishPageLoadedReportError();
-            SendErrorTextCommand = new SimpleCommand(SendError, () => !string.IsNullOrWhiteSpace(ErrorText));
+            SendErrorTextCommand = new SimpleCommand(SendError,
+                () => !string.IsNullOrWhiteSpace(ErrorText) && ErrorText.Length > 7 && !IsInProgress);
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Default)]
@@ -71,6 +72,7 @@ namespace TimeTable.ViewModel
             {
                 if (value.Equals(_isInProgress)) return;
                 _isInProgress = value;
+                _sendErrorTextCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged("IsInProgress");
             }
         }
@@ -84,6 +86,7 @@ namespace TimeTable.ViewModel
                 if (result != null && result.Success)
                 {
                     IsInProgress = false;
+                    ErrorText = String.Empty;
                     _notificationService.ShowToast(_stringsProviders.ThankYou, _stringsProviders.ReportErrorOk);
                 }
                 else

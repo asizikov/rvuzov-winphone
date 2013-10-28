@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using System.Windows.Threading;
 using JetBrains.Annotations;
 
 namespace TimeTable.ViewModel.Commands
@@ -31,7 +32,8 @@ namespace TimeTable.ViewModel.Commands
         {
             if (CanExecuteChanged != null)
             {
-               CanExecuteChanged(this, new EventArgs()); 
+                SmartDispatcher.BeginInvoke(() => CanExecuteChanged(this, new EventArgs()));
+               
             }
         }
 
