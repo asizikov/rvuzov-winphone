@@ -44,11 +44,12 @@ namespace TimeTable.ViewModel.MenuItems
         {
             if (lesson.Teachers.Count <= 1) return CreateForOneTeacher(lesson);
 
-            var options = lesson.Teachers.Select(t => new OptionsItem
-            {
-                Title = t.Name,
-                Command = _commandFactory.GetShowTeachersTimeTableCommand(_university, t)
-            });
+            var options = lesson.Teachers.Where(t => !string.IsNullOrWhiteSpace(t.Id))
+                .Select(t => new OptionsItem
+                {
+                    Title = t.Name,
+                    Command = _commandFactory.GetShowTeachersTimeTableCommand(_university, t)
+                });
 
             var menuItem = FormatAbstractMenuItem(_optionsMonitor, options);
             return menuItem;
