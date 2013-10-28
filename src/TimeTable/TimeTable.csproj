@@ -55,8 +55,8 @@
     <Reference Include="Coding4Fun.Toolkit.Controls">
       <HintPath>..\Lib\Coding4Fun.Toolkit.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="FlurryWP7SDK">
-      <HintPath>..\Lib\FlurryWP7SDK.dll</HintPath>
+    <Reference Include="FlurryWP8SDK">
+      <HintPath>..\Lib\FlurryWP8SDK.dll</HintPath>
     </Reference>
     <Reference Include="Funq">
       <HintPath>..\Lib\Funq.dll</HintPath>
@@ -172,7 +172,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\AppManifest.xml" />
+    <None Include="Properties\AppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>

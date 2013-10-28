@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FlurryWP7SDK.Models;
+using FlurryWP8SDK.Models;
 using Microsoft.Phone.Info;
 using TimeTable.ViewModel.Services;
 
@@ -26,9 +26,9 @@ namespace TimeTable.Services
 
         protected override void InitSession()
         {
-            FlurryWP7SDK.Api.StartSession(Configuration.FlurryApiKey);
-            FlurryWP7SDK.Api.SetUserId(GetPhoneUniqueId());
-            FlurryWP7SDK.Api.SetVersion(Configuration.Version);
+            FlurryWP8SDK.Api.StartSession(Configuration.FlurryApiKey);
+            FlurryWP8SDK.Api.SetUserId(GetPhoneUniqueId());
+            FlurryWP8SDK.Api.SetVersion(Configuration.Version);
         }
 
         protected override void FlushEvent(string eventName, EventParameter[] parameters)
@@ -36,22 +36,22 @@ namespace TimeTable.Services
             if (parameters.Length > 0)
             {
                 var list = ToFlurryParameters(parameters);
-                FlurryWP7SDK.Api.LogEvent(eventName, list);
+                FlurryWP8SDK.Api.LogEvent(eventName, list);
             }
             else
             {
-                FlurryWP7SDK.Api.LogEvent(eventName);
+                FlurryWP8SDK.Api.LogEvent(eventName);
             }
         }
 
         protected override void SendError(Exception exception)
         {
-            FlurryWP7SDK.Api.LogError(exception.Message, exception);
+            FlurryWP8SDK.Api.LogError(exception.Message, exception);
         }
 
         protected override void CloseSesstion()
         {
-            FlurryWP7SDK.Api.EndSession();
+            FlurryWP8SDK.Api.EndSession();
         }
 
         private static List<Parameter> ToFlurryParameters(EventParameter[] parameters)
