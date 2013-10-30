@@ -147,7 +147,7 @@ namespace TimeTable.ViewModel
                     yield return _menuItemsFactory.CreateForAuditoriums(_lesson);
                 }
 
-                if (_lesson.Teachers != null && _lesson.Teachers.Any())
+                if (_lesson.Teachers != null && _lesson.Teachers.Any(t => t.Id != null))
                 {
                     yield return _menuItemsFactory.CreateForTeachers(_lesson);
                 }

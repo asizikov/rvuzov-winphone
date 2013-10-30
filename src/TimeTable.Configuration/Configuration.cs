@@ -6,7 +6,7 @@
         {
             get
             {
-                return "0.3 dev";
+                return "0.5 dev";
             }
         }
 

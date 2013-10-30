@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reactive.Concurrency;
+using System.Windows.Threading;
 using JetBrains.Annotations;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
@@ -15,6 +17,7 @@ namespace TimeTable.ViewModel
         private readonly AsyncWebClient _webClient;
         private readonly INotificationService _notificationService;
         private readonly IUiStringsProviders _stringsProviders;
+        private readonly INavigationService _navigationService;
         private string _errorText;
         private SimpleCommand _sendErrorTextCommand;
         private bool _isInProgress;
@@ -22,11 +25,12 @@ namespace TimeTable.ViewModel
         public ReportErrorViewModel(
             [NotNull] FlurryPublisher flurryPublisher, int id, int lessonId, bool isTeacher,
             AsyncWebClient webClient, [NotNull] INotificationService notificationService,
-            [NotNull] IUiStringsProviders stringsProviders)
+            [NotNull] IUiStringsProviders stringsProviders, [NotNull] INavigationService navigationService)
         {
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
             if (notificationService == null) throw new ArgumentNullException("notificationService");
             if (stringsProviders == null) throw new ArgumentNullException("stringsProviders");
+            if (navigationService == null) throw new ArgumentNullException("navigationService");
             _flurryPublisher = flurryPublisher;
             _id = id;
             _lessonId = lessonId;
@@ -34,6 +38,7 @@ namespace TimeTable.ViewModel
             _webClient = webClient;
             _notificationService = notificationService;
             _stringsProviders = stringsProviders;
+            _navigationService = navigationService;
             _flurryPublisher.PublishPageLoadedReportError();
             SendErrorTextCommand = new SimpleCommand(SendError,
                 () => !string.IsNullOrWhiteSpace(ErrorText) && ErrorText.Length > 7 && !IsInProgress);
@@ -88,6 +93,8 @@ namespace TimeTable.ViewModel
                     IsInProgress = false;
                     ErrorText = String.Empty;
                     _notificationService.ShowToast(_stringsProviders.ThankYou, _stringsProviders.ReportErrorOk);
+                    Scheduler.Default.Schedule(TimeSpan.FromMilliseconds(1000), 
+                        () => SmartDispatcher.BeginInvoke(_navigationService.GoBack));
                 }
                 else
                 {
