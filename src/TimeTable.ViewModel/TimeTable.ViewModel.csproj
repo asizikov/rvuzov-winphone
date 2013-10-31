@@ -107,7 +107,7 @@
     <Compile Include="Restful\LastUpdatedRequest.cs" />
     <Compile Include="Restful\RestfulCallFactory.cs" />
     <Compile Include="Restful\UniversitesRequest.cs" />
-    <Compile Include="Restful\UniversitiesGroupsRequest.cs" />
+    <Compile Include="Restful\FacultyGroupsRequest.cs" />
     <Compile Include="Restful\UniversityFacultiesRequest.cs" />
     <Compile Include="Restful\UniversityTeachersRequest.cs" />
     <Compile Include="Services\FavoritedItemsManager.cs" />

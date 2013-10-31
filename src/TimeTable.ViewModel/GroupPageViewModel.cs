@@ -185,7 +185,7 @@ namespace TimeTable.ViewModel
             {
                 TeachersList =
                     FormatResult(
-                        _storedTeachersRequest.TeachersList.Where(teacher => teacher.Name.IgnoreCaseContains(search)),
+                        _storedTeachersRequest.TeachersList.Where(teacher => teacher.Name != null && teacher.Name.IgnoreCaseContains(search)),
                         _teachersGroupFunc);
             }
         }

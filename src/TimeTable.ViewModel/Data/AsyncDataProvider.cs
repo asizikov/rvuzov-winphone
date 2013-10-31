@@ -27,6 +27,25 @@ namespace TimeTable.ViewModel.Data
         public void PutUniversity(University university)
         {
             _universitiesCache.AddUniversity(university);
+            GetUniversitesFacultiesAsync(university.Id).Subscribe(result =>
+            {
+                if (result != null)
+                {
+                    PutFaculties(university.Id, result.Data);
+                    foreach (var faculty in result.Data)
+                    {
+                        var id = faculty.Id;
+                        GetFacultyGroupsAsync(faculty.Id)
+                            .Subscribe(groups =>
+                        {
+                            if (groups != null)
+                            {
+                                PutGroups(university.Id, id, groups.GroupsList);
+                            }
+                        }, ex => {});
+                    }
+                }
+            }, ex => { });
         }
 
         public void PutFaculties(int universityId, IEnumerable<Faculty> faculties)
@@ -51,9 +70,9 @@ namespace TimeTable.ViewModel.Data
             return GetDataAsync(request);
         }
 
-        public IObservable<Groups> GetFacultyGroupsAsync(int universityId)
+        public IObservable<Groups> GetFacultyGroupsAsync(int facultyId)
         {
-            var request = CallFactory.GetUniversitesGroupsRequest(universityId);
+            var request = CallFactory.GetFacultyGroupsRequest(facultyId);
             return GetDataAsync(request);
         }
 
@@ -113,7 +132,6 @@ namespace TimeTable.ViewModel.Data
                         {
                             observer.OnNext(faculty);
                         }
-                        
                     }));
         }
 

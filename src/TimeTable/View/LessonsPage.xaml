@@ -115,7 +115,8 @@
                                 Style="{StaticResource ButtonNoBorder}"
                                 Command="{Binding Command}">
                                 <Button.Content>
-                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap"/>
+                                    <TextBlock toolkit:TiltEffect.IsTiltEnabled="True" 
+                                               Text="{Binding Title}" TextWrapping="Wrap"/>
                                 </Button.Content>
                             </Button>
                         </DataTemplate>
