@@ -54,7 +54,7 @@ namespace TimeTable.ViewModel
             _facultyId = facultyId;
             _reason = reason;
             _groupFunc = group => group.GroupName[0];
-            _teachersGroupFunc = teacher => !String.IsNullOrEmpty(teacher.Name) ? teacher.Name[0] : ' ';
+            _teachersGroupFunc = teacher => !String.IsNullOrWhiteSpace(teacher.Name) ? teacher.Name[0] : '#';
             _flurryPublisher.PublishPageLoadedGroups();
             SubscribeToQuery();
             Init();

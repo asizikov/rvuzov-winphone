@@ -52,11 +52,24 @@
                                       Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}">
                 <toolkit:LongListSelector.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock
-                            toolkit:TiltEffect.IsTiltEnabled="True" Margin="12,0,12,12"
+                        <Grid toolkit:TiltEffect.IsTiltEnabled="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image 
+                                CacheMode="BitmapCache"
+                                Margin="12,12,0,0"
+                                VerticalAlignment="Top" 
+                                   Grid.Column="0"
+                                   Source="../Resources/Images/notification_logo.png"/>
+                            <TextBlock
+                                Grid.Column="1"
+                             Margin="12,12,12,12"
                             Style="{StaticResource PhoneTextLargeStyle}"
                             TextWrapping="Wrap"
                             Text="{Binding Title}" />
+                        </Grid>
                     </DataTemplate>
                 </toolkit:LongListSelector.ItemTemplate>
             </toolkit:LongListSelector>
