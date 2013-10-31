@@ -113,8 +113,11 @@
                             <Button
                                 Margin="12,12,24,12"
                                 Style="{StaticResource ButtonNoBorder}"
-                                Content="{Binding Title}"
-                                Command="{Binding Command}" />
+                                Command="{Binding Command}">
+                                <Button.Content>
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap"/>
+                                </Button.Content>
+                            </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
