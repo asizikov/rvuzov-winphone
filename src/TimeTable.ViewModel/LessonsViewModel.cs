@@ -176,7 +176,7 @@ namespace TimeTable.ViewModel
             IsLoading = false;
         }
 
-        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        [CanBeNull,UsedImplicitly(ImplicitUseKindFlags.Access)]
         public WeekViewModel PreviousWeek
         {
             get { return _previousWeek; }
@@ -188,7 +188,7 @@ namespace TimeTable.ViewModel
             }
         }
 
-        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        [CanBeNull,UsedImplicitly(ImplicitUseKindFlags.Access)]
         public WeekViewModel CurrentWeek
         {
             get { return _currentWeek; }
@@ -200,7 +200,7 @@ namespace TimeTable.ViewModel
             }
         }
 
-        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        [CanBeNull,UsedImplicitly(ImplicitUseKindFlags.Access)]
         public WeekViewModel NextWeek
         {
             get { return _nextWeek; }
@@ -337,8 +337,9 @@ namespace TimeTable.ViewModel
 
         private void SelectTodayItem()
         {
-            DateTime today = DateTime.UtcNow;
-            int todayIndex = (int) today.DayOfWeek - 1;
+            if (CurrentWeek == null) return;
+            var today = DateTime.UtcNow;
+            var todayIndex = (int) today.DayOfWeek - 1;
 
             SelectedWeekIndex = 0;
             CurrentWeek.SelectedDayItem = CurrentWeek.Days.FirstOrDefault(d => d.Weekday == (todayIndex + 1));
