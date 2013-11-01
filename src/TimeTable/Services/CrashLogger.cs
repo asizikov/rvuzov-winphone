@@ -16,12 +16,12 @@ namespace TimeTable.Services
 
             var innerMessage = "";
             var innerStackTrace = "";
-            var date = DateTime.UtcNow.Date.ToString();
-            var time = DateTime.UtcNow.TimeOfDay.ToString();
+            var date = DateTime.UtcNow.Date.ToString("yy-MMM-dd");
+            var time = DateTime.UtcNow.Ticks;
             var message = e.ExceptionObject.Message;
             var stackTrace = e.ExceptionObject.StackTrace;
 
-            var folderName = message + date + time;
+            var fileSuffix = message + date + time;
 
             if (e.ExceptionObject.InnerException != null)
             {
@@ -35,7 +35,7 @@ namespace TimeTable.Services
             {
                 fileStorage.CreateDirectory(DIRECTORY_NAME);
             }
-            var fileName = DIRECTORY_NAME + "\\" + folderName + ".txt";
+            var fileName = DIRECTORY_NAME + "\\" + fileSuffix + ".txt";
 
             using (var fileWriter = new StreamWriter(fileStorage.OpenFile(fileName, FileMode.Append)))
             {
