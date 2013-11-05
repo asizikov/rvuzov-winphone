@@ -51,7 +51,7 @@ namespace TimeTable.ViewModel.Utils
             var currentWeekNumber = GetWeekNumber(DateTime.UtcNow);
             var firstWeekNumber = GetWeekNumber(parityCountDown);
 
-            if (currentWeekNumber > firstWeekNumber)
+            if (currentWeekNumber >= firstWeekNumber)
             {
                 return currentWeekNumber - firstWeekNumber + 1;
             }
