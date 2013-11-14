@@ -104,17 +104,23 @@ namespace TimeTable.Networking
                 json = reader.ReadToEnd();
             }
             Debug.WriteLine(json);
-            var result = _deserializer.Deserialize<T>(json);
-// ReSharper disable once CompareNonConstrainedGenericWithNull
-            if (result != null)
+            try
             {
-                observer.OnNext(result);
+                var result = _deserializer.Deserialize<T>(json);
+                // ReSharper disable once CompareNonConstrainedGenericWithNull
+                if (result != null)
+                {
+                    observer.OnNext(result);
+                }
+                else
+                {
+                    observer.OnError(new JsonSerializationException("Can't deserialize the responce : " + json));
+                }
             }
-            else
+            catch (JsonSerializationException exception)
             {
-                observer.OnError(new JsonSerializationException("Can't deserialize the responce : " + json));
+                observer.OnError(exception);
             }
-            
         }
 
         private static void HandleException(Exception ignored)
