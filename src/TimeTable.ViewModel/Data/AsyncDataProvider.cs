@@ -37,12 +37,12 @@ namespace TimeTable.ViewModel.Data
                         var id = faculty.Id;
                         GetFacultyGroupsAsync(faculty.Id)
                             .Subscribe(groups =>
-                        {
-                            if (groups != null)
                             {
-                                PutGroups(university.Id, id, groups.GroupsList);
-                            }
-                        }, ex => {});
+                                if (groups != null)
+                                {
+                                    PutGroups(university.Id, id, groups.GroupsList);
+                                }
+                            }, ex => { });
                     }
                 }
             }, ex => { });
@@ -64,16 +64,17 @@ namespace TimeTable.ViewModel.Data
             }
         }
 
-        public IObservable<Universities> GetUniversitesAsync()
+        public IObservable<Universities> GetUniversitesAsync(CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
         {
             var request = CallFactory.GetAllUniversitesRequest();
-            return GetDataAsync(request);
+            return GetDataAsync(request, cachePolicy);
         }
 
-        public IObservable<Groups> GetFacultyGroupsAsync(int facultyId)
+        public IObservable<Groups> GetFacultyGroupsAsync(int facultyId,
+            CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
         {
             var request = CallFactory.GetFacultyGroupsRequest(facultyId);
-            return GetDataAsync(request);
+            return GetDataAsync(request, cachePolicy);
         }
 
         public IObservable<Model.TimeTable> GetLessonsForGroupAsync(int groupId)
@@ -94,10 +95,11 @@ namespace TimeTable.ViewModel.Data
             return GetDataAsync(universityTeachersRequest);
         }
 
-        public IObservable<Faculties> GetUniversitesFacultiesAsync(int universityId)
+        public IObservable<Faculties> GetUniversitesFacultiesAsync(int universityId,
+            CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
         {
             var request = CallFactory.GetUniversityFacultiesRequest(universityId);
-            return GetDataAsync(request);
+            return GetDataAsync(request, cachePolicy);
         }
 
         public IObservable<University> GetUniversityByIdAsync(int universityId)
@@ -111,10 +113,13 @@ namespace TimeTable.ViewModel.Data
                     }
                     else
                     {
-                        GetUniversitesAsync().Subscribe(universities =>
+                        GetUniversitesAsync(CachePolicy.TryGetFromCache).Subscribe(universities =>
                         {
                             var university = universities.Data.FirstOrDefault(u => u.Id == universityId);
-                            _universities.Add(universityId, university);
+                            if (!_universities.ContainsKey(universityId))
+                            {
+                                _universities.Add(universityId, university);
+                            }
                             observer.OnNext(university);
                         });
                     }
@@ -149,7 +154,10 @@ namespace TimeTable.ViewModel.Data
                         GetUniversityTeachersAsync(universityId).Subscribe(teachers =>
                         {
                             var teacher = teachers.TeachersList.FirstOrDefault(u => u.Id == id);
-                            _teachers.Add(id, teacher);
+                            if (!_teachers.ContainsKey(id))
+                            {
+                                _teachers.Add(id, teacher);
+                            }
                             observer.OnNext(teacher);
                         });
                     }
@@ -167,10 +175,13 @@ namespace TimeTable.ViewModel.Data
                     }
                     else
                     {
-                        GetFacultyGroupsAsync(facultyId).Subscribe(groups =>
+                        GetFacultyGroupsAsync(facultyId, CachePolicy.TryGetFromCache).Subscribe(groups =>
                         {
                             var group = groups.GroupsList.FirstOrDefault(u => u.Id == id);
-                            _groups.Add(id, group);
+                            if (!_groups.ContainsKey(id))
+                            {
+                                _groups.Add(id, group);
+                            }
                             observer.OnNext(group);
                         });
                     }
@@ -188,10 +199,13 @@ namespace TimeTable.ViewModel.Data
                     }
                     else
                     {
-                        GetUniversitesFacultiesAsync(universityId).Subscribe(faculties =>
+                        GetUniversitesFacultiesAsync(universityId, CachePolicy.TryGetFromCache).Subscribe(faculties =>
                         {
                             var faculty = faculties.Data.FirstOrDefault(u => u.Id == facultyId);
-                            _faculties.Add(facultyId, faculty);
+                            if (!_faculties.ContainsKey(facultyId))
+                            {
+                                _faculties.Add(facultyId, faculty);
+                            }
                             observer.OnNext(faculty);
                         });
                     }

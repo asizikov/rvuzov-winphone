@@ -9,6 +9,12 @@ using TimeTable.ViewModel.Restful;
 
 namespace TimeTable.ViewModel.Data
 {
+    public enum CachePolicy
+    {
+        GetFromCacheAndUpdate,
+        TryGetFromCache
+    }
+
     public abstract class BaseAsyncWebClient
     {
         private readonly IWebCache _cache;
@@ -20,7 +26,7 @@ namespace TimeTable.ViewModel.Data
             _cache = cache;
         }
 
-        protected IObservable<T> GetDataAsync<T>(RestfullRequest<T> request) where T : new()
+        protected IObservable<T> GetDataAsync<T>(RestfullRequest<T> request, CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate) where T : new()
         {
             if (!_cache.IsCached<T>(request.Url))
             {
@@ -37,35 +43,50 @@ namespace TimeTable.ViewModel.Data
                     {
                         var item = _cache.Fetch<T>(request.Url);
                         observer.OnNext(item);
-
-                        var updatable = item as IUpdatableModel;
-                        if (updatable != null)
+                        if (cachePolicy == CachePolicy.TryGetFromCache)
                         {
-                            var lastUpdated = updatable.LastUpdated;
-                            var lastUpdatedRequest = CallFactory.GetLastUpdatedRequest<T>(request.Url);
-                            lastUpdatedRequest.Execute()
-                                .Subscribe(
-                                    resutl =>
-                                    {
-                                        if (resutl.Last > lastUpdated)
-                                        {
-                                            ExecuteRequest(request, observer);
-                                        }
-                                        else
-                                        {
-                                            observer.OnCompleted();
-                                        }
-                                    }, ex => observer.OnCompleted());
+                            observer.OnCompleted();
                         }
                         else
                         {
-                            observer.OnCompleted();
+                            var updatable = item as IUpdatableModel;
+                            if (updatable != null)
+                            {
+                                CheckIfNeededToBeUptated(request, updatable, observer);
+                            }
+                            else
+                            {
+                                Debug.WriteLine("UpdateData:" + request.Url);
+                                ExecuteRequest(request, observer, true);
+                            }
                         }
                     })
                 );
         }
 
-        private void ExecuteRequest<T>(RestfullRequest<T> request, IObserver<T> observer) where T : new()
+        private void CheckIfNeededToBeUptated<T>(RestfullRequest<T> request, IUpdatableModel updatable,
+            IObserver<T> observer)
+            where T : new()
+        {
+            var lastUpdated = updatable.LastUpdated;
+            var lastUpdatedRequest = CallFactory.GetLastUpdatedRequest<T>(request.Url);
+            lastUpdatedRequest.Execute()
+                .Subscribe(
+                    resutl =>
+                    {
+                        if (resutl.Last > lastUpdated)
+                        {
+                            ExecuteRequest(request, observer);
+                        }
+                        else
+                        {
+                            observer.OnCompleted();
+                        }
+                    }, ex => observer.OnCompleted());
+        }
+
+        private void ExecuteRequest<T>(RestfullRequest<T> request, IObserver<T> observer, bool ignoreErrors = false)
+            where T : new()
         {
             request.Execute()
                 .Subscribe(result =>
@@ -73,7 +94,13 @@ namespace TimeTable.ViewModel.Data
                     _cache.Put(result, request.Url);
                     observer.OnNext(result);
                 },
-                    observer.OnError,
+                    ex =>
+                    {
+                        if (!ignoreErrors)
+                        {
+                            observer.OnError(ex);
+                        }
+                    },
                     observer.OnCompleted);
         }
     }
