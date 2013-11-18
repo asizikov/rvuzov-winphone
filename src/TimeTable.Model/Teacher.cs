@@ -17,8 +17,5 @@ namespace TimeTable.Model
 
         [CanBeNull, JsonProperty("additionalyInformation")]
         public string AdditionalyInformation { get; set; }
-
-        [JsonProperty("timestamp")]
-        public long Timestamp { get; set; }
     }
 }
