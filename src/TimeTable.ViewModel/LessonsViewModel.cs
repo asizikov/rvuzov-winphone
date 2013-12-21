@@ -87,7 +87,7 @@ namespace TimeTable.ViewModel
                 new AppbarButtonViewModel
                 {
                     Text = _stringsProviders.Today,
-                    IconUri = "/Resources/Icons/feature.calendar.png",
+                    IconUri = string.Format("/Resources/Icons/Today/{0}.png", DateTime.Now.Month + "-" + DateTime.Now.Day),
                     Command = GoToTodayCommand,
                 }
             };

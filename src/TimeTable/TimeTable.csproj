@@ -200,6 +200,7 @@
     <Content Include="Resources\Icons\favs.addto.png" />
     <Content Include="Resources\Icons\feature.search.png" />
     <Content Include="Resources\Icons\new.png" />
+    <Content Include="Resources\Icons\Today\*" />
     <Content Include="Resources\Images\bg.png" />
     <Content Include="Resources\Images\Lesson\students.png" />
     <Content Include="Resources\Images\Lesson\target.png" />
