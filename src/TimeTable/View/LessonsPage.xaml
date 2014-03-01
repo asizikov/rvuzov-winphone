@@ -10,6 +10,7 @@
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
+    xmlns:controls1="clr-namespace:RateMyApp.Controls;assembly=RateMyApp"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.IsVisible="True"
@@ -124,6 +125,12 @@
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
+        <controls1:FeedbackOverlay
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            CompanyName="{Binding Path=Strings.CompanyName, Source={StaticResource LocalizedStrings}}"
+            FeedbackTo="{Binding Path=Strings.FeedbackTo, Source={StaticResource LocalizedStrings}}"
+            ApplicationName="{Binding Path=Strings.AppName, Source={StaticResource LocalizedStrings}}" />
     </Grid>
     <bindableApplicationBar:Bindable.ApplicationBar>
         <bindableApplicationBar:BindableApplicationBar

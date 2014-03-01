@@ -38,7 +38,8 @@
         public static readonly string EventSelectUniversityPageLoaded = "faculties page loaded";
         public static readonly string EventLessonsPageLoaded = "lessons page loaded";
         public static readonly string EventFavoritesPageLoaded = "favorites page loaded";
-        public static readonly string  EventSettingsPageLoaded = "settings page loaded";
+        public static readonly string EventSettingsPageLoaded = "settings page loaded";
         public static readonly string EventAboutPageLoaded = "about page loaded";
+        public static readonly string EVENT_SUPPORT_GO_TO_MOBILE_SITE = "SUPPORT_GO_TO_MOBILE_SITE";
     }
 }

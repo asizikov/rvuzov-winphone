@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -27,7 +28,7 @@
                        FontSize="60"/>
         </StackPanel>
 
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel Orientation="Horizontal">
                 
             
@@ -37,7 +38,23 @@
                 <TextBlock Style="{StaticResource PhoneTextLargeStyle}"
                            Text="{Binding Version}"/>
             </StackPanel>
-        </Grid>
+            <TextBlock
+                Style="{StaticResource PhoneTextNormalStyle}"
+                Text="{Binding Strings.AboutText , Source={StaticResource LocalizedStrings}}"
+                TextWrapping="Wrap"></TextBlock>
+            <Button 
+                Margin="0,12"
+                Command="{Binding ShowMobileSiteCommand}"
+                Style="{StaticResource ButtonNoBorder}">
+                <ContentControl>
+                    <TextBlock
+                    toolkit:TiltEffect.IsTiltEnabled="True"
+                    Text="{Binding Path=Strings.MobileSite, Source={StaticResource LocalizedStrings}}"
+                    Foreground="{StaticResource PhoneAccentBrush}"
+                    Style="{StaticResource PhoneTextLargeStyle}" />
+                </ContentControl>
+            </Button>
+        </StackPanel>
     </Grid>
 
 </phone:PhoneApplicationPage>

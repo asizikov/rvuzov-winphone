@@ -5,12 +5,10 @@ using Newtonsoft.Json;
 namespace TimeTable.Model
 {
     [UsedImplicitly]
-    public sealed class TimeTableData : IUpdatableModel
+    public sealed class TimeTableData
     {
         [JsonProperty("parity_countdown")]
         public long ParityCountdown { get; set; }
-        [JsonProperty("last_updated")]
-        public int LastUpdated { get; set; }
         [JsonProperty("days")]
         public List<Day> Days { get; set; }
     }

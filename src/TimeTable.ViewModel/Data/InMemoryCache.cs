@@ -91,11 +91,11 @@ namespace TimeTable.ViewModel.Data
             using (var writer = new StreamWriter(fileStream))
             {
                 var json = new JsonSerializer();
-                json.Serialize(writer, _cache, _cache.GetType());
+                json.Serialize(writer, new Dictionary<string, CacheItem>(_cache), _cache.GetType());
             }
         }
 
-        private Dictionary<string, CacheItem> ReadFile(Stream fileStream)
+        private static Dictionary<string, CacheItem> ReadFile(Stream fileStream)
         {
             using (var streamReader = new StreamReader(fileStream))
             {

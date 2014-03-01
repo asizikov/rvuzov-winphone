@@ -231,4 +231,18 @@
   <data name="NoData" xml:space="preserve">
     <value>нет данных</value>
   </data>
+  <data name="AboutText" xml:space="preserve">
+    <value>Самое полезное приложение для студентов, преподавателей и университетов.
+
+Актуальное расписание вуза автоматически обновляется в вашем кармане.</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>расписание вузов</value>
+  </data>
+  <data name="FeedbackTo" xml:space="preserve">
+    <value>support@raspisaniye-vuzov.ru</value>
+  </data>
+  <data name="MobileSite" xml:space="preserve">
+    <value>мобильный сайт</value>
+  </data>
 </root>

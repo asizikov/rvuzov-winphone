@@ -308,6 +308,9 @@ namespace TimeTable.ViewModel.Services
         }
         #endregion
 
-
+        public void PublishShowMobile()
+        {
+            PublishEvent(FlurryEvents.EVENT_SUPPORT_GO_TO_MOBILE_SITE);
+        }
     }
 }
