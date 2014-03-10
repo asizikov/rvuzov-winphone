@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using JetBrains.Annotations;
 
@@ -47,15 +48,16 @@ namespace TimeTable.ViewModel.Utils
         public static int GetRelativeWeekNumber(long parityCountdown)
         {
             var parityCountDown = DateTimeFromUnixTimestampSeconds(parityCountdown);
-
+            Debug.WriteLine("count down" + parityCountDown);
             var currentWeekNumber = GetWeekNumber(DateTime.UtcNow);
+            Debug.WriteLine("current week" + currentWeekNumber);
             var firstWeekNumber = GetWeekNumber(parityCountDown);
-
+            Debug.WriteLine("firstWeek" + firstWeekNumber);
             if (currentWeekNumber >= firstWeekNumber)
             {
                 return currentWeekNumber - firstWeekNumber + 1;
             }
-            return currentWeekNumber + (53 - firstWeekNumber) + 1; //todo: fixme
+            return currentWeekNumber + (52 - firstWeekNumber) + 1; //todo: fixme
         }
     }
 }

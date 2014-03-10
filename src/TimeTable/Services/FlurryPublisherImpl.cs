@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using FlurryWP8SDK.Models;
 using Microsoft.Phone.Info;
@@ -21,7 +22,6 @@ namespace TimeTable.Services
             {
                 return "unknown";
             }
-            
         }
 
         protected override void InitSession()
@@ -46,7 +46,8 @@ namespace TimeTable.Services
 
         protected override void SendError(Exception exception)
         {
-            FlurryWP8SDK.Api.LogError(exception.Message, exception);
+            //FlurryWP8SDK.Api.LogError(exception.Message, exception);
+            LogStackTrace(exception);
         }
 
         protected override void CloseSesstion()
@@ -64,6 +65,11 @@ namespace TimeTable.Services
             return result;
         }
 
+        private static void LogStackTrace(Exception exception)
+        {
+            var stacktrace = exception.StackTrace.Substring(0, exception.
+            StackTrace.Length >= 255 ? 255: exception.StackTrace.Length);
+            FlurryWP8SDK.Api.LogError(stacktrace, exception);
+        }
     }
-
 }
