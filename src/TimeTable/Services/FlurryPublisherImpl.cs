@@ -46,7 +46,6 @@ namespace TimeTable.Services
 
         protected override void SendError(Exception exception)
         {
-            //FlurryWP8SDK.Api.LogError(exception.Message, exception);
             LogStackTrace(exception);
         }
 
