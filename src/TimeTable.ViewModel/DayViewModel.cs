@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Model;
@@ -118,7 +119,7 @@ namespace TimeTable.ViewModel
                 default:
                     throw new ArgumentOutOfRangeException("weekType");
             }
-            return (monday + TimeSpan.FromDays(_dayData.Weekday - 1));
+            return (monday + TimeSpan.FromDays(_dayData.Weekday - 1)).Date;
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
