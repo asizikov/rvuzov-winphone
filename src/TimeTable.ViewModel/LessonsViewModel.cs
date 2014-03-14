@@ -168,6 +168,12 @@ namespace TimeTable.ViewModel
 
         private void FormatTimeTable(Model.TimeTable timeTable)
         {
+            //Todo: there are some crash logs with a NRE coming from this method.
+            //TimeTable.Services.FlurryPublisherImpl
+            //Msg: at TimeTable.ViewModel.LessonsViewModel.FormatTimeTable(TimeTable timeTable) 
+            //at System.Reactive.AnonymousObserver`1.OnNextCore(T value) 
+            //at System.Reactive.ObserverBase`1.OnNext(T value) 
+            //at System.Reactive.AutoDetachObserver`1.OnNextCore(T v
             var weekNumber = DateTimeUtils.GetRelativeWeekNumber(timeTable.Data.ParityCountdown);
 
             CurrentWeek = _weekViewModelFactory.Create(timeTable.Data.Days, weekNumber, WeekType.Current);
