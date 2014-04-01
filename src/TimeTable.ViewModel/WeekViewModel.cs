@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Model;
-using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Factories;
 
 namespace TimeTable.ViewModel

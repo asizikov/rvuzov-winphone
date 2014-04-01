@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -39,10 +40,12 @@ namespace TimeTable.ViewModel
         private AppbarButtonViewModel _favoriteAppbarButton;
         private AppbarButtonViewModel _unfavoriteAppbarButton;
         private string _title;
-        private Faculty _faculty;
         private WeekViewModelFactory _weekViewModelFactory;
 
-        public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher, [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory, [NotNull] AsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager, [NotNull] IUiStringsProviders stringsProviders,
+        public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
+            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
+            [NotNull] AsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager,
+            [NotNull] IUiStringsProviders stringsProviders,
             [NotNull] INotificationService notificationService, int id, bool isTeacher, int universityId, int facultyId)
 
         {
@@ -87,7 +90,8 @@ namespace TimeTable.ViewModel
                 new AppbarButtonViewModel
                 {
                     Text = _stringsProviders.Today,
-                    IconUri = string.Format("/Resources/Icons/Today/{0}.png", DateTime.Now.Month + "-" + DateTime.Now.Day),
+                    IconUri =
+                        string.Format("/Resources/Icons/Today/{0}.png", DateTime.Now.Month + "-" + DateTime.Now.Day),
                     Command = GoToTodayCommand,
                 }
             };
@@ -128,7 +132,6 @@ namespace TimeTable.ViewModel
                 {
                     _dataProvider.GetFacultyByIdAsync(universityId, facultyId).Subscribe(faculty =>
                     {
-                        _faculty = faculty;
                         //we need to go deeper :)
                         _dataProvider.GetGroupByIdAsync(_facultyId, _id).Subscribe(group =>
                         {
@@ -168,21 +171,23 @@ namespace TimeTable.ViewModel
 
         private void FormatTimeTable(Model.TimeTable timeTable)
         {
-            //Todo: there are some crash logs with a NRE coming from this method.
-            //TimeTable.Services.FlurryPublisherImpl
-            //Msg: at TimeTable.ViewModel.LessonsViewModel.FormatTimeTable(TimeTable timeTable) 
-            //at System.Reactive.AnonymousObserver`1.OnNextCore(T value) 
-            //at System.Reactive.ObserverBase`1.OnNext(T value) 
-            //at System.Reactive.AutoDetachObserver`1.OnNextCore(T v
-            var weekNumber = DateTimeUtils.GetRelativeWeekNumber(timeTable.Data.ParityCountdown);
+            var weekNumber = 0;
+            List<Day> days = null;
 
-            CurrentWeek = _weekViewModelFactory.Create(timeTable.Data.Days, weekNumber, WeekType.Current);
-            NextWeek = _weekViewModelFactory.Create(timeTable.Data.Days, weekNumber + 1, WeekType.Next);
-            PreviousWeek = _weekViewModelFactory.Create(timeTable.Data.Days, weekNumber - 1, WeekType.Previous);
+            if (timeTable != null && timeTable.Data != null)
+            {
+                weekNumber = DateTimeUtils.GetRelativeWeekNumber(timeTable.Data.ParityCountdown);
+                days = timeTable.Data.Days;
+            }
+
+            CurrentWeek = _weekViewModelFactory.Create(days, weekNumber, WeekType.Current);
+            NextWeek = _weekViewModelFactory.Create(days, weekNumber + 1, WeekType.Next);
+            PreviousWeek = _weekViewModelFactory.Create(days, weekNumber - 1, WeekType.Previous);
+
             IsLoading = false;
         }
 
-        [CanBeNull,UsedImplicitly(ImplicitUseKindFlags.Access)]
+        [CanBeNull, UsedImplicitly(ImplicitUseKindFlags.Access)]
         public WeekViewModel PreviousWeek
         {
             get { return _previousWeek; }
@@ -194,7 +199,7 @@ namespace TimeTable.ViewModel
             }
         }
 
-        [CanBeNull,UsedImplicitly(ImplicitUseKindFlags.Access)]
+        [CanBeNull, UsedImplicitly(ImplicitUseKindFlags.Access)]
         public WeekViewModel CurrentWeek
         {
             get { return _currentWeek; }
@@ -206,7 +211,7 @@ namespace TimeTable.ViewModel
             }
         }
 
-        [CanBeNull,UsedImplicitly(ImplicitUseKindFlags.Access)]
+        [CanBeNull, UsedImplicitly(ImplicitUseKindFlags.Access)]
         public WeekViewModel NextWeek
         {
             get { return _nextWeek; }
@@ -362,6 +367,7 @@ namespace TimeTable.ViewModel
                 FavoritedState = FavoritedState.Unknown;
                 return;
             }
+// ReSharper disable once PossibleNullReferenceException
             if (!_isTeacher && _favoritedItemsManager.IsGroupFavorited(_facultyId, _group.Id))
             {
                 FavoritedState = FavoritedState.Favorited;
@@ -375,6 +381,7 @@ namespace TimeTable.ViewModel
             if (!_isTeacher)
             {
                 if (_applicationSettings.Me.DefaultGroup != null &&
+// ReSharper disable once PossibleNullReferenceException
                     _applicationSettings.Me.DefaultGroup.Id == _group.Id &&
                     _applicationSettings.Me.Faculty.Id == _facultyId)
                 {
@@ -408,9 +415,6 @@ namespace TimeTable.ViewModel
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public OptionsMonitor Options
-        {
-            get; private set;
-        }
+        public OptionsMonitor Options { get; private set; }
     }
 }
