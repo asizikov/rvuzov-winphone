@@ -113,6 +113,7 @@
     <Compile Include="Converters\StringContentToBoolConverter.cs" />
     <Compile Include="Converters\StringContentToVisibilityConverter.cs" />
     <Compile Include="Converters\WeekNumberToTextConverter.cs" />
+    <Compile Include="JetBrains.Annotations\JetBrains.Annotations.cs" />
     <Compile Include="Services\CrashLogger.cs" />
     <Compile Include="IoC\Container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -218,10 +219,6 @@
     <Resource Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JetBrains.Annotations\JetBrains.Annotations.csproj">
-      <Project>{C9E415F3-1FE2-4838-B421-93B02288D05E}</Project>
-      <Name>JetBrains.Annotations</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TimeTable.Configuration\TimeTable.Configuration.csproj">
       <Project>{1BA688FA-3255-452F-8999-8C38EB1B413C}</Project>
       <Name>TimeTable.Configuration</Name>

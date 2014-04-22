@@ -60,6 +60,7 @@
     <Compile Include="Internal\UserRole.cs" />
     <Compile Include="Internal\FavoritedItem.cs" />
     <Compile Include="Faculty.cs" />
+    <Compile Include="JetBrains.Annotations\JetBrains.Annotations.cs" />
     <Compile Include="LessonGroup.cs" />
     <Compile Include="LessonTeacher.cs" />
     <Compile Include="Internal\Me.cs" />
@@ -76,12 +77,6 @@
     <Compile Include="Updates.cs" />
     <Compile Include="Universities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\JetBrains.Annotations\JetBrains.Annotations.csproj">
-      <Project>{C9E415F3-1FE2-4838-B421-93B02288D05E}</Project>
-      <Name>JetBrains.Annotations</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
