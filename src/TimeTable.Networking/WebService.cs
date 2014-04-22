@@ -15,7 +15,7 @@ namespace TimeTable.Networking
         [NotNull] private readonly Deserializer _deserializer = new Deserializer();
 
 
-        [NotNull] public IObservable<T> Get<T>(string url, TimeSpan timeoutTimeSpan) where T : new()
+        [NotNull] public IObservable<T> Get<T>(string url, TimeSpan timeoutTimeSpan) where T : class 
         {
             return Observable.Create<T>(
                 observer => 
@@ -39,7 +39,7 @@ namespace TimeTable.Networking
                 ));
         }
 
-        public IObservable<T> Post<T>(string url, string body, TimeSpan timeoutTimeSpan) where T : new()
+        public IObservable<T> Post<T>(string url, string body, TimeSpan timeoutTimeSpan) where T : class 
         {
             return Observable.Create<T>(
                observer =>
@@ -95,7 +95,7 @@ namespace TimeTable.Networking
                ));
         } 
 
-        private void HandleResponce<T>(WebResponse response, IObserver<T> observer) where T: new()
+        private void HandleResponce<T>(WebResponse response, IObserver<T> observer) where T: class 
         {
             string json;
             using (var stream = response.GetResponseStream())
@@ -107,7 +107,6 @@ namespace TimeTable.Networking
             try
             {
                 var result = _deserializer.Deserialize<T>(json);
-                // ReSharper disable once CompareNonConstrainedGenericWithNull
                 if (result != null)
                 {
                     observer.OnNext(result);

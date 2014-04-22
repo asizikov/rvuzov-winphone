@@ -9,7 +9,7 @@ namespace TimeTable.Networking.Restful
         Post = 1
     }
 
-    public abstract class RestfullRequest<T> where T : new()
+    public abstract class RestfullRequest<T> where T : class
     {
         private readonly TimeSpan _timeoutTimeSpan = TimeSpan.FromSeconds(40);
         private readonly string _baseUrl;
@@ -43,7 +43,6 @@ namespace TimeTable.Networking.Restful
                     return _webService.Get<T>(Url, _timeoutTimeSpan);
                 case RequestMethod.Post:
                     return _webService.Post<T>(Url, Body, _timeoutTimeSpan);
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

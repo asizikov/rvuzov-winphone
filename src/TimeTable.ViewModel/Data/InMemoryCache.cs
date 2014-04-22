@@ -20,21 +20,21 @@ namespace TimeTable.ViewModel.Data
         [NotNull] private readonly IsolatedStorageFile _storageFile = IsolatedStorageFile.GetUserStoreForApplication();
         [NotNull] private readonly object _readLock = new object();
 
-        private const string STORAGE_FILE_NAME = "Cache";
+        private const string StorageFileName = "Cache";
 
-        public bool IsCached<T>(string url) where T : new()
+        public bool IsCached<T>(string url) where T : class
         {
             return _cache.ContainsKey(url);
         }
 
-        public void Put<T>(T item, string url) where T : new()
+        public void Put<T>(T item, string url) where T : class
         {
             var cacheItem = new CacheItem
-                {
-                    Url = url,
-                    Type = typeof (T),
-                    Data = item
-                };
+            {
+                Url = url,
+                Type = typeof (T),
+                Data = item
+            };
             if (_cache.ContainsKey(url))
             {
                 _cache[url] = cacheItem;
@@ -45,7 +45,7 @@ namespace TimeTable.ViewModel.Data
             }
         }
 
-        public T Fetch<T>(string url) where T : new()
+        public T Fetch<T>(string url) where T : class
         {
             if (!_cache.ContainsKey(url)) throw new ArgumentException("Requested item is not cached");
 
@@ -55,17 +55,14 @@ namespace TimeTable.ViewModel.Data
             {
                 return (T) item.Data;
             }
-            else
-            {
-                return JsonConvert.DeserializeObject<T>(item.Data.ToString());
-            }
+            return JsonConvert.DeserializeObject<T>(item.Data.ToString());
         }
 
         public void PushToStorage()
         {
             lock (_readLock)
             {
-                using (var storageFileStream = _storageFile.CreateFile(STORAGE_FILE_NAME))
+                using (var storageFileStream = _storageFile.CreateFile(StorageFileName))
                 {
                     WriteFile(storageFileStream);
                 }
@@ -76,9 +73,9 @@ namespace TimeTable.ViewModel.Data
         {
             lock (_readLock)
             {
-                if (_storageFile.FileExists(STORAGE_FILE_NAME))
+                if (_storageFile.FileExists(StorageFileName))
                 {
-                    using (var storageFileStream = _storageFile.OpenFile(STORAGE_FILE_NAME, FileMode.Open))
+                    using (var storageFileStream = _storageFile.OpenFile(StorageFileName, FileMode.Open))
                     {
                         _cache = new Dictionary<string, CacheItem>(ReadFile(storageFileStream));
                     }
@@ -103,34 +100,6 @@ namespace TimeTable.ViewModel.Data
                 var reader = new JsonTextReader(streamReader);
                 return json.Deserialize<Dictionary<string, CacheItem>>(reader);
             }
-        }
-    }
-
-    public sealed class NoCache : IWebCache
-    {
-        public bool IsCached<T>(string url) where T : new()
-        {
-            return false;
-        }
-
-        public void Put<T>(T item, string url) where T : new()
-        {
-            ;
-        }
-
-        public T Fetch<T>(string url) where T : new()
-        {
-            return default(T);
-        }
-
-        public void PullFromStorage()
-        {
-            ;
-        }
-
-        public void PushToStorage()
-        {
-            ;
         }
     }
 }

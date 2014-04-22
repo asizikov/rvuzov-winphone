@@ -76,6 +76,7 @@
     <Compile Include="Commands\ShowGroupTimeTableCommand.cs" />
     <Compile Include="Data\AsyncWebClient.cs" />
     <Compile Include="Data\DataWriter.cs" />
+    <Compile Include="Data\NoCache.cs" />
     <Compile Include="Data\UniversitiesCache.cs" />
     <Compile Include="DefaultViewModel.cs" />
     <Compile Include="Extensions\FavoritedExtensions.cs" />

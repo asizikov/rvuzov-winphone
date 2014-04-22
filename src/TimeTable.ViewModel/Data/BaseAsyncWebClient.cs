@@ -26,7 +26,9 @@ namespace TimeTable.ViewModel.Data
             _cache = cache;
         }
 
-        protected IObservable<T> GetDataAsync<T>(RestfullRequest<T> request, CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate) where T : new()
+        protected IObservable<T> GetDataAsync<T>(RestfullRequest<T> request,
+            CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
+            where T : class
         {
             if (!_cache.IsCached<T>(request.Url))
             {
@@ -66,7 +68,7 @@ namespace TimeTable.ViewModel.Data
 
         private void CheckIfNeededToBeUptated<T>(RestfullRequest<T> request, IUpdatableModel updatable,
             IObserver<T> observer)
-            where T : new()
+            where T : class
         {
             var lastUpdated = updatable.LastUpdated;
             var lastUpdatedRequest = CallFactory.GetLastUpdatedRequest<T>(request.Url);
@@ -86,7 +88,7 @@ namespace TimeTable.ViewModel.Data
         }
 
         private void ExecuteRequest<T>(RestfullRequest<T> request, IObserver<T> observer, bool ignoreErrors = false)
-            where T : new()
+            where T : class
         {
             request.Execute()
                 .Subscribe(result =>
