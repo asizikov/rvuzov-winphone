@@ -6,10 +6,10 @@ namespace TimeTable.Model
     [UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
     public sealed class Teacher
     {
-        [JsonProperty("name")]
+        [JsonProperty("teacher_name")]
         public string Name { get; set; }
 
-        [JsonProperty("id")]
+        [JsonProperty("teacher_id")]
         public int Id { get; set; }
 
         [CanBeNull, JsonProperty("personalPage")]

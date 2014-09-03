@@ -15,6 +15,6 @@ namespace TimeTable.Model
         public string Speciality { get; set; }
 
         [JsonProperty("timestamp")]
-        public long TimeStamp { get; set; }
+        public long? TimeStamp { get; set; }
     }
 }
