@@ -131,6 +131,9 @@
             CompanyName="{Binding Path=Strings.CompanyName, Source={StaticResource LocalizedStrings}}"
             FeedbackTo="{Binding Path=Strings.FeedbackTo, Source={StaticResource LocalizedStrings}}"
             ApplicationName="{Binding Path=Strings.AppName, Source={StaticResource LocalizedStrings}}" />
+<!--        <Image -->
+<!--            Opacity="0.5"-->
+<!--            Source="/Images/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" Margin="0,-36,0,0" />-->
     </Grid>
     <bindableApplicationBar:Bindable.ApplicationBar>
         <bindableApplicationBar:BindableApplicationBar

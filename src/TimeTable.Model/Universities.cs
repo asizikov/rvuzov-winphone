@@ -16,7 +16,7 @@ namespace TimeTable.Model
     public sealed class University
     {
         [CanBeNull, JsonProperty("email")]
-        public int? Email { get; set; }
+        public string Email { get; set; }
 
         [CanBeNull, JsonProperty("allFacultiesTimestamp")]
         public long? AllFacultiesTimestamp { get; set; }
