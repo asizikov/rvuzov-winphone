@@ -50,8 +50,6 @@
                                       Background="Transparent"
                                       LayoutMode="List" 
                                       IsGroupingEnabled="True"
-                                      GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
-                                      GroupItemTemplate="{StaticResource TimeTableGroupItemTemplate}"
                                       GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}"
                                       ItemsSource="{Binding UniversitesList}"
                                       SelectedItem="{Binding SelectedUniversity, Mode=TwoWay}"

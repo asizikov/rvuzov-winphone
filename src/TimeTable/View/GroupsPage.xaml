@@ -51,8 +51,6 @@
                         ItemsSource="{Binding GroupsList}"
                         LayoutMode="List" 
                         IsGroupingEnabled="True"
-                        GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
-                        GroupItemTemplate="{StaticResource TimeTableGroupItemTemplate}"
                         GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}">
                         <phone:LongListSelector.ItemTemplate>
 
@@ -96,8 +94,6 @@
                         ItemsSource="{Binding TeachersList}"
                         LayoutMode="List" 
                         IsGroupingEnabled="True"
-                        GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
-                        GroupItemTemplate="{StaticResource TimeTableGroupItemTemplate}"
                         GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
