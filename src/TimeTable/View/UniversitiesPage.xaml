@@ -5,13 +5,12 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
     xmlns:utils="clr-namespace:TimeTable.Utils"
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-    xmlns:controls="clr-namespace:TimeTable.Controls"
     xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     xmlns:view="clr-namespace:TimeTable.View"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:TimeTable.Controls"
     Style="{StaticResource TimeTablePageStyle}"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     d:DataContext="{d:DesignInstance viewModel:UniversitiesViewModel}">
@@ -46,28 +45,16 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <toolkit:LongListSelector Grid.Row="0"
-                                      Background="Transparent"
-                                      IsFlatList="False"
-                                      GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
-                                      GroupItemTemplate="{StaticResource TimeTableGroupItemTemplate}"
-                                      GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}"
-                                      ItemsSource="{Binding UniversitesList}"
-                                      SelectedItem="{Binding SelectedUniversity, Mode=TwoWay}"
-                                      Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}">
-                <toolkit:LongListSelector.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
-                            <TextBlock Style="{StaticResource PhoneTextLargeStyle}"
-                                       Foreground="{StaticResource TimeTablePrimaryTextColorBrush}"
-                                       Text="{Binding ShortName}" />
-                            <TextBlock Style="{StaticResource PhoneTextSmallStyle}"
-                                       Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                                       TextWrapping="Wrap" Text="{Binding Name}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </toolkit:LongListSelector.ItemTemplate>
-            </toolkit:LongListSelector>
+            <controls:ExtendedSelector Grid.Row="0"
+                                    Background="Transparent"
+                                    LayoutMode="List"
+                                    IsGroupingEnabled="True"
+                                    JumpListStyle="{StaticResource TimeTableJumpListStyle}"
+                                    ItemTemplate="{StaticResource TimeTableUniversityItemTemplate}"
+                                    GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}"
+                                    ItemsSource="{Binding UniversitiesList}"
+                                    SelectedItem="{Binding SelectedUniversity, Mode=TwoWay}"
+                                    Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}" />
         </Grid>
     </Grid>
     <bar:Bindable.ApplicationBar>

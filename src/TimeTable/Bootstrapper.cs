@@ -21,8 +21,6 @@ namespace TimeTable
             SmartDispatcher.Initialize();
             RegisterDependencies(rootFrame);
             rootFrame.UriMapper = new TimeTableUriMapper(ContainerInstance.Current.Resolve<BaseApplicationSettings>());
-
-            TilesSetter.SetTiles();
         }
 
 
@@ -38,11 +36,11 @@ namespace TimeTable
 #endif
             ioc.Register<IWebCache>(new InMemoryCache());
             ioc.Register(new UniversitiesCache());
-            ioc.Register(new AsyncDataProvider(ioc.Resolve<IWebCache>(),ioc.Resolve<UniversitiesCache>()));
+            ioc.Register(new AsyncDataProvider(ioc.Resolve<IWebCache>(), ioc.Resolve<UniversitiesCache>()));
             ioc.Register<IUiStringsProviders>(new UiStringsProvider());
             ioc.Register<INotificationService>(new NotificationService(ioc.Resolve<IUiStringsProviders>()));
             ioc.Register<ICommandFactory>(new CommandsFactory(ioc.Resolve<INavigationService>(),
-                ioc.Resolve<FlurryPublisher>(), ioc.Resolve<IUiStringsProviders>(), ioc.Resolve<AsyncDataProvider>()));
+            ioc.Resolve<FlurryPublisher>(), ioc.Resolve<IUiStringsProviders>(), ioc.Resolve<AsyncDataProvider>()));
             ioc.Register(new FavoritedItemsManager());
         }
     }

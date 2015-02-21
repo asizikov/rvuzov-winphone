@@ -34,7 +34,7 @@
                    MaxHeight="87"
                    Style="{StaticResource PhoneTextLargeStyle}"
                    Text="{Binding Title}" />
-        <toolkit:LockablePivot
+        <phone:Pivot
             x:Name="Pivot"
             SelectedIndex="{Binding SelectedWeekIndex, Mode=TwoWay}"
             Grid.Row="1">
@@ -85,7 +85,7 @@
                         Text="{Binding Strings.NoLessons, Source={StaticResource LocalizedStrings}}" />
                 </Grid>
             </controls:PivotItem>
-        </toolkit:LockablePivot>
+        </phone:Pivot>
         <Grid
             Grid.Row="0"
             Grid.RowSpan="2"

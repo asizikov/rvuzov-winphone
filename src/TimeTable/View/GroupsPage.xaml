@@ -11,6 +11,8 @@
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
     xmlns:view="clr-namespace:TimeTable.View"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:controls1="clr-namespace:TimeTable.Controls"
     Foreground="{StaticResource PhoneForegroundBrush}"
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.ForegroundColor="White"
@@ -34,24 +36,24 @@
                  Text="{Binding Query, Mode=TwoWay}"
                  utils:BindingUtility.UpdateSourceOnChange="True"
                  x:FieldModifier="private" />
-        <toolkit:LockablePivot
+        <phone:Pivot
             x:Name="Pivot"
-            IsLocked="{Binding IsSearchBoxVisible}"
             SelectedIndex="{Binding SelectedPivotIndex, Mode=TwoWay}"
             Grid.Row="1">
             <controls:PivotItem
                 Header="{Binding Strings.Groups ,Source={StaticResource LocalizedStrings}}">
                 <Grid x:Name="ContentPanel" Margin="0">
-                    <toolkit:LongListSelector
+                    <controls1:ExtendedSelector
                         Grid.Row="0"
                         Background="Transparent"
                         Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
                         SelectedItem="{Binding SelectedGroup, Mode=TwoWay}"
                         ItemsSource="{Binding GroupsList}"
-                        GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
-                        GroupItemTemplate="{StaticResource TimeTableGroupItemTemplate}"
+                        LayoutMode="List" 
+                        JumpListStyle="{StaticResource TimeTableJumpListStyle}"
+                        IsGroupingEnabled="True"
                         GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}">
-                        <toolkit:LongListSelector.ItemTemplate>
+                        <controls1:ExtendedSelector.ItemTemplate>
 
                             <DataTemplate>
                                 <Grid toolkit:TiltEffect.IsTiltEnabled="True">
@@ -73,8 +75,8 @@
                                         Text="{Binding GroupName}" />
                                 </Grid>
                             </DataTemplate>
-                        </toolkit:LongListSelector.ItemTemplate>
-                    </toolkit:LongListSelector>
+                        </controls1:ExtendedSelector.ItemTemplate>
+                    </controls1:ExtendedSelector>
                     <TextBlock
                         TextWrapping="Wrap"
                         Style="{StaticResource PhoneTextLargeStyle}"
@@ -86,23 +88,24 @@
             </controls:PivotItem>
             <controls:PivotItem Header="{Binding Strings.Teachers, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <toolkit:LongListSelector
+                    <controls1:ExtendedSelector
                         Background="Transparent"
                         Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
                         SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
                         ItemsSource="{Binding TeachersList}"
-                        GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
-                        GroupItemTemplate="{StaticResource TimeTableGroupItemTemplate}"
+                        LayoutMode="List" 
+                        IsGroupingEnabled="True"
+                        JumpListStyle="{StaticResource TimeTableJumpListStyle}"
                         GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}">
-                        <toolkit:LongListSelector.ItemTemplate>
+                        <controls1:ExtendedSelector.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock
                                     TextWrapping="Wrap"
                                     toolkit:TiltEffect.IsTiltEnabled="True" Margin="12,0,12,12"
                                     Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Name}" />
                             </DataTemplate>
-                        </toolkit:LongListSelector.ItemTemplate>
-                    </toolkit:LongListSelector>
+                        </controls1:ExtendedSelector.ItemTemplate>
+                    </controls1:ExtendedSelector>
                     <TextBlock
                         TextWrapping="Wrap"
                         Style="{StaticResource PhoneTextLargeStyle}"
@@ -112,7 +115,7 @@
                         Text="{Binding Strings.NoData, Source={StaticResource LocalizedStrings}}" />
                 </Grid>
             </controls:PivotItem>
-        </toolkit:LockablePivot>
+        </phone:Pivot>
     </Grid>
     <bar:Bindable.ApplicationBar>
         <bar:BindableApplicationBar

@@ -35,6 +35,8 @@ namespace TimeTable.ViewModel
             }
         }
 
+        public Action<bool> OnLock { get; set; }
+
         public ICommand ShowSearchBoxCommand
         {
             get { return _showSearchBoxCommand; }
@@ -48,6 +50,10 @@ namespace TimeTable.ViewModel
             {
                 if (value.Equals(_isSearchBoxVisible)) return;
                 _isSearchBoxVisible = value;
+                if (OnLock != null)
+                {
+                    OnLock(value);
+                }
                 OnPropertyChanged("IsSearchBoxVisible");
             }
         }

@@ -26,7 +26,7 @@ namespace TimeTable.ViewModel
         private readonly Reason _reason;
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
-        private ObservableCollection<ListGroup<University>> _universitesList;
+        private ObservableCollection<ListGroup<University>> _universitiesList;
         private University _selectedUniversity;
 
         private Universities _storedRequest;
@@ -60,9 +60,11 @@ namespace TimeTable.ViewModel
             _dataProvider.GetUniversitesAsync().Subscribe(
                 result =>
                 {
-                    result.Data = result.Data.OrderBy(u => u.ShortName).ToList();
+                    var filtered = result.Data.Where(u => !string.IsNullOrWhiteSpace(u.ShortName)).ToList();
+                    filtered.ForEach(u => u.ShortName = u.ShortName.Trim());
+                    result.Data = filtered.OrderBy(u => u.ShortName).ToList();
                     _storedRequest = result;
-                    UniversitesList = FormatResult(result.Data, _resultGrouper);
+                    UniversitiesList = FormatResult(result.Data, _resultGrouper);
                     IsLoading = false;
                 },
                 ex =>
@@ -74,14 +76,14 @@ namespace TimeTable.ViewModel
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public ObservableCollection<ListGroup<University>> UniversitesList
+        public ObservableCollection<ListGroup<University>> UniversitiesList
         {
-            get { return _universitesList; }
+            get { return _universitiesList; }
             private set
             {
-                if (Equals(value, _universitesList)) return;
-                _universitesList = value;
-                OnPropertyChanged("UniversitesList");
+                if (Equals(value, _universitiesList)) return;
+                _universitiesList = value;
+                OnPropertyChanged("UniversitiesList");
             }
         }
 
@@ -139,7 +141,7 @@ namespace TimeTable.ViewModel
 
         protected override void GetResults(string search)
         {
-            UniversitesList = FormatResult(
+            UniversitiesList = FormatResult(
                 String.IsNullOrEmpty(search)
                     ? _storedRequest.Data
                     : _storedRequest.Data.Where(u => Matches(u, search)), _resultGrouper);

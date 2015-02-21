@@ -8,7 +8,7 @@ namespace TimeTable.Services
 {
     public class ApplicationSettings : BaseApplicationSettings
     {
-        private const string KEY = "Settings";
+        private const string Key = "Settings";
 
         public ApplicationSettings()
         {
@@ -20,14 +20,14 @@ namespace TimeTable.Services
         private static Me Settings()
         {
             Me settings;
-            if (!IsolatedStorageSettings.ApplicationSettings.Contains(KEY))
+            if (!IsolatedStorageSettings.ApplicationSettings.Contains(Key))
             {
                 settings = GetEmptySettings();
-                IsolatedStorageSettings.ApplicationSettings.Add(KEY, SerializeToStrng(settings));
+                IsolatedStorageSettings.ApplicationSettings.Add(Key, SerializeToString(settings));
             }
             else
             {
-                var favsJsonString = (string)IsolatedStorageSettings.ApplicationSettings[KEY];
+                var favsJsonString = (string)IsolatedStorageSettings.ApplicationSettings[Key];
                 settings = DeserializeFromString(favsJsonString);
             }
             return settings;
@@ -40,7 +40,7 @@ namespace TimeTable.Services
             return deserializedFavs ?? GetEmptySettings();
         }
 
-        private static string SerializeToStrng(Me favs)
+        private static string SerializeToString(Me favs)
         {
             return JsonConvert.SerializeObject(favs);
         }
@@ -54,13 +54,13 @@ namespace TimeTable.Services
 
         public override void Save()
         {
-            if (!IsolatedStorageSettings.ApplicationSettings.Contains(KEY))
+            if (!IsolatedStorageSettings.ApplicationSettings.Contains(Key))
             {
-                IsolatedStorageSettings.ApplicationSettings.Add(KEY, SerializeToStrng(Me));
+                IsolatedStorageSettings.ApplicationSettings.Add(Key, SerializeToString(Me));
             }
             else
             {
-                IsolatedStorageSettings.ApplicationSettings[KEY] = SerializeToStrng(Me);
+                IsolatedStorageSettings.ApplicationSettings[Key] = SerializeToString(Me);
             }
         }
     }

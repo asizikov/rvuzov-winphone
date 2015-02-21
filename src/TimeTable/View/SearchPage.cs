@@ -38,7 +38,7 @@ namespace TimeTable.View
         {
             if (propertyChangedEventArgs.PropertyName == "IsSearchBoxVisible")
             {
-                Scheduler.Default.Schedule(TimeSpan.FromMilliseconds(200), () => SmartDispatcher.BeginInvoke(SetFocuse));
+                Scheduler.Default.Schedule(TimeSpan.FromMilliseconds(200), () => SmartDispatcher.BeginInvoke(SetFocus));
             }
         }
 
@@ -80,9 +80,14 @@ namespace TimeTable.View
             {
                 SaveState(e);
             }
+            OnLeave();
+        }
+
+        protected virtual void OnLeave()
+        {
             ViewModel = null;
         }
 
-        protected abstract void SetFocuse();
+        protected abstract void SetFocus();
     }
 }
