@@ -12,6 +12,7 @@
     xmlns:controls="clr-namespace:TimeTable.Controls"
     xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     xmlns:view="clr-namespace:TimeTable.View"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     Style="{StaticResource TimeTablePageStyle}"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     d:DataContext="{d:DesignInstance viewModel:UniversitiesViewModel}">
@@ -46,7 +47,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <toolkit:LongListSelector Grid.Row="0"
+            <phone:LongListSelector Grid.Row="0"
                                       Background="Transparent"
                                       IsFlatList="False"
                                       GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
@@ -55,7 +56,7 @@
                                       ItemsSource="{Binding UniversitesList}"
                                       SelectedItem="{Binding SelectedUniversity, Mode=TwoWay}"
                                       Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}">
-                <toolkit:LongListSelector.ItemTemplate>
+                <phone:LongListSelector.ItemTemplate>
                     <DataTemplate>
                         <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}"
@@ -66,8 +67,8 @@
                                        TextWrapping="Wrap" Text="{Binding Name}" />
                         </StackPanel>
                     </DataTemplate>
-                </toolkit:LongListSelector.ItemTemplate>
-            </toolkit:LongListSelector>
+                </phone:LongListSelector.ItemTemplate>
+            </phone:LongListSelector>
         </Grid>
     </Grid>
     <bar:Bindable.ApplicationBar>

@@ -32,7 +32,6 @@ namespace TimeTable.ViewModel
             InitCommands();
         }
 
-        
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public ICommand ImStudentCommand { get; private set; }

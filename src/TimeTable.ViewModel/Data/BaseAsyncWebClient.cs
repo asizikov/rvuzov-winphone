@@ -9,12 +9,6 @@ using TimeTable.ViewModel.Restful;
 
 namespace TimeTable.ViewModel.Data
 {
-    public enum CachePolicy
-    {
-        GetFromCacheAndUpdate,
-        TryGetFromCache
-    }
-
     public abstract class BaseAsyncWebClient
     {
         private readonly IWebCache _cache;
@@ -54,7 +48,7 @@ namespace TimeTable.ViewModel.Data
                             var updatable = item as IUpdatableModel;
                             if (updatable != null)
                             {
-                                CheckIfNeededToBeUptated(request, updatable, observer);
+                                CheckIfNeededToBeUpdated(request, updatable, observer);
                             }
                             else
                             {
@@ -66,7 +60,7 @@ namespace TimeTable.ViewModel.Data
                 );
         }
 
-        private void CheckIfNeededToBeUptated<T>(RestfullRequest<T> request, IUpdatableModel updatable,
+        private void CheckIfNeededToBeUpdated<T>(RestfullRequest<T> request, IUpdatableModel updatable,
             IObserver<T> observer)
             where T : class
         {
@@ -74,9 +68,9 @@ namespace TimeTable.ViewModel.Data
             var lastUpdatedRequest = CallFactory.GetLastUpdatedRequest<T>(request.Url);
             lastUpdatedRequest.Execute()
                 .Subscribe(
-                    resutl =>
+                    result =>
                     {
-                        if (resutl.Last > lastUpdated)
+                        if (result.Last > lastUpdated)
                         {
                             ExecuteRequest(request, observer);
                         }

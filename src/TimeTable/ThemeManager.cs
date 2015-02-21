@@ -103,6 +103,11 @@ namespace Microsoft.Phone.Controls
         SystemTrayColors,
 
         /// <summary>
+        /// Colors ApplicationBars appropriately
+        /// </summary>
+        ApplicationBarColors,
+
+        /// <summary>
         /// Colors system trays appropriately and also any set ApplicationBar
         /// instances. Will not theme ApplicationBar instances that are 
         /// created after the page's Navigated event or that are created and
@@ -346,9 +351,11 @@ namespace Microsoft.Phone.Controls
 
                 if (Application.Current.Resources.MergedDictionaries.Count > 0)
                 {
-                    Application.Current.Resources.MergedDictionaries.Remove(
-                        Application.Current.Resources.MergedDictionaries.Single(
-                        x => x.Source == styleUri));
+                    ResourceDictionary dict = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == styleUri);
+                    if(dict != null)
+                    {
+                        Application.Current.Resources.MergedDictionaries.Remove(dict);
+                    }                        
                 }
 
                 SetCustomTheme(rd, themeToOverride);
@@ -460,12 +467,18 @@ namespace Microsoft.Phone.Controls
                     new ThemeValue("TextBoxEditBackground", new DualColorValue(0xFFFFFFFF, 0x00000000)),
                     new ThemeValue("TextBoxReadOnly", new DualColorValue(0x77000000, 0x2E000000)),
 
-                    new ThemeValue("RadioCheckBox", new DualColorValue(0xBFFFFFFF, 0x26000000)),
+                    new ThemeValue("RadioCheckBox", new DualColorValue(0xFF000000, 0xBFFFFFFF)),
                     new ThemeValue("RadioCheckBoxDisabled", new DualColorValue(0x66FFFFFF, 0x00000000)),
-                    new ThemeValue("RadioCheckBoxCheck", new DualColorValue(0xFF000000, 0xDE000000)),
+                    new ThemeValue("RadioCheckBoxCheck", new DualColorValue(0xFFFFFFFF, 0xDE000000)),
                     new ThemeValue("RadioCheckBoxCheckDisabled", new DualColorValue(0x66000000, 0x4D000000)),
+                    new ThemeValue("RadioCheckBoxBorder", new DualColorValue(0xFFFFFFFF, 0xFF000000)),
                     
                     new ThemeValue("RadioCheckBoxPressedBorder", new DualColorValue(0xFFFFFFFF, 0xDE000000)),
+
+                    // Fix for ToggleSwitch in Phone Toolkit
+                    new ThemeValue("TextLowContrast", new DualColorValue(0x73FFFFFF, 0x40000000)),
+                    new ThemeValue("TextMidContrast", new DualColorValue(0x99FFFFFF, 0x73000000)),
+                    new ThemeValue("TextHighContrast", new DualColorValue(0xFFFFFFFF, 0xDE000000)),
 
                     new ThemeValue("Semitransparent", new DualColorValue(0xAA000000, 0xAAFFFFFF)),
 
@@ -509,7 +522,7 @@ namespace Microsoft.Phone.Controls
                     // Check if the Colour is actually in the dictionary
                     if (Application.Current.Resources.Contains(prefix + "Color"))
                     {
-                        currentColor = (Color) Application.Current.Resources[prefix + "Color"];
+                        currentColor = (Color)Application.Current.Resources[prefix + "Color"];
                         currentColor.A = color.A;
                         currentColor.B = color.B;
                         currentColor.G = color.G;
@@ -636,19 +649,24 @@ namespace Microsoft.Phone.Controls
             {
                 if (page != null)
                 {
-                    // Corrects the issue where white foreground text and the
-                    // light theme on the phone will then have invisible
-                    // progress indicator text.
-                    Color systemTrayForeground = foreground;
-                    if (Colors.White == foreground && _themeAtStartup == Theme.Light)
+                    if (OverrideOptions == ThemeManagerOverrideOptions.SystemTrayAndApplicationBars ||
+                        OverrideOptions == ThemeManagerOverrideOptions.SystemTrayColors)
                     {
-                        systemTrayForeground = AlmostWhite;
+                        // Corrects the issue where white foreground text and the
+                        // light theme on the phone will then have invisible
+                        // progress indicator text.
+                        Color systemTrayForeground = foreground;
+                        if (Colors.White == foreground && _themeAtStartup == Theme.Light)
+                        {
+                            systemTrayForeground = AlmostWhite;
+                        }
+
+                        SystemTray.SetBackgroundColor(page, background);
+                        SystemTray.SetForegroundColor(page, systemTrayForeground);
                     }
 
-                    SystemTray.SetBackgroundColor(page, background);
-                    SystemTray.SetForegroundColor(page, systemTrayForeground);
-
-                    if (OverrideOptions == ThemeManagerOverrideOptions.SystemTrayAndApplicationBars)
+                    if (OverrideOptions == ThemeManagerOverrideOptions.SystemTrayAndApplicationBars || 
+                        OverrideOptions == ThemeManagerOverrideOptions.ApplicationBarColors)
                     {
                         var appBar = page.ApplicationBar as IApplicationBar;
                         if (appBar != null)
@@ -684,7 +702,8 @@ namespace Microsoft.Phone.Controls
 
                         // Hook up to the navigation events for the tray.
                         if (OverrideOptions == ThemeManagerOverrideOptions.SystemTrayAndApplicationBars ||
-                            OverrideOptions == ThemeManagerOverrideOptions.SystemTrayColors)
+                            OverrideOptions == ThemeManagerOverrideOptions.SystemTrayColors ||
+                            OverrideOptions == ThemeManagerOverrideOptions.ApplicationBarColors)
                         {
                             PhoneApplicationFrame paf = frame as PhoneApplicationFrame;
                             if (paf != null)
