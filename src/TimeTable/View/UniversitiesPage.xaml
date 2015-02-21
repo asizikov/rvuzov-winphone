@@ -50,8 +50,9 @@
                                       Background="Transparent"
                                       LayoutMode="List" 
                                       IsGroupingEnabled="True"
+                                      JumpListStyle="{StaticResource TimeTableJumpListStyle}"
                                       GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}"
-                                      ItemsSource="{Binding UniversitesList}"
+                                      ItemsSource="{Binding UniversitiesList}"
                                       SelectedItem="{Binding SelectedUniversity, Mode=TwoWay}"
                                       Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}">
                 <phone:LongListSelector.ItemTemplate>
