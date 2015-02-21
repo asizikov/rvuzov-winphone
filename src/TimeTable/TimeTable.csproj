@@ -151,7 +151,9 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Commands\CommandsFactory.cs" />
+    <Compile Include="Controls\ExtendedSelector.cs" />
     <Compile Include="Controls\CommandReadyContextMenu.cs" />
+    <Compile Include="Controls\PositionOnAdd.cs" />
     <Compile Include="Converters\AnyCountToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToLessonColorConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />

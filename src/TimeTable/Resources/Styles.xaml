@@ -38,18 +38,30 @@
         </Setter>
     </Style>
 
-    <ItemsPanelTemplate x:Key="TimeTableItemsPanelTemplate">
-        <toolkit:WrapPanel />
-    </ItemsPanelTemplate>
-
     <DataTemplate x:Key="TimeTableGroupHeaderTemplate">
         <Border Background="{StaticResource TimeTableHilighthBrush}"
-                HorizontalAlignment="Left"
-                toolkit:TiltEffect.IsTiltEnabled="True" Margin="12"
-                Padding="{StaticResource PhoneTouchTargetOverhang}">
+                    HorizontalAlignment="Left"
+                    Width="75"
+                    Height="75" 
+                    Margin="12"
+                    toolkit:TiltEffect.IsTiltEnabled="True"
+                    Padding="{StaticResource PhoneTouchTargetOverhang}">
             <TextBlock Text="{Binding Title}"
-                       Style="{StaticResource PhoneTextLargeStyle}" />
+                           FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                           HorizontalAlignment="Left" VerticalAlignment="Center"
+                           Style="{StaticResource PhoneTextLargeStyle}" />
         </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="TimeTableUniversityItemTemplate">
+        <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
+            <TextBlock Style="{StaticResource PhoneTextLargeStyle}"
+                                       Foreground="{StaticResource TimeTablePrimaryTextColorBrush}"
+                                       Text="{Binding ShortName}" />
+            <TextBlock Style="{StaticResource PhoneTextSmallStyle}"
+                                       Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+                                       TextWrapping="Wrap" Text="{Binding Name}" />
+        </StackPanel>
     </DataTemplate>
 
     <Style x:Key="TimeTablePageStyle" TargetType="phone:PhoneApplicationPage">

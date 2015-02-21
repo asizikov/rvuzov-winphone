@@ -2,19 +2,12 @@
 
 namespace TimeTable.Model
 {
-    public class ListGroup<T> : IEnumerable<T>
+    public class ListGroup<T> : List<T>
     {
-        public ListGroup(string name, IEnumerable<T> items)
+        public ListGroup(string name, IEnumerable<T> items) :base(items)
         {
             Title = name;
-            Items = new List<T>(items);
-        }
-
-        public override bool Equals(object obj)
-        {
-            var that = obj as ListGroup<T>;
-
-            return (that != null) && (this.Title.Equals(that.Title));
+            
         }
 
         public string Title
@@ -22,29 +15,5 @@ namespace TimeTable.Model
             get;
             set;
         }
-
-        public IList<T> Items
-        {
-            get;
-            set;
-        }
-
-        #region IEnumerable<T> Members
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return this.Items.GetEnumerator();
-        }
-
-        #endregion
-
-        #region IEnumerable Members
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.Items.GetEnumerator();
-        }
-
-        #endregion
     }
 }

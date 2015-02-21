@@ -68,7 +68,7 @@ namespace TimeTable.View
             }
         }
 
-        protected override void SetFocuse()
+        protected override void SetFocus()
         {
             Search.Focus();
         }
