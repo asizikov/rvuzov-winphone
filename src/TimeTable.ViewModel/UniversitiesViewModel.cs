@@ -26,7 +26,7 @@ namespace TimeTable.ViewModel
         private readonly Reason _reason;
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
-        private ObservableCollection<ListGroup<University>> _universitesList;
+        private ObservableCollection<ListGroup<University>> _universitiesList;
         private University _selectedUniversity;
 
         private Universities _storedRequest;
@@ -76,11 +76,11 @@ namespace TimeTable.ViewModel
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public ObservableCollection<ListGroup<University>> UniversitesList
         {
-            get { return _universitesList; }
+            get { return _universitiesList; }
             private set
             {
-                if (Equals(value, _universitesList)) return;
-                _universitesList = value;
+                if (Equals(value, _universitiesList)) return;
+                _universitiesList = value;
                 OnPropertyChanged("UniversitesList");
             }
         }

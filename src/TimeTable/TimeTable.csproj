@@ -110,8 +110,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Coding4Fun.Toolkit.Controls.2.0.9\lib\windowsphone8\Coding4Fun.Toolkit.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="FlurryWP8SDK">
-      <HintPath>..\Lib\FlurryWP8SDK.dll</HintPath>
+    <Reference Include="FlurryWP8SDK, Version=3.1.1.0, Culture=neutral, PublicKeyToken=d822942b4ec01210, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\FlurryForWindowsPhone8.1.2\lib\wp8\FlurryWP8SDK.dll</HintPath>
     </Reference>
     <Reference Include="Funq.Portable">
       <HintPath>packages\Funq.Portable.1.0.1\lib\Funq.Portable.dll</HintPath>
