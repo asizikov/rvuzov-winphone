@@ -32,6 +32,11 @@ namespace TimeTable.View
                     ViewModel =
                         ViewModelLocator.GetGroupsPageViewModel(facultyId, universityId, GetReason()) as
                             SearchViewModel;
+
+                    if (ViewModel != null)
+                    {
+                        ViewModel.OnLock += OnLock;
+                    }
                     DataContext = ViewModel;
 
                     if (State.Count > 0)
@@ -50,6 +55,11 @@ namespace TimeTable.View
             {
                 throw new ArgumentException();
             }
+        }
+
+        private void OnLock(bool state)
+        {
+            Pivot.IsLocked = state;
         }
 
         private void Search_GotFocus(object sender, RoutedEventArgs e)
@@ -71,6 +81,15 @@ namespace TimeTable.View
         protected override void SetFocus()
         {
             Search.Focus();
+        }
+
+        protected override void OnLeave()
+        {
+            if (ViewModel != null)
+            {
+                ViewModel.OnLock -= OnLock;
+            }
+            base.OnLeave();
         }
     }
 }

@@ -80,6 +80,11 @@ namespace TimeTable.View
             {
                 SaveState(e);
             }
+            OnLeave();
+        }
+
+        protected virtual void OnLeave()
+        {
             ViewModel = null;
         }
 

@@ -12,6 +12,7 @@
     xmlns:view="clr-namespace:TimeTable.View"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:controls1="clr-namespace:TimeTable.Controls"
     Foreground="{StaticResource PhoneForegroundBrush}"
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.ForegroundColor="White"
@@ -37,22 +38,22 @@
                  x:FieldModifier="private" />
         <phone:Pivot
             x:Name="Pivot"
-            IsLocked="{Binding IsSearchBoxVisible}"
             SelectedIndex="{Binding SelectedPivotIndex, Mode=TwoWay}"
             Grid.Row="1">
             <controls:PivotItem
                 Header="{Binding Strings.Groups ,Source={StaticResource LocalizedStrings}}">
                 <Grid x:Name="ContentPanel" Margin="0">
-                    <phone:LongListSelector
+                    <controls1:ExtendedSelector
                         Grid.Row="0"
                         Background="Transparent"
                         Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
                         SelectedItem="{Binding SelectedGroup, Mode=TwoWay}"
                         ItemsSource="{Binding GroupsList}"
                         LayoutMode="List" 
+                        JumpListStyle="{StaticResource TimeTableJumpListStyle}"
                         IsGroupingEnabled="True"
                         GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}">
-                        <phone:LongListSelector.ItemTemplate>
+                        <controls1:ExtendedSelector.ItemTemplate>
 
                             <DataTemplate>
                                 <Grid toolkit:TiltEffect.IsTiltEnabled="True">
@@ -74,8 +75,8 @@
                                         Text="{Binding GroupName}" />
                                 </Grid>
                             </DataTemplate>
-                        </phone:LongListSelector.ItemTemplate>
-                    </phone:LongListSelector>
+                        </controls1:ExtendedSelector.ItemTemplate>
+                    </controls1:ExtendedSelector>
                     <TextBlock
                         TextWrapping="Wrap"
                         Style="{StaticResource PhoneTextLargeStyle}"
@@ -87,23 +88,24 @@
             </controls:PivotItem>
             <controls:PivotItem Header="{Binding Strings.Teachers, Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <phone:LongListSelector
+                    <controls1:ExtendedSelector
                         Background="Transparent"
                         Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
                         SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
                         ItemsSource="{Binding TeachersList}"
                         LayoutMode="List" 
                         IsGroupingEnabled="True"
+                        JumpListStyle="{StaticResource TimeTableJumpListStyle}"
                         GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}">
-                        <phone:LongListSelector.ItemTemplate>
+                        <controls1:ExtendedSelector.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock
                                     TextWrapping="Wrap"
                                     toolkit:TiltEffect.IsTiltEnabled="True" Margin="12,0,12,12"
                                     Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Name}" />
                             </DataTemplate>
-                        </phone:LongListSelector.ItemTemplate>
-                    </phone:LongListSelector>
+                        </controls1:ExtendedSelector.ItemTemplate>
+                    </controls1:ExtendedSelector>
                     <TextBlock
                         TextWrapping="Wrap"
                         Style="{StaticResource PhoneTextLargeStyle}"
