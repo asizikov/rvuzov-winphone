@@ -49,6 +49,8 @@
                         Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
                         SelectedItem="{Binding SelectedGroup, Mode=TwoWay}"
                         ItemsSource="{Binding GroupsList}"
+                        LayoutMode="List" 
+                        IsGroupingEnabled="True"
                         GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
                         GroupItemTemplate="{StaticResource TimeTableGroupItemTemplate}"
                         GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}">
@@ -92,6 +94,8 @@
                         Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
                         SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
                         ItemsSource="{Binding TeachersList}"
+                        LayoutMode="List" 
+                        IsGroupingEnabled="True"
                         GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
                         GroupItemTemplate="{StaticResource TimeTableGroupItemTemplate}"
                         GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}">

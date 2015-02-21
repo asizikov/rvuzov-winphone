@@ -108,8 +108,8 @@
     <Reference Include="FlurryWP8SDK">
       <HintPath>..\Lib\FlurryWP8SDK.dll</HintPath>
     </Reference>
-    <Reference Include="Funq">
-      <HintPath>..\Lib\Funq.dll</HintPath>
+    <Reference Include="Funq.Portable">
+      <HintPath>packages\Funq.Portable.1.0.1\lib\Funq.Portable.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Annotations.PCL328">
       <HintPath>packages\JetBrains.Annotations.8.0.5.0\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\JetBrains.Annotations.PCL328.dll</HintPath>
@@ -136,7 +136,6 @@
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>packages\Rx-PlatformServices.2.2.5\lib\windowsphone8\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Interactivity, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -172,7 +171,6 @@
     <Compile Include="Services\TilesSetter.cs" />
     <Compile Include="ThemeManager.cs" />
     <Compile Include="TimeTableUriMapper.cs" />
-    <Compile Include="TinyIoC.cs" />
     <Compile Include="Utils\BindingUtility.cs" />
     <Compile Include="Utils\TombstoneHelper.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

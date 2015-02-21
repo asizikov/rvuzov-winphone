@@ -134,7 +134,5 @@ namespace TimeTable.Networking
             }
             Debug.WriteLine("WebClient::exception: " + ignored);
         }
-
-
     }
 }

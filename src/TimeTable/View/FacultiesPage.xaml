@@ -44,7 +44,8 @@
             </Grid.RowDefinitions>
             <phone:LongListSelector Grid.Row="0"
                                       Background="Transparent"
-                                      IsFlatList="False"
+                                      LayoutMode="List" 
+                                      IsGroupingEnabled="True"
                                       GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
                                       GroupItemTemplate="{StaticResource TimeTableGroupItemTemplate}"
                                       GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}"

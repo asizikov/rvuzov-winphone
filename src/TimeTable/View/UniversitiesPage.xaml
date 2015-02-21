@@ -8,7 +8,6 @@
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:viewModel="clr-namespace:TimeTable.ViewModel;assembly=TimeTable.ViewModel"
     xmlns:utils="clr-namespace:TimeTable.Utils"
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:controls="clr-namespace:TimeTable.Controls"
     xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     xmlns:view="clr-namespace:TimeTable.View"
@@ -49,7 +48,8 @@
             </Grid.RowDefinitions>
             <phone:LongListSelector Grid.Row="0"
                                       Background="Transparent"
-                                      IsFlatList="False"
+                                      LayoutMode="List" 
+                                      IsGroupingEnabled="True"
                                       GroupItemsPanel="{StaticResource TimeTableItemsPanelTemplate}"
                                       GroupItemTemplate="{StaticResource TimeTableGroupItemTemplate}"
                                       GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}"
