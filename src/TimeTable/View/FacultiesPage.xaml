@@ -10,6 +10,7 @@
     xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     xmlns:view="clr-namespace:TimeTable.View"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:TimeTable.Controls"
     Style="{StaticResource TimeTablePageStyle}"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480">
     <shell:SystemTray.ProgressIndicator>
@@ -42,15 +43,16 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <phone:LongListSelector Grid.Row="0"
+            <controls:ExtendedSelector Grid.Row="0"
                                       Background="Transparent"
                                       LayoutMode="List" 
                                       IsGroupingEnabled="True"
+                                      JumpListStyle="{StaticResource TimeTableJumpListStyle}"
                                       GroupHeaderTemplate="{StaticResource TimeTableGroupHeaderTemplate}"
                                       ItemsSource="{Binding FacultiesList}"
                                       SelectedItem="{Binding SelectedFaculty, Mode=TwoWay}"
                                       Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}">
-                <phone:LongListSelector.ItemTemplate>
+                <controls:ExtendedSelector.ItemTemplate>
                     <DataTemplate>
                         <Grid toolkit:TiltEffect.IsTiltEnabled="True">
                             <Grid.ColumnDefinitions>
@@ -71,8 +73,8 @@
                             Text="{Binding Title}" />
                         </Grid>
                     </DataTemplate>
-                </phone:LongListSelector.ItemTemplate>
-            </phone:LongListSelector>
+                </controls:ExtendedSelector.ItemTemplate>
+            </controls:ExtendedSelector>
         </Grid>
     </Grid>
     <bar:Bindable.ApplicationBar>
