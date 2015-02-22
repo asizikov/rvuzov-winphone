@@ -25,7 +25,7 @@ namespace TimeTable.IoC
 #endif
             Kernel.Bind<IWebCache>().To<InMemoryCache>().InSingletonScope();
             Kernel.Bind<UniversitiesCache>().To<UniversitiesCache>().InSingletonScope();
-            Kernel.Bind<AsyncDataProvider>().To<AsyncDataProvider>();
+            Kernel.Bind<AsyncDataProvider>().To<AsyncDataProvider>().InSingletonScope();
             Kernel.Bind<IUiStringsProviders>().To<UiStringsProvider>();
             Kernel.Bind<INotificationService>().To<NotificationService>();
             Kernel.Bind<ICommandFactory>().To<CommandsFactory>();
