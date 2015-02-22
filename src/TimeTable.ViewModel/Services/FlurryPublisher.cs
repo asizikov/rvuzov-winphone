@@ -250,12 +250,6 @@ namespace TimeTable.ViewModel.Services
         {
             var parameters = new[]
             {
-                //new EventParameter("University name", data.getUniversityName()),
-                //new EventParameter("University shortname", data.getUniversityShortName()),
-//            new EventParameter("University id", data.getUniversityId()),
-//            new EventParameter("Object name", data.getObjectName()),
-//            new EventParameter("Object Id", data.getObjectId()),
-//            new EventParameter("Mode", data.getMode()),
                 new EventParameter("Error message", message)
             };
             PublishEvent(FlurryEvents.EVENT_CONTEXT_REPORT_ERROR, parameters);
@@ -311,6 +305,11 @@ namespace TimeTable.ViewModel.Services
         public void PublishShowMobile()
         {
             PublishEvent(FlurryEvents.EVENT_SUPPORT_GO_TO_MOBILE_SITE);
+        }
+
+        public void PublishTimtableNotFoundEvent()
+        {
+            PublishEvent(FlurryEvents.EVENT_TIMETABLE_NOT_FOUND);
         }
     }
 }

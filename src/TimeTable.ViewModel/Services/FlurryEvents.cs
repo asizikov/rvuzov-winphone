@@ -41,5 +41,6 @@
         public static readonly string EventSettingsPageLoaded = "settings page loaded";
         public static readonly string EventAboutPageLoaded = "about page loaded";
         public static readonly string EVENT_SUPPORT_GO_TO_MOBILE_SITE = "SUPPORT_GO_TO_MOBILE_SITE";
+        public static readonly string EVENT_TIMETABLE_NOT_FOUND= "";
     }
 }

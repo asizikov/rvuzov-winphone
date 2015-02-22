@@ -21,7 +21,6 @@ namespace TimeTable.ViewModel
     public class UniversitiesViewModel : SearchViewModel
     {
         private readonly AsyncDataProvider _dataProvider;
-        private readonly FlurryPublisher _flurry;
         private readonly INotificationService _notificationService;
         private readonly Reason _reason;
         private readonly INavigationService _navigation;
@@ -34,15 +33,13 @@ namespace TimeTable.ViewModel
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurry, [NotNull] INotificationService notificationService, Reason reason)
+            [NotNull] FlurryPublisher flurry, [NotNull] INotificationService notificationService, Reason reason) :base(flurry)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
-            if (flurry == null) throw new ArgumentNullException("flurry");
             if (notificationService == null) throw new ArgumentNullException("notificationService");
             if (navigation == null) throw new ArgumentNullException("navigation");
 
             _dataProvider = dataProvider;
-            _flurry = flurry;
             _notificationService = notificationService;
             _reason = reason;
             _navigation = navigation;
@@ -50,7 +47,7 @@ namespace TimeTable.ViewModel
             _resultGrouper = u => u.ShortName[0];
             SubscribeToQuery();
             Init();
-            _flurry.PublishPageLoadedUniversities();
+            FlurryPublisher.PublishPageLoadedUniversities();
         }
 
 
@@ -100,7 +97,7 @@ namespace TimeTable.ViewModel
                 if (_selectedUniversity != null)
                 {
                     _dataProvider.PutUniversity(_selectedUniversity);
-                    _flurry.PublishUniversitySelected(_selectedUniversity);
+                    FlurryPublisher.PublishUniversitySelected(_selectedUniversity);
                     NavigateToFaculties(_selectedUniversity);
                 }
             }

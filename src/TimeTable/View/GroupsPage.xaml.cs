@@ -87,6 +87,7 @@ namespace TimeTable.View
         {
             if (ViewModel != null)
             {
+// ReSharper disable once DelegateSubtraction
                 ViewModel.OnLock -= OnLock;
             }
             base.OnLeave();

@@ -7,21 +7,30 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using JetBrains.Annotations;
+using Microsoft.Phone.Tasks;
 using TimeTable.Model;
 using TimeTable.ViewModel.Commands;
+using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel
 {
     public abstract class SearchViewModel : BaseViewModel
     {
+        private const string URL = "http://raspisaniye-vuzov.ru/webform/step1.html";
+
+        protected readonly FlurryPublisher FlurryPublisher;
         private IDisposable _queryObserver;
         private readonly ICommand _showSearchBoxCommand;
+        private readonly ICommand _notFoundCommand;
         private bool _isSearchBoxVisible;
         private string _query;
 
-        protected SearchViewModel()
+        protected SearchViewModel([NotNull] FlurryPublisher flurryPublisher)
         {
+            if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
+            FlurryPublisher = flurryPublisher;
             _showSearchBoxCommand = new SimpleCommand(() => { IsSearchBoxVisible = true; });
+            _notFoundCommand = new SimpleCommand(NotFound);
         }
 
         public string Query
@@ -40,6 +49,11 @@ namespace TimeTable.ViewModel
         public ICommand ShowSearchBoxCommand
         {
             get { return _showSearchBoxCommand; }
+        }
+
+        public ICommand OnFoundCommand
+        {
+            get { return _notFoundCommand; }
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Assign)]
@@ -85,5 +99,11 @@ namespace TimeTable.ViewModel
         }
 
         protected abstract void GetResults(string result);
+
+        private void NotFound()
+        {
+            var webBrowserTask = new WebBrowserTask { Uri = new Uri(URL) };
+            webBrowserTask.Show();
+        }
     }
 }

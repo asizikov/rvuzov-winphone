@@ -17,7 +17,6 @@ namespace TimeTable.ViewModel
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly AsyncDataProvider _dataProvider;
         private readonly INotificationService _notificationService;
-        private readonly FlurryPublisher _flurryPublisher;
         private readonly FavoritedItemsManager _favoritedItemsManager;
         private readonly int _universityId;
         private readonly int _facultyId;
@@ -35,11 +34,10 @@ namespace TimeTable.ViewModel
         public GroupPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
             [NotNull] INotificationService notificationService, [NotNull] FlurryPublisher flurryPublisher,
-            [NotNull] FavoritedItemsManager favoritedItemsManager, int universityId, int facultyId, Reason reason)
+            [NotNull] FavoritedItemsManager favoritedItemsManager, int universityId, int facultyId, Reason reason):base(flurryPublisher)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (notificationService == null) throw new ArgumentNullException("notificationService");
-            if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
             if (favoritedItemsManager == null) throw new ArgumentNullException("favoritedItemsManager");
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
@@ -48,7 +46,6 @@ namespace TimeTable.ViewModel
             _applicationSettings = applicationSettings;
             _dataProvider = dataProvider;
             _notificationService = notificationService;
-            _flurryPublisher = flurryPublisher;
             _favoritedItemsManager = favoritedItemsManager;
             _universityId = universityId;
             _facultyId = facultyId;

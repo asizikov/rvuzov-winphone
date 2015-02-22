@@ -9,7 +9,6 @@
     xmlns:utils="clr-namespace:TimeTable.Utils"
     xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     xmlns:view="clr-namespace:TimeTable.View"
-    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:TimeTable.Controls"
     Style="{StaticResource TimeTablePageStyle}"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
@@ -42,10 +41,12 @@
         <!--ContentPanel - place additional content here-->
         <Grid Grid.Row="1" Margin="12,0,12,0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <controls:ExtendedSelector Grid.Row="0"
+            <Button Command="{Binding OnFoundCommand}">не нашли своего расписания?</Button>
+            <controls:ExtendedSelector Grid.Row="1"
                                     Background="Transparent"
                                     LayoutMode="List"
                                     IsGroupingEnabled="True"

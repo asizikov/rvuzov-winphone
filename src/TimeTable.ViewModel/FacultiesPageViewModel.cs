@@ -16,7 +16,6 @@ namespace TimeTable.ViewModel
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly AsyncDataProvider _dataProvider;
-        private readonly FlurryPublisher _flurryPublisher;
         private readonly INotificationService _notificationService;
         private readonly int _universityId;
         private readonly Reason _reason;
@@ -28,7 +27,7 @@ namespace TimeTable.ViewModel
         public FacultiesPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
             [NotNull] FlurryPublisher flurryPublisher, [NotNull] INotificationService notificationService,
-            int universityId, Reason reason)
+            int universityId, Reason reason) :base(flurryPublisher)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
@@ -39,11 +38,10 @@ namespace TimeTable.ViewModel
             _navigation = navigation;
             _applicationSettings = applicationSettings;
             _dataProvider = dataProvider;
-            _flurryPublisher = flurryPublisher;
             _notificationService = notificationService;
             _universityId = universityId;
             _reason = reason;
-            _flurryPublisher.PublishPageLoadedFaculties();
+            FlurryPublisher.PublishPageLoadedFaculties();
             _facultyGroupFunc = faculty => faculty.Title[0];
 
             SubscribeToQuery();
@@ -76,7 +74,7 @@ namespace TimeTable.ViewModel
                     _dataProvider.GetUniversityByIdAsync(_universityId)
                         .Subscribe(university =>
                         {
-                            _flurryPublisher.PublishFacultySelected(_selectedFaculty, university);
+                            FlurryPublisher.PublishFacultySelected(_selectedFaculty, university);
                             NavigateToGroupsPage(_selectedFaculty);
                         });
                 }
