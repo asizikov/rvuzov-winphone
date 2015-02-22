@@ -107,6 +107,10 @@ namespace TimeTable.ViewModel
 
         protected override void GetResults(string search)
         {
+            if (_storedGroupsRequest == null || _storedGroupsRequest.Data == null)
+            {
+                return;
+            }
             if (String.IsNullOrEmpty(search))
             {
                 FacultiesList = FormatResult(_storedGroupsRequest.Data, _facultyGroupFunc);
@@ -124,10 +128,10 @@ namespace TimeTable.ViewModel
                 _applicationSettings.Me.Faculty = faculty;
                 _applicationSettings.Save();
             }
-            _navigation.GoToPage(Pages.Groups, GetNavitationParameters(faculty));
+            _navigation.GoToPage(Pages.Groups, GetNavigationParameters(faculty));
         }
 
-        private IEnumerable<NavigationParameter> GetNavitationParameters(Faculty faculty)
+        private IEnumerable<NavigationParameter> GetNavigationParameters(Faculty faculty)
         {
             var list = new List<NavigationParameter>
             {

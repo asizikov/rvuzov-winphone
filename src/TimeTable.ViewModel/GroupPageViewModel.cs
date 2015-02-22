@@ -173,6 +173,11 @@ namespace TimeTable.ViewModel
 
         protected override void GetResults(string search)
         {
+            if (_storedGroupsRequest == null || _storedTeachersRequest == null)
+            {
+                return;
+            }
+
             if (String.IsNullOrEmpty(search))
             {
                 GroupsList = FormatResult(_storedGroupsRequest.GroupsList, _groupFunc);
@@ -202,7 +207,7 @@ namespace TimeTable.ViewModel
                     if (!_applicationSettings.IsRegistrationCompleted)
                     {
                         _applicationSettings.Me.DefaultGroup = group;
-                        _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group), 4);
+                        _navigation.GoToPage(Pages.Lessons, GetNavigationParameters(group), 4);
                     }
                     break;
                 case Reason.AddingFavorites:
@@ -215,7 +220,7 @@ namespace TimeTable.ViewModel
                     _applicationSettings.Me.Teacher = null;
                     _applicationSettings.Me.TemporaryFaculty = null;
                     _applicationSettings.Me.TemporaryUniversity = null;
-                    _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(group), 5);
+                    _navigation.GoToPage(Pages.Lessons, GetNavigationParameters(group), 5);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -230,7 +235,7 @@ namespace TimeTable.ViewModel
                     if (!_applicationSettings.IsRegistrationCompleted)
                     {
                         _applicationSettings.Me.Teacher = teacher;
-                        _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(teacher), 4);
+                        _navigation.GoToPage(Pages.Lessons, GetNavigationParameters(teacher), 4);
                     }
                     break;
                 case Reason.AddingFavorites:
@@ -243,7 +248,7 @@ namespace TimeTable.ViewModel
                     _applicationSettings.Me.DefaultGroup = null;
                     _applicationSettings.Me.TemporaryFaculty = null;
                     _applicationSettings.Me.TemporaryUniversity = null;
-                    _navigation.GoToPage(Pages.Lessons, GetNavitationParameters(teacher), 5);
+                    _navigation.GoToPage(Pages.Lessons, GetNavigationParameters(teacher), 5);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -262,7 +267,7 @@ namespace TimeTable.ViewModel
             _navigation.GoToPage(Pages.FarovitesPage, null, 4);
         }
 
-        private IEnumerable<NavigationParameter> GetNavitationParameters(Group group)
+        private IEnumerable<NavigationParameter> GetNavigationParameters(Group group)
         {
             return new List<NavigationParameter>
             {
@@ -294,7 +299,7 @@ namespace TimeTable.ViewModel
             };
         }
 
-        private IEnumerable<NavigationParameter> GetNavitationParameters(Teacher teacher)
+        private IEnumerable<NavigationParameter> GetNavigationParameters(Teacher teacher)
         {
             return new List<NavigationParameter>
             {

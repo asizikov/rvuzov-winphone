@@ -142,6 +142,11 @@ namespace TimeTable.ViewModel
 
         protected override void GetResults(string search)
         {
+            if (_storedRequest == null || _storedRequest.Data == null)
+            {
+                return;
+            }
+
             UniversitiesList = FormatResult(
                 String.IsNullOrEmpty(search)
                     ? _storedRequest.Data
