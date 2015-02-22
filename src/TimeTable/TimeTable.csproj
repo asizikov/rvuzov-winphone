@@ -23,7 +23,7 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>TimeTable_$(Configuration)_$(Platform).xap</XapFilename>
+    <XapFilename>TimeTable.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <SilverlightAppEntry>TimeTable.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
