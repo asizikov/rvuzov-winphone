@@ -270,7 +270,7 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Упс..
+        ///   Looks up a localized string similar to Ой..
         /// </summary>
         public static string Ooops {
             get {
