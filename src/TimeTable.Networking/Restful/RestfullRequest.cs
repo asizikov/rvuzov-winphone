@@ -10,15 +10,25 @@ namespace TimeTable.Networking.Restful
         Post = 1
     }
 
-    public abstract class RestfullRequest<T> where T : class
+    public static class RestfullRequest
+    {
+        public static RestfullRequest<T> Create<T>(string resource, [NotNull] WebService webService) where T: class
+        {
+            return new RestfullRequest<T>(webService, resource);
+        }
+    }
+
+    public class RestfullRequest<T> where T : class
     {
         private readonly TimeSpan _timeoutTimeSpan = TimeSpan.FromSeconds(40);
         private readonly WebService _webService;
 
-        protected RestfullRequest([NotNull] WebService webService)
+        public RestfullRequest([NotNull] WebService webService, [NotNull] string resourceUrl)
         {
             if (webService == null) throw new ArgumentNullException("webService");
+            if (resourceUrl == null) throw new ArgumentNullException("resourceUrl");
             _webService = webService;
+            ResourceUrl = resourceUrl;
         }
 
         public string Url

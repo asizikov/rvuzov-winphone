@@ -1,5 +1,7 @@
 ﻿using System;
+using TimeTable.Model;
 using TimeTable.Networking;
+using TimeTable.Networking.Restful;
 
 namespace TimeTable.ViewModel.Restful
 {
@@ -24,44 +26,44 @@ namespace TimeTable.ViewModel.Restful
             return string.Format(template, universityId);
         }
 
-        public UniversitesRequest GetAllUniversitesRequest()
+        public RestfullRequest<Universities> GetAllUniversitesRequest()
         {
-            return new UniversitesRequest(UNIVERSITIES_ALL, _webService);
+            return RestfullRequest.Create<Universities>(UNIVERSITIES_ALL, _webService);
         }
 
-        public FacultyGroupsRequest GetFacultyGroupsRequest(int facultyId)
+        public RestfullRequest<Groups> GetFacultyGroupsRequest(int facultyId)
         {
-            return new FacultyGroupsRequest(InjectIdToTemplate(ALL_GROUPS_TEMPLATE, facultyId), _webService);
+            return RestfullRequest.Create<Groups>(InjectIdToTemplate(ALL_GROUPS_TEMPLATE, facultyId), _webService);
         }
 
-        public TimeTableRequest GetGroupTimeTableRequest(int groupId)
+        public RestfullRequest<Model.TimeTable> GetGroupTimeTableRequest(int groupId)
         {
             var suffix = string.Format(GROUP_TIMETABLE_TEMPLATE, groupId);
-            return new TimeTableRequest(suffix, _webService);
+            return RestfullRequest.Create<Model.TimeTable>(suffix, _webService);
         }
 
-        public TimeTableRequest GetTeacherTimeTableRequest(int id)
+        public RestfullRequest<Model.TimeTable> GetTeacherTimeTableRequest(int id)
         {
             var suffix = string.Format(TEACHER_TIMETABLE_TEMPLATE, id);
-            return new TimeTableRequest(suffix, _webService);
+            return RestfullRequest.Create<Model.TimeTable>(suffix, _webService);
         }
 
-        public UniversityTeachersRequest GetUniversityTeachersRequest(int universityId)
+        public RestfullRequest<Teachers> GetUniversityTeachersRequest(int universityId)
         {
-            return new UniversityTeachersRequest(InjectIdToTemplate(ALL_TEACHERS_TEMPLATE, universityId), _webService );
+            return RestfullRequest.Create<Teachers>(InjectIdToTemplate(ALL_TEACHERS_TEMPLATE, universityId), _webService);
         }
 
-        public LastUpdatedRequest GetLastUpdatedRequest<T>(string url)
+        public RestfullRequest<Updates> GetLastUpdatedRequest<T>(string url)
         {
-            return new LastUpdatedRequest(url + LAST_UPDATED , _webService);
+            return RestfullRequest.Create<Updates>(url + LAST_UPDATED, _webService);
         }
 
-        public UniversityFacultiesRequest GetUniversityFacultiesRequest(int universityId)
+        public RestfullRequest<Faculties> GetUniversityFacultiesRequest(int universityId)
         {
-            return new UniversityFacultiesRequest(InjectIdToTemplate(ALL_FACULTIES_TEMPLATE, universityId), _webService);
+            return RestfullRequest.Create<Faculties>(InjectIdToTemplate(ALL_FACULTIES_TEMPLATE, universityId), _webService);
         }
 
-        public SendErrorRequest CreateSendErrorRequest(int id, bool isTeacher, string body)
+        public RestfullRequest<Confirmation> CreateSendErrorRequest(int id, bool isTeacher, string body)
         {
             var suffix = InjectIdToTemplate((isTeacher ? TEACHER_ERROR_TEMPLATE : GROUP_ERROR_TEMPLATE), id);
             return new SendErrorRequest(_webService, suffix , body);
