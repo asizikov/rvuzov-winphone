@@ -24,11 +24,11 @@ namespace TimeTable.ViewModel
         private readonly FavoritedItemsManager _favoritedItemsManager;
         private readonly IUiStringsProviders _stringsProviders;
         private readonly INotificationService _notificationService;
-        private readonly int _id;
+        private int _id;
         private readonly FlurryPublisher _flurryPublisher;
-        private readonly bool _isTeacher;
+        private bool _isTeacher;
         private int _selectedWeekIndex;
-        private readonly int _facultyId;
+        private int _facultyId;
         private WeekViewModel _currentWeek;
         private WeekViewModel _nextWeek;
         private WeekViewModel _previousWeek;
@@ -46,7 +46,7 @@ namespace TimeTable.ViewModel
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
             [NotNull] AsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager,
             [NotNull] IUiStringsProviders stringsProviders,
-            [NotNull] INotificationService notificationService, int id, bool isTeacher, int universityId, int facultyId)
+            [NotNull] INotificationService notificationService)
 
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
@@ -65,15 +65,20 @@ namespace TimeTable.ViewModel
             _favoritedItemsManager = favoritedItemsManager;
             _stringsProviders = stringsProviders;
             _notificationService = notificationService;
+
+
+            Options = new OptionsMonitor();
+        }
+
+        public void Initialize(int id, bool isTeacher, int universityId, int facultyId)
+        {
             _id = id;
             _isTeacher = isTeacher;
             _facultyId = facultyId;
-            _flurryPublisher.PublishPageLoadedLessons();
-            Options = new OptionsMonitor();
-
             InitCommands();
             BuildAppBarButtons();
             UpdateFaforitedSate();
+            _flurryPublisher.PublishPageLoadedLessons();
             Init(universityId, facultyId);
         }
 

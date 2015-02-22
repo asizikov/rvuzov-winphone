@@ -23,26 +23,24 @@ namespace TimeTable.ViewModel
 
         public AuditoriumViewModel([NotNull] INavigationService navigation,
                                    [NotNull] AsyncDataProvider dataProvider,
-                                   [NotNull] IUiStringsProviders stringProvider,
-                                   int auditoiumId,
-                                   int universityId,
-                                   string auditoriumName,
-                                   string auditoriumAddress)
+                                   [NotNull] IUiStringsProviders stringProvider)
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (stringProvider == null) throw new ArgumentNullException("stringProvider");
 
-
             _dataProvider = dataProvider;
             _navigation = navigation;
             _stringProvider = stringProvider;
+            ShowInApp = new SimpleCommand(GoToExternalMap);
+        }
 
+        public void Initialize(int auditoiumId, int universityId, string auditoriumName, string auditoriumAddress)
+        {
             ID = auditoiumId;
             Init(universityId);
             Name = auditoriumName;
             Address = auditoriumAddress;
-            ShowInApp = new SimpleCommand(GoToExternalMap);
         }
 
         private void Init(int universityId)

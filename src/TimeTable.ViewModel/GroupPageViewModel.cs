@@ -18,9 +18,9 @@ namespace TimeTable.ViewModel
         private readonly AsyncDataProvider _dataProvider;
         private readonly INotificationService _notificationService;
         private readonly FavoritedItemsManager _favoritedItemsManager;
-        private readonly int _universityId;
-        private readonly int _facultyId;
-        private readonly Reason _reason;
+        private int _universityId;
+        private int _facultyId;
+        private Reason _reason;
         private ObservableCollection<ListGroup<Group>> _groupsList;
         private ObservableCollection<ListGroup<Teacher>> _teachersList;
         private Group _selectedGroup;
@@ -34,7 +34,7 @@ namespace TimeTable.ViewModel
         public GroupPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
             [NotNull] INotificationService notificationService, [NotNull] FlurryPublisher flurryPublisher,
-            [NotNull] FavoritedItemsManager favoritedItemsManager, int universityId, int facultyId, Reason reason):base(flurryPublisher)
+            [NotNull] FavoritedItemsManager favoritedItemsManager):base(flurryPublisher)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (notificationService == null) throw new ArgumentNullException("notificationService");
@@ -47,13 +47,20 @@ namespace TimeTable.ViewModel
             _dataProvider = dataProvider;
             _notificationService = notificationService;
             _favoritedItemsManager = favoritedItemsManager;
+            
+            _groupFunc = group => group.GroupName[0];
+            _teachersGroupFunc = teacher => !String.IsNullOrWhiteSpace(teacher.Name) ? teacher.Name[0] : '#';
+
+            SubscribeToQuery();
+
+        }
+
+        public void Initialize(int universityId, int facultyId, Reason reason)
+        {
             _universityId = universityId;
             _facultyId = facultyId;
             _reason = reason;
-            _groupFunc = group => group.GroupName[0];
-            _teachersGroupFunc = teacher => !String.IsNullOrWhiteSpace(teacher.Name) ? teacher.Name[0] : '#';
             FlurryPublisher.PublishPageLoadedGroups();
-            SubscribeToQuery();
             Init();
         }
 

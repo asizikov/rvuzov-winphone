@@ -90,8 +90,8 @@ namespace TimeTable
 
         private static void CommonActivated()
         {
-            var flurryPublisher = ContainerInstance.Current.Resolve<FlurryPublisher>();
-            var cache = ContainerInstance.Current.Resolve<IWebCache>();
+            var flurryPublisher = Container.Resolve<FlurryPublisher>();
+            var cache = Container.Resolve<IWebCache>();
 
             cache.PullFromStorage();
             ThreadPool.QueueUserWorkItem(o => flurryPublisher.StartSession());
@@ -99,11 +99,11 @@ namespace TimeTable
 
         private static void CommonDeactivated()
         {
-            var flurryPublisher = ContainerInstance.Current.Resolve<FlurryPublisher>();
-            var cache = ContainerInstance.Current.Resolve<IWebCache>();
-            var favoritedItemsManager = ContainerInstance.Current.Resolve<FavoritedItemsManager>();
-            var settings = ContainerInstance.Current.Resolve<BaseApplicationSettings>();
-            var universitiesCache = ContainerInstance.Current.Resolve<UniversitiesCache>();
+            var flurryPublisher = Container.Resolve<FlurryPublisher>();
+            var cache = Container.Resolve<IWebCache>();
+            var favoritedItemsManager = Container.Resolve<FavoritedItemsManager>();
+            var settings = Container.Resolve<BaseApplicationSettings>();
+            var universitiesCache = Container.Resolve<UniversitiesCache>();
             flurryPublisher.EndSession();
             cache.PushToStorage();
             favoritedItemsManager.Save();
@@ -124,7 +124,7 @@ namespace TimeTable
         // Code to execute on Unhandled Exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
-            var flurry = ContainerInstance.Current.Resolve<FlurryPublisher>();
+            var flurry = Container.Resolve<FlurryPublisher>();
             flurry.PublishException(e.ExceptionObject);
             flurry.EndSession();
             CrashLogger.SaveCrashInfo(e);

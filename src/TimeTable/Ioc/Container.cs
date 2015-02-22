@@ -1,26 +1,40 @@
-﻿using Funq;
-using JetBrains.Annotations;
+﻿using Microsoft.Phone.Controls;
+using Ninject;
+using TimeTable.Commands;
+using TimeTable.Resources;
+using TimeTable.Services;
+using TimeTable.ViewModel.Commands;
+using TimeTable.ViewModel.Data;
+using TimeTable.ViewModel.Services;
 
 namespace TimeTable.IoC
 {
-    public sealed class ContainerInstance
+    public static class Container
     {
-        private ContainerInstance()
+        private static readonly IKernel Kernel = new StandardKernel();
+
+        public static void Initialize(PhoneApplicationFrame rootFrame)
         {
+            Kernel.Bind<PhoneApplicationFrame>().ToConstant(rootFrame);
+            Kernel.Bind<INavigationService>().To<NavigationService>();
+            Kernel.Bind<BaseApplicationSettings>().To<ApplicationSettings>().InSingletonScope();
+#if DEBUG
+            Kernel.Bind<FlurryPublisher>().To<DebugFlurryPublisher>().InSingletonScope();
+#else
+            Kernel.Bind<FlurryPublisher>().To<FlurryPublisherImpl>().InSingletonScope();
+#endif
+            Kernel.Bind<IWebCache>().To<InMemoryCache>().InSingletonScope();
+            Kernel.Bind<UniversitiesCache>().To<UniversitiesCache>().InSingletonScope();
+            Kernel.Bind<AsyncDataProvider>().To<AsyncDataProvider>();
+            Kernel.Bind<IUiStringsProviders>().To<UiStringsProvider>();
+            Kernel.Bind<INotificationService>().To<NotificationService>();
+            Kernel.Bind<ICommandFactory>().To<CommandsFactory>();
+            Kernel.Bind<FavoritedItemsManager>().To<FavoritedItemsManager>().InSingletonScope();
         }
 
-        [NotNull]
-        public static Container Current { get { return Nested.Instance; } }
-
-        private static class Nested
+        public static T Resolve<T>()
         {
-            // Explicit static constructor to tell C# compiler
-            // not to mark type as beforefieldinit
-            static Nested()
-            {
-            }
-
-            internal static readonly Container Instance = new Container();
+            return Kernel.Get<T>();
         }
     }
 }

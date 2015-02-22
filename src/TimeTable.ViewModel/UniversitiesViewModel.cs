@@ -22,7 +22,6 @@ namespace TimeTable.ViewModel
     {
         private readonly AsyncDataProvider _dataProvider;
         private readonly INotificationService _notificationService;
-        private readonly Reason _reason;
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private ObservableCollection<ListGroup<University>> _universitiesList;
@@ -30,10 +29,11 @@ namespace TimeTable.ViewModel
 
         private Universities _storedRequest;
         private static Func<University, char> _resultGrouper;
+        private Reason _reason;
 
         public UniversitiesViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurry, [NotNull] INotificationService notificationService, Reason reason) :base(flurry)
+            [NotNull] FlurryPublisher flurry, [NotNull] INotificationService notificationService) :base(flurry)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (notificationService == null) throw new ArgumentNullException("notificationService");
@@ -41,11 +41,15 @@ namespace TimeTable.ViewModel
 
             _dataProvider = dataProvider;
             _notificationService = notificationService;
-            _reason = reason;
             _navigation = navigation;
             _applicationSettings = applicationSettings;
             _resultGrouper = u => u.ShortName[0];
             SubscribeToQuery();
+        }
+
+        public void Initialize(Reason reason)
+        {
+            _reason = reason;
             Init();
             FlurryPublisher.PublishPageLoadedUniversities();
         }

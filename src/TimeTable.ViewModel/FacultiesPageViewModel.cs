@@ -17,8 +17,8 @@ namespace TimeTable.ViewModel
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly AsyncDataProvider _dataProvider;
         private readonly INotificationService _notificationService;
-        private readonly int _universityId;
-        private readonly Reason _reason;
+        private int _universityId;
+        private Reason _reason;
         private ObservableCollection<ListGroup<Faculty>> _facultiesList;
         private Faculty _selectedFaculty;
         private Faculties _storedGroupsRequest;
@@ -26,8 +26,7 @@ namespace TimeTable.ViewModel
 
         public FacultiesPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurryPublisher, [NotNull] INotificationService notificationService,
-            int universityId, Reason reason) :base(flurryPublisher)
+            [NotNull] FlurryPublisher flurryPublisher, [NotNull] INotificationService notificationService) :base(flurryPublisher)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
@@ -39,12 +38,15 @@ namespace TimeTable.ViewModel
             _applicationSettings = applicationSettings;
             _dataProvider = dataProvider;
             _notificationService = notificationService;
+            _facultyGroupFunc = faculty => faculty.Title[0];
+            SubscribeToQuery();
+        }
+
+        public void Initialize(int universityId, Reason reason)
+        {
             _universityId = universityId;
             _reason = reason;
             FlurryPublisher.PublishPageLoadedFaculties();
-            _facultyGroupFunc = faculty => faculty.Title[0];
-
-            SubscribeToQuery();
             Init();
         }
 

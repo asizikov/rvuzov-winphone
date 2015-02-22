@@ -26,7 +26,7 @@ namespace TimeTable.View
             NavigationContext.QueryString.TryGetValue(NavigationParameterName.IsTeacher, out isTeacher);
             NavigationContext.QueryString.TryGetValue(NavigationParameterName.LessonId, out lessonId);
             
-            DataContext = ViewModelLocator.GetReportErrorViewModel(Int32.Parse(id), Int32.Parse(lessonId), Boolean.Parse(isTeacher));
+//            DataContext = ViewModelLocator.GetReportErrorViewModel(Int32.Parse(id), Int32.Parse(lessonId), Boolean.Parse(isTeacher));
 
             if (State.Count > 0)
             {
