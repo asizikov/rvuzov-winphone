@@ -45,7 +45,10 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Button Command="{Binding OnFoundCommand}">не нашли своего расписания?</Button>
+            <Button  Style="{StaticResource ButtonNoBorder}" 
+                     Content="{Binding Strings.NoTimeTable, Source={StaticResource LocalizedStrings} }"
+                     Command="{Binding OnFoundCommand}">
+            </Button>
             <controls:ExtendedSelector Grid.Row="1"
                                     Background="Transparent"
                                     LayoutMode="List"

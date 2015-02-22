@@ -245,4 +245,7 @@
   <data name="MobileSite" xml:space="preserve">
     <value>мобильный сайт</value>
   </data>
+  <data name="NoTimeTable" xml:space="preserve">
+    <value>не нашли своего расписания?</value>
+  </data>
 </root>

@@ -102,6 +102,7 @@ namespace TimeTable.ViewModel
 
         private void NotFound()
         {
+            FlurryPublisher.PublishTimtableNotFoundEvent();
             var webBrowserTask = new WebBrowserTask { Uri = new Uri(URL) };
             webBrowserTask.Show();
         }

@@ -261,6 +261,15 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to не нашли своего расписания?.
+        /// </summary>
+        public static string NoTimeTable {
+            get {
+                return ResourceManager.GetString("NoTimeTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Упс..
         /// </summary>
         public static string Ooops {

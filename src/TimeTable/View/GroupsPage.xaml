@@ -27,6 +27,7 @@
     <Grid x:Name="LayoutRoot" Background="{StaticResource TimeTableBackgorundColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBox x:Name="Search"
@@ -36,10 +37,14 @@
                  Text="{Binding Query, Mode=TwoWay}"
                  utils:BindingUtility.UpdateSourceOnChange="True"
                  x:FieldModifier="private" />
+        <Button Grid.Row="1"  Style="{StaticResource ButtonNoBorder}" 
+                     Content="{Binding Strings.NoTimeTable, Source={StaticResource LocalizedStrings} }"
+                     Command="{Binding OnFoundCommand}">
+        </Button>
         <phone:Pivot
             x:Name="Pivot"
             SelectedIndex="{Binding SelectedPivotIndex, Mode=TwoWay}"
-            Grid.Row="1">
+            Grid.Row="2">
             <controls:PivotItem
                 Header="{Binding Strings.Groups ,Source={StaticResource LocalizedStrings}}">
                 <Grid x:Name="ContentPanel" Margin="0">

@@ -24,6 +24,7 @@ namespace TimeTable.Networking
                     var fullUrl = url;
                     var webRequest = (HttpWebRequest)WebRequest.Create(fullUrl);
                     webRequest.Method = "GET";
+                    //todo: FromAsyncPattern is deprecated, time to update
                     Observable.FromAsyncPattern<WebResponse>(webRequest.BeginGetResponse, webRequest.EndGetResponse)()
                         .Timeout(timeoutTimeSpan)
                         .Take(1)

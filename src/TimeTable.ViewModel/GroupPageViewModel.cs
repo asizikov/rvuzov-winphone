@@ -52,7 +52,7 @@ namespace TimeTable.ViewModel
             _reason = reason;
             _groupFunc = group => group.GroupName[0];
             _teachersGroupFunc = teacher => !String.IsNullOrWhiteSpace(teacher.Name) ? teacher.Name[0] : '#';
-            _flurryPublisher.PublishPageLoadedGroups();
+            FlurryPublisher.PublishPageLoadedGroups();
             SubscribeToQuery();
             Init();
         }
@@ -95,7 +95,7 @@ namespace TimeTable.ViewModel
                     _dataProvider.GetUniversityByIdAsync(_universityId)
                         .Subscribe(university =>
                         {
-                            _flurryPublisher.PublishGroupSelected(_selectedGroup, university);
+                            FlurryPublisher.PublishGroupSelected(_selectedGroup, university);
                             NavigateToLessonsPage(_selectedGroup, university);
                         });
                 }
@@ -116,7 +116,7 @@ namespace TimeTable.ViewModel
                     _dataProvider.GetUniversityByIdAsync(_universityId)
                         .Subscribe(university =>
                         {
-                            _flurryPublisher.PublishTeacherSelected(_selectedTeacher, university);
+                            FlurryPublisher.PublishTeacherSelected(_selectedTeacher, university);
                             NavigateToLessonsPage(_selectedTeacher, university);
                         });
                 }
