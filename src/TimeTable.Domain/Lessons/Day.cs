@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
-namespace TimeTable.Model
+namespace TimeTable.Domain.Lessons
 {
     [UsedImplicitly]
     public sealed class Day

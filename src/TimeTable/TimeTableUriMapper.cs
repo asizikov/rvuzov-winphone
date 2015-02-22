@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Navigation;
 using JetBrains.Annotations;
-using TimeTable.Model;
+using TimeTable.Domain.Internal;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable

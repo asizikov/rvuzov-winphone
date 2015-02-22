@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Input;
 using JetBrains.Annotations;
-using TimeTable.Model;
+using TimeTable.Domain.Internal;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Services;
 

@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
-using TimeTable.Model.Internal;
+using TimeTable.Domain.Internal;
 
 namespace TimeTable.ViewModel.Data
 {

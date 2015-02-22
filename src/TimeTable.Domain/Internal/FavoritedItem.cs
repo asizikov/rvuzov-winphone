@@ -1,15 +1,9 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using TimeTable.Domain.OrganizationalStructure;
 
-namespace TimeTable.Model
+namespace TimeTable.Domain.Internal
 {
-    public enum FavoritedItemType
-    {
-        Unknown = 0,
-        Group = 1,
-        Teacher = 2
-    }
-
     public sealed class FavoritedItem
     {
         [JsonProperty("type")]

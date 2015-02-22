@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using TimeTable.Domain.OrganizationalStructure;
 
-namespace TimeTable.Model
+namespace TimeTable.Domain.Lessons
 {
     [UsedImplicitly(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
     public sealed class Lesson

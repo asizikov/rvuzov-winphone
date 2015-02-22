@@ -1,6 +1,8 @@
 ﻿using System;
 using JetBrains.Annotations;
-using TimeTable.Model;
+using TimeTable.Domain;
+using TimeTable.Domain.Lessons;
+using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;

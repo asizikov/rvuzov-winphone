@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Newtonsoft.Json;
 
-namespace TimeTable.Model
+namespace TimeTable.Domain.OrganizationalStructure
 {
     [DebuggerDisplay("Faculty Id = {Id} ,Title = {Title}")]
     public sealed class Faculty

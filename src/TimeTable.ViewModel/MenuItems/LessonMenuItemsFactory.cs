@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
-using TimeTable.Model;
+using TimeTable.Domain;
+using TimeTable.Domain.Lessons;
+using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.ViewModel.Commands;
 
 namespace TimeTable.ViewModel.MenuItems

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace TimeTable.Model
+namespace TimeTable.Domain
 {
     public sealed class Confirmation
     {

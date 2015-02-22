@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
-using TimeTable.Model;
+using TimeTable.Domain;
+using TimeTable.Domain.Lessons;
 using TimeTable.ViewModel.Factories;
 
 namespace TimeTable.ViewModel

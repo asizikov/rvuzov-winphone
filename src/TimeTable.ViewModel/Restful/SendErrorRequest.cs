@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using TimeTable.Model;
+using TimeTable.Domain;
 using TimeTable.Networking;
 using TimeTable.Networking.Restful;
 

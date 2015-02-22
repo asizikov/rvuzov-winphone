@@ -1,4 +1,4 @@
-﻿namespace TimeTable.Model
+﻿namespace TimeTable.Domain.Internal
 {
     public enum UserRole
     {

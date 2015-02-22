@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
-using TimeTable.Model;
+using TimeTable.Domain;
+using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Domain.Participants;
 using TimeTable.Networking;
 using TimeTable.Networking.Restful;
 
@@ -36,16 +38,16 @@ namespace TimeTable.ViewModel.Restful
             return RestfullRequest.Create<Groups>(InjectIdToTemplate(ALL_GROUPS_TEMPLATE, facultyId), _webService);
         }
 
-        public RestfullRequest<Model.TimeTable> GetGroupTimeTableRequest(int groupId)
+        public RestfullRequest<Domain.Lessons.TimeTable> GetGroupTimeTableRequest(int groupId)
         {
             var suffix = string.Format(GROUP_TIMETABLE_TEMPLATE, groupId);
-            return RestfullRequest.Create<Model.TimeTable>(suffix, _webService);
+            return RestfullRequest.Create<Domain.Lessons.TimeTable>(suffix, _webService);
         }
 
-        public RestfullRequest<Model.TimeTable> GetTeacherTimeTableRequest(int id)
+        public RestfullRequest<Domain.Lessons.TimeTable> GetTeacherTimeTableRequest(int id)
         {
             var suffix = string.Format(TEACHER_TIMETABLE_TEMPLATE, id);
-            return RestfullRequest.Create<Model.TimeTable>(suffix, _webService);
+            return RestfullRequest.Create<Domain.Lessons.TimeTable>(suffix, _webService);
         }
 
         public RestfullRequest<Teachers> GetUniversityTeachersRequest(int universityId)

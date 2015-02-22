@@ -4,7 +4,9 @@ using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using JetBrains.Annotations;
-using TimeTable.Model;
+using TimeTable.Domain;
+using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Domain.Participants;
 
 namespace TimeTable.ViewModel.Data
 {
@@ -77,13 +79,13 @@ namespace TimeTable.ViewModel.Data
             return GetDataAsync(request, cachePolicy);
         }
 
-        public IObservable<Model.TimeTable> GetLessonsForGroupAsync(int groupId)
+        public IObservable<Domain.Lessons.TimeTable> GetLessonsForGroupAsync(int groupId)
         {
             var groupTimeTableRequest = CallFactory.GetGroupTimeTableRequest(groupId);
             return GetDataAsync(groupTimeTableRequest);
         }
 
-        public IObservable<Model.TimeTable> GetLessonsForTeacherAsync(int id)
+        public IObservable<Domain.Lessons.TimeTable> GetLessonsForTeacherAsync(int id)
         {
             var groupTimeTableRequest = CallFactory.GetTeacherTimeTableRequest(id);
             return GetDataAsync(groupTimeTableRequest);

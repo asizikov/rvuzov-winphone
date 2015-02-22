@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 using JetBrains.Annotations;
-using TimeTable.Model.Internal;
+using TimeTable.Domain.Internal;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Services;
 

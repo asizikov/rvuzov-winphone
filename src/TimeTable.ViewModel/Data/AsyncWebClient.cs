@@ -1,7 +1,8 @@
 ﻿using System;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
-using TimeTable.Model;
+using TimeTable.Domain;
+using TimeTable.Domain.Lessons;
 
 namespace TimeTable.ViewModel.Data
 {

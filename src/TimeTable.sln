@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTable.Networking", "Tim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTable.ViewModel", "TimeTable.ViewModel\TimeTable.ViewModel.csproj", "{73AE3389-BF58-4110-B666-7819E7D73058}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTable.Model", "TimeTable.Model\TimeTable.Model.csproj", "{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTable.Domain", "TimeTable.Domain\TimeTable.Domain.csproj", "{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTable.Configuration", "TimeTable.Configuration\TimeTable.Configuration.csproj", "{1BA688FA-3255-452F-8999-8C38EB1B413C}"
 EndProject

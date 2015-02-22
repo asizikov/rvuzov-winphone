@@ -1,4 +1,4 @@
-﻿namespace TimeTable.Model
+﻿namespace TimeTable.Domain
 {
     public interface IUpdatableModel
     {

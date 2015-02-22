@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using JetBrains.Annotations;
-using TimeTable.Model;
+using TimeTable.Domain;
+using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Domain.Participants;
 
 namespace TimeTable.ViewModel.Services
 {

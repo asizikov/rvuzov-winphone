@@ -279,9 +279,9 @@
       <Project>{1BA688FA-3255-452F-8999-8C38EB1B413C}</Project>
       <Name>TimeTable.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeTable.Model\TimeTable.Model.csproj">
+    <ProjectReference Include="..\TimeTable.Domain\TimeTable.Domain.csproj">
       <Project>{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}</Project>
-      <Name>TimeTable.Model</Name>
+      <Name>TimeTable.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeTable.Networking\TimeTable.Networking.csproj">
       <Project>{98BDF17B-A349-4A0F-8437-0306BC1C1308}</Project>

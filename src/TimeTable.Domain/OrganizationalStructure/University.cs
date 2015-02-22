@@ -1,18 +1,8 @@
-﻿using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Newtonsoft.Json;
 
-namespace TimeTable.Model
+namespace TimeTable.Domain.OrganizationalStructure
 {
-    public sealed class Universities
-    {
-        [JsonProperty("success")]
-        public bool Success { get; set; }
-
-        [JsonProperty("data")]
-        public List<University> Data { get; set; }
-    }
-
     public sealed class University
     {
         [CanBeNull, JsonProperty("email")]

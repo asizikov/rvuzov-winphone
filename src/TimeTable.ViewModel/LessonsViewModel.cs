@@ -5,7 +5,10 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Threading;
 using JetBrains.Annotations;
-using TimeTable.Model;
+using TimeTable.Domain;
+using TimeTable.Domain.Lessons;
+using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Domain.Participants;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Factories;
@@ -174,7 +177,7 @@ namespace TimeTable.ViewModel
             _notificationService.ShowSomethingWentWrongToast();
         }
 
-        private void FormatTimeTable(Model.TimeTable timeTable)
+        private void FormatTimeTable(Domain.Lessons.TimeTable timeTable)
         {
             var weekNumber = 0;
             List<Day> days = null;

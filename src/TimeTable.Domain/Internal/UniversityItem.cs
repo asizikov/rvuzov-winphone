@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using TimeTable.Domain.OrganizationalStructure;
 
-namespace TimeTable.Model.Internal
+namespace TimeTable.Domain.Internal
 {
     public class UniversityItem
     {

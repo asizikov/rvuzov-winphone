@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using JetBrains.Annotations;
-using TimeTable.Model;
+using TimeTable.Domain;
 using TimeTable.Networking.Restful;
 using TimeTable.ViewModel.Restful;
 

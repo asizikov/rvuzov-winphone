@@ -1,4 +1,6 @@
-﻿using TimeTable.Model;
+﻿using TimeTable.Domain;
+using TimeTable.Domain.Lessons;
+using TimeTable.Domain.OrganizationalStructure;
 
 namespace TimeTable.ViewModel.Commands
 {

@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace TimeTable.Model
+namespace TimeTable.Domain.People
 {
-    public sealed class Groups
+    public class Teachers
     {
         [JsonProperty("success")]
         public bool Success { get; set; }
 
         [JsonProperty("data")]
-        public List<Group> GroupsList { get; set; }
+        public List<Teacher> TeachersList { get; set; }
     }
 }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using TimeTable.Model;
+using TimeTable.Domain;
+using TimeTable.Domain.Lessons;
 using TimeTable.ViewModel.MenuItems;
 
 namespace TimeTable.ViewModel.Factories

@@ -2,8 +2,10 @@
 using System.Linq;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
-using TimeTable.Model;
-using TimeTable.Model.Internal;
+using TimeTable.Domain;
+using TimeTable.Domain.Internal;
+using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Domain.Participants;
 
 namespace TimeTable.ViewModel.Data
 {

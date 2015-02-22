@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TimeTable.Model.Internal
+namespace TimeTable.Domain.Internal
 {
     public class Storage
     {

@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Domain.Participants;
 
-namespace TimeTable.Model.Internal
+namespace TimeTable.Domain.Internal
 {
     public sealed class Me
     {

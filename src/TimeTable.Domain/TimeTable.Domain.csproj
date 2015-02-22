@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TimeTable.Model</RootNamespace>
-    <AssemblyName>TimeTable.Model</AssemblyName>
+    <RootNamespace>TimeTable.Domain</RootNamespace>
+    <AssemblyName>TimeTable.Domain</AssemblyName>
     <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <SilverlightVersion>
     </SilverlightVersion>
@@ -90,29 +90,30 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Auditorium.cs" />
+    <Compile Include="OrganizationalStructure\Auditorium.cs" />
     <Compile Include="Confirmation.cs" />
     <Compile Include="Internal\FacultyItem.cs" />
+    <Compile Include="Internal\FavoritedItemType.cs" />
     <Compile Include="Internal\Storage.cs" />
     <Compile Include="Internal\UniversityItem.cs" />
     <Compile Include="Internal\UserRole.cs" />
     <Compile Include="Internal\FavoritedItem.cs" />
-    <Compile Include="Faculty.cs" />
-    <Compile Include="LessonGroup.cs" />
-    <Compile Include="LessonTeacher.cs" />
+    <Compile Include="OrganizationalStructure\Faculty.cs" />
+    <Compile Include="Lessons\LessonGroup.cs" />
+    <Compile Include="Lessons\LessonTeacher.cs" />
     <Compile Include="Internal\Me.cs" />
-    <Compile Include="Teachers.cs" />
-    <Compile Include="ListGroup.cs" />
-    <Compile Include="Day.cs" />
-    <Compile Include="Group.cs" />
-    <Compile Include="Groups.cs" />
-    <Compile Include="TimeTable.cs" />
+    <Compile Include="OrganizationalStructure\University.cs" />
+    <Compile Include="People\Teachers.cs" />
+    <Compile Include="Lessons\Day.cs" />
+    <Compile Include="People\Group.cs" />
+    <Compile Include="OrganizationalStructure\Groups.cs" />
+    <Compile Include="Lessons\TimeTable.cs" />
     <Compile Include="IUpdatableModel.cs" />
-    <Compile Include="Lesson.cs" />
-    <Compile Include="Teacher.cs" />
-    <Compile Include="TimeTableData.cs" />
+    <Compile Include="Lessons\Lesson.cs" />
+    <Compile Include="People\Teacher.cs" />
+    <Compile Include="Lessons\TimeTableData.cs" />
     <Compile Include="Updates.cs" />
-    <Compile Include="Universities.cs" />
+    <Compile Include="OrganizationalStructure\Universities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +140,7 @@
       <HintPath>..\TimeTable\packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <ProjectExtensions />
