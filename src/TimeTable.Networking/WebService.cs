@@ -4,28 +4,35 @@ using System.IO;
 using System.Net;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Text;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using RestSharp;
+using TimeTable.Networking.Restful;
 
 namespace TimeTable.Networking
 {
     public class WebService
     {
+        private readonly string _baseUrl;
         [NotNull] private readonly Deserializer _deserializer = new Deserializer();
 
+        public WebService(string baseUrl)
+        {
+            _baseUrl = baseUrl;
+        }
 
-        [NotNull] public IObservable<T> Get<T>(string url, TimeSpan timeoutTimeSpan) where T : class 
+        public string BaseUrl { get { return _baseUrl; }}
+
+        [NotNull] public IObservable<T> Get<T>(IRestRequest request, TimeSpan timeoutTimeSpan) where T : class 
         {
             return Observable.Create<T>(
                 observer => 
                 Scheduler.Default.Schedule(() =>
                 {
-                    var fullUrl = url;
-                    var webRequest = (HttpWebRequest)WebRequest.Create(fullUrl);
-                    webRequest.Method = "GET";
-                    //todo: FromAsyncPattern is deprecated, time to update
-                    Observable.FromAsyncPattern<WebResponse>(webRequest.BeginGetResponse, webRequest.EndGetResponse)()
+                    var restClient = new RestClient(_baseUrl);
+                    restClient.ExecuteAwait(request).ToObservable()
                         .Timeout(timeoutTimeSpan)
                         .Take(1)
                         .Subscribe(response => HandleResponce(response, observer),
@@ -94,7 +101,35 @@ namespace TimeTable.Networking
                            observer.OnCompleted);
                }
                ));
-        } 
+        }
+
+        private void HandleResponce<T>(IRestResponse response, IObserver<T> observer) where T : class
+        {
+            if (response.ResponseStatus == ResponseStatus.Error)
+            {
+                observer.OnError(new WebException(string.Format("failed to get response from {0}",response.ResponseUri)));
+                return;
+            }
+            var json = response.Content;
+            Debug.WriteLine(json);
+            try
+            {
+                var result = _deserializer.Deserialize<T>(json);
+                if (result != null)
+                {
+                    observer.OnNext(result);
+                }
+                else
+                {
+                    observer.OnError(new JsonSerializationException("Can't deserialize the responce : " + json));
+                }
+            }
+            catch (JsonSerializationException exception)
+            {
+                observer.OnError(exception);
+            }
+        }
+
 
         private void HandleResponce<T>(WebResponse response, IObserver<T> observer) where T: class 
         {

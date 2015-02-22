@@ -7,9 +7,9 @@ namespace TimeTable.ViewModel.Restful
 {
     public sealed class LastUpdatedRequest : RestfullRequest<Updates>
     {
-        public LastUpdatedRequest([NotNull] string baseUrl, string parameters, [NotNull] WebService webService) : base(baseUrl, webService)
+        public LastUpdatedRequest(string parameters, [NotNull] WebService webService) : base(webService)
         {
-            AdditionalUrl = parameters;
+            ResourceUrl = parameters;
         }
     }
 }

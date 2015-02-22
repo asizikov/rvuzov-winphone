@@ -6,9 +6,9 @@ namespace TimeTable.ViewModel.Restful
 {
     public class TimeTableRequest : RestfullRequest<Model.TimeTable>
     {
-        public TimeTableRequest([NotNull] string baseUrl,string additionalUrl, [NotNull] WebService webService) : base(baseUrl, webService)
+        public TimeTableRequest(string resourceUrl, [NotNull] WebService webService) : base(webService)
         {
-            AdditionalUrl = additionalUrl;
+            ResourceUrl = resourceUrl;
         }
     }
 }

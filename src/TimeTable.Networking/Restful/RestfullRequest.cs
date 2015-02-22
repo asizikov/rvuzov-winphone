@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using RestSharp;
 
 namespace TimeTable.Networking.Restful
 {
@@ -12,26 +13,22 @@ namespace TimeTable.Networking.Restful
     public abstract class RestfullRequest<T> where T : class
     {
         private readonly TimeSpan _timeoutTimeSpan = TimeSpan.FromSeconds(40);
-        private readonly string _baseUrl;
         private readonly WebService _webService;
 
-        protected RestfullRequest([NotNull] string baseUrl, [NotNull] WebService webService)
+        protected RestfullRequest([NotNull] WebService webService)
         {
-            if (baseUrl == null) throw new ArgumentNullException("baseUrl");
             if (webService == null) throw new ArgumentNullException("webService");
-
-            _baseUrl = baseUrl;
             _webService = webService;
         }
 
         public string Url
         {
-            get { return _baseUrl + AdditionalUrl; }
+            get { return _webService.BaseUrl + ResourceUrl; }
         }
 
-        protected string AdditionalUrl { get; set; }
+        protected string ResourceUrl { get; set; }
 
-        public RequestMethod Method { get; protected set; }
+        protected RequestMethod Method { get; set; }
 
         protected string Body { get; set; }
 
@@ -40,7 +37,7 @@ namespace TimeTable.Networking.Restful
             switch (Method)
             {
                 case RequestMethod.Get:
-                    return _webService.Get<T>(Url, _timeoutTimeSpan);
+                    return _webService.Get<T>(new RestRequest(ResourceUrl, RestSharp.Method.GET), _timeoutTimeSpan);
                 case RequestMethod.Post:
                     return _webService.Post<T>(Url, Body, _timeoutTimeSpan);
                 default:

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
+using System.Text;
 using System.Windows;
 
 namespace TimeTable.Services
@@ -20,8 +22,8 @@ namespace TimeTable.Services
             var time = DateTime.UtcNow.Ticks;
             var message = e.ExceptionObject.Message;
             var stackTrace = e.ExceptionObject.StackTrace;
-
-            var fileSuffix = message + date + time;
+            
+            var fileSuffix = RemoveInvalidCharacters(message + date + time.ToString(CultureInfo.InvariantCulture));
 
             if (e.ExceptionObject.InnerException != null)
             {
@@ -41,6 +43,15 @@ namespace TimeTable.Services
             {
                 fileWriter.WriteLine(message + stackTrace + innerMessage + innerStackTrace);
             }
+        }
+
+        private static string RemoveInvalidCharacters(string fileName)
+        {
+            var invalidFileNameChars = Path.GetInvalidFileNameChars();
+            var name = fileName;
+            var invalids = invalidFileNameChars.Where(c => name.IndexOf(c) >=0);
+            fileName = invalids.Aggregate(fileName, (current, invalidFileNameChar) => current.Replace(invalidFileNameChar, '-'));
+            return fileName;
         }
     }
 }

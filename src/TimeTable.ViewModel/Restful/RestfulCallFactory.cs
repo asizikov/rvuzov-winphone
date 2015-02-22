@@ -5,7 +5,7 @@ namespace TimeTable.ViewModel.Restful
 {
     public class RestfulCallFactory
     {
-        private readonly WebService _webService = new WebService();
+        private readonly WebService _webService = new WebService(URL_PREFIX);
 
         private const string URL_PREFIX = "http://new.raspisaniye-vuzov.ru/api/v1/";
         private const string UNIVERSITIES_ALL = "universities";
@@ -26,45 +26,45 @@ namespace TimeTable.ViewModel.Restful
 
         public UniversitesRequest GetAllUniversitesRequest()
         {
-            return new UniversitesRequest(URL_PREFIX, UNIVERSITIES_ALL, _webService);
+            return new UniversitesRequest(UNIVERSITIES_ALL, _webService);
         }
 
         public FacultyGroupsRequest GetFacultyGroupsRequest(int facultyId)
         {
-            return new FacultyGroupsRequest(URL_PREFIX, InjectIdToTemplate(ALL_GROUPS_TEMPLATE, facultyId), _webService);
+            return new FacultyGroupsRequest(InjectIdToTemplate(ALL_GROUPS_TEMPLATE, facultyId), _webService);
         }
 
         public TimeTableRequest GetGroupTimeTableRequest(int groupId)
         {
             var suffix = string.Format(GROUP_TIMETABLE_TEMPLATE, groupId);
-            return new TimeTableRequest(URL_PREFIX, suffix, _webService);
+            return new TimeTableRequest(suffix, _webService);
         }
 
         public TimeTableRequest GetTeacherTimeTableRequest(int id)
         {
             var suffix = string.Format(TEACHER_TIMETABLE_TEMPLATE, id);
-            return new TimeTableRequest(URL_PREFIX, suffix, _webService);
+            return new TimeTableRequest(suffix, _webService);
         }
 
         public UniversityTeachersRequest GetUniversityTeachersRequest(int universityId)
         {
-            return new UniversityTeachersRequest(URL_PREFIX, InjectIdToTemplate(ALL_TEACHERS_TEMPLATE, universityId), _webService );
+            return new UniversityTeachersRequest(InjectIdToTemplate(ALL_TEACHERS_TEMPLATE, universityId), _webService );
         }
 
         public LastUpdatedRequest GetLastUpdatedRequest<T>(string url)
         {
-            return new LastUpdatedRequest("", url + LAST_UPDATED , _webService);
+            return new LastUpdatedRequest(url + LAST_UPDATED , _webService);
         }
 
         public UniversityFacultiesRequest GetUniversityFacultiesRequest(int universityId)
         {
-            return new UniversityFacultiesRequest(URL_PREFIX, InjectIdToTemplate(ALL_FACULTIES_TEMPLATE, universityId), _webService);
+            return new UniversityFacultiesRequest(InjectIdToTemplate(ALL_FACULTIES_TEMPLATE, universityId), _webService);
         }
 
         public SendErrorRequest CreateSendErrorRequest(int id, bool isTeacher, string body)
         {
             var suffix = InjectIdToTemplate((isTeacher ? TEACHER_ERROR_TEMPLATE : GROUP_ERROR_TEMPLATE), id);
-            return new SendErrorRequest(_webService, URL_PREFIX, suffix , body);
+            return new SendErrorRequest(_webService, suffix , body);
         }
     }
 }

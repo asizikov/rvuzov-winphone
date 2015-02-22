@@ -6,9 +6,9 @@ namespace TimeTable.ViewModel.Restful
 {
     public sealed class UniversitesRequest : RestfullRequest<Universities>
     {
-        public UniversitesRequest(string baseUrl, string parameters, WebService webService) : base(baseUrl, webService)
+        public UniversitesRequest(string parameters, WebService webService) : base(webService)
         {
-            AdditionalUrl = parameters;
+            ResourceUrl = parameters;
         }
     }
 }
