@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Globalization;
 using TimeTable.Model;
 using TimeTable.Networking;
 using TimeTable.Networking.Restful;
@@ -21,9 +21,9 @@ namespace TimeTable.ViewModel.Restful
         private const string TEACHER_TIMETABLE_TEMPLATE = "teachers/{0}";
         private const string TEACHER_ERROR_TEMPLATE = "teachers/{0}/link-bug";
 
-        private static string InjectIdToTemplate(string template, int universityId)
+        private static string InjectIdToTemplate(string template, int resourceId)
         {
-            return string.Format(template, universityId);
+            return string.Format(template, resourceId.ToString(CultureInfo.InvariantCulture));
         }
 
         public RestfullRequest<Universities> GetAllUniversitesRequest()
