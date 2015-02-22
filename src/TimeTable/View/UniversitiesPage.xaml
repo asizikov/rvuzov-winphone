@@ -10,6 +10,7 @@
     xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     xmlns:view="clr-namespace:TimeTable.View"
     xmlns:controls="clr-namespace:TimeTable.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     Style="{StaticResource TimeTablePageStyle}"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     d:DataContext="{d:DesignInstance viewModel:UniversitiesViewModel}">
@@ -24,7 +25,7 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel Grid.Row="0" Margin="12,17,0,0">
             <TextBlock Text="{Binding Strings.SelectUniversity, Source={StaticResource LocalizedStrings}}"
                        Foreground="{StaticResource TimeTablePrimaryTextColorBrush}"
                        Style="{StaticResource PhoneTextLargeStyle}" />
@@ -45,9 +46,16 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Button  Style="{StaticResource ButtonNoBorder}" 
-                     Content="{Binding Strings.NoTimeTable, Source={StaticResource LocalizedStrings} }"
+            <Button Style="{StaticResource NoTimtableButtonNoBorder}" 
+                    Margin="0"
                      Command="{Binding OnFoundCommand}">
+                <ContentControl>
+                    <TextBlock
+                    toolkit:TiltEffect.IsTiltEnabled="True"
+                    Text="{Binding Path=Strings.NoTimeTable, Source={StaticResource LocalizedStrings}}"
+                    Foreground="{StaticResource TimeTablePrimaryTextColorBrush}"
+                    Style="{StaticResource PhoneTextLargeStyle}" />
+                </ContentControl>
             </Button>
             <controls:ExtendedSelector Grid.Row="1"
                                     Background="Transparent"

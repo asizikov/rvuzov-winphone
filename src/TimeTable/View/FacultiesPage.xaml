@@ -44,8 +44,14 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Button  Style="{StaticResource ButtonNoBorder}" 
-                     Content="{Binding Strings.NoTimeTable, Source={StaticResource LocalizedStrings} }"
                      Command="{Binding OnFoundCommand}">
+                <ContentControl>
+                    <TextBlock
+                    toolkit:TiltEffect.IsTiltEnabled="True"
+                    Text="{Binding Path=Strings.NoTimeTable, Source={StaticResource LocalizedStrings}}"
+                    Foreground="{StaticResource TimeTablePrimaryTextColorBrush}"
+                    Style="{StaticResource PhoneTextLargeStyle}" />
+                </ContentControl>
             </Button>
             <controls:ExtendedSelector Grid.Row="1"
                                       Background="Transparent"

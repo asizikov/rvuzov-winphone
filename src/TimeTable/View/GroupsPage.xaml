@@ -37,9 +37,15 @@
                  Text="{Binding Query, Mode=TwoWay}"
                  utils:BindingUtility.UpdateSourceOnChange="True"
                  x:FieldModifier="private" />
-        <Button Grid.Row="1"  Style="{StaticResource ButtonNoBorder}" 
-                     Content="{Binding Strings.NoTimeTable, Source={StaticResource LocalizedStrings} }"
+        <Button Grid.Row="1" Margin="6,12,12,0"  Style="{StaticResource ButtonNoBorder}" 
                      Command="{Binding OnFoundCommand}">
+            <ContentControl>
+                <TextBlock
+                    toolkit:TiltEffect.IsTiltEnabled="True"
+                    Text="{Binding Path=Strings.NoTimeTable, Source={StaticResource LocalizedStrings}}"
+                    Foreground="{StaticResource TimeTablePrimaryTextColorBrush}"
+                    Style="{StaticResource PhoneTextLargeStyle}" />
+            </ContentControl>
         </Button>
         <phone:Pivot
             x:Name="Pivot"
