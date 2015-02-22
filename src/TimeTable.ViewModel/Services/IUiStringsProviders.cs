@@ -17,5 +17,6 @@
         string ThankYou { get; }
         string ReportErrorOk { get; }
         string SomethingWentWrong { get; }
+        string UpdateLesson { get; }
     }
 }

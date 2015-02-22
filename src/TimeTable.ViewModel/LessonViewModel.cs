@@ -157,7 +157,7 @@ namespace TimeTable.ViewModel
                     yield return _menuItemsFactory.CreateForGroups(_lesson);
                 }
 
-                yield return _menuItemsFactory.CreateReportError(_holderId, _lesson.Id, _isTeacher);
+                yield return _menuItemsFactory.CreateUpdateLessonsDetails();
             }
         }
 

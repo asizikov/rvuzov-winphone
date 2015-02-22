@@ -122,6 +122,7 @@
     <Compile Include="Commands\ShowAuditoriumCommand.cs" />
     <Compile Include="Commands\ReportErrorCommand.cs" />
     <Compile Include="Commands\ShowGroupTimeTableCommand.cs" />
+    <Compile Include="Commands\UpdateLessonCommand.cs" />
     <Compile Include="Data\AsyncWebClient.cs" />
     <Compile Include="Data\CachePolicy.cs" />
     <Compile Include="Data\DataWriter.cs" />

@@ -8,5 +8,6 @@ namespace TimeTable.ViewModel.Commands
         ITitledCommand GetShowGroupTimeTableCommand(University university, LessonGroup group);
         ITitledCommand GetShowAuditoriumCommand(Auditorium auditorium, int universityId);
         ITitledCommand GetReportErrorCommand(int holderId,int lessonId, bool isTeacher);
+        ITitledCommand GetUpdateLessonCommand();
     }
 }

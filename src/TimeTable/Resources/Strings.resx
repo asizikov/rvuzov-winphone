@@ -248,4 +248,7 @@
   <data name="NoTimeTable" xml:space="preserve">
     <value>не нашли своего расписания?</value>
   </data>
+  <data name="UpdateLesson" xml:space="preserve">
+    <value>изменить</value>
+  </data>
 </root>

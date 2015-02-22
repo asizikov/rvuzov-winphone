@@ -113,6 +113,16 @@ namespace TimeTable.ViewModel.MenuItems
             };
         }
 
+        public AbstractMenuItem CreateUpdateLessonsDetails()
+        {
+            var changeLessonCommand = _commandFactory.GetUpdateLessonCommand();
+            return new AbstractMenuItem
+            {
+                Command = changeLessonCommand,
+                Header = changeLessonCommand.Title
+            };
+        }
+
         [Pure, NotNull]
         private static AbstractMenuItem FormatAbstractMenuItem(OptionsMonitor optionsMonitor,
             IEnumerable<OptionsItem> options)

@@ -311,5 +311,10 @@ namespace TimeTable.ViewModel.Services
         {
             PublishEvent(FlurryEvents.EVENT_TIMETABLE_NOT_FOUND);
         }
+
+        public void PublishUpdateLessonEvent()
+        {
+            PublishEvent(FlurryEvents.EVENT_CONTEXT_EDIT_EVENT);
+        }
     }
 }

@@ -432,6 +432,15 @@ namespace TimeTable.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to изменить.
+        /// </summary>
+        public static string UpdateLesson {
+            get {
+                return ResourceManager.GetString("UpdateLesson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to версия:.
         /// </summary>
         public static string Version {

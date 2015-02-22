@@ -47,6 +47,11 @@ namespace TimeTable.Commands
                 holderId);
         }
 
+        public ITitledCommand GetUpdateLessonCommand()
+        {
+            return new UpdateLessonCommand(_flurryPublisher,_stringsProviders);
+        }
+
         [NotNull]
         public ITitledCommand GetShowAuditoriumCommand(Auditorium auditorium, int universityId)
         {

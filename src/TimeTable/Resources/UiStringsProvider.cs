@@ -90,5 +90,10 @@ namespace TimeTable.Resources
                 return Strings.SomethingWentWrong;
             }
         }
+
+        public string UpdateLesson
+        {
+            get { return Strings.UpdateLesson; }
+        }
     }
 }
