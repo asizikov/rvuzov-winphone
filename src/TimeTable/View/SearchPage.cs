@@ -6,7 +6,9 @@ using System.Windows.Threading;
 using Microsoft.Phone.Controls;
 using TimeTable.Utils;
 using TimeTable.ViewModel;
+using TimeTable.ViewModel.OrganizationalStructure;
 using TimeTable.ViewModel.Services;
+using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.View
 {

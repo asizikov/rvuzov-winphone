@@ -1,6 +1,10 @@
 ﻿using JetBrains.Annotations;
 using TimeTable.IoC;
+using TimeTable.ViewModel.ApplicationLevel;
 using TimeTable.ViewModel.Data;
+using TimeTable.ViewModel.FavoritedTimeTables;
+using TimeTable.ViewModel.OrganizationalStructure;
+using TimeTable.ViewModel.WeekOverview;
 
 namespace TimeTable.ViewModel
 {

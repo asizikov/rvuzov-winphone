@@ -3,9 +3,12 @@
 // Please see http://go.microsoft.com/fwlink/?LinkID=131993 for details.
 // All other rights reserved.
 
+using System;
 using System.ComponentModel;
+using System.Windows;
+using System.Windows.Threading;
 
-namespace System.Windows.Threading
+namespace TimeTable.ViewModel.Utils
 {
     /// <summary>
     /// A smart dispatcher system for routing actions to the user interface

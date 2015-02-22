@@ -118,7 +118,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncWebClient.cs" />
+    <Compile Include="BaseAsyncWebClient.cs" />
+    <Compile Include="Cache\CachePolicy.cs" />
     <Compile Include="Deserializer.cs" />
+    <Compile Include="Cache\IWebCache.cs" />
     <Compile Include="Restful\RestSharpExtensions.cs" />
     <Compile Include="Restful\RestfullRequest.cs" />
     <Compile Include="WebService.cs" />

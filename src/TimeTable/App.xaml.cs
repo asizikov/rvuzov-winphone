@@ -4,8 +4,11 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using TimeTable.IoC;
+using TimeTable.Networking;
+using TimeTable.Networking.Cache;
 using TimeTable.Services;
 using TimeTable.ViewModel.Data;
+using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable

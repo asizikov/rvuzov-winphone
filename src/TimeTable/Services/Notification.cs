@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using Coding4Fun.Toolkit.Controls;
 using JetBrains.Annotations;
 using TimeTable.ViewModel.Services;
+using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.Services
 {

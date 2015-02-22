@@ -1,11 +1,11 @@
 ﻿using System;
 using JetBrains.Annotations;
-using TimeTable.Domain;
 using TimeTable.Domain.Lessons;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
+using TimeTable.ViewModel.WeekOverview.Commands;
 
 namespace TimeTable.Commands
 {
@@ -41,12 +41,6 @@ namespace TimeTable.Commands
         {
             return new ShowGroupTimeTableCommand(_navigationService, _flurryPublisher, _dataProvider, _stringsProviders,
                 university, group);
-        }
-
-        public ITitledCommand GetReportErrorCommand(int holderId, int lessonId, bool isTeacher)
-        {
-            return new ReportErrorCommand(_navigationService, _flurryPublisher, _stringsProviders, lessonId, isTeacher,
-                holderId);
         }
 
         public ITitledCommand GetUpdateLessonCommand()

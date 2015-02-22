@@ -3,6 +3,7 @@ using System.Windows.Threading;
 using JetBrains.Annotations;
 using Microsoft.Phone.Controls;
 using TimeTable.IoC;
+using TimeTable.ViewModel.Utils;
 
 namespace TimeTable
 {

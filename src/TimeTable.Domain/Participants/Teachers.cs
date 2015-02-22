@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace TimeTable.Domain.People
+namespace TimeTable.Domain.Participants
 {
     public class Teachers
     {

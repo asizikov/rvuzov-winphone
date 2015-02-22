@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using JetBrains.Annotations;
 using Microsoft.Phone.Controls;
 using TimeTable.ViewModel.Services;
+using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.Services
 {

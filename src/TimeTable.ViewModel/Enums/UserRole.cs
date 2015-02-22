@@ -1,4 +1,0 @@
-namespace TimeTable.ViewModel.Enums
-{
-
-}

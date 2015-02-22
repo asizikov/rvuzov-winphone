@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using TimeTable.Domain.People;
 
-namespace TimeTable.Domain.OrganizationalStructure
+namespace TimeTable.Domain.Participants
 {
     public sealed class Groups
     {

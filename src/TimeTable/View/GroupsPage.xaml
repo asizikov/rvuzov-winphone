@@ -13,12 +13,13 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:controls1="clr-namespace:TimeTable.Controls"
+    xmlns:organizationalStructure="clr-namespace:TimeTable.ViewModel.OrganizationalStructure;assembly=TimeTable.ViewModel"
     Foreground="{StaticResource PhoneForegroundBrush}"
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.ForegroundColor="White"
     shell:SystemTray.Opacity="0"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    d:DataContext="{d:DesignInstance viewModel:GroupPageViewModel}">
+    d:DataContext="{d:DesignInstance organizationalStructure:GroupPageViewModel}">
     <shell:SystemTray.ProgressIndicator>
         <shell:ProgressIndicator IsIndeterminate="{Binding IsLoading}"
                                  IsVisible="{Binding IsLoading}" />

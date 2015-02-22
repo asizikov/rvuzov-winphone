@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Threading;
 using JetBrains.Annotations;
+using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.ViewModel
 {

@@ -11,9 +11,10 @@
     xmlns:view="clr-namespace:TimeTable.View"
     xmlns:controls="clr-namespace:TimeTable.Controls"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:organizationalStructure="clr-namespace:TimeTable.ViewModel.OrganizationalStructure;assembly=TimeTable.ViewModel"
     Style="{StaticResource TimeTablePageStyle}"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    d:DataContext="{d:DesignInstance viewModel:UniversitiesViewModel}">
+    d:DataContext="{d:DesignInstance organizationalStructure:UniversitiesViewModel}">
     <shell:SystemTray.ProgressIndicator>
         <shell:ProgressIndicator IsIndeterminate="{Binding IsLoading}"
                                  IsVisible="{Binding IsLoading}" />

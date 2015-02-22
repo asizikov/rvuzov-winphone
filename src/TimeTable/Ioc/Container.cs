@@ -1,10 +1,13 @@
 ﻿using Microsoft.Phone.Controls;
 using Ninject;
 using TimeTable.Commands;
+using TimeTable.Networking;
+using TimeTable.Networking.Cache;
 using TimeTable.Resources;
 using TimeTable.Services;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
+using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.IoC

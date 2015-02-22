@@ -4,16 +4,10 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using TimeTable.Networking.Cache;
 
 namespace TimeTable.ViewModel.Data
 {
-    public class CacheItem
-    {
-        public object Data { get; set; }
-        public string Url { private get; set; }
-        public Type Type { private get; set; }
-    }
-
     public class InMemoryCache : IWebCache
     {
         [NotNull] private Dictionary<string, CacheItem> _cache = new Dictionary<string, CacheItem>();

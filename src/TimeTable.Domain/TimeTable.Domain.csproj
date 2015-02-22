@@ -91,7 +91,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="OrganizationalStructure\Auditorium.cs" />
-    <Compile Include="Confirmation.cs" />
     <Compile Include="Internal\FacultyItem.cs" />
     <Compile Include="Internal\FavoritedItemType.cs" />
     <Compile Include="Internal\Storage.cs" />
@@ -103,16 +102,14 @@
     <Compile Include="Lessons\LessonTeacher.cs" />
     <Compile Include="Internal\Me.cs" />
     <Compile Include="OrganizationalStructure\University.cs" />
-    <Compile Include="People\Teachers.cs" />
+    <Compile Include="Participants\Teachers.cs" />
     <Compile Include="Lessons\Day.cs" />
-    <Compile Include="People\Group.cs" />
-    <Compile Include="OrganizationalStructure\Groups.cs" />
+    <Compile Include="Participants\Group.cs" />
+    <Compile Include="Participants\Groups.cs" />
     <Compile Include="Lessons\TimeTable.cs" />
-    <Compile Include="IUpdatableModel.cs" />
     <Compile Include="Lessons\Lesson.cs" />
-    <Compile Include="People\Teacher.cs" />
+    <Compile Include="Participants\Teacher.cs" />
     <Compile Include="Lessons\TimeTableData.cs" />
-    <Compile Include="Updates.cs" />
     <Compile Include="OrganizationalStructure\Universities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

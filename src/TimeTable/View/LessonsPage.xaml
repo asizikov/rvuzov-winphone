@@ -11,12 +11,13 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     xmlns:controls1="clr-namespace:RateMyApp.Controls;assembly=RateMyApp"
+    xmlns:weekOverview="clr-namespace:TimeTable.ViewModel.WeekOverview;assembly=TimeTable.ViewModel"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0"
     shell:SystemTray.ForegroundColor="White"
-    d:DataContext="{d:DesignInstance viewModel:LessonsViewModel}">
+    d:DataContext="{d:DesignInstance weekOverview:LessonsViewModel}">
     <shell:SystemTray.ProgressIndicator>
         <shell:ProgressIndicator IsIndeterminate="{Binding IsLoading}"
                                  IsVisible="{Binding IsLoading}" />
