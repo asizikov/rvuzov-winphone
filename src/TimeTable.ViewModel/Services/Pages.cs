@@ -32,9 +32,6 @@ namespace TimeTable.ViewModel.Services
         public const string Auditoriums = "/View/AuditoriumsPage.xaml";
 
         [NotNull]
-        public const string ReportErrorPage = "/View/ReportErrorPage.xaml";
-
-        [NotNull]
         public const string AboutPage = "/View/AboutPage.xaml";
     }
 }

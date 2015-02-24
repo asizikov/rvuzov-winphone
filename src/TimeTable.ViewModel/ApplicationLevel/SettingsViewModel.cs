@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using TimeTable.Mvvm;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.ApplicationLevel

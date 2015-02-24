@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace TimeTable.ViewModel.Utils
+namespace TimeTable.Mvvm
 {
     /// <summary>
     /// A smart dispatcher system for routing actions to the user interface

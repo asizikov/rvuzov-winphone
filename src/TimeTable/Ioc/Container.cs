@@ -2,6 +2,7 @@
 using Ninject;
 using TimeTable.Data;
 using TimeTable.Domain;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.Networking.Cache;
 using TimeTable.Resources;
 using TimeTable.Services;
@@ -9,6 +10,8 @@ using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.Services;
+using INavigationService = TimeTable.ViewModel.Services.INavigationService;
+using NavigationService = TimeTable.Services.NavigationService;
 
 namespace TimeTable.IoC
 {
@@ -19,6 +22,8 @@ namespace TimeTable.IoC
         public static void Initialize(PhoneApplicationFrame rootFrame)
         {
             Kernel.Bind<PhoneApplicationFrame>().ToConstant(rootFrame);
+            Kernel.Bind<Mvvm.Navigation.INavigationService>().To<Mvvm.Navigation.NavigationService>();
+            Kernel.Bind<IPlatformNavigationService>().To<PlatformNavigationService>();
             Kernel.Bind<INavigationService>().To<NavigationService>();
             Kernel.Bind<BaseApplicationSettings>().To<ApplicationSettings>().InSingletonScope();
 #if DEBUG

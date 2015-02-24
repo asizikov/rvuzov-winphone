@@ -8,6 +8,7 @@ using TimeTable.Domain;
 using TimeTable.Domain.Lessons;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
+using TimeTable.Mvvm;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.MenuItems;

@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using TimeTable.Domain;
 using TimeTable.IoC;
+using TimeTable.Mvvm;
 using TimeTable.ViewModel.ApplicationLevel;
 using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.OrganizationalStructure;

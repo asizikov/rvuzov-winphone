@@ -22,7 +22,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
     {
         private readonly IAsyncDataProvider _dataProvider;
         private readonly INotificationService _notificationService;
-        private readonly INavigationService _navigation;
+        private readonly Mvvm.Navigation.INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private ObservableCollection<ListGroup<University>> _universitiesList;
         private University _selectedUniversity;
@@ -31,7 +31,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private static Func<University, char> _resultGrouper;
         private Reason _reason;
 
-        public UniversitiesViewModel([NotNull] INavigationService navigation,
+        public UniversitiesViewModel([NotNull] Mvvm.Navigation.INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] IAsyncDataProvider dataProvider,
             [NotNull] FlurryPublisher flurry, [NotNull] INotificationService notificationService) :base(flurry)
         {
@@ -137,7 +137,10 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                     Value = true.ToString()
                 });
             }
-            _navigation.GoToPage(Pages.Faculties, parameters);
+            var facultyParameter = new FacultyParameter();
+            facultyParameter.UniversityId = university.Id;
+            facultyParameter.Reason = _reason;
+            _navigation.NavigateTo<FacultiesPageViewModel,FacultyParameter>(facultyParameter);
         }
 
         protected override void GetResults(string search)

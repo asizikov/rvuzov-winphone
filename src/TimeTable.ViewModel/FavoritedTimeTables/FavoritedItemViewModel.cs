@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Domain.Internal;
+using TimeTable.Mvvm;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Services;
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using TimeTable.Domain.Lessons;
+using TimeTable.Mvvm;
 using TimeTable.ViewModel.MenuItems;
 using TimeTable.ViewModel.WeekOverview.Factories;
 

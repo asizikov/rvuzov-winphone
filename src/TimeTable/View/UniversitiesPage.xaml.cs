@@ -1,13 +1,14 @@
-﻿
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.Utils;
 using TimeTable.ViewModel;
 using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.View
 {
+    [DependsOnViewModel(typeof(UniversitiesViewModel))]
     public partial class UniversitiesPage
     {
         public UniversitiesPage()

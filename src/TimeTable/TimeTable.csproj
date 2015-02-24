@@ -163,6 +163,7 @@
     <Compile Include="Converters\StringContentToBoolConverter.cs" />
     <Compile Include="Converters\StringContentToVisibilityConverter.cs" />
     <Compile Include="Converters\WeekNumberToTextConverter.cs" />
+    <Compile Include="Services\PlatformNavigationService.cs" />
     <Compile Include="Services\CrashLogger.cs" />
     <Compile Include="IoC\Container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -286,6 +287,10 @@
       <Project>{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}</Project>
       <Name>TimeTable.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TimeTable.Mvvm\TimeTable.Mvvm.csproj">
+      <Project>{a5cc81ac-771f-410a-a41d-87980c7f0cef}</Project>
+      <Name>TimeTable.Mvvm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TimeTable.Networking\TimeTable.Networking.csproj">
       <Project>{98BDF17B-A349-4A0F-8437-0306BC1C1308}</Project>
       <Name>TimeTable.Networking</Name>
@@ -375,9 +380,6 @@
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

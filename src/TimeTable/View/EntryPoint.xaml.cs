@@ -13,7 +13,7 @@ namespace TimeTable.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            throw new InvalidOperationException("We should never havigate here!");
+            throw new InvalidOperationException("We should never navigate here!");
         }
     }
 }

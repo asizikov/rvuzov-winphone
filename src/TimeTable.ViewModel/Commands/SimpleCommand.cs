@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Threading;
 using JetBrains.Annotations;
+using TimeTable.Mvvm;
 using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.ViewModel.Commands

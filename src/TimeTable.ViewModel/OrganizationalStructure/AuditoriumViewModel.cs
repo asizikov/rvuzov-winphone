@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using Microsoft.Phone.Tasks;
 using TimeTable.Domain;
 using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Mvvm;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Services;
 

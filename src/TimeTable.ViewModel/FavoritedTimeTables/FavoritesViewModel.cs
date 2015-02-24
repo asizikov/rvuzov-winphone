@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using JetBrains.Annotations;
+using TimeTable.Mvvm;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Services;
 

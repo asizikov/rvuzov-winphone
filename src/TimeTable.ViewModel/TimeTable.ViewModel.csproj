@@ -114,8 +114,8 @@
     <Compile Include="ApplicationLevel\AboutViewModel.cs" />
     <Compile Include="Commands\CommandsFactory.cs" />
     <Compile Include="OrganizationalStructure\AuditoriumViewModel.cs" />
-    <Compile Include="BaseViewModel.cs" />
     <Compile Include="MenuItems\AppbarButtonViewModel.cs" />
+    <Compile Include="OrganizationalStructure\FacultyParameter.cs" />
     <Compile Include="WeekOverview\Commands\ShowAuditoriumCommand.cs" />
     <Compile Include="WeekOverview\Commands\ShowGroupTimeTableCommand.cs" />
     <Compile Include="WeekOverview\Commands\UpdateLessonCommand.cs" />
@@ -158,7 +158,6 @@
     <Compile Include="Utils\DateTimeUtils.cs" />
     <Compile Include="Utils\StringExtentions.cs" />
     <Compile Include="OrganizationalStructure\UniversitiesViewModel.cs" />
-    <Compile Include="Utils\SmartDispatcher.cs" />
     <Compile Include="WeekOverview\WeekType.cs" />
     <Compile Include="WeekOverview\WeekViewModel.cs" />
   </ItemGroup>
@@ -170,6 +169,10 @@
     <ProjectReference Include="..\TimeTable.Domain\TimeTable.Domain.csproj">
       <Project>{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}</Project>
       <Name>TimeTable.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeTable.Mvvm\TimeTable.Mvvm.csproj">
+      <Project>{a5cc81ac-771f-410a-a41d-87980c7f0cef}</Project>
+      <Name>TimeTable.Mvvm</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Threading;
 using JetBrains.Annotations;
 using Microsoft.Phone.Controls;
+using TimeTable.Mvvm;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.Utils;
 

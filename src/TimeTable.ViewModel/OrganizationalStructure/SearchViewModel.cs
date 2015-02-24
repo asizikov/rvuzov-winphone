@@ -8,6 +8,7 @@ using System.Reactive.Linq;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using Microsoft.Phone.Tasks;
+using TimeTable.Mvvm;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Services;
 

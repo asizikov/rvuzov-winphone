@@ -4,6 +4,7 @@ using System.Reactive.Concurrency;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
+using TimeTable.Mvvm;
 using TimeTable.Utils;
 using TimeTable.ViewModel;
 using TimeTable.ViewModel.OrganizationalStructure;
