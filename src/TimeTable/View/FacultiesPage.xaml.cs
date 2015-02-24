@@ -1,16 +1,14 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using TimeTable.Mvvm.Navigation;
 using TimeTable.Utils;
 using TimeTable.ViewModel;
 using TimeTable.ViewModel.OrganizationalStructure;
-using TimeTable.ViewModel.Services;
 
 namespace TimeTable.View
 {
-    [DependsOnViewModel(typeof(FacultiesPageViewModel))]
+    [DependsOnViewModel(typeof (FacultiesPageViewModel))]
     public partial class FacultiesPage
     {
         public FacultiesPage()
@@ -21,17 +19,9 @@ namespace TimeTable.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var navigationContext = NavigationContext.QueryString.RestoreContext<FacultyParameter>();
-            string parameter;
-            if (NavigationContext.QueryString.TryGetValue(NavigationParameterName.Id, out parameter))
-            {
-                int universityId;
-                if (Int32.TryParse(parameter, out universityId))
-                {
-                    ViewModel = ViewModelLocator.GetFacultiesPageViewModel(universityId, GetReason()) as SearchViewModel;
-                    DataContext = ViewModel;
-                }
-            }
+            var navigationContext = NavigationContext.QueryString.RestoreContext<NavigationFlow>();
+
+            ViewModel = ViewModelLocator.GetFacultiesPageViewModel(navigationContext.Body) as SearchViewModel;
             DataContext = ViewModel;
 
             if (State.Count > 0)

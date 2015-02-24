@@ -13,18 +13,19 @@ namespace TimeTable.ViewModel.OrganizationalStructure
 {
     public class FacultiesPageViewModel : SearchViewModel
     {
-        private readonly INavigationService _navigation;
+        private readonly Mvvm.Navigation.INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly IAsyncDataProvider _dataProvider;
         private readonly INotificationService _notificationService;
         private int _universityId;
         private Reason _reason;
+        private NavigationFlow _navigationFlow;
         private ObservableCollection<ListGroup<Faculty>> _facultiesList;
         private Faculty _selectedFaculty;
         private Faculties _storedGroupsRequest;
         private readonly Func<Faculty, char> _facultyGroupFunc;
 
-        public FacultiesPageViewModel([NotNull] INavigationService navigation,
+        public FacultiesPageViewModel([NotNull] Mvvm.Navigation.INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] IAsyncDataProvider dataProvider,
             [NotNull] FlurryPublisher flurryPublisher, [NotNull] INotificationService notificationService) :base(flurryPublisher)
         {
@@ -42,10 +43,11 @@ namespace TimeTable.ViewModel.OrganizationalStructure
             SubscribeToQuery();
         }
 
-        public void Initialize(int universityId, Reason reason)
+        public void Initialize(NavigationFlow navigationParameter)
         {
-            _universityId = universityId;
-            _reason = reason;
+            _navigationFlow = navigationParameter;
+            _universityId = navigationParameter.UniversityId;
+            _reason = navigationParameter.Reason;
             FlurryPublisher.PublishPageLoadedFaculties();
             Init();
         }
@@ -128,52 +130,14 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                 _applicationSettings.Me.Faculty = faculty;
                 _applicationSettings.Save();
             }
-            _navigation.GoToPage(Pages.Groups, GetNavigationParameters(faculty));
-        }
-
-        private IEnumerable<NavigationParameter> GetNavigationParameters(Faculty faculty)
-        {
-            var list = new List<NavigationParameter>
-            {
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.UniversityId,
-                    Value = _universityId.ToString(CultureInfo.InvariantCulture)
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.Id,
-                    Value = faculty.Id.ToString(CultureInfo.InvariantCulture)
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.IsTeacher,
-                    Value = false.ToString()
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.Name,
-                    Value = faculty.Title
-                },
-            };
-            if (_reason == Reason.AddingFavorites)
-            {
-                list.Add(new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.AddFavorites,
-                    Value = true.ToString()
-                });
-            }
-            else if (_reason == Reason.ChangeDefault)
+            if (_reason == Reason.ChangeDefault)
             {
                 _applicationSettings.Me.TemporaryFaculty = faculty;
-                list.Add(new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.ChangeDefault,
-                    Value = true.ToString()
-                });
             }
-            return list;
+            _navigationFlow.FacultyId = faculty.Id;
+            _navigationFlow.IsTeacher = false;
+            _navigationFlow.FacultyTitle = faculty.Title;
+            _navigation.NavigateTo<GroupPageViewModel, NavigationFlow>(_navigationFlow);
         }
     }
 }

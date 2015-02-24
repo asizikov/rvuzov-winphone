@@ -109,38 +109,20 @@ namespace TimeTable.ViewModel.OrganizationalStructure
 
         private void NavigateToFaculties(University university)
         {
-            var navigationParameter = new NavigationParameter
-            {
-                Parameter = NavigationParameterName.Id,
-                Value = university.Id.ToString(CultureInfo.InvariantCulture)
-            };
             if (!_applicationSettings.IsRegistrationCompleted)
             {
                 _applicationSettings.Me.University = university;
                 _applicationSettings.Save();
             }
-            var parameters = new List<NavigationParameter> {navigationParameter};
-            if (_reason == Reason.AddingFavorites)
-            {
-                parameters.Add(new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.AddFavorites,
-                    Value = true.ToString()
-                });
-            }
-            else if (_reason == Reason.ChangeDefault)
+
+            if (_reason == Reason.ChangeDefault)
             {
                 _applicationSettings.Me.TemporaryUniversity = university;
-                parameters.Add(new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.ChangeDefault,
-                    Value = true.ToString()
-                });
             }
-            var facultyParameter = new FacultyParameter();
+            var facultyParameter = new NavigationFlow();
             facultyParameter.UniversityId = university.Id;
             facultyParameter.Reason = _reason;
-            _navigation.NavigateTo<FacultiesPageViewModel,FacultyParameter>(facultyParameter);
+            _navigation.NavigateTo<FacultiesPageViewModel,NavigationFlow>(facultyParameter);
         }
 
         protected override void GetResults(string search)

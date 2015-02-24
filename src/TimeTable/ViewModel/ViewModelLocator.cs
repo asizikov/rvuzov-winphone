@@ -38,10 +38,10 @@ namespace TimeTable.ViewModel
             return vm;
         }
 
-        public static BaseViewModel GetFacultiesPageViewModel(int universityId, Reason reason)
+        public static BaseViewModel GetFacultiesPageViewModel(NavigationFlow navigationFlow)
         {
             var vm = Container.Resolve<FacultiesPageViewModel>();
-            vm.Initialize(universityId, reason);
+            vm.Initialize(navigationFlow);
             return vm;
         }
 
