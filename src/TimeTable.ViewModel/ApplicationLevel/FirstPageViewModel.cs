@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 using JetBrains.Annotations;
+using TimeTable.Domain;
 using TimeTable.Domain.Internal;
 using TimeTable.ViewModel.Commands;
-using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.ApplicationLevel
@@ -12,10 +12,10 @@ namespace TimeTable.ViewModel.ApplicationLevel
     {
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
-        private readonly AsyncDataProvider _asyncDataProvider;
+        private readonly IAsyncDataProvider _asyncDataProvider;
         private readonly FlurryPublisher _flurryPublisher;
 
-        public FirstPageViewModel([NotNull] INavigationService navigation, [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider asyncDataProvider,
+        public FirstPageViewModel([NotNull] INavigationService navigation, [NotNull] BaseApplicationSettings applicationSettings, [NotNull] IAsyncDataProvider asyncDataProvider,
             [NotNull] FlurryPublisher flurryPublisher)
         {
             if (navigation == null) throw new ArgumentNullException("navigation");

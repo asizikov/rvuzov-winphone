@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
+using TimeTable.Domain;
 using TimeTable.IoC;
 using TimeTable.ViewModel.ApplicationLevel;
-using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.OrganizationalStructure;
 using TimeTable.ViewModel.WeekOverview;
@@ -10,11 +10,11 @@ namespace TimeTable.ViewModel
 {
     public static class ViewModelLocator
     {
-        private static readonly AsyncDataProvider DataProvider;
+        private static readonly IAsyncDataProvider DataProvider;
 
         static ViewModelLocator()
         {
-            DataProvider = Container.Resolve<AsyncDataProvider>();
+            DataProvider = Container.Resolve<IAsyncDataProvider>();
         }
 
         [NotNull]

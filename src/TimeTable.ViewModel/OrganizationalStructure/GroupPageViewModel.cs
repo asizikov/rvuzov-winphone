@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
+using TimeTable.Domain;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
-using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.Utils;
@@ -17,7 +17,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
     {
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
-        private readonly AsyncDataProvider _dataProvider;
+        private readonly IAsyncDataProvider _dataProvider;
         private readonly INotificationService _notificationService;
         private readonly FavoritedItemsManager _favoritedItemsManager;
         private int _universityId;
@@ -34,7 +34,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private Teacher _selectedTeacher;
 
         public GroupPageViewModel([NotNull] INavigationService navigation,
-            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
+            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] IAsyncDataProvider dataProvider,
             [NotNull] INotificationService notificationService, [NotNull] FlurryPublisher flurryPublisher,
             [NotNull] FavoritedItemsManager favoritedItemsManager):base(flurryPublisher)
         {

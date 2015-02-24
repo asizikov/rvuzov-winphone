@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows.Input;
+using System.Reactive;
 using JetBrains.Annotations;
 using Microsoft.Phone.Tasks;
+using TimeTable.Domain;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.ViewModel.Commands;
-using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.OrganizationalStructure
@@ -12,7 +13,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
     public sealed class AuditoriumViewModel : BaseViewModel
     {
         private readonly INavigationService _navigation;
-        private readonly AsyncDataProvider _dataProvider;
+        private readonly IAsyncDataProvider _dataProvider;
         private readonly IUiStringsProviders _stringProvider;
         private int _id;
         private string _name;
@@ -21,7 +22,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private University _university;
 
         public AuditoriumViewModel([NotNull] INavigationService navigation,
-                                   [NotNull] AsyncDataProvider dataProvider,
+                                   [NotNull] IAsyncDataProvider dataProvider,
                                    [NotNull] IUiStringsProviders stringProvider)
         {
             if (navigation == null) throw new ArgumentNullException("navigation");

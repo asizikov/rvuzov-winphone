@@ -150,7 +150,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Commands\CommandsFactory.cs" />
     <Compile Include="Controls\ExtendedSelector.cs" />
     <Compile Include="Controls\CommandReadyContextMenu.cs" />
     <Compile Include="Controls\PositionOnAdd.cs" />
@@ -278,6 +277,10 @@
     <ProjectReference Include="..\TimeTable.Configuration\TimeTable.Configuration.csproj">
       <Project>{1BA688FA-3255-452F-8999-8C38EB1B413C}</Project>
       <Name>TimeTable.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeTable.Data\TimeTable.Data.csproj">
+      <Project>{8781be8f-18a3-40d6-a494-495f17a57151}</Project>
+      <Name>TimeTable.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeTable.Domain\TimeTable.Domain.csproj">
       <Project>{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}</Project>

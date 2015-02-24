@@ -1,13 +1,12 @@
 ﻿using System.Globalization;
-using TimeTable.Domain;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
 using TimeTable.Networking;
 using TimeTable.Networking.Restful;
 
-namespace TimeTable.ViewModel.Restful
+namespace TimeTable.Data
 {
-    public class RestfulCallFactory
+    internal class RestfulCallFactory
     {
         private readonly WebService _webService = new WebService(URL_PREFIX);
 

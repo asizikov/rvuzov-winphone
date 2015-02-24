@@ -4,11 +4,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using JetBrains.Annotations;
+using TimeTable.Domain;
 using TimeTable.Domain.Lessons;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
 using TimeTable.ViewModel.Commands;
-using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.MenuItems;
 using TimeTable.ViewModel.Services;
@@ -22,7 +22,7 @@ namespace TimeTable.ViewModel.WeekOverview
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
         private readonly ICommandFactory _commandFactory;
-        private readonly AsyncDataProvider _dataProvider;
+        private readonly IAsyncDataProvider _dataProvider;
         private readonly FavoritedItemsManager _favoritedItemsManager;
         private readonly IUiStringsProviders _stringsProviders;
         private readonly INotificationService _notificationService;
@@ -46,7 +46,7 @@ namespace TimeTable.ViewModel.WeekOverview
 
         public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
-            [NotNull] AsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager,
+            [NotNull] IAsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager,
             [NotNull] IUiStringsProviders stringsProviders,
             [NotNull] INotificationService notificationService)
 

@@ -1,23 +1,22 @@
 ﻿using System;
 using JetBrains.Annotations;
+using TimeTable.Domain;
 using TimeTable.Domain.Lessons;
 using TimeTable.Domain.OrganizationalStructure;
-using TimeTable.ViewModel.Commands;
-using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.WeekOverview.Commands;
 
-namespace TimeTable.Commands
+namespace TimeTable.ViewModel.Commands
 {
     public sealed class CommandsFactory : ICommandFactory
     {
         private readonly INavigationService _navigationService;
         private readonly FlurryPublisher _flurryPublisher;
         private readonly IUiStringsProviders _stringsProviders;
-        private readonly AsyncDataProvider _dataProvider;
+        private readonly IAsyncDataProvider _dataProvider;
 
         public CommandsFactory([NotNull] INavigationService navigationService, [NotNull] FlurryPublisher flurryPublisher,
-            [NotNull] IUiStringsProviders stringsProviders, [NotNull] AsyncDataProvider dataProvider)
+            [NotNull] IUiStringsProviders stringsProviders, [NotNull] IAsyncDataProvider dataProvider)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");

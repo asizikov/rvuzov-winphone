@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using JetBrains.Annotations;
+using TimeTable.Domain;
 using TimeTable.Domain.Lessons;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.ViewModel.Commands;
-using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.WeekOverview.Commands
@@ -14,14 +14,14 @@ namespace TimeTable.ViewModel.WeekOverview.Commands
     {
         private readonly INavigationService _navigationService;
         private readonly FlurryPublisher _flurryPublisher;
-        private readonly AsyncDataProvider _dataProvider;
+        private readonly IAsyncDataProvider _dataProvider;
         private readonly IUiStringsProviders _stringsProviders;
         private readonly University _university;
         private readonly LessonGroup _group;
 
 
         public ShowGroupTimeTableCommand([NotNull] INavigationService navigationService,
-            [NotNull] FlurryPublisher flurryPublisher, [NotNull] AsyncDataProvider dataProvider,
+            [NotNull] FlurryPublisher flurryPublisher, [NotNull] IAsyncDataProvider dataProvider,
             [NotNull] IUiStringsProviders stringsProviders, [NotNull] University university, [NotNull] LessonGroup group)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");

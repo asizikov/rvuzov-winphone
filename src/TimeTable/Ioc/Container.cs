@@ -1,7 +1,7 @@
 ﻿using Microsoft.Phone.Controls;
 using Ninject;
-using TimeTable.Commands;
-using TimeTable.Networking;
+using TimeTable.Data;
+using TimeTable.Domain;
 using TimeTable.Networking.Cache;
 using TimeTable.Resources;
 using TimeTable.Services;
@@ -28,7 +28,7 @@ namespace TimeTable.IoC
 #endif
             Kernel.Bind<IWebCache>().To<InMemoryCache>().InSingletonScope();
             Kernel.Bind<UniversitiesCache>().To<UniversitiesCache>().InSingletonScope();
-            Kernel.Bind<AsyncDataProvider>().To<AsyncDataProvider>().InSingletonScope();
+            Kernel.Bind<IAsyncDataProvider>().To<AsyncDataProvider>().InSingletonScope();
             Kernel.Bind<IUiStringsProviders>().To<UiStringsProvider>();
             Kernel.Bind<INotificationService>().To<NotificationService>();
             Kernel.Bind<ICommandFactory>().To<CommandsFactory>();

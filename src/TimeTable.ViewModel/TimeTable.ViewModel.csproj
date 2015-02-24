@@ -99,33 +99,26 @@
     </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\TimeTable\packages\Rx-Core.2.2.5\lib\windowsphone8\System.Reactive.Core.dll</HintPath>
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\windowsphone8\System.Reactive.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\TimeTable\packages\Rx-Interfaces.2.2.5\lib\windowsphone8\System.Reactive.Interfaces.dll</HintPath>
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\windowsphone8\System.Reactive.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\TimeTable\packages\Rx-Linq.2.2.5\lib\windowsphone8\System.Reactive.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\TimeTable\packages\Rx-PlatformServices.2.2.5\lib\windowsphone8\System.Reactive.PlatformServices.dll</HintPath>
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\windowsphone8\System.Reactive.Linq.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationLevel\AboutViewModel.cs" />
-    <Compile Include="Data\CacheItem.cs" />
+    <Compile Include="Commands\CommandsFactory.cs" />
     <Compile Include="OrganizationalStructure\AuditoriumViewModel.cs" />
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="MenuItems\AppbarButtonViewModel.cs" />
     <Compile Include="WeekOverview\Commands\ShowAuditoriumCommand.cs" />
     <Compile Include="WeekOverview\Commands\ShowGroupTimeTableCommand.cs" />
     <Compile Include="WeekOverview\Commands\UpdateLessonCommand.cs" />
-    <Compile Include="Data\DataWriter.cs" />
-    <Compile Include="Data\NoCache.cs" />
-    <Compile Include="Data\UniversitiesCache.cs" />
     <Compile Include="ApplicationLevel\DefaultViewModel.cs" />
     <Compile Include="FavoritedTimeTables\FavoritedExtensions.cs" />
     <Compile Include="WeekOverview\Factories\DayViewModelFactory.cs" />
@@ -138,8 +131,6 @@
     <Compile Include="WeekOverview\Commands\ShowTeachersTimeTableCommand.cs" />
     <Compile Include="Commands\SimpleCommand.cs" />
     <Compile Include="OrganizationalStructure\FacultiesPageViewModel.cs" />
-    <Compile Include="Data\AsyncDataProvider.cs" />
-    <Compile Include="Data\InMemoryCache.cs" />
     <Compile Include="WeekOverview\DayViewModel.cs" />
     <Compile Include="ApplicationLevel\FirstPageViewModel.cs" />
     <Compile Include="OrganizationalStructure\GroupPageViewModel.cs" />
@@ -150,7 +141,6 @@
     <Compile Include="WeekOverview\OptionsItem.cs" />
     <Compile Include="WeekOverview\OptionsMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\RestfulCallFactory.cs" />
     <Compile Include="FavoritedTimeTables\FavoritedItemsManager.cs" />
     <Compile Include="Services\INotificationService.cs" />
     <Compile Include="Services\IUiStringsProviders.cs" />
@@ -180,10 +170,6 @@
     <ProjectReference Include="..\TimeTable.Domain\TimeTable.Domain.csproj">
       <Project>{6F4AF299-8A2D-42AF-9CAB-5D28BADE3186}</Project>
       <Name>TimeTable.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TimeTable.Networking\TimeTable.Networking.csproj">
-      <Project>{98BDF17B-A349-4A0F-8437-0306BC1C1308}</Project>
-      <Name>TimeTable.Networking</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

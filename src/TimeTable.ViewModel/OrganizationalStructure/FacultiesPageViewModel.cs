@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
+using TimeTable.Domain;
 using TimeTable.Domain.OrganizationalStructure;
-using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.Utils;
 
@@ -15,7 +15,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
     {
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
-        private readonly AsyncDataProvider _dataProvider;
+        private readonly IAsyncDataProvider _dataProvider;
         private readonly INotificationService _notificationService;
         private int _universityId;
         private Reason _reason;
@@ -25,7 +25,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private readonly Func<Faculty, char> _facultyGroupFunc;
 
         public FacultiesPageViewModel([NotNull] INavigationService navigation,
-            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] AsyncDataProvider dataProvider,
+            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] IAsyncDataProvider dataProvider,
             [NotNull] FlurryPublisher flurryPublisher, [NotNull] INotificationService notificationService) :base(flurryPublisher)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");

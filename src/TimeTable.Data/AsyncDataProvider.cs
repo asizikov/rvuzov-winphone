@@ -4,15 +4,16 @@ using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using JetBrains.Annotations;
+using TimeTable.Domain;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
 using TimeTable.Networking;
 using TimeTable.Networking.Cache;
-using TimeTable.ViewModel.Restful;
+using TimeTable.ViewModel.Data;
 
-namespace TimeTable.ViewModel.Data
+namespace TimeTable.Data
 {
-    public class AsyncDataProvider : BaseAsyncWebClient
+    public class AsyncDataProvider : BaseAsyncWebClient, IAsyncDataProvider
     {
         private readonly Dictionary<int, University> _universities = new Dictionary<int, University>();
         private readonly Dictionary<int, Teacher> _teachers = new Dictionary<int, Teacher>();
@@ -33,7 +34,7 @@ namespace TimeTable.ViewModel.Data
         public void PutUniversity(University university)
         {
             _universitiesCache.AddUniversity(university);
-            GetUniversityFacultiesAsync(university.Id).Subscribe(result =>
+            GetUniversityFacultiesInternalAsync(university.Id).Subscribe(result =>
             {
                 if (result != null)
                 {
@@ -70,13 +71,26 @@ namespace TimeTable.ViewModel.Data
             }
         }
 
-        public IObservable<Universities> GetUniversitesAsync(CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
+
+        public IObservable<Universities> GetUniversitiesAsync()
+        {
+            return GetUniversitiesInternalAsync();
+        }
+
+        private IObservable<Universities> GetUniversitiesInternalAsync(CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
         {
             var request = _callFactory.GetAllUniversitesRequest();
             return GetDataAsync(request, cachePolicy);
         }
 
-        public IObservable<Groups> GetFacultyGroupsAsync(int facultyId,
+
+        public IObservable<Groups> GetFacultyGroupsAsync(int facultyId)
+        {
+            return GetFacultyGroupsInternalAsync(facultyId);
+        }
+
+
+        private IObservable<Groups> GetFacultyGroupsInternalAsync(int facultyId,
             CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
         {
             var request = _callFactory.GetFacultyGroupsRequest(facultyId);
@@ -101,7 +115,12 @@ namespace TimeTable.ViewModel.Data
             return GetDataAsync(universityTeachersRequest);
         }
 
-        public IObservable<Faculties> GetUniversityFacultiesAsync(int universityId,
+        public IObservable<Faculties> GetUniversityFacultiesAsync(int universityId)
+        {
+            return GetUniversityFacultiesInternalAsync(universityId);
+        }
+
+        private IObservable<Faculties> GetUniversityFacultiesInternalAsync(int universityId,
             CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
         {
             var request = _callFactory.GetUniversityFacultiesRequest(universityId);
@@ -119,7 +138,7 @@ namespace TimeTable.ViewModel.Data
                     }
                     else
                     {
-                        GetUniversitesAsync(CachePolicy.TryGetFromCache).Subscribe(universities =>
+                        GetUniversitiesInternalAsync(CachePolicy.TryGetFromCache).Subscribe(universities =>
                         {
                             var university = universities.Data.FirstOrDefault(u => u.Id == universityId);
                             if (!_universities.ContainsKey(universityId))
@@ -181,7 +200,7 @@ namespace TimeTable.ViewModel.Data
                     }
                     else
                     {
-                        GetFacultyGroupsAsync(facultyId, CachePolicy.TryGetFromCache).Subscribe(groups =>
+                        GetFacultyGroupsInternalAsync(facultyId, CachePolicy.TryGetFromCache).Subscribe(groups =>
                         {
                             var group = groups.GroupsList.FirstOrDefault(u => u.Id == id);
                             if (!_groups.ContainsKey(id))
@@ -205,7 +224,7 @@ namespace TimeTable.ViewModel.Data
                     }
                     else
                     {
-                        GetUniversityFacultiesAsync(universityId, CachePolicy.TryGetFromCache).Subscribe(faculties =>
+                        GetUniversityFacultiesInternalAsync(universityId, CachePolicy.TryGetFromCache).Subscribe(faculties =>
                         {
                             var faculty = faculties.Data.FirstOrDefault(u => u.Id == facultyId);
                             if (!_faculties.ContainsKey(facultyId))

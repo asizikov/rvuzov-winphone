@@ -90,6 +90,7 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="IAsyncDataProvider.cs" />
     <Compile Include="OrganizationalStructure\Auditorium.cs" />
     <Compile Include="Internal\FacultyItem.cs" />
     <Compile Include="Internal\FavoritedItemType.cs" />
