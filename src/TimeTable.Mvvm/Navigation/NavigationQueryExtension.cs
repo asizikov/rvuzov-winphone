@@ -7,7 +7,7 @@ namespace TimeTable.Mvvm.Navigation
 {
     public static class NavigationQueryExtension
     {
-        private static string Key = "NavigationContext";
+        private const string Key = "NavigationContext";
 
         public static NavigationContext RestoreContext(this IDictionary<string, string> query)
         {

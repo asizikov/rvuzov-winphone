@@ -16,7 +16,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
 {
     public abstract class SearchViewModel : BaseViewModel
     {
-        private const string URL = "http://raspisaniye-vuzov.ru/webform/step1.html";
+        private const string Url = "http://raspisaniye-vuzov.ru/webform/step1.html";
 
         protected readonly FlurryPublisher FlurryPublisher;
         private IDisposable _queryObserver;
@@ -103,7 +103,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private void NotFound()
         {
             FlurryPublisher.PublishTimtableNotFoundEvent();
-            var webBrowserTask = new WebBrowserTask { Uri = new Uri(URL) };
+            var webBrowserTask = new WebBrowserTask { Uri = new Uri(Url) };
             webBrowserTask.Show();
         }
     }

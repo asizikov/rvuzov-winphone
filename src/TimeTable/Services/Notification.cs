@@ -2,12 +2,10 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 using Coding4Fun.Toolkit.Controls;
 using JetBrains.Annotations;
 using TimeTable.Mvvm;
 using TimeTable.ViewModel.Services;
-using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.Services
 {

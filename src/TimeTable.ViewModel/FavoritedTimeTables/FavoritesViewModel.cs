@@ -13,24 +13,20 @@ namespace TimeTable.ViewModel.FavoritedTimeTables
     public sealed class FavoritesViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
-        private readonly FavoritedItemsManager _favoritedItemsManager;
-        private readonly FlurryPublisher _flurryPublisher;
         private ObservableCollection<FavoritedItemViewModel> _items;
 
         public FavoritesViewModel([NotNull] INavigationService navigationService,
-            [NotNull] FavoritedItemsManager favoritedItemsManager, IUiStringsProviders stringsProviders,
+            [NotNull] FavoritedItemsManager favoritedItemsManager,
             [NotNull] FlurryPublisher flurryPublisher)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
             if (favoritedItemsManager == null) throw new ArgumentNullException("favoritedItemsManager");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
             _navigationService = navigationService;
-            _favoritedItemsManager = favoritedItemsManager;
-            _flurryPublisher = flurryPublisher;
-            _flurryPublisher.PublishPageLoadedFavorites();
+            flurryPublisher.PublishPageLoadedFavorites();
             Items =
                 new ObservableCollection<FavoritedItemViewModel>(
-                    _favoritedItemsManager.GetFavorites().ToViewModels(stringsProviders, _navigationService));
+                    favoritedItemsManager.GetFavorites().ToViewModels(_navigationService));
             AddCommand = new SimpleCommand(AddNewFavorite);
         }
 

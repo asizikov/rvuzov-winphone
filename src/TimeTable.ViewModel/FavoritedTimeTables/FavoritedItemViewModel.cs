@@ -5,7 +5,6 @@ using TimeTable.Domain.Internal;
 using TimeTable.Mvvm;
 using TimeTable.Mvvm.Navigation;
 using TimeTable.ViewModel.Commands;
-using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.WeekOverview;
 
 namespace TimeTable.ViewModel.FavoritedTimeTables
@@ -13,17 +12,13 @@ namespace TimeTable.ViewModel.FavoritedTimeTables
     public sealed class FavoritedItemViewModel : BaseViewModel
     {
         private readonly FavoritedItem _item;
-        private readonly IUiStringsProviders _stringsProviders;
         private readonly INavigationService _navigationService;
 
-        public FavoritedItemViewModel([NotNull] FavoritedItem item, [NotNull] IUiStringsProviders stringsProviders,
-            [NotNull] INavigationService navigationService)
+        public FavoritedItemViewModel([NotNull] FavoritedItem item, [NotNull] INavigationService navigationService)
         {
             if (item == null) throw new ArgumentNullException("item");
-            if (stringsProviders == null) throw new ArgumentNullException("stringsProviders");
             if (navigationService == null) throw new ArgumentNullException("navigationService");
             _item = item;
-            _stringsProviders = stringsProviders;
             _navigationService = navigationService;
             ShowTimeTable = new SimpleCommand(NavigateToTimetable);
         }

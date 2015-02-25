@@ -47,7 +47,7 @@ namespace TimeTable.ViewModel.WeekOverview
         private string _title;
         private WeekViewModelFactory _weekViewModelFactory;
 
-        public LessonsPageViewModel([NotNull] Mvvm.Navigation.INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
+        public LessonsPageViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
             [NotNull] IAsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager,
             [NotNull] IUiStringsProviders stringsProviders,

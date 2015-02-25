@@ -2,19 +2,19 @@
 using System.Linq;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
-using TimeTable.Domain;
 using TimeTable.Domain.Internal;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
+using TimeTable.ViewModel.Data;
 
-namespace TimeTable.ViewModel.Data
+namespace TimeTable.Data.Cache
 {
     public class UniversitiesCache
     {
         private const int VERSION = 1;
         private Dictionary<int, UniversityItem> _cache = new Dictionary<int, UniversityItem>();
 
-        private DataWriter _dataWriter = new DataWriter();
+        private readonly DataWriter _dataWriter = new DataWriter();
 
         public void AddUniversity(University university)
         {

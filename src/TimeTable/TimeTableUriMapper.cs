@@ -27,7 +27,7 @@ namespace TimeTable
 
         public override Uri MapUri(Uri uri)
         {
-            if (!uri.OriginalString.Contains(Pages.EntryPoint))
+            if (!uri.OriginalString.Contains("/View/EntryPoint.xaml"))
             {
                 return uri;
             }

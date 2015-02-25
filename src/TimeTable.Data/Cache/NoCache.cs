@@ -1,6 +1,6 @@
 ﻿using TimeTable.Networking.Cache;
 
-namespace TimeTable.ViewModel.Data
+namespace TimeTable.Data.Cache
 {
     public sealed class NoCache : IWebCache
     {

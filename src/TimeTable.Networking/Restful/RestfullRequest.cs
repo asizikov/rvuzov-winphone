@@ -38,9 +38,9 @@ namespace TimeTable.Networking.Restful
 
         private string ResourceUrl { get; set; }
 
-        protected RequestMethod Method { get; set; }
+        private RequestMethod Method { get; set; }
 
-        protected string Body { get; set; }
+        private string Body { get; set; }
 
         public IObservable<T> Execute()
         {

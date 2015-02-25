@@ -3,11 +3,10 @@ using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using TimeTable.Data.Cache;
 using TimeTable.IoC;
-using TimeTable.Networking;
 using TimeTable.Networking.Cache;
 using TimeTable.Services;
-using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.Services;
 
@@ -41,7 +40,7 @@ namespace TimeTable
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // Display the current frame rate counters.
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
+                Current.Host.Settings.EnableFrameRateCounter = true;
 
                 // Show the areas of the app that are being redrawn in each frame.
                 // Application.Current.Host.Settings.EnableRedrawRegions = true;
@@ -153,8 +152,7 @@ namespace TimeTable
  
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
-            RootFrame = new PhoneApplicationFrame();
-            RootFrame.UriMapper = (UriMapper) Resources["ApplicationUriMapper"];
+            RootFrame = new PhoneApplicationFrame {UriMapper = (UriMapper) Resources["ApplicationUriMapper"]};
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
             // Handle navigation failures

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using JetBrains.Annotations;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Mvvm.Navigation;

@@ -117,9 +117,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
             {
                 _applicationSettings.Me.TemporaryUniversity = university;
             }
-            var facultyParameter = new NavigationFlow();
-            facultyParameter.UniversityId = university.Id;
-            facultyParameter.Reason = _reason;
+            var facultyParameter = new NavigationFlow {UniversityId = university.Id, Reason = _reason};
             _navigation.NavigateTo<FacultiesPageViewModel,NavigationFlow>(facultyParameter);
         }
 

@@ -4,15 +4,16 @@ using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using JetBrains.Annotations;
+using TimeTable.Data.Cache;
 using TimeTable.Domain;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
 using TimeTable.Networking;
 using TimeTable.Networking.Cache;
-using TimeTable.ViewModel.Data;
 
 namespace TimeTable.Data
 {
+    [UsedImplicitly]
     public class AsyncDataProvider : BaseAsyncWebClient, IAsyncDataProvider
     {
         private readonly Dictionary<int, University> _universities = new Dictionary<int, University>();

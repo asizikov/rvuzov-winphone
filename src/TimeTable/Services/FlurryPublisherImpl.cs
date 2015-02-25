@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using FlurryWP8SDK.Models;
 using Microsoft.Phone.Info;
@@ -18,10 +17,7 @@ namespace TimeTable.Services
                 var result = (byte[]) uniqueId;
                 return Convert.ToBase64String(result);
             }
-            else
-            {
-                return "unknown";
-            }
+            return "unknown";
         }
 
         protected override void InitSession()

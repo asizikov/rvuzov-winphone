@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
-using System.Windows.Threading;
 using JetBrains.Annotations;
 using TimeTable.Mvvm;
-using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.ViewModel.Commands
 {
@@ -13,7 +11,7 @@ namespace TimeTable.ViewModel.Commands
         [NotNull]
         private readonly Action _action;
         [CanBeNull]
-        private readonly Func<bool> _canExecuteEvaluetor;
+        private readonly Func<bool> _canExecuteEvaluator;
         private readonly bool _canExecute;
 
         public SimpleCommand([NotNull] Action action, bool canExecute = true)
@@ -23,11 +21,11 @@ namespace TimeTable.ViewModel.Commands
             _canExecute = canExecute;
         }
 
-        public SimpleCommand([NotNull] Action action, Func<bool> canExecuteEvaluetor)
+        public SimpleCommand([NotNull] Action action, Func<bool> canExecuteEvaluator)
         {
             if (action == null) throw new ArgumentNullException("action");
             _action = action;
-            _canExecuteEvaluetor = canExecuteEvaluetor;
+            _canExecuteEvaluator = canExecuteEvaluator;
         }
 
         public void RaiseCanExecuteChanged()
@@ -41,7 +39,7 @@ namespace TimeTable.ViewModel.Commands
 
         public bool CanExecute(object parameter)
         {
-            return _canExecuteEvaluetor != null ? _canExecuteEvaluetor() : _canExecute;
+            return _canExecuteEvaluator != null ? _canExecuteEvaluator() : _canExecute;
         }
 
         public void Execute(object parameter)

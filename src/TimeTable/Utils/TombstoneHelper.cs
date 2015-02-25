@@ -11,11 +11,10 @@ namespace TimeTable.Utils
     {
         public static void RestoreState(this PhoneApplicationPage page, Pivot pivot)
         {
-            RoutedEventHandler handler = null;
             var selectedIndex = page.GetPivotSelectedIndex(pivot);
             if (!selectedIndex.HasValue) return;
 
-            handler = (s, e) => pivot.SelectedIndex = selectedIndex.Value;
+            RoutedEventHandler handler = (s, e) => pivot.SelectedIndex = selectedIndex.Value;
             pivot.Loaded += handler;
         }
 
