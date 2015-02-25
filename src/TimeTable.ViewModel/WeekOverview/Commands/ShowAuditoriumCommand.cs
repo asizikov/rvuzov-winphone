@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using JetBrains.Annotations;
 using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.ViewModel.Commands;
+using TimeTable.ViewModel.OrganizationalStructure;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.WeekOverview.Commands
@@ -33,32 +35,17 @@ namespace TimeTable.ViewModel.WeekOverview.Commands
 
         public void Execute(object parameter)
         {
-            var address = String.IsNullOrEmpty(_auditorium.Address) ? String.Empty : _auditorium.Address;
-            var name = String.IsNullOrEmpty(_auditorium.Name) ? String.Empty : _auditorium.Name;
+            var address = String.IsNullOrEmpty(_auditorium.Address) ? string.Empty : _auditorium.Address;
+            var name = String.IsNullOrEmpty(_auditorium.Name) ? string.Empty : _auditorium.Name;
 
-            _navigationService.GoToPage(Pages.Auditoriums, new List<NavigationParameter>
+            _navigationService.NavigateTo<AuditoriumViewModel, AuditoriumNavigationParameter>(new AuditoriumNavigationParameter
             {
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.Id,
-                    Value = _auditorium.Id.ToString(CultureInfo.InvariantCulture)
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.Name,
-                    Value = name
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.Address,
-                    Value = address
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.UniversityId,
-                    Value = _universityId.ToString(CultureInfo.InvariantCulture)
-                }
+                AuditoriumId = _auditorium.Id,
+                AuditoriumName = name,
+                AuditoriumAddress = address,
+                UniversityId = _universityId
             });
+
         }
 
         public event EventHandler CanExecuteChanged;

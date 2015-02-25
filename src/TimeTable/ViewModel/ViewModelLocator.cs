@@ -21,7 +21,7 @@ namespace TimeTable.ViewModel
         [NotNull]
         public static BaseViewModel GetUniversitiesViewModel(Reason reason)
         {
-            var vm = Container.Resolve<UniversitiesViewModel>();
+            var vm = Container.Resolve<UniversitiesPageViewModel>();
             vm.Initialize(reason);
             return vm;
         }
@@ -31,10 +31,10 @@ namespace TimeTable.ViewModel
             return Container.Resolve<FirstPageViewModel>();
         }
 
-        public static BaseViewModel GetGroupsPageViewModel(int facultyId, int universityId, Reason reason)
+        public static BaseViewModel GetGroupsPageViewModel(NavigationFlow navigationFlow)
         {
             var vm = Container.Resolve<GroupPageViewModel>();
-            vm.Initialize(universityId, facultyId, reason);
+            vm.Initialize(navigationFlow);
             return vm;
         }
 
@@ -45,19 +45,17 @@ namespace TimeTable.ViewModel
             return vm;
         }
 
-        public static LessonsViewModel GetLessonsViewModel(int id, bool isTeacher, int universityId, int facultyId)
+        public static LessonsPageViewModel GetLessonsViewModel(LessonsNavigationParameter navigationParameter)
         {
-            var vm = Container.Resolve<LessonsViewModel>();
-            vm.Initialize(id, isTeacher, universityId, facultyId);
+            var vm = Container.Resolve<LessonsPageViewModel>();
+            vm.Initialize(navigationParameter);
             return vm;
         }
 
-        public static AuditoriumViewModel GetAuditoriumViewModel(int auditoriumId, int universityId,
-            string auditoriumName,
-            string auditoriumAddress)
+        public static AuditoriumViewModel GetAuditoriumViewModel(AuditoriumNavigationParameter navigationParameter)
         {
             var vm = Container.Resolve<AuditoriumViewModel>();
-            vm.Initialize(auditoriumId, universityId, auditoriumName, auditoriumAddress);
+            vm.Initialize(navigationParameter);
             return vm;
         }
 

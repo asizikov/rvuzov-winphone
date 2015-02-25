@@ -113,9 +113,10 @@
   <ItemGroup>
     <Compile Include="ApplicationLevel\AboutViewModel.cs" />
     <Compile Include="Commands\CommandsFactory.cs" />
+    <Compile Include="OrganizationalStructure\AuditoriumNavigationParameter.cs" />
     <Compile Include="OrganizationalStructure\AuditoriumViewModel.cs" />
     <Compile Include="MenuItems\AppbarButtonViewModel.cs" />
-    <Compile Include="OrganizationalStructure\FacultyParameter.cs" />
+    <Compile Include="OrganizationalStructure\NavigationFlow.cs" />
     <Compile Include="WeekOverview\Commands\ShowAuditoriumCommand.cs" />
     <Compile Include="WeekOverview\Commands\ShowGroupTimeTableCommand.cs" />
     <Compile Include="WeekOverview\Commands\UpdateLessonCommand.cs" />
@@ -134,7 +135,8 @@
     <Compile Include="WeekOverview\DayViewModel.cs" />
     <Compile Include="ApplicationLevel\FirstPageViewModel.cs" />
     <Compile Include="OrganizationalStructure\GroupPageViewModel.cs" />
-    <Compile Include="WeekOverview\LessonsViewModel.cs" />
+    <Compile Include="WeekOverview\LessonsNavigationParameter.cs" />
+    <Compile Include="WeekOverview\LessonsPageViewModel.cs" />
     <Compile Include="OrganizationalStructure\ListGroup.cs" />
     <Compile Include="MenuItems\AbstractMenuItem.cs" />
     <Compile Include="WeekOverview\Factories\LessonMenuItemsFactory.cs" />
@@ -153,11 +155,10 @@
     <Compile Include="Services\FlurryEvents.cs" />
     <Compile Include="Services\FlurryEventWrapper.cs" />
     <Compile Include="Services\FlurryPublisher.cs" />
-    <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\Pages.cs" />
     <Compile Include="Utils\DateTimeUtils.cs" />
     <Compile Include="Utils\StringExtentions.cs" />
-    <Compile Include="OrganizationalStructure\UniversitiesViewModel.cs" />
+    <Compile Include="OrganizationalStructure\UniversitiesPageViewModel.cs" />
     <Compile Include="WeekOverview\WeekType.cs" />
     <Compile Include="WeekOverview\WeekViewModel.cs" />
   </ItemGroup>

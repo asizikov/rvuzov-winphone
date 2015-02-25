@@ -2,6 +2,7 @@
 using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Domain.Internal;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.FavoritedTimeTables

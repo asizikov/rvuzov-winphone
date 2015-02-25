@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Domain;
@@ -18,7 +16,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         ChangeDefault = 2
     }
 
-    public class UniversitiesViewModel : SearchViewModel
+    public class UniversitiesPageViewModel : SearchViewModel
     {
         private readonly IAsyncDataProvider _dataProvider;
         private readonly INotificationService _notificationService;
@@ -31,7 +29,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private static Func<University, char> _resultGrouper;
         private Reason _reason;
 
-        public UniversitiesViewModel([NotNull] Mvvm.Navigation.INavigationService navigation,
+        public UniversitiesPageViewModel([NotNull] Mvvm.Navigation.INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] IAsyncDataProvider dataProvider,
             [NotNull] FlurryPublisher flurry, [NotNull] INotificationService notificationService) :base(flurry)
         {

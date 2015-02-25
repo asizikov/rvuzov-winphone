@@ -18,5 +18,15 @@ namespace TimeTable.Services
         {
             PhoneApplicationFrame.Navigate(path);
         }
+
+        public bool CanGoBack()
+        {
+            return PhoneApplicationFrame.CanGoBack;
+        }
+
+        public void RemoveBackEntry()
+        {
+            PhoneApplicationFrame.RemoveBackEntry();
+        }
     }
 }

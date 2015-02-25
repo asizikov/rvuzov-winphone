@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using TimeTable.Domain;
 using TimeTable.Domain.Lessons;
 using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.WeekOverview.Commands;
 

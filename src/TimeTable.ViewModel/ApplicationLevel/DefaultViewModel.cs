@@ -1,8 +1,9 @@
 ﻿using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Domain.Internal;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.ViewModel.Commands;
-using TimeTable.ViewModel.Services;
+using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.ViewModel.ApplicationLevel
 {
@@ -21,19 +22,13 @@ namespace TimeTable.ViewModel.ApplicationLevel
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public string Name
         {
-            get
-            {
-                return _model.Teacher != null ? _model.Teacher.Name : _model.DefaultGroup.GroupName;
-            }
+            get { return _model.Teacher != null ? _model.Teacher.Name : _model.DefaultGroup.GroupName; }
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public string University
         {
-            get
-            {
-                return _model.University.Name;
-            }
+            get { return _model.University.Name; }
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -41,14 +36,7 @@ namespace TimeTable.ViewModel.ApplicationLevel
 
         private void ChangeDefault()
         {
-            _navigationService.GoToPage(Pages.Universities, new[]
-            {
-                new NavigationParameter
-                {   
-                    Parameter = NavigationParameterName.ChangeDefault,
-                    Value = true.ToString()
-                }
-            });
+            _navigationService.NavigateTo<UniversitiesPageViewModel, Reason>(Reason.ChangeDefault);
         }
     }
 }

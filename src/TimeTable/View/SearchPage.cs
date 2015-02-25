@@ -2,14 +2,10 @@
 using System.ComponentModel;
 using System.Reactive.Concurrency;
 using System.Windows.Navigation;
-using System.Windows.Threading;
 using Microsoft.Phone.Controls;
 using TimeTable.Mvvm;
 using TimeTable.Utils;
-using TimeTable.ViewModel;
 using TimeTable.ViewModel.OrganizationalStructure;
-using TimeTable.ViewModel.Services;
-using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.View
 {
@@ -43,23 +39,6 @@ namespace TimeTable.View
             {
                 Scheduler.Default.Schedule(TimeSpan.FromMilliseconds(200), () => SmartDispatcher.BeginInvoke(SetFocus));
             }
-        }
-
-        private bool IsAddingFavorites()
-        {
-            return NavigationContext.QueryString.ContainsKey(NavigationParameterName.AddFavorites);
-        }
-
-        protected Reason GetReason()
-        {
-            if(IsAddingFavorites()) return Reason.AddingFavorites;
-            if (IsChangingDefault()) return Reason.ChangeDefault;
-            return Reason.Registration;
-        }
-
-        private bool IsChangingDefault()
-        {
-            return NavigationContext.QueryString.ContainsKey(NavigationParameterName.ChangeDefault);
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)

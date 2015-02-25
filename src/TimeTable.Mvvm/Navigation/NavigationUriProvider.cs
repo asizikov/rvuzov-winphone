@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using Microsoft.Phone.Controls;
 
 namespace TimeTable.Mvvm.Navigation
 {
@@ -17,6 +17,7 @@ namespace TimeTable.Mvvm.Navigation
                 .Where(t => t.IsDefined(typeof(DependsOnViewModelAttribute)));
             Dictionary = pages.ToDictionary(
                 p => (p.GetCustomAttribute<DependsOnViewModelAttribute>().ViewModelType),p => p);
+            Debug.WriteLine("NavigationUriProvider::Initializing");
         }
 
         private static IEnumerable<Assembly> LoadAssemblies()
@@ -35,6 +36,10 @@ namespace TimeTable.Mvvm.Navigation
 
         public Uri Get<TViewModel>() where TViewModel : BaseViewModel
         {
+            if (!Dictionary.ContainsKey(typeof (TViewModel)))
+            {
+                throw new NavigationException("There is no mapping for " + typeof(TViewModel));
+            }
             return GetUri(Dictionary[typeof(TViewModel)]);
         }
     }

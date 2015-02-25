@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using TimeTable.Mvvm.Navigation.Serialization;
 
@@ -31,23 +32,32 @@ namespace TimeTable.Mvvm.Navigation
         [PublicAPI]
         public void NavigateTo<TViewModel>() where TViewModel : BaseViewModel
         {
-            var viewModelType = typeof (TViewModel);
-            var viewModelName = viewModelType.Name;
-            var uri = NavigationUriProvider.Get<TViewModel>();
-            if (uri == null)
-            {
-                throw new NavigationException("Can't find suitable destination");
-            }
+            var path = GetUri<TViewModel>();
+            NavigateInternal(path);
+        }
 
-            var navigationContext = NavigationContext.Create(viewModelName, uri.OriginalString);
-            var navigationEvent = BuildNavigationEvent(navigationContext, uri);
-            NavigateInternal(navigationEvent);
+        public void NavigateTo<TViewModel>(int removeFromStack) where TViewModel : BaseViewModel
+        {
+            NavigateTo<TViewModel>();
+            SmartDispatcher.BeginInvoke(() => RemoveEntries(removeFromStack));
         }
 
         [PublicAPI]
         public void NavigateTo<TViewModel, TData>(TData data) where TViewModel : BaseViewModel
         {
-            var viewModelType = typeof (TViewModel);
+            var path = GetUri<TViewModel, TData>(data);
+            NavigateInternal(path);
+        }
+
+        public void NavigateTo<TViewModel, TData>(TData data, int removeFromStack) where TViewModel : BaseViewModel
+        {
+            NavigateTo<TViewModel,TData>(data);
+            SmartDispatcher.BeginInvoke(() => RemoveEntries(removeFromStack));
+        }
+
+        public Uri GetUri<TViewModel, TData>(TData data) where TViewModel : BaseViewModel
+        {
+            var viewModelType = typeof(TViewModel);
             var viewModelName = viewModelType.Name;
             var uri = NavigationUriProvider.Get<TViewModel>();
             if (uri == null)
@@ -57,7 +67,30 @@ namespace TimeTable.Mvvm.Navigation
 
             var navigationContext = NavigationContext.Create(viewModelName, uri.OriginalString, data);
             var navigationEvent = BuildNavigationEvent(navigationContext, uri);
-            NavigateInternal(navigationEvent);
+            return BuildPath(navigationEvent);
+        }
+
+        private Uri BuildPath(NavigationEvent navigationEvent)
+        {
+            var uriString = string.Format("{0}?{1}={2}", navigationEvent.Destination.OriginalString, Key,
+                navigationEvent.Context);
+            var path = new Uri(uriString, UriKind.Relative);
+            return path;
+        }
+
+        public Uri GetUri<TViewModel>() where TViewModel : BaseViewModel
+        {
+            var viewModelType = typeof(TViewModel);
+            var viewModelName = viewModelType.Name;
+            var uri = NavigationUriProvider.Get<TViewModel>();
+            if (uri == null)
+            {
+                throw new NavigationException("Can't find suitable destination");
+            }
+
+            var navigationContext = NavigationContext.Create(viewModelName, uri.OriginalString);
+            var navigationEvent = BuildNavigationEvent(navigationContext, uri);
+            return BuildPath(navigationEvent);
         }
 
         private NavigationEvent BuildNavigationEvent<TData>(NavigationContext<TData> navigationContext, Uri uri)
@@ -73,7 +106,6 @@ namespace TimeTable.Mvvm.Navigation
             return navigationEvent;
         }
 
-
         private NavigationEvent BuildNavigationEvent(NavigationContext navigationContext, Uri uri)
         {
             var serializedContext = Serializer.Serialize(navigationContext);
@@ -87,18 +119,34 @@ namespace TimeTable.Mvvm.Navigation
             return navigationEvent;
         }
 
-        private void NavigateInternal(NavigationEvent navigationEvent)
+        private void NavigateInternal(Uri path)
         {
-            var uriString = string.Format("{0}?{1}={2}", navigationEvent.Destination.OriginalString, Key,
-                navigationEvent.Context);
-            var path = new Uri(uriString, UriKind.Relative);
-            PlatformNavigationService.Navigate(path);
+            SmartDispatcher.BeginInvoke(() =>
+            {
+                Debug.WriteLine("NavigationService::Navigating to {0}", path);
+                PlatformNavigationService.Navigate(path);
+            } );
         }
 
         private static string Base64Encode(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return Convert.ToBase64String(plainTextBytes);
+        }
+
+        private void RemoveEntries(int numberOfItemsToRemove)
+        {
+            for (var counter = 0; counter < numberOfItemsToRemove; counter++)
+            {
+                if (PlatformNavigationService.CanGoBack())
+                {
+                    PlatformNavigationService.RemoveBackEntry();
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
     }
 }

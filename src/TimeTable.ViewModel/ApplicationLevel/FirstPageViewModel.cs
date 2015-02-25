@@ -13,7 +13,6 @@ namespace TimeTable.ViewModel.ApplicationLevel
     {
         private readonly Mvvm.Navigation.INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
-        private readonly FlurryPublisher _flurryPublisher;
 
         public FirstPageViewModel([NotNull] Mvvm.Navigation.INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings,
@@ -25,8 +24,7 @@ namespace TimeTable.ViewModel.ApplicationLevel
 
             _navigation = navigation;
             _applicationSettings = applicationSettings;
-            _flurryPublisher = flurryPublisher;
-            _flurryPublisher.PublishPageLoadedSelectRole();
+            flurryPublisher.PublishPageLoadedSelectRole();
 
             InitCommands();
         }
@@ -47,7 +45,7 @@ namespace TimeTable.ViewModel.ApplicationLevel
         private void SaveUserRoleAndNavigateToNextPage(UserRole role)
         {
             _applicationSettings.Me.Role = role;
-            _navigation.NavigateTo<UniversitiesViewModel>();
+            _navigation.NavigateTo<UniversitiesPageViewModel>(); //todo: check how do we pass it?
         }
     }
 }

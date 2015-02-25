@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows.Input;
-using System.Reactive;
 using JetBrains.Annotations;
 using Microsoft.Phone.Tasks;
 using TimeTable.Domain;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Mvvm;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Services;
 
@@ -36,12 +36,12 @@ namespace TimeTable.ViewModel.OrganizationalStructure
             ShowInApp = new SimpleCommand(GoToExternalMap);
         }
 
-        public void Initialize(int auditoriumId, int universityId, string auditoriumName, string auditoriumAddress)
+        public void Initialize(AuditoriumNavigationParameter navigationParameter)
         {
-            ID = auditoriumId;
-            Init(universityId);
-            Name = auditoriumName;
-            Address = auditoriumAddress;
+            ID = navigationParameter.AuditoriumId;
+            Init(navigationParameter.UniversityId);
+            Name = navigationParameter.AuditoriumName;
+            Address = navigationParameter.AuditoriumAddress;
         }
 
         private void Init(int universityId)

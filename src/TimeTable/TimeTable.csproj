@@ -176,7 +176,6 @@
     </Compile>
     <Compile Include="Services\ApplicationSettings.cs" />
     <Compile Include="Services\FlurryPublisherImpl.cs" />
-    <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\Notification.cs" />
     <Compile Include="ThemeManager.cs" />
     <Compile Include="TimeTableUriMapper.cs" />
@@ -206,9 +205,6 @@
     </Compile>
     <Compile Include="View\LessonsPage.xaml.cs">
       <DependentUpon>LessonsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ReportErrorPage.xaml.cs">
-      <DependentUpon>ReportErrorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SearchPage.cs" />
     <Compile Include="View\SettingsPage.xaml.cs">
@@ -352,12 +348,6 @@
     <Page Include="View\LessonsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\ReportErrorPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using JetBrains.Annotations;
 using TimeTable.Domain;
 using TimeTable.Domain.Lessons;
 using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Services;
 
@@ -51,29 +50,14 @@ namespace TimeTable.ViewModel.WeekOverview.Commands
                 .Subscribe(faculty =>
                 {
                     _flurryPublisher.PublishContextMenuShowGroupTimeTable(_university, _group.GroupName, _group.Id);
-                    _navigationService.GoToPage(Pages.Lessons, new List<NavigationParameter>
+                    var navigationParameter = new LessonsNavigationParameter
                     {
-                        new NavigationParameter
-                        {
-                            Parameter = NavigationParameterName.Id,
-                            Value = _group.Id.ToString(CultureInfo.InvariantCulture)
-                        },
-                        new NavigationParameter
-                        {
-                            Parameter = NavigationParameterName.IsTeacher,
-                            Value = false.ToString()
-                        },
-                        new NavigationParameter
-                        {
-                            Parameter = NavigationParameterName.FacultyId,
-                            Value = faculty.Id.ToString(CultureInfo.InvariantCulture)
-                        },
-                        new NavigationParameter
-                        {
-                            Parameter = NavigationParameterName.UniversityId,
-                            Value = _university.Id.ToString(CultureInfo.InvariantCulture)
-                        }
-                    });
+                        Id = _group.Id,
+                        IsTeacher = false,
+                        FacultyId = faculty.Id,
+                        UniversityId = _university.Id
+                    };
+                    _navigationService.NavigateTo<LessonsPageViewModel, LessonsNavigationParameter>(navigationParameter);
                 });
         }
 

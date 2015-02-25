@@ -2,18 +2,27 @@
 using System.Windows.Navigation;
 using JetBrains.Annotations;
 using TimeTable.Domain.Internal;
+using TimeTable.Mvvm.Navigation;
+using TimeTable.ViewModel.ApplicationLevel;
+using TimeTable.ViewModel.OrganizationalStructure;
 using TimeTable.ViewModel.Services;
+using TimeTable.ViewModel.WeekOverview;
 
 namespace TimeTable
 {
+    [UsedImplicitly]
     internal sealed class TimeTableUriMapper : UriMapperBase
     {
         private readonly BaseApplicationSettings _applicationSettings;
+        private INavigationService NavigationService { get; set; }
 
-        public TimeTableUriMapper([NotNull] BaseApplicationSettings applicationSettings)
+        public TimeTableUriMapper([NotNull] BaseApplicationSettings applicationSettings,
+            [NotNull] INavigationService navigationService)
         {
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
+            if (navigationService == null) throw new ArgumentNullException("navigationService");
             _applicationSettings = applicationSettings;
+            NavigationService = navigationService;
         }
 
         public override Uri MapUri(Uri uri)
@@ -23,36 +32,35 @@ namespace TimeTable
                 return uri;
             }
 
-            string updatedUri;
-
+            var navigationFlow = new NavigationFlow();
             if (_applicationSettings.Me.DefaultGroup != null || _applicationSettings.Me.Teacher != null)
             {
                 var isTeacher = _applicationSettings.Me.Teacher != null;
-                updatedUri = string.Format("{0}?id={1}&is_teacher={2}&university_id={3}&faculty_id={4}", 
-                    Pages.Lessons, 
-                    isTeacher ? _applicationSettings.Me.Teacher.Id : _applicationSettings.Me.DefaultGroup.Id,
-                    isTeacher, 
-                    _applicationSettings.Me.University.Id, 
-                    _applicationSettings.Me.Faculty.Id);
+                var navigationParameter = new LessonsNavigationParameter
+                {
+                    Id=isTeacher ? _applicationSettings.Me.Teacher.Id : _applicationSettings.Me.DefaultGroup.Id,
+                    IsTeacher = isTeacher,
+                    UniversityId = _applicationSettings.Me.University.Id,
+                    FacultyId = _applicationSettings.Me.Faculty.Id
+                };
+                return NavigationService.GetUri<LessonsPageViewModel, LessonsNavigationParameter>(navigationParameter);
             }
-            else if (_applicationSettings.Me.Faculty != null)
+            if (_applicationSettings.Me.Faculty != null)
             {
-                updatedUri = string.Format("{0}?id={1}&university_id={2}", Pages.Groups, _applicationSettings.Me.Faculty.Id, _applicationSettings.Me.University.Id);
+                navigationFlow.FacultyId = _applicationSettings.Me.Faculty.Id;
+                navigationFlow.UniversityId = _applicationSettings.Me.University.Id;
+                return NavigationService.GetUri<GroupPageViewModel, NavigationFlow>(navigationFlow);
             }
-            else if (_applicationSettings.Me.University != null)
+            if (_applicationSettings.Me.University != null)
             {
-                updatedUri = string.Format("{0}?id={1}", Pages.Faculties, _applicationSettings.Me.University.Id);
+                navigationFlow.UniversityId = _applicationSettings.Me.University.Id;
+                return NavigationService.GetUri<FacultiesPageViewModel, NavigationFlow>(navigationFlow );
             }
-            else if (_applicationSettings.Me.Role != UserRole.None)
+            if (_applicationSettings.Me.Role != UserRole.None)
             {
-                updatedUri = string.Format("{0}?id={1}", Pages.Universities, _applicationSettings.Me.Role);
+                return NavigationService.GetUri<UniversitiesPageViewModel, Reason>(Reason.Registration);
             }
-            else
-            {
-                updatedUri = Pages.FirstPage;
-            }
-
-            return new Uri(updatedUri, UriKind.Relative);
+            return NavigationService.GetUri<FirstPageViewModel>();
         }
     }
 }

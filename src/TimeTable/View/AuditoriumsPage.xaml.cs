@@ -1,10 +1,11 @@
-﻿using System;
-using System.Windows.Navigation;
+﻿using System.Windows.Navigation;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.ViewModel;
-using TimeTable.ViewModel.Services;
+using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.View
 {
+    [DependsOnViewModel(typeof(AuditoriumViewModel))]
     public partial class AuditoriumsPage
     {
         public AuditoriumsPage()
@@ -15,28 +16,9 @@ namespace TimeTable.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            string auditoriumIDString;
-            string name;
-            string address;
-            string universityIdString;
+            var navigationContext = NavigationContext.QueryString.RestoreContext<AuditoriumNavigationParameter>();
 
-            if (NavigationContext.QueryString.TryGetValue(NavigationParameterName.Id, out auditoriumIDString) &&
-                NavigationContext.QueryString.TryGetValue(NavigationParameterName.Name, out name) &&
-                NavigationContext.QueryString.TryGetValue(NavigationParameterName.UniversityId, out universityIdString) &&
-                NavigationContext.QueryString.TryGetValue(NavigationParameterName.Address, out address))
-            {
-                int auditoiumId;
-                int universityId;
-                if (Int32.TryParse(auditoriumIDString, out auditoiumId) &&
-                    Int32.TryParse(universityIdString, out universityId))
-                {
-                    DataContext = ViewModelLocator.GetAuditoriumViewModel(auditoiumId, universityId ,name, address);
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
-            }
+            DataContext = ViewModelLocator.GetAuditoriumViewModel(navigationContext.Body);
         }
     }
 }

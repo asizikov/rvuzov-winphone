@@ -17,7 +17,7 @@
     shell:SystemTray.IsVisible="True"
     shell:SystemTray.Opacity="0"
     shell:SystemTray.ForegroundColor="White"
-    d:DataContext="{d:DesignInstance weekOverview:LessonsViewModel}">
+    d:DataContext="{d:DesignInstance weekOverview:LessonsPageViewModel}">
     <shell:SystemTray.ProgressIndicator>
         <shell:ProgressIndicator IsIndeterminate="{Binding IsLoading}"
                                  IsVisible="{Binding IsLoading}" />

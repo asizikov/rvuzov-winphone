@@ -10,8 +10,6 @@ using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.Services;
-using INavigationService = TimeTable.ViewModel.Services.INavigationService;
-using NavigationService = TimeTable.Services.NavigationService;
 
 namespace TimeTable.IoC
 {
@@ -22,9 +20,8 @@ namespace TimeTable.IoC
         public static void Initialize(PhoneApplicationFrame rootFrame)
         {
             Kernel.Bind<PhoneApplicationFrame>().ToConstant(rootFrame);
-            Kernel.Bind<Mvvm.Navigation.INavigationService>().To<Mvvm.Navigation.NavigationService>();
-            Kernel.Bind<IPlatformNavigationService>().To<PlatformNavigationService>();
-            Kernel.Bind<INavigationService>().To<NavigationService>();
+            Kernel.Bind<INavigationService>().To<NavigationService>().InSingletonScope();
+            Kernel.Bind<IPlatformNavigationService>().To<PlatformNavigationService>().InSingletonScope();
             Kernel.Bind<BaseApplicationSettings>().To<ApplicationSettings>().InSingletonScope();
 #if DEBUG
             Kernel.Bind<FlurryPublisher>().To<DebugFlurryPublisher>().InSingletonScope();
@@ -34,9 +31,9 @@ namespace TimeTable.IoC
             Kernel.Bind<IWebCache>().To<InMemoryCache>().InSingletonScope();
             Kernel.Bind<UniversitiesCache>().To<UniversitiesCache>().InSingletonScope();
             Kernel.Bind<IAsyncDataProvider>().To<AsyncDataProvider>().InSingletonScope();
-            Kernel.Bind<IUiStringsProviders>().To<UiStringsProvider>();
-            Kernel.Bind<INotificationService>().To<NotificationService>();
-            Kernel.Bind<ICommandFactory>().To<CommandsFactory>();
+            Kernel.Bind<IUiStringsProviders>().To<UiStringsProvider>().InSingletonScope();
+            Kernel.Bind<INotificationService>().To<NotificationService>().InSingletonScope();
+            Kernel.Bind<ICommandFactory>().To<CommandsFactory>().InSingletonScope();
             Kernel.Bind<FavoritedItemsManager>().To<FavoritedItemsManager>().InSingletonScope();
         }
 

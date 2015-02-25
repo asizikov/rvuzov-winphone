@@ -1,14 +1,14 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.Utils;
 using TimeTable.ViewModel;
 using TimeTable.ViewModel.OrganizationalStructure;
-using TimeTable.ViewModel.Services;
 
 namespace TimeTable.View
 {
+    [DependsOnViewModel(typeof (GroupPageViewModel))]
     public partial class GroupsPage
     {
         public GroupsPage()
@@ -19,42 +19,23 @@ namespace TimeTable.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            var navigationContext = NavigationContext.QueryString.RestoreContext<NavigationFlow>();
 
-            string parameter;
-            string rawuniversityId;
-            if (NavigationContext.QueryString.TryGetValue(NavigationParameterName.Id, out parameter) &&
-                NavigationContext.QueryString.TryGetValue(NavigationParameterName.UniversityId, out rawuniversityId))
+            ViewModel =
+                ViewModelLocator.GetGroupsPageViewModel(navigationContext.Body) as
+                    SearchViewModel;
+
+            if (ViewModel != null)
             {
-                int facultyId;
-                int universityId;
-                if (Int32.TryParse(parameter, out facultyId) &&
-                    Int32.TryParse(rawuniversityId, out universityId))
-                {
-                    ViewModel =
-                        ViewModelLocator.GetGroupsPageViewModel(facultyId, universityId, GetReason()) as
-                            SearchViewModel;
-
-                    if (ViewModel != null)
-                    {
-                        ViewModel.OnLock += OnLock;
-                    }
-                    DataContext = ViewModel;
-
-                    if (State.Count > 0)
-                    {
-                        this.RestoreState(Search);
-                        Search.Visibility = (Visibility) this.RestoreState(SEARCH_KEY);
-                        this.RestoreState(Pivot);
-                    }
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
+                ViewModel.OnLock += OnLock;
             }
-            else
+            DataContext = ViewModel;
+
+            if (State.Count > 0)
             {
-                throw new ArgumentException();
+                this.RestoreState(Search);
+                Search.Visibility = (Visibility) this.RestoreState(SEARCH_KEY);
+                this.RestoreState(Pivot);
             }
         }
 

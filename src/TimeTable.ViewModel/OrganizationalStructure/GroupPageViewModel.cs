@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Domain;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.Utils;
+using TimeTable.ViewModel.WeekOverview;
 
 namespace TimeTable.ViewModel.OrganizationalStructure
 {
@@ -36,7 +36,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         public GroupPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] IAsyncDataProvider dataProvider,
             [NotNull] INotificationService notificationService, [NotNull] FlurryPublisher flurryPublisher,
-            [NotNull] FavoritedItemsManager favoritedItemsManager):base(flurryPublisher)
+            [NotNull] FavoritedItemsManager favoritedItemsManager) : base(flurryPublisher)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (notificationService == null) throw new ArgumentNullException("notificationService");
@@ -49,19 +49,18 @@ namespace TimeTable.ViewModel.OrganizationalStructure
             _dataProvider = dataProvider;
             _notificationService = notificationService;
             _favoritedItemsManager = favoritedItemsManager;
-            
+
             _groupFunc = group => group.GroupName[0];
             _teachersGroupFunc = teacher => !String.IsNullOrWhiteSpace(teacher.Name) ? teacher.Name[0] : '#';
 
             SubscribeToQuery();
-
         }
 
-        public void Initialize(int universityId, int facultyId, Reason reason)
+        public void Initialize(NavigationFlow navigationFlow)
         {
-            _universityId = universityId;
-            _facultyId = facultyId;
-            _reason = reason;
+            _universityId = navigationFlow.UniversityId;
+            _facultyId = navigationFlow.FacultyId;
+            _reason = navigationFlow.Reason;
             FlurryPublisher.PublishPageLoadedGroups();
             Init();
         }
@@ -196,7 +195,8 @@ namespace TimeTable.ViewModel.OrganizationalStructure
             {
                 TeachersList =
                     FormatResult(
-                        _storedTeachersRequest.TeachersList.Where(teacher => teacher.Name != null && teacher.Name.IgnoreCaseContains(search)),
+                        _storedTeachersRequest.TeachersList.Where(
+                            teacher => teacher.Name != null && teacher.Name.IgnoreCaseContains(search)),
                         _teachersGroupFunc);
             }
         }
@@ -209,7 +209,8 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                     if (!_applicationSettings.IsRegistrationCompleted)
                     {
                         _applicationSettings.Me.DefaultGroup = group;
-                        _navigation.GoToPage(Pages.Lessons, GetNavigationParameters(group), 4);
+                        _navigation.NavigateTo<LessonsPageViewModel, LessonsNavigationParameter>(
+                            GetNavigationParameters(group), 4);
                     }
                     break;
                 case Reason.AddingFavorites:
@@ -222,7 +223,8 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                     _applicationSettings.Me.Teacher = null;
                     _applicationSettings.Me.TemporaryFaculty = null;
                     _applicationSettings.Me.TemporaryUniversity = null;
-                    _navigation.GoToPage(Pages.Lessons, GetNavigationParameters(group), 5);
+                    _navigation.NavigateTo<LessonsPageViewModel, LessonsNavigationParameter>(GetNavigationParameters(group),
+                        5);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -237,7 +239,8 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                     if (!_applicationSettings.IsRegistrationCompleted)
                     {
                         _applicationSettings.Me.Teacher = teacher;
-                        _navigation.GoToPage(Pages.Lessons, GetNavigationParameters(teacher), 4);
+                        _navigation.NavigateTo<LessonsPageViewModel, LessonsNavigationParameter>(
+                            GetNavigationParameters(teacher), 4);
                     }
                     break;
                 case Reason.AddingFavorites:
@@ -250,7 +253,8 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                     _applicationSettings.Me.DefaultGroup = null;
                     _applicationSettings.Me.TemporaryFaculty = null;
                     _applicationSettings.Me.TemporaryUniversity = null;
-                    _navigation.GoToPage(Pages.Lessons, GetNavigationParameters(teacher), 5);
+                    _navigation.NavigateTo<LessonsPageViewModel, LessonsNavigationParameter>(
+                        GetNavigationParameters(teacher), 5);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -260,71 +264,34 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private void AddGoupToFavorites(Group group, University university)
         {
             _favoritedItemsManager.Add(false, group.Id, group.GroupName, university, _facultyId);
-            _navigation.GoToPage(Pages.FarovitesPage, null, 4);
+            _navigation.NavigateTo<LessonsPageViewModel>(4);
         }
 
         private void AddTeacherToFavorites(Teacher teacher, University university)
         {
             _favoritedItemsManager.Add(true, teacher.Id, teacher.Name, university, _facultyId);
-            _navigation.GoToPage(Pages.FarovitesPage, null, 4);
+            _navigation.NavigateTo<LessonsPageViewModel>(4);
         }
 
-        private IEnumerable<NavigationParameter> GetNavigationParameters(Group group)
+        private LessonsNavigationParameter GetNavigationParameters(Group group)
         {
-            return new List<NavigationParameter>
+            return new LessonsNavigationParameter
             {
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.Id,
-                    Value = group.Id.ToString(CultureInfo.InvariantCulture)
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.IsTeacher,
-                    Value = false.ToString()
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.Name,
-                    Value = group.GroupName
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.UniversityId,
-                    Value = _universityId.ToString(CultureInfo.InvariantCulture)
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.FacultyId,
-                    Value = _facultyId.ToString(CultureInfo.InvariantCulture)
-                }
+                Id = group.Id,
+                IsTeacher = false,
+                FacultyId = _facultyId,
+                UniversityId = _universityId,
             };
         }
 
-        private IEnumerable<NavigationParameter> GetNavigationParameters(Teacher teacher)
+        private LessonsNavigationParameter GetNavigationParameters(Teacher teacher)
         {
-            return new List<NavigationParameter>
+            return new LessonsNavigationParameter
             {
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.Id,
-                    Value = teacher.Id.ToString(CultureInfo.InvariantCulture)
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.IsTeacher,
-                    Value = true.ToString()
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.UniversityId,
-                    Value = _universityId.ToString(CultureInfo.InvariantCulture)
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.FacultyId,
-                    Value = _facultyId.ToString(CultureInfo.InvariantCulture)
-                }
+                Id = teacher.Id,
+                IsTeacher = true,
+                FacultyId = _facultyId,
+                UniversityId = _universityId
             };
         }
     }

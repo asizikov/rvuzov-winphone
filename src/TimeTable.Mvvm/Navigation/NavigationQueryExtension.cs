@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TimeTable.Mvvm.Navigation.Serialization;
 
 namespace TimeTable.Mvvm.Navigation
@@ -17,7 +18,8 @@ namespace TimeTable.Mvvm.Navigation
                 var navigationSerializer = new NavigationSerializer();
                 return navigationSerializer.Deserialize<NavigationContext>(json);
             }
-            throw new Exception("Can't restore context");
+            var actualQuery = query.Select(s => string.Format(" [{0}:{1}]", s.Key, s.Value)).Aggregate((s, a) => s + a);
+            throw new NavigationException("Can't restore context, actual query is:" + actualQuery);
         }
 
         public static NavigationContext<TData> RestoreContext<TData>(this IDictionary<string, string> query)
@@ -29,7 +31,8 @@ namespace TimeTable.Mvvm.Navigation
                 var navigationSerializer = new NavigationSerializer();
                 return navigationSerializer.Deserialize<NavigationContext<TData>>(json);
             }
-            throw new Exception("Can't restore context");
+            var actualQuery = query.Select(s =>string.Format(" [{0}:{1}]",s.Key, s.Value) ).Aggregate((s, a) => s + a);
+            throw new NavigationException("Can't restore context, actual query is:" + actualQuery);
         }
 
         private static string Base64Decode(string base64EncodedData)

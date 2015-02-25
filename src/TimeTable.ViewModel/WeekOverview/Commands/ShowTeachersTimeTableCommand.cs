@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using JetBrains.Annotations;
 using TimeTable.Domain.Lessons;
 using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Services;
 
@@ -43,23 +42,11 @@ namespace TimeTable.ViewModel.WeekOverview.Commands
         public void Execute(object parameter)
         {
             _flurryPublisher.PublishContextMenuShowTeachersTimeTable(_university, _teacher.Name, _teacher.Id);
-            _navigationService.GoToPage(Pages.Lessons, new List<NavigationParameter>
+            _navigationService.NavigateTo<LessonsPageViewModel,LessonsNavigationParameter>(new LessonsNavigationParameter
             {
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.Id,
-                    Value = _teacher.Id.ToString(CultureInfo.InvariantCulture)
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.IsTeacher,
-                    Value = true.ToString()
-                },
-                new NavigationParameter
-                {
-                    Parameter = NavigationParameterName.UniversityId,
-                    Value = _university.Id.ToString(CultureInfo.InvariantCulture)
-                }
+                Id = int.Parse(_teacher.Id),
+                IsTeacher = true,
+                UniversityId = _university.Id
             });
         }
 

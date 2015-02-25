@@ -8,7 +8,7 @@ using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.View
 {
-    [DependsOnViewModel(typeof(UniversitiesViewModel))]
+    [DependsOnViewModel(typeof(UniversitiesPageViewModel))]
     public partial class UniversitiesPage
     {
         public UniversitiesPage()
@@ -19,7 +19,8 @@ namespace TimeTable.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            ViewModel = ViewModelLocator.GetUniversitiesViewModel(GetReason()) as SearchViewModel;
+            var navigationContext = NavigationContext.QueryString.RestoreContext<Reason>();
+            ViewModel = ViewModelLocator.GetUniversitiesViewModel(navigationContext.Body) as SearchViewModel;
             DataContext = ViewModel;
 
             if (State.Count > 0)
@@ -44,7 +45,6 @@ namespace TimeTable.View
             }
         }
 
-        
         protected override void SetFocus()
         {
             Search.Focus();

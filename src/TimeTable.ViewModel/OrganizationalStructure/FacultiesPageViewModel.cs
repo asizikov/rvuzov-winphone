@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Domain;
@@ -136,7 +134,6 @@ namespace TimeTable.ViewModel.OrganizationalStructure
             }
             _navigationFlow.FacultyId = faculty.Id;
             _navigationFlow.IsTeacher = false;
-            _navigationFlow.FacultyTitle = faculty.Title;
             _navigation.NavigateTo<GroupPageViewModel, NavigationFlow>(_navigationFlow);
         }
     }

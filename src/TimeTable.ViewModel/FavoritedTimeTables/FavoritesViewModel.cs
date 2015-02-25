@@ -3,7 +3,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Mvvm;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.ViewModel.Commands;
+using TimeTable.ViewModel.OrganizationalStructure;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.FavoritedTimeTables
@@ -15,7 +17,8 @@ namespace TimeTable.ViewModel.FavoritedTimeTables
         private readonly FlurryPublisher _flurryPublisher;
         private ObservableCollection<FavoritedItemViewModel> _items;
 
-        public FavoritesViewModel([NotNull] INavigationService navigationService, [NotNull] FavoritedItemsManager favoritedItemsManager, IUiStringsProviders stringsProviders,
+        public FavoritesViewModel([NotNull] INavigationService navigationService,
+            [NotNull] FavoritedItemsManager favoritedItemsManager, IUiStringsProviders stringsProviders,
             [NotNull] FlurryPublisher flurryPublisher)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
@@ -33,13 +36,9 @@ namespace TimeTable.ViewModel.FavoritedTimeTables
 
         private void AddNewFavorite()
         {
-            _navigationService.GoToPage(Pages.Universities, new[]
+            _navigationService.NavigateTo<UniversitiesPageViewModel, NavigationFlow>(new NavigationFlow
             {
-                new NavigationParameter
-                {   
-                    Parameter = NavigationParameterName.AddFavorites,
-                    Value = true.ToString()
-                }
+                Reason = Reason.AddingFavorites
             });
         }
 

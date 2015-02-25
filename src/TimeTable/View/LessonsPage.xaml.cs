@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using System.Windows.Navigation;
+using TimeTable.Mvvm.Navigation;
 using TimeTable.Utils;
 using TimeTable.ViewModel;
-using TimeTable.ViewModel.Services;
+using TimeTable.ViewModel.WeekOverview;
 
 namespace TimeTable.View
 {
+    [DependsOnViewModel(typeof(LessonsPageViewModel))]
     public partial class LessonsPage
     {
         public LessonsPage()
@@ -23,41 +22,8 @@ namespace TimeTable.View
             ApplicationBar.Buttons.Clear();
 
             base.OnNavigatedTo(e);
-
-            string rawGroupId;
-            string rawIsTeacher;
-            string rawUniversityId;
-            var rawFacultyId = string.Empty;
-            if (NavigationContext.QueryString.TryGetValue(NavigationParameterName.Id, out rawGroupId)
-                && NavigationContext.QueryString.TryGetValue(NavigationParameterName.IsTeacher, out rawIsTeacher)
-                && NavigationContext.QueryString.TryGetValue(NavigationParameterName.UniversityId, out rawUniversityId)
-                )
-            {
-                int id;
-                if (Int32.TryParse(rawGroupId, out id))
-                {
-                    var isTeacher = Boolean.Parse(rawIsTeacher);
-                    if (!isTeacher)
-                    {
-                        if (!NavigationContext.QueryString.TryGetValue(NavigationParameterName.FacultyId,
-                            out rawFacultyId))
-                        {
-                            throw new KeyNotFoundException("LessonsPage::failed to get facultyId from QueryString");
-                        }
-                    }
-                    DataContext = ViewModelLocator.GetLessonsViewModel(id, isTeacher,
-                        Int32.Parse(rawUniversityId), isTeacher ? -1 : Int32.Parse(rawFacultyId));
-                    if (State.Count > 0)
-                    {
-                        this.RestoreState(Pivot);
-                    }
-                }
-            }
-            else
-            {
-                Debug.WriteLine("LessonsPage::failed to get parameters from QueryString");
-                throw new KeyNotFoundException("LessonsPage::failed to get parameters from QueryString");
-            }
+            var navigationContext = NavigationContext.QueryString.RestoreContext<LessonsNavigationParameter>();
+            DataContext = ViewModelLocator.GetLessonsViewModel(navigationContext.Body);
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)

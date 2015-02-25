@@ -9,6 +9,8 @@ using TimeTable.Domain.Lessons;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
 using TimeTable.Mvvm;
+using TimeTable.Mvvm.Navigation;
+using TimeTable.ViewModel.ApplicationLevel;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.MenuItems;
@@ -18,7 +20,7 @@ using TimeTable.ViewModel.WeekOverview.Factories;
 
 namespace TimeTable.ViewModel.WeekOverview
 {
-    public sealed class LessonsViewModel : BaseViewModel
+    public sealed class LessonsPageViewModel : BaseViewModel
     {
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
@@ -45,7 +47,7 @@ namespace TimeTable.ViewModel.WeekOverview
         private string _title;
         private WeekViewModelFactory _weekViewModelFactory;
 
-        public LessonsViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
+        public LessonsPageViewModel([NotNull] Mvvm.Navigation.INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
             [NotNull] IAsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager,
             [NotNull] IUiStringsProviders stringsProviders,
@@ -72,16 +74,18 @@ namespace TimeTable.ViewModel.WeekOverview
             Options = new OptionsMonitor();
         }
 
-        public void Initialize(int id, bool isTeacher, int universityId, int facultyId)
+        public void Initialize(LessonsNavigationParameter navigationParameter)
         {
-            _id = id;
-            _isTeacher = isTeacher;
-            _facultyId = facultyId;
+
+            _id = navigationParameter.Id;
+            _isTeacher = navigationParameter.IsTeacher;
+            _facultyId = navigationParameter.FacultyId;
+
             InitCommands();
             BuildAppBarButtons();
             UpdateFaforitedSate();
             _flurryPublisher.PublishPageLoadedLessons();
-            Init(universityId, facultyId);
+            Init(navigationParameter.UniversityId, navigationParameter.FacultyId);
         }
 
         private void BuildAppBarButtons()
@@ -308,7 +312,7 @@ namespace TimeTable.ViewModel.WeekOverview
             GoToTodayCommand = new SimpleCommand(SelectTodayItem);
             AddToFavoritesCommand = new SimpleCommand(AddToFavorites);
             RemoveFromFavoritesCommand = new SimpleCommand(RemoveFromFavorites);
-            GoToAboutPage = new SimpleCommand(() => _navigation.GoToPage(Pages.AboutPage));
+            GoToAboutPage = new SimpleCommand(() => _navigation.NavigateTo<AboutViewModel>());
         }
 
         private void RemoveFromFavorites()
@@ -329,14 +333,14 @@ namespace TimeTable.ViewModel.WeekOverview
 
         private void NavigateToFavoritesPage()
         {
-            _navigation.GoToPage(Pages.FarovitesPage);
+            _navigation.NavigateTo<FavoritesViewModel>();
         }
 
         private void NavigateToSettingsPage()
         {
             _flurryPublisher.PublishActionbarScheduleSettings(_university, _isTeacher,
                 (_isTeacher ? _teacher.Name : _group.GroupName), (_isTeacher ? _teacher.Id : _group.Id));
-            _navigation.GoToPage(Pages.SettingsPage);
+            _navigation.NavigateTo<SettingsViewModel>();
         }
 
 

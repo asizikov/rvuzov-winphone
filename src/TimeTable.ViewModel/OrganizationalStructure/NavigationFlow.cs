@@ -6,6 +6,5 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         public int UniversityId { get; set; }
         public int FacultyId { get; set; }
         public bool IsTeacher { get; set; }
-        public string FacultyTitle { get; set; }
     }
 }
