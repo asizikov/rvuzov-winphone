@@ -5,8 +5,9 @@ using System.IO.IsolatedStorage;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using TimeTable.Networking.Cache;
+using TimeTable.ViewModel.Data;
 
-namespace TimeTable.ViewModel.Data
+namespace TimeTable.Data.Cache
 {
     public class InMemoryCache : IWebCache
     {
