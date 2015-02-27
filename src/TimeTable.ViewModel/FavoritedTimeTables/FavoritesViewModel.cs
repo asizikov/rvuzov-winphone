@@ -32,10 +32,7 @@ namespace TimeTable.ViewModel.FavoritedTimeTables
 
         private void AddNewFavorite()
         {
-            _navigationService.NavigateTo<UniversitiesPageViewModel, NavigationFlow>(new NavigationFlow
-            {
-                Reason = Reason.AddingFavorites
-            });
+            _navigationService.NavigateTo<UniversitiesPageViewModel, Reason>(Reason.AddingFavorites);
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]

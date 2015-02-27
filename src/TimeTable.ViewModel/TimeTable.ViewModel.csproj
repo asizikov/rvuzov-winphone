@@ -155,7 +155,6 @@
     <Compile Include="Services\FlurryEvents.cs" />
     <Compile Include="Services\FlurryEventWrapper.cs" />
     <Compile Include="Services\FlurryPublisher.cs" />
-    <Compile Include="Services\Pages.cs" />
     <Compile Include="Utils\DateTimeUtils.cs" />
     <Compile Include="Utils\StringExtentions.cs" />
     <Compile Include="OrganizationalStructure\UniversitiesPageViewModel.cs" />

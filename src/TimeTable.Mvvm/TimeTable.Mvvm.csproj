@@ -88,12 +88,6 @@
     <Compile Include="Navigation\ViewModelAttribute.cs" />
     <Compile Include="Navigation\INavigationUriProvider.cs" />
     <Compile Include="Navigation\IPlatformNavigationService.cs" />
-    <Compile Include="Navigation\Mapping\IViewMappingProvider.cs" />
-    <Compile Include="Navigation\Mapping\IViewModelNameExtractor.cs" />
-    <Compile Include="Navigation\Mapping\IViewNameBuilder.cs" />
-    <Compile Include="Navigation\Mapping\ViewMappingProvider.cs" />
-    <Compile Include="Navigation\Mapping\ViewModelNameExtractor.cs" />
-    <Compile Include="Navigation\Mapping\ViewNameBuilder.cs" />
     <Compile Include="Navigation\NavigationQueryExtension.cs" />
     <Compile Include="Navigation\NavigationContext.cs" />
     <Compile Include="Navigation\NavigationContext_.cs" />

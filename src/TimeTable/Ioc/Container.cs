@@ -1,6 +1,7 @@
 ﻿using Microsoft.Phone.Controls;
 using Ninject;
 using TimeTable.Data;
+using TimeTable.Data.Cache;
 using TimeTable.Domain;
 using TimeTable.Mvvm.Navigation;
 using TimeTable.Networking.Cache;
