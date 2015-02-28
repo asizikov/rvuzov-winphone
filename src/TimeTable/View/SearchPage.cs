@@ -11,10 +11,10 @@ namespace TimeTable.View
 {
     public abstract class SearchPage : PhoneApplicationPage
     {
-        private SearchViewModel _viewModel;
-        protected const string SEARCH_KEY = "search_visibility_key";
+        private ISearchViewModel _viewModel;
+        protected const string SearchKey = "search_visibility_key";
 
-        protected SearchViewModel ViewModel
+        protected ISearchViewModel ViewModel
         {
             get { return _viewModel; }
             set

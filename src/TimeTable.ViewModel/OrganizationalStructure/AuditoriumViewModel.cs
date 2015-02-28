@@ -5,15 +5,13 @@ using Microsoft.Phone.Tasks;
 using TimeTable.Domain;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Mvvm;
-using TimeTable.Mvvm.Navigation;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.OrganizationalStructure
 {
-    public sealed class AuditoriumViewModel : BaseViewModel
+    public sealed class AuditoriumViewModel : PageViewModel<AuditoriumNavigationParameter>
     {
-        private readonly INavigationService _navigation;
         private readonly IAsyncDataProvider _dataProvider;
         private readonly IUiStringsProviders _stringProvider;
         private int _id;
@@ -22,21 +20,18 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private string _address;
         private University _university;
 
-        public AuditoriumViewModel([NotNull] INavigationService navigation,
-                                   [NotNull] IAsyncDataProvider dataProvider,
+        public AuditoriumViewModel([NotNull] IAsyncDataProvider dataProvider,
                                    [NotNull] IUiStringsProviders stringProvider)
         {
-            if (navigation == null) throw new ArgumentNullException("navigation");
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (stringProvider == null) throw new ArgumentNullException("stringProvider");
 
             _dataProvider = dataProvider;
-            _navigation = navigation;
             _stringProvider = stringProvider;
             ShowInApp = new SimpleCommand(GoToExternalMap);
         }
 
-        public void Initialize(AuditoriumNavigationParameter navigationParameter)
+        public override void Initialize(AuditoriumNavigationParameter navigationParameter)
         {
             ID = navigationParameter.AuditoriumId;
             Init(navigationParameter.UniversityId);

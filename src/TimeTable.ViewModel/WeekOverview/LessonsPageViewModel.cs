@@ -20,7 +20,7 @@ using TimeTable.ViewModel.WeekOverview.Factories;
 
 namespace TimeTable.ViewModel.WeekOverview
 {
-    public sealed class LessonsPageViewModel : BaseViewModel
+    public sealed class LessonsPageViewModel : PageViewModel<LessonsNavigationParameter>
     {
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
@@ -74,9 +74,8 @@ namespace TimeTable.ViewModel.WeekOverview
             Options = new OptionsMonitor();
         }
 
-        public void Initialize(LessonsNavigationParameter navigationParameter)
+        public override void Initialize(LessonsNavigationParameter navigationParameter)
         {
-
             _id = navigationParameter.Id;
             _isTeacher = navigationParameter.IsTeacher;
             _facultyId = navigationParameter.FacultyId;

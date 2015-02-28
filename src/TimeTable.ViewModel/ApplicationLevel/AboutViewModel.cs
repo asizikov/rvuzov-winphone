@@ -8,7 +8,7 @@ using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.ApplicationLevel
 {
-    public class AboutViewModel : BaseViewModel
+    public class AboutViewModel : PageViewModel
     {
         private readonly FlurryPublisher _flurryPublisher;
         private const string URL = "http://raspisaniye-vuzov.ru/m/universities";

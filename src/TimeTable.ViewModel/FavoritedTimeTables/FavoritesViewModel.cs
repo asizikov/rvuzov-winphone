@@ -10,7 +10,7 @@ using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.FavoritedTimeTables
 {
-    public sealed class FavoritesViewModel : BaseViewModel
+    public sealed class FavoritesViewModel : PageViewModel
     {
         private readonly INavigationService _navigationService;
         private ObservableCollection<FavoritedItemViewModel> _items;

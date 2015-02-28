@@ -23,7 +23,7 @@ namespace TimeTable.View
 
             ViewModel =
                 ViewModelLocator.GetGroupsPageViewModel(navigationContext.Body) as
-                    SearchViewModel;
+                    ISearchViewModel;
 
             if (ViewModel != null)
             {
@@ -34,7 +34,7 @@ namespace TimeTable.View
             if (State.Count > 0)
             {
                 this.RestoreState(Search);
-                Search.Visibility = (Visibility) this.RestoreState(SEARCH_KEY);
+                Search.Visibility = (Visibility) this.RestoreState(SearchKey);
                 this.RestoreState(Pivot);
             }
         }
@@ -55,7 +55,7 @@ namespace TimeTable.View
             if (this.ShouldTombstone(e))
             {
                 this.SaveState(Search);
-                this.SaveState(SEARCH_KEY, Search.Visibility);
+                this.SaveState(SearchKey, Search.Visibility);
                 this.SaveState(Pivot);
             }
         }

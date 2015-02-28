@@ -14,7 +14,24 @@ using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.OrganizationalStructure
 {
-    public abstract class SearchViewModel : BaseViewModel
+    public interface ISearchViewModel
+    {
+        string Query { get; set; }
+        Action<bool> OnLock { get; set; }
+        ICommand ShowSearchBoxCommand { get; }
+        ICommand OnFoundCommand { get; }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Assign)]
+        bool IsSearchBoxVisible { get; set; }
+
+        [UsedImplicitly(ImplicitUseKindFlags.Access)]
+        bool IsLoading { get; }
+
+        void ResetSearchState();
+        event PropertyChangedEventHandler PropertyChanged;
+    }
+
+    public abstract class SearchViewModel<TData> : PageViewModel<TData>, ISearchViewModel
     {
         private const string Url = "http://raspisaniye-vuzov.ru/webform/step1.html";
 

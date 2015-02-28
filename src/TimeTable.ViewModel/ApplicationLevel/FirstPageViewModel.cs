@@ -9,7 +9,7 @@ using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.ApplicationLevel
 {
-    public class FirstPageViewModel : BaseViewModel
+    public class FirstPageViewModel : PageViewModel
     {
         private readonly Mvvm.Navigation.INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
@@ -45,7 +45,7 @@ namespace TimeTable.ViewModel.ApplicationLevel
         private void SaveUserRoleAndNavigateToNextPage(UserRole role)
         {
             _applicationSettings.Me.Role = role;
-            _navigation.NavigateTo<UniversitiesPageViewModel>(); //todo: check how do we pass it?
+            _navigation.NavigateTo<UniversitiesPageViewModel, Reason>(Reason.Registration);
         }
     }
 }

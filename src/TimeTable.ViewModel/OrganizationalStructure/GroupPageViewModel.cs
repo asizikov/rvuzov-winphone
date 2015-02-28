@@ -13,7 +13,7 @@ using TimeTable.ViewModel.WeekOverview;
 
 namespace TimeTable.ViewModel.OrganizationalStructure
 {
-    public class GroupPageViewModel : SearchViewModel
+    public class GroupPageViewModel : SearchViewModel<NavigationFlow>
     {
         private readonly INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
@@ -56,7 +56,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
             SubscribeToQuery();
         }
 
-        public void Initialize(NavigationFlow navigationFlow)
+        public override void Initialize(NavigationFlow navigationFlow)
         {
             _universityId = navigationFlow.UniversityId;
             _facultyId = navigationFlow.FacultyId;
@@ -264,13 +264,13 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private void AddGoupToFavorites(Group group, University university)
         {
             _favoritedItemsManager.Add(false, group.Id, group.GroupName, university, _facultyId);
-            _navigation.NavigateTo<LessonsPageViewModel>(4);
+            _navigation.NavigateTo<LessonsPageViewModel, LessonsNavigationParameter>(GetNavigationParameters(group), 4);
         }
 
         private void AddTeacherToFavorites(Teacher teacher, University university)
         {
             _favoritedItemsManager.Add(true, teacher.Id, teacher.Name, university, _facultyId);
-            _navigation.NavigateTo<LessonsPageViewModel>(4);
+            _navigation.NavigateTo<LessonsPageViewModel,LessonsNavigationParameter>(GetNavigationParameters(teacher),4);
         }
 
         private LessonsNavigationParameter GetNavigationParameters(Group group)

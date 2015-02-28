@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using TimeTable.Mvvm.Navigation.Serialization;
 
 namespace TimeTable.Mvvm.Navigation
@@ -24,10 +26,13 @@ namespace TimeTable.Mvvm.Navigation
 
         public static NavigationContext<TData> RestoreContext<TData>(this IDictionary<string, string> query)
         {
+            Debug.WriteLine("NavigationQueryExtension::RestoreContext<{0}>", typeof(TData));
             string encodedContext;
             if (query.TryGetValue(Key, out encodedContext))
             {
+                Debug.WriteLine("NavigationQueryExtension::EncodedContext " + encodedContext);
                 var json = Base64Decode(encodedContext);
+                Debug.WriteLine("NavigationQueryExtension::Json " + json);
                 var navigationSerializer = new NavigationSerializer();
                 return navigationSerializer.Deserialize<NavigationContext<TData>>(json);
             }
@@ -37,6 +42,7 @@ namespace TimeTable.Mvvm.Navigation
 
         private static string Base64Decode(string base64EncodedData)
         {
+            Debug.WriteLine("Decoding string of length: {0}, str: {1}", base64EncodedData.Length, base64EncodedData);
             var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes, 0, base64EncodedBytes.Length);
         }

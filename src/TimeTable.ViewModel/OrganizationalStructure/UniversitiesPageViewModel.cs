@@ -16,7 +16,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         ChangeDefault = 2
     }
 
-    public class UniversitiesPageViewModel : SearchViewModel
+    public class UniversitiesPageViewModel : SearchViewModel<Reason>
     {
         private readonly IAsyncDataProvider _dataProvider;
         private readonly INotificationService _notificationService;
@@ -45,7 +45,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
             SubscribeToQuery();
         }
 
-        public void Initialize(Reason reason)
+        public override void Initialize(Reason reason)
         {
             _reason = reason;
             Init();

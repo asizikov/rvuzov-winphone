@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Net;
 using JetBrains.Annotations;
 using TimeTable.Mvvm.Navigation.Serialization;
 
@@ -27,35 +28,36 @@ namespace TimeTable.Mvvm.Navigation
             NavigationUriProvider = configuration.NavigationUriProvider;
             PlatformNavigationService = platformNavigationService;
             Key = "NavigationContext";
+            Debug.WriteLine("NavigationService::Ctor");
         }
 
         [PublicAPI]
-        public void NavigateTo<TViewModel>() where TViewModel : BaseViewModel
+        public void NavigateTo<TViewModel>() where TViewModel : PageViewModel
         {
             var path = GetUri<TViewModel>();
             NavigateInternal(path);
         }
 
-        public void NavigateTo<TViewModel>(int removeFromStack) where TViewModel : BaseViewModel
+        public void NavigateTo<TViewModel>(int removeFromStack) where TViewModel : PageViewModel
         {
             NavigateTo<TViewModel>();
             SmartDispatcher.BeginInvoke(() => RemoveEntries(removeFromStack));
         }
 
         [PublicAPI]
-        public void NavigateTo<TViewModel, TData>(TData data) where TViewModel : BaseViewModel
+        public void NavigateTo<TViewModel, TData>(TData data) where TViewModel : PageViewModel<TData>
         {
             var path = GetUri<TViewModel, TData>(data);
             NavigateInternal(path);
         }
 
-        public void NavigateTo<TViewModel, TData>(TData data, int removeFromStack) where TViewModel : BaseViewModel
+        public void NavigateTo<TViewModel, TData>(TData data, int removeFromStack) where TViewModel : PageViewModel<TData>
         {
             NavigateTo<TViewModel,TData>(data);
             SmartDispatcher.BeginInvoke(() => RemoveEntries(removeFromStack));
         }
 
-        public Uri GetUri<TViewModel, TData>(TData data) where TViewModel : BaseViewModel
+        public Uri GetUri<TViewModel, TData>(TData data) where TViewModel : PageViewModel<TData>
         {
             var viewModelType = typeof(TViewModel);
             var viewModelName = viewModelType.Name;
@@ -73,12 +75,12 @@ namespace TimeTable.Mvvm.Navigation
         private Uri BuildPath(NavigationEvent navigationEvent)
         {
             var uriString = string.Format("{0}?{1}={2}", navigationEvent.Destination.OriginalString, Key,
-                navigationEvent.Context);
+                HttpUtility.UrlEncode(navigationEvent.Context));
             var path = new Uri(uriString, UriKind.Relative);
             return path;
         }
 
-        public Uri GetUri<TViewModel>() where TViewModel : BaseViewModel
+        public Uri GetUri<TViewModel>() where TViewModel : PageViewModel
         {
             var viewModelType = typeof(TViewModel);
             var viewModelName = viewModelType.Name;
@@ -96,7 +98,9 @@ namespace TimeTable.Mvvm.Navigation
         private NavigationEvent BuildNavigationEvent<TData>(NavigationContext<TData> navigationContext, Uri uri)
         {
             var serializedContext = Serializer.Serialize(navigationContext);
+            Debug.WriteLine("NavigationService::serialized context " + serializedContext);
             var encoded = Base64Encode(serializedContext);
+            Debug.WriteLine("NavigationService::encoded context " + encoded);
 
             var navigationEvent = new NavigationEvent
             {

@@ -21,13 +21,13 @@ namespace TimeTable.View
             base.OnNavigatedTo(e);
             var navigationContext = NavigationContext.QueryString.RestoreContext<NavigationFlow>();
 
-            ViewModel = ViewModelLocator.GetFacultiesPageViewModel(navigationContext.Body) as SearchViewModel;
+            ViewModel = ViewModelLocator.GetFacultiesPageViewModel(navigationContext.Body) as ISearchViewModel;
             DataContext = ViewModel;
 
             if (State.Count > 0)
             {
                 this.RestoreState(Search);
-                Search.Visibility = (Visibility) this.RestoreState(SEARCH_KEY);
+                Search.Visibility = (Visibility) this.RestoreState(SearchKey);
             }
         }
 
@@ -42,7 +42,7 @@ namespace TimeTable.View
             if (this.ShouldTombstone(e))
             {
                 this.SaveState(Search);
-                this.SaveState(SEARCH_KEY, Search.Visibility);
+                this.SaveState(SearchKey, Search.Visibility);
             }
         }
 

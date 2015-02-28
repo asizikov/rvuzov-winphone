@@ -9,7 +9,7 @@ using TimeTable.ViewModel.Utils;
 
 namespace TimeTable.ViewModel.OrganizationalStructure
 {
-    public class FacultiesPageViewModel : SearchViewModel
+    public class FacultiesPageViewModel : SearchViewModel<NavigationFlow>
     {
         private readonly Mvvm.Navigation.INavigationService _navigation;
         private readonly BaseApplicationSettings _applicationSettings;
@@ -41,7 +41,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
             SubscribeToQuery();
         }
 
-        public void Initialize(NavigationFlow navigationParameter)
+        public override void Initialize(NavigationFlow navigationParameter)
         {
             _navigationFlow = navigationParameter;
             _universityId = navigationParameter.UniversityId;

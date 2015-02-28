@@ -6,7 +6,7 @@ using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.ApplicationLevel
 {
-    public sealed class SettingsViewModel : BaseViewModel
+    public sealed class SettingsViewModel : PageViewModel
     {
         public SettingsViewModel([NotNull] BaseApplicationSettings applicationSettings, [NotNull] INavigationService navigationService,
             [NotNull] FlurryPublisher flurryPublisher)
