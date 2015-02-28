@@ -91,6 +91,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="IAsyncDataProvider.cs" />
+    <Compile Include="Lessons\IUpdatableModel.cs" />
     <Compile Include="OrganizationalStructure\Auditorium.cs" />
     <Compile Include="Internal\FacultyItem.cs" />
     <Compile Include="Internal\FavoritedItemType.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Lessons\TimeTableData.cs" />
     <Compile Include="OrganizationalStructure\Universities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Updates.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

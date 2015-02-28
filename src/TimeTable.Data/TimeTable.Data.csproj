@@ -84,6 +84,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AsyncDataProvider.cs" />
+    <Compile Include="AsyncWebClient.cs" />
+    <Compile Include="BaseAsyncWebClient.cs" />
     <Compile Include="Cache\CacheItem.cs" />
     <Compile Include="Cache\DataWriter.cs" />
     <Compile Include="Cache\InMemoryCache.cs" />

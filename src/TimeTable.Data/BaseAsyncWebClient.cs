@@ -3,18 +3,21 @@ using System.Diagnostics;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using JetBrains.Annotations;
+using TimeTable.Domain.Lessons;
 using TimeTable.Networking.Cache;
 using TimeTable.Networking.Restful;
 
-namespace TimeTable.Networking
+namespace TimeTable.Data
 {
     public abstract class BaseAsyncWebClient
     {
         private readonly IWebCache _cache;
+        private RestfulCallFactory CallFactory { get; set; }
 
         protected BaseAsyncWebClient([NotNull] IWebCache cache)
         {
             if (cache == null) throw new ArgumentNullException("cache");
+            CallFactory = new RestfulCallFactory();
             _cache = cache;
         }
 
@@ -43,12 +46,21 @@ namespace TimeTable.Networking
                         }
                         else
                         {
+                            var updatable = item as IUpdatableModel;
+                            if (updatable != null)
+                            {
+                                CheckIfNeededToBeUpdated(request, updatable, observer);
+                            }
+                            else
+                            {
                                 Debug.WriteLine("UpdateData:" + request.Url);
                                 ExecuteRequest(request, observer, true);
+                            }
                         }
                     })
                 );
         }
+
 
         private void ExecuteRequest<T>(RestfullRequest<T> request, IObserver<T> observer, bool ignoreErrors = false)
             where T : class
@@ -67,6 +79,29 @@ namespace TimeTable.Networking
                         }
                     },
                     observer.OnCompleted);
+        }
+
+        private void CheckIfNeededToBeUpdated<T>(RestfullRequest<T> request, IUpdatableModel updatable,
+            IObserver<T> observer)
+            where T : class
+        {
+            var lastUpdated = updatable.LastUpdated;
+            var lastUpdatedRequest = CallFactory.GetLastUpdatedRequest(request.ResourceUrl);
+            Debug.WriteLine("WebClient::CheckIfNeededToBeUpdated " + lastUpdatedRequest.Url);
+            lastUpdatedRequest.Execute()
+                .Subscribe(
+                    resutl =>
+                    {
+                        if (resutl.Data > lastUpdated)
+                        {
+                            Debug.WriteLine("WebClient::CheckIfNeededToBeUpdated::Updating " + request.Url);
+                            ExecuteRequest(request, observer);
+                        }
+                        else
+                        {
+                            observer.OnCompleted();
+                        }
+                    }, ex => observer.OnCompleted());
         }
     }
 }

@@ -11,5 +11,8 @@ namespace TimeTable.Domain.Lessons
         public long ParityCountdown { get; set; }
         [JsonProperty("days")]
         public List<Day> Days { get; set; }
+
+        [JsonProperty("last_updated")]
+        public long LastUpdated { get; set; }
     }
 }

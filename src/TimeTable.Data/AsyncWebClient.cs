@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using TimeTable.Networking.Cache;
 
-namespace TimeTable.Networking
+namespace TimeTable.Data
 {
     public class AsyncWebClient : BaseAsyncWebClient
     {

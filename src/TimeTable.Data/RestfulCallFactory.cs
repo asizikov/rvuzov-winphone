@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using TimeTable.Domain;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
 using TimeTable.Networking;
@@ -57,6 +58,11 @@ namespace TimeTable.Data
         public RestfullRequest<Faculties> GetUniversityFacultiesRequest(int universityId)
         {
             return RestfullRequest.Create<Faculties>(InjectIdToTemplate(ALL_FACULTIES_TEMPLATE, universityId), _webService);
+        }
+
+        public RestfullRequest<LastUpdated> GetLastUpdatedRequest(string url)
+        {
+            return RestfullRequest.Create<LastUpdated>(url + LAST_UPDATED, _webService);
         }
     }
 }

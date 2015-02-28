@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using TimeTable.Mvvm.Navigation.Serialization;
 
 namespace TimeTable.Mvvm.Navigation

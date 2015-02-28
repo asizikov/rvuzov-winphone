@@ -36,7 +36,7 @@ namespace TimeTable.Networking.Restful
             get { return _webService.BaseUrl + ResourceUrl; }
         }
 
-        private string ResourceUrl { get; set; }
+        public string ResourceUrl { get; private set; }
 
         private RequestMethod Method { get; set; }
 
