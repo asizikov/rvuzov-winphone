@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using TimeTable.Domain;
@@ -162,14 +163,12 @@ namespace TimeTable.ViewModel.WeekOverview
             if (_isTeacher)
             {
                 _dataProvider.GetLessonsForTeacherAsync(_id)
-                    .Subscribe(FormatTimeTable, ex => OnError());
+                    .Subscribe( FormatTimeTable, ex => OnError());
             }
             else
             {
-                _dataProvider.GetLessonsForGroupAsync(_id).Subscribe(
-                    FormatTimeTable,
-                    ex => OnError()
-                    );
+                _dataProvider.GetLessonsForGroupAsync(_id)
+                    .Subscribe(FormatTimeTable,ex => OnError());
             }
         }
 
@@ -190,10 +189,9 @@ namespace TimeTable.ViewModel.WeekOverview
                 days = timeTable.Data.Days;
             }
 
-            CurrentWeek = _weekViewModelFactory.Create(days, weekNumber, WeekType.Current);
-            NextWeek = _weekViewModelFactory.Create(days, weekNumber + 1, WeekType.Next);
-            PreviousWeek = _weekViewModelFactory.Create(days, weekNumber - 1, WeekType.Previous);
-
+            Task.Factory.StartNew(() => CurrentWeek =  _weekViewModelFactory.Create(days, weekNumber, WeekType.Current) );
+            Task.Factory.StartNew(() => NextWeek =  _weekViewModelFactory.Create(days, weekNumber + 1, WeekType.Next));
+            Task.Factory.StartNew(() => PreviousWeek = _weekViewModelFactory.Create(days, weekNumber - 1, WeekType.Previous));
             IsLoading = false;
         }
 

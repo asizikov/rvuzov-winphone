@@ -66,7 +66,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>Bin\Release</OutputPath>
-    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;JETBRAINS_ANNOTATIONS</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -231,8 +231,6 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="TimeTable_2015_03_01_21_13_52.sap" />
-    <None Include="TimeTable_2015_03_01_21_47_39.sap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
