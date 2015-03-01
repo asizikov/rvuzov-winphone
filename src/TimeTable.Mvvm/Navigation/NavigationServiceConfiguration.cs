@@ -1,5 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using TimeTable.Mvvm.Navigation.Serialization;
 
 namespace TimeTable.Mvvm.Navigation
@@ -9,13 +8,13 @@ namespace TimeTable.Mvvm.Navigation
         public NavigationServiceConfiguration()
         {
             Serializer = new NavigationSerializer();
-            NavigationUriProvider = new Lazy<INavigationUriProvider>(() => new NavigationUriProvider());
+            NavigationUriProvider =  new NavigationUriProvider();
         }
 
         [PublicAPI]
         public ISerializer Serializer { get; set; }
 
         [PublicAPI]
-        public Lazy<INavigationUriProvider> NavigationUriProvider { get; set; }
+        public INavigationUriProvider NavigationUriProvider { get; set; }
     }
 }

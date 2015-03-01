@@ -10,7 +10,7 @@ namespace TimeTable.Mvvm.Navigation
     public class NavigationService : INavigationService
     {
         private ISerializer Serializer { get; set; }
-        private Lazy<INavigationUriProvider> NavigationUriProvider { get; set; }
+        private INavigationUriProvider NavigationUriProvider { get; set; }
         private IPlatformNavigationService PlatformNavigationService { get; set; }
         private string Key { get; set; }
 
@@ -61,7 +61,7 @@ namespace TimeTable.Mvvm.Navigation
 
         private Uri GetUriInternal<TViewModel, TData>(TData data) where TViewModel : PageViewModel<TData>
         {
-            var uri = NavigationUriProvider.Value.Get<TViewModel>();
+            var uri = NavigationUriProvider.Get<TViewModel>();
             var navigationContext = NavigationContext.Create(uri.OriginalString, data);
             var navigationEvent = BuildNavigationEvent(navigationContext, uri);
             return BuildPath(navigationEvent);
@@ -77,7 +77,7 @@ namespace TimeTable.Mvvm.Navigation
 
         private Uri GetUriInternal<TViewModel>() where TViewModel : PageViewModel
         {
-            var uri = NavigationUriProvider.Value.Get<TViewModel>();
+            var uri = NavigationUriProvider.Get<TViewModel>();
             var navigationContext = NavigationContext.Create(uri.OriginalString);
             var navigationEvent = BuildNavigationEvent(navigationContext, uri);
             return BuildPath(navigationEvent);

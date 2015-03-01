@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Controls;
 
 namespace TimeTable.Mvvm.Navigation
@@ -13,6 +14,11 @@ namespace TimeTable.Mvvm.Navigation
         private Dictionary<Type, Type> Dictionary { get; set; }
 
         public NavigationUriProvider()
+        {
+            ThreadPool.QueueUserWorkItem(o => Initialize());
+        }
+
+        private void Initialize()
         {
             var stopwatch = Stopwatch.StartNew();
             Debug.WriteLine("NavigationUriProvider::Initializing");
