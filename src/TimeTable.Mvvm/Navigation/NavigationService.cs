@@ -100,7 +100,6 @@ namespace TimeTable.Mvvm.Navigation
             var serializedContext = Serializer.Serialize(navigationContext);
             Debug.WriteLine("NavigationService::serialized context " + serializedContext);
             var encoded = Base64Encode(serializedContext);
-            Debug.WriteLine("NavigationService::encoded context " + encoded);
 
             var navigationEvent = new NavigationEvent
             {

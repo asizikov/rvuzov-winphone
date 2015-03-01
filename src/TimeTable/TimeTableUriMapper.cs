@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Navigation;
 using JetBrains.Annotations;
 using TimeTable.Domain.Internal;
@@ -27,6 +28,7 @@ namespace TimeTable
 
         public override Uri MapUri(Uri uri)
         {
+            Debug.WriteLine("UriMapper:MapUri for {0}", uri.OriginalString);
             if (!uri.OriginalString.Contains("/View/EntryPoint.xaml"))
             {
                 return uri;

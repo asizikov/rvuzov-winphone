@@ -93,9 +93,6 @@ namespace TimeTable
         private static void CommonActivated()
         {
             var flurryPublisher = Container.Resolve<FlurryPublisher>();
-            var cache = Container.Resolve<IWebCache>();
-
-            cache.PullFromStorage();
             ThreadPool.QueueUserWorkItem(o => flurryPublisher.StartSession());
         }
 

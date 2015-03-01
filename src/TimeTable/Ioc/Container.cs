@@ -1,4 +1,6 @@
-﻿using Microsoft.Phone.Controls;
+﻿using System.Diagnostics;
+using System.Globalization;
+using Microsoft.Phone.Controls;
 using Ninject;
 using TimeTable.Data;
 using TimeTable.Data.Cache;
@@ -8,7 +10,6 @@ using TimeTable.Networking.Cache;
 using TimeTable.Resources;
 using TimeTable.Services;
 using TimeTable.ViewModel.Commands;
-using TimeTable.ViewModel.Data;
 using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.Services;
 
@@ -20,6 +21,8 @@ namespace TimeTable.IoC
 
         public static void Initialize(PhoneApplicationFrame rootFrame)
         {
+            var stopwatch = Stopwatch.StartNew();
+            Debug.WriteLine("Container::Initialize started");
             Kernel.Bind<PhoneApplicationFrame>().ToConstant(rootFrame);
             Kernel.Bind<INavigationService>().To<NavigationService>().InSingletonScope();
             Kernel.Bind<IPlatformNavigationService>().To<PlatformNavigationService>().InSingletonScope();
@@ -36,6 +39,7 @@ namespace TimeTable.IoC
             Kernel.Bind<INotificationService>().To<NotificationService>().InSingletonScope();
             Kernel.Bind<ICommandFactory>().To<CommandsFactory>().InSingletonScope();
             Kernel.Bind<FavoritedItemsManager>().To<FavoritedItemsManager>().InSingletonScope();
+            Debug.WriteLine("Container::Initialize ended in {0} ms", stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
         }
 
         public static T Resolve<T>()

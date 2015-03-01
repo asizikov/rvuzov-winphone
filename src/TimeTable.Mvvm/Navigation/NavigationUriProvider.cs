@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
@@ -12,12 +13,14 @@ namespace TimeTable.Mvvm.Navigation
 
         public NavigationUriProvider()
         {
+            var stopwatch = Stopwatch.StartNew();
+            Debug.WriteLine("NavigationUriProvider::Initializing");
             var assemblies = LoadAssemblies();
             var pages = assemblies.SelectMany(assembly => assembly.GetTypes())
                 .Where(t => t.IsDefined(typeof(DependsOnViewModelAttribute)));
             Dictionary = pages.ToDictionary(
                 p => (p.GetCustomAttribute<DependsOnViewModelAttribute>().ViewModelType),p => p);
-            Debug.WriteLine("NavigationUriProvider::Initializing");
+            Debug.WriteLine("NavigationUriProvider::Initialed in {0} ms", stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
         }
 
         private static IEnumerable<Assembly> LoadAssemblies()

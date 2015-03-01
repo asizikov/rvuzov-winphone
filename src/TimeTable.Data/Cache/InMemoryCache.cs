@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.IO.IsolatedStorage;
 using JetBrains.Annotations;
@@ -16,6 +18,14 @@ namespace TimeTable.Data.Cache
         [NotNull] private readonly object _readLock = new object();
 
         private const string StorageFileName = "Cache";
+
+        public InMemoryCache()
+        {
+            var stopwatch = Stopwatch.StartNew();
+            Debug.WriteLine("InMemoryCache:Initializing");
+            PullFromStorage();
+            Debug.WriteLine("InMemoryCache:Initialized in {0} ms", stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
+        }
 
         public bool IsCached<T>(string url) where T : class
         {

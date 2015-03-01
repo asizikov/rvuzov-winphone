@@ -1,4 +1,6 @@
-﻿using System.IO.IsolatedStorage;
+﻿using System.Diagnostics;
+using System.Globalization;
+using System.IO.IsolatedStorage;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using TimeTable.Domain.Internal;
@@ -12,7 +14,11 @@ namespace TimeTable.Services
 
         public ApplicationSettings()
         {
+            var stopwatch = Stopwatch.StartNew();
+            Debug.WriteLine("ApplicationSettings::Ctor started");
             Me = Settings();
+            Debug.WriteLine("ApplicationSettings::Ctor ended in {0} ms",
+                stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
         }
 
 
@@ -27,7 +33,7 @@ namespace TimeTable.Services
             }
             else
             {
-                var favsJsonString = (string)IsolatedStorageSettings.ApplicationSettings[Key];
+                var favsJsonString = (string) IsolatedStorageSettings.ApplicationSettings[Key];
                 settings = DeserializeFromString(favsJsonString);
             }
             return settings;
