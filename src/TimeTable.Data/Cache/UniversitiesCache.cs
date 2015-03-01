@@ -61,14 +61,12 @@ namespace TimeTable.Data.Cache
         [CanBeNull]
         public Faculty GetFacultyByGroupAndUniversityIds(int universityId, int groupId)
         {
-            if (_cache.ContainsKey(universityId))
+            if (!_cache.ContainsKey(universityId)) return null;
+            var university = _cache[universityId];
+// ReSharper disable once LoopCanBeConvertedToQuery
+            foreach (var faculty in university.Faculties)
             {
-                var university = _cache[universityId];
-                foreach (var faculty in university.Faculties)
-                {
-                    if (faculty.Groups.Any(g => g.Id == groupId)) return faculty.Data;
-                }
-                return null;
+                if (faculty.Groups.Any(g => g.Id == groupId)) return faculty.Data;
             }
             return null;
         }
@@ -93,12 +91,6 @@ namespace TimeTable.Data.Cache
         {
             var storage = _dataWriter.LoadStorage();
             _cache = storage.Data.ToDictionary(ui => ui.Id);
-        }
-
-
-        private static string SerializeToStrng(Storage favs)
-        {
-            return JsonConvert.SerializeObject(favs);
         }
     }
 }

@@ -231,6 +231,8 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="TimeTable_2015_03_01_21_13_52.sap" />
+    <None Include="TimeTable_2015_03_01_21_47_39.sap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
