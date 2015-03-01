@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Controls;
 using JetBrains.Annotations;
 
 namespace TimeTable.Mvvm.Navigation
@@ -18,9 +19,9 @@ namespace TimeTable.Mvvm.Navigation
         void NavigateTo<TViewModel, TData>(TData data, int removeFromStack) where TViewModel : PageViewModel<TData>;
 
         [PublicAPI]
-        Uri GetUri<TViewModel, TData>(TData data) where TViewModel : PageViewModel<TData>;
-        [PublicAPI]
+        Uri GetUri<TView, TData>(TData data) where TView : Page;
 
-        Uri GetUri<TViewModel>() where TViewModel : PageViewModel;
+        [PublicAPI]
+        Uri GetUri<TView>() where TView : Page;
     }
 }

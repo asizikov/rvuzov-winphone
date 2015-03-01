@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Navigation;
 using JetBrains.Annotations;
 using TimeTable.Domain.Internal;
 using TimeTable.Mvvm.Navigation;
+using TimeTable.View;
 using TimeTable.ViewModel.ApplicationLevel;
 using TimeTable.ViewModel.OrganizationalStructure;
 using TimeTable.ViewModel.Services;
@@ -27,6 +29,7 @@ namespace TimeTable
 
         public override Uri MapUri(Uri uri)
         {
+            Debug.WriteLine("UriMapper:MapUri for {0}", uri.OriginalString);
             if (!uri.OriginalString.Contains("/View/EntryPoint.xaml"))
             {
                 return uri;
@@ -43,24 +46,24 @@ namespace TimeTable
                     UniversityId = _applicationSettings.Me.University.Id,
                     FacultyId = _applicationSettings.Me.Faculty.Id
                 };
-                return NavigationService.GetUri<LessonsPageViewModel, LessonsNavigationParameter>(navigationParameter);
+                return NavigationService.GetUri<LessonsPage, LessonsNavigationParameter>(navigationParameter);
             }
             if (_applicationSettings.Me.Faculty != null)
             {
                 navigationFlow.FacultyId = _applicationSettings.Me.Faculty.Id;
                 navigationFlow.UniversityId = _applicationSettings.Me.University.Id;
-                return NavigationService.GetUri<GroupPageViewModel, NavigationFlow>(navigationFlow);
+                return NavigationService.GetUri<GroupsPage, NavigationFlow>(navigationFlow);
             }
             if (_applicationSettings.Me.University != null)
             {
                 navigationFlow.UniversityId = _applicationSettings.Me.University.Id;
-                return NavigationService.GetUri<FacultiesPageViewModel, NavigationFlow>(navigationFlow );
+                return NavigationService.GetUri<FacultiesPage, NavigationFlow>(navigationFlow );
             }
             if (_applicationSettings.Me.Role != UserRole.None)
             {
-                return NavigationService.GetUri<UniversitiesPageViewModel, Reason>(Reason.Registration);
+                return NavigationService.GetUri<UniversitiesPage, Reason>(Reason.Registration);
             }
-            return NavigationService.GetUri<FirstPageViewModel>();
+            return NavigationService.GetUri<FirstPage>();
         }
     }
 }

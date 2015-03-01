@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using TimeTable.Domain;
 using TimeTable.IoC;
 using TimeTable.Mvvm;
 using TimeTable.ViewModel.ApplicationLevel;
@@ -11,12 +10,6 @@ namespace TimeTable.ViewModel
 {
     public static class ViewModelLocator
     {
-        private static readonly IAsyncDataProvider DataProvider;
-
-        static ViewModelLocator()
-        {
-            DataProvider = Container.Resolve<IAsyncDataProvider>();
-        }
 
         [NotNull]
         public static BaseViewModel GetUniversitiesViewModel(Reason reason)

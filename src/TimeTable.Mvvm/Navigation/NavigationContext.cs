@@ -2,17 +2,16 @@
 {
     public class NavigationContext
     {
-        public string From { get; set; }
         public string To { get; set; }
 
-        public static NavigationContext Create(string from, string to)
+        public static NavigationContext Create(string to)
         {
-            return new NavigationContext { From = from, To = to };
+            return new NavigationContext {To = to };
         }
 
-        public static NavigationContext<TData> Create<TData>(string from,string to, TData data)
+        public static NavigationContext<TData> Create<TData>(string to, TData data)
         {
-            return new NavigationContext<TData> { From = from, To = to, Body = data };
+            return new NavigationContext<TData> {To = to, Body = data };
         }
     }
 }

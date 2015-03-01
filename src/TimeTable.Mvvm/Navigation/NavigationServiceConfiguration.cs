@@ -8,7 +8,7 @@ namespace TimeTable.Mvvm.Navigation
         public NavigationServiceConfiguration()
         {
             Serializer = new NavigationSerializer();
-            NavigationUriProvider = new NavigationUriProvider();
+            NavigationUriProvider =  new NavigationUriProvider();
         }
 
         [PublicAPI]

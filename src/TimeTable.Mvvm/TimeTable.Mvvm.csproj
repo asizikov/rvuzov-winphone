@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="Navigation\INavigationService.cs" />
+    <Compile Include="Navigation\TypeExtensions.cs" />
     <Compile Include="Navigation\ViewModelAttribute.cs" />
     <Compile Include="Navigation\INavigationUriProvider.cs" />
     <Compile Include="Navigation\IPlatformNavigationService.cs" />

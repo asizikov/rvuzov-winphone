@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Net;
+using System.Windows.Controls;
 using JetBrains.Annotations;
 using TimeTable.Mvvm.Navigation.Serialization;
 
@@ -34,7 +35,7 @@ namespace TimeTable.Mvvm.Navigation
         [PublicAPI]
         public void NavigateTo<TViewModel>() where TViewModel : PageViewModel
         {
-            var path = GetUri<TViewModel>();
+            var path = GetUriInternal<TViewModel>();
             NavigateInternal(path);
         }
 
@@ -47,27 +48,21 @@ namespace TimeTable.Mvvm.Navigation
         [PublicAPI]
         public void NavigateTo<TViewModel, TData>(TData data) where TViewModel : PageViewModel<TData>
         {
-            var path = GetUri<TViewModel, TData>(data);
+            var path = GetUriInternal<TViewModel, TData>(data);
             NavigateInternal(path);
         }
 
-        public void NavigateTo<TViewModel, TData>(TData data, int removeFromStack) where TViewModel : PageViewModel<TData>
+        public void NavigateTo<TViewModel, TData>(TData data, int removeFromStack)
+            where TViewModel : PageViewModel<TData>
         {
-            NavigateTo<TViewModel,TData>(data);
+            NavigateTo<TViewModel, TData>(data);
             SmartDispatcher.BeginInvoke(() => RemoveEntries(removeFromStack));
         }
 
-        public Uri GetUri<TViewModel, TData>(TData data) where TViewModel : PageViewModel<TData>
+        private Uri GetUriInternal<TViewModel, TData>(TData data) where TViewModel : PageViewModel<TData>
         {
-            var viewModelType = typeof(TViewModel);
-            var viewModelName = viewModelType.Name;
             var uri = NavigationUriProvider.Get<TViewModel>();
-            if (uri == null)
-            {
-                throw new NavigationException("Can't find suitable destination");
-            }
-
-            var navigationContext = NavigationContext.Create(viewModelName, uri.OriginalString, data);
+            var navigationContext = NavigationContext.Create(uri.OriginalString, data);
             var navigationEvent = BuildNavigationEvent(navigationContext, uri);
             return BuildPath(navigationEvent);
         }
@@ -80,17 +75,26 @@ namespace TimeTable.Mvvm.Navigation
             return path;
         }
 
-        public Uri GetUri<TViewModel>() where TViewModel : PageViewModel
+        private Uri GetUriInternal<TViewModel>() where TViewModel : PageViewModel
         {
-            var viewModelType = typeof(TViewModel);
-            var viewModelName = viewModelType.Name;
             var uri = NavigationUriProvider.Get<TViewModel>();
-            if (uri == null)
-            {
-                throw new NavigationException("Can't find suitable destination");
-            }
+            var navigationContext = NavigationContext.Create(uri.OriginalString);
+            var navigationEvent = BuildNavigationEvent(navigationContext, uri);
+            return BuildPath(navigationEvent);
+        }
 
-            var navigationContext = NavigationContext.Create(viewModelName, uri.OriginalString);
+        public Uri GetUri<TView, TData>(TData data) where TView : Page
+        {
+            var uri = typeof (TView).GetUri();
+            var navigationContext = NavigationContext.Create(uri.OriginalString, data);
+            var navigationEvent = BuildNavigationEvent(navigationContext, uri);
+            return BuildPath(navigationEvent);
+        }
+
+        public Uri GetUri<TView>() where TView : Page
+        {
+            var uri = typeof (TView).GetUri();
+            var navigationContext = NavigationContext.Create(uri.OriginalString);
             var navigationEvent = BuildNavigationEvent(navigationContext, uri);
             return BuildPath(navigationEvent);
         }
@@ -100,7 +104,6 @@ namespace TimeTable.Mvvm.Navigation
             var serializedContext = Serializer.Serialize(navigationContext);
             Debug.WriteLine("NavigationService::serialized context " + serializedContext);
             var encoded = Base64Encode(serializedContext);
-            Debug.WriteLine("NavigationService::encoded context " + encoded);
 
             var navigationEvent = new NavigationEvent
             {
@@ -129,7 +132,7 @@ namespace TimeTable.Mvvm.Navigation
             {
                 Debug.WriteLine("NavigationService::Navigating to {0}", path);
                 PlatformNavigationService.Navigate(path);
-            } );
+            });
         }
 
         private static string Base64Encode(string plainText)
