@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Controls;
 
 namespace TimeTable.Mvvm.Navigation
 {
@@ -16,11 +17,23 @@ namespace TimeTable.Mvvm.Navigation
             var stopwatch = Stopwatch.StartNew();
             Debug.WriteLine("NavigationUriProvider::Initializing");
             var assemblies = LoadAssemblies();
-            var pages = assemblies.SelectMany(assembly => assembly.GetTypes())
-                .Where(t => t.IsDefined(typeof(DependsOnViewModelAttribute)));
+            Debug.WriteLine("NavigationUriProvider:: assemblies loaded at {0} ms",
+                stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
+            var pages =
+                assemblies.SelectMany(
+                    assembly =>
+                        assembly.GetTypes()
+                            .Where(
+                                t =>
+                                    t.IsPublic && t.IsClass && t.IsSubclassOf(typeof (Page)) &&
+                                    t.IsDefined(typeof (DependsOnViewModelAttribute))))
+                    .ToList();
+            Debug.WriteLine("NavigationUriProvider:: pages selected loaded at {0} ms",
+                stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
             Dictionary = pages.ToDictionary(
-                p => (p.GetCustomAttribute<DependsOnViewModelAttribute>().ViewModelType),p => p);
-            Debug.WriteLine("NavigationUriProvider::Initialed in {0} ms", stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
+                p => (p.GetCustomAttribute<DependsOnViewModelAttribute>().ViewModelType), p => p);
+            Debug.WriteLine("NavigationUriProvider::Initialed in {0} ms",
+                stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
         }
 
         private static IEnumerable<Assembly> LoadAssemblies()
@@ -29,21 +42,13 @@ namespace TimeTable.Mvvm.Navigation
         }
 
 
-        private Uri GetUri(Type viewType)
-        {
-            var assembly = viewType.Assembly;
-            var name = assembly.GetName().Name;
-            var uri = viewType.FullName.Replace(name, string.Empty).Replace(".", "/");
-            return new Uri(string.Format("/{0};component{1}.xaml", name, uri), UriKind.Relative);
-        }
-
         public Uri Get<TViewModel>() where TViewModel : BaseViewModel
         {
             if (!Dictionary.ContainsKey(typeof (TViewModel)))
             {
-                throw new NavigationException("There is no mapping for " + typeof(TViewModel));
+                throw new NavigationException("There is no mapping for " + typeof (TViewModel));
             }
-            return GetUri(Dictionary[typeof(TViewModel)]);
+            return Dictionary[typeof (TViewModel)].GetUri();
         }
     }
 }
