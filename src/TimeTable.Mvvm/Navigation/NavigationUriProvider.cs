@@ -44,7 +44,7 @@ namespace TimeTable.Mvvm.Navigation
 
         private static IEnumerable<Assembly> LoadAssemblies()
         {
-            return AppDomain.CurrentDomain.GetAssemblies();
+            return AppDomain.CurrentDomain.GetAssemblies().Where(a => a.GetCustomAttribute<ContainsNavigationDestinations>() != null);
         }
 
 

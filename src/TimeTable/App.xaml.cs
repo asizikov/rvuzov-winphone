@@ -24,7 +24,7 @@ namespace TimeTable
         /// Constructor for the Application object.
         /// </summary>
         public App()
-            {
+        {
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 
@@ -42,14 +42,13 @@ namespace TimeTable
                 Current.Host.Settings.EnableFrameRateCounter = true;
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
-
         }
 
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-           CommonActivated();
+            CommonActivated();
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -80,8 +79,12 @@ namespace TimeTable
         private void CommonActivated()
         {
             Bootstrapper.InitApplication(RootFrame);
-            var flurryPublisher = Container.Resolve<FlurryPublisher>();
-            ThreadPool.QueueUserWorkItem(o => flurryPublisher.StartSession());
+
+            ThreadPool.QueueUserWorkItem(o =>
+            {
+                var flurryPublisher = Container.Resolve<FlurryPublisher>();
+                flurryPublisher.StartSession();
+            });
         }
 
         private static void CommonDeactivated()
@@ -134,7 +137,7 @@ namespace TimeTable
             if (phoneApplicationInitialized)
                 return;
 
- 
+
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
             RootFrame = new PhoneApplicationFrame

@@ -16,14 +16,14 @@ namespace TimeTable.View
             BindableApplicationBar.Buttons.Clear();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             BindableApplicationBar.Buttons.Clear();
             ApplicationBar.Buttons.Clear();
 
             base.OnNavigatedTo(e);
             var navigationContext = NavigationContext.QueryString.RestoreContext<LessonsNavigationParameter>();
-            DataContext = ViewModelLocator.GetLessonsViewModel(navigationContext.Body);
+            DataContext = await ViewModelLocator.GetLessonsViewModel(navigationContext.Body);
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)

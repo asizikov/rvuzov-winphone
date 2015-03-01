@@ -46,19 +46,20 @@ namespace TimeTable.ViewModel.WeekOverview.Commands
 
         public void Execute(object parameter)
         {
-            _dataProvider.GetFacultyByUniversityAndGroupId(_university.Id, _group.Id)
-                .Subscribe(faculty =>
-                {
-                    _flurryPublisher.PublishContextMenuShowGroupTimeTable(_university, _group.GroupName, _group.Id);
-                    var navigationParameter = new LessonsNavigationParameter
-                    {
-                        Id = _group.Id,
-                        IsTeacher = false,
-                        FacultyId = faculty.Id,
-                        UniversityId = _university.Id
-                    };
-                    _navigationService.NavigateTo<LessonsPageViewModel, LessonsNavigationParameter>(navigationParameter);
-                });
+            var faculty = _dataProvider.GetFacultyByUniversityAndGroupId(_university.Id, _group.Id);
+            if (faculty == null)
+            {
+                return;
+            }
+            _flurryPublisher.PublishContextMenuShowGroupTimeTable(_university, _group.GroupName, _group.Id);
+            var navigationParameter = new LessonsNavigationParameter
+            {
+                Id = _group.Id,
+                IsTeacher = false,
+                FacultyId = faculty.Id,
+                UniversityId = _university.Id
+            };
+            _navigationService.NavigateTo<LessonsPageViewModel, LessonsNavigationParameter>(navigationParameter);
         }
 
         public string Title

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
 
@@ -17,7 +18,10 @@ namespace TimeTable.Domain
         IObservable<Teachers> GetUniversityTeachersAsync(int universityId);
         IObservable<Faculties> GetUniversityFacultiesAsync(int universityId);
         IObservable<University> GetUniversityByIdAsync(int universityId);
-        IObservable<Faculty> GetFacultyByUniversityAndGroupId(int universityId, int groupId);
+
+        [CanBeNull]
+        Faculty GetFacultyByUniversityAndGroupId(int universityId, int groupId);
+
         IObservable<Teacher> GetTeacherByIdAsync(int universityId, int id);
         IObservable<Group> GetGroupByIdAsync(int facultyId, int id);
         IObservable<Faculty> GetFacultyByIdAsync(int universityId, int facultyId);

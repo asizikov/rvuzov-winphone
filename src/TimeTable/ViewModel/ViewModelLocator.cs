@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Threading.Tasks;
+using JetBrains.Annotations;
 using TimeTable.IoC;
 using TimeTable.Mvvm;
 using TimeTable.ViewModel.ApplicationLevel;
@@ -10,7 +11,6 @@ namespace TimeTable.ViewModel
 {
     public static class ViewModelLocator
     {
-
         [NotNull]
         public static BaseViewModel GetUniversitiesViewModel(Reason reason)
         {
@@ -38,11 +38,14 @@ namespace TimeTable.ViewModel
             return vm;
         }
 
-        public static LessonsPageViewModel GetLessonsViewModel(LessonsNavigationParameter navigationParameter)
+        public static Task<LessonsPageViewModel> GetLessonsViewModel(LessonsNavigationParameter navigationParameter)
         {
-            var vm = Container.Resolve<LessonsPageViewModel>();
-            vm.Initialize(navigationParameter);
-            return vm;
+            return Task<LessonsPageViewModel>.Factory.StartNew(() =>
+            {
+                var vm = Container.Resolve<LessonsPageViewModel>();
+                vm.Initialize(navigationParameter);
+                return vm;
+            });
         }
 
         public static AuditoriumViewModel GetAuditoriumViewModel(AuditoriumNavigationParameter navigationParameter)

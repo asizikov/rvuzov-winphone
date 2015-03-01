@@ -8,7 +8,6 @@ using TimeTable.Data.Cache;
 using TimeTable.Domain;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
-using TimeTable.Networking;
 using TimeTable.Networking.Cache;
 
 namespace TimeTable.Data
@@ -78,7 +77,8 @@ namespace TimeTable.Data
             return GetUniversitiesInternalAsync();
         }
 
-        private IObservable<Universities> GetUniversitiesInternalAsync(CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
+        private IObservable<Universities> GetUniversitiesInternalAsync(
+            CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
         {
             var request = _callFactory.GetAllUniversitesRequest();
             return GetDataAsync(request, cachePolicy);
@@ -152,18 +152,10 @@ namespace TimeTable.Data
                 }));
         }
 
-        public IObservable<Faculty> GetFacultyByUniversityAndGroupId(int universityId, int groupId)
+        public Faculty GetFacultyByUniversityAndGroupId(int universityId, int groupId)
         {
-            return Observable.Create<Faculty>(observer =>
-                Scheduler.Default.Schedule(
-                    () =>
-                    {
-                        var faculty = _universitiesCache.GetFacultyByGroupAndUniversityIds(universityId, groupId);
-                        if (faculty != null)
-                        {
-                            observer.OnNext(faculty);
-                        }
-                    }));
+            var faculty = _universitiesCache.GetFacultyByGroupAndUniversityIds(universityId, groupId);
+            return faculty;
         }
 
         public IObservable<Teacher> GetTeacherByIdAsync(int universityId, int id)
@@ -225,15 +217,16 @@ namespace TimeTable.Data
                     }
                     else
                     {
-                        GetUniversityFacultiesInternalAsync(universityId, CachePolicy.TryGetFromCache).Subscribe(faculties =>
-                        {
-                            var faculty = faculties.Data.FirstOrDefault(u => u.Id == facultyId);
-                            if (!_faculties.ContainsKey(facultyId))
+                        GetUniversityFacultiesInternalAsync(universityId, CachePolicy.TryGetFromCache)
+                            .Subscribe(faculties =>
                             {
-                                _faculties.Add(facultyId, faculty);
-                            }
-                            observer.OnNext(faculty);
-                        });
+                                var faculty = faculties.Data.FirstOrDefault(u => u.Id == facultyId);
+                                if (!_faculties.ContainsKey(facultyId))
+                                {
+                                    _faculties.Add(facultyId, faculty);
+                                }
+                                observer.OnNext(faculty);
+                            });
                     }
                 }));
         }
