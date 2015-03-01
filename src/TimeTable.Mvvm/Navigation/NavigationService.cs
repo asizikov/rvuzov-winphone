@@ -59,15 +59,13 @@ namespace TimeTable.Mvvm.Navigation
 
         public Uri GetUri<TViewModel, TData>(TData data) where TViewModel : PageViewModel<TData>
         {
-            var viewModelType = typeof(TViewModel);
-            var viewModelName = viewModelType.Name;
             var uri = NavigationUriProvider.Get<TViewModel>();
             if (uri == null)
             {
                 throw new NavigationException("Can't find suitable destination");
             }
 
-            var navigationContext = NavigationContext.Create(viewModelName, uri.OriginalString, data);
+            var navigationContext = NavigationContext.Create(uri.OriginalString, data);
             var navigationEvent = BuildNavigationEvent(navigationContext, uri);
             return BuildPath(navigationEvent);
         }
@@ -82,15 +80,13 @@ namespace TimeTable.Mvvm.Navigation
 
         public Uri GetUri<TViewModel>() where TViewModel : PageViewModel
         {
-            var viewModelType = typeof(TViewModel);
-            var viewModelName = viewModelType.Name;
             var uri = NavigationUriProvider.Get<TViewModel>();
             if (uri == null)
             {
                 throw new NavigationException("Can't find suitable destination");
             }
 
-            var navigationContext = NavigationContext.Create(viewModelName, uri.OriginalString);
+            var navigationContext = NavigationContext.Create(uri.OriginalString);
             var navigationEvent = BuildNavigationEvent(navigationContext, uri);
             return BuildPath(navigationEvent);
         }

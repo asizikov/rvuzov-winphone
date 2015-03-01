@@ -33,7 +33,6 @@ namespace TimeTable
 
             // Phone-specific initialization
             InitializePhoneApplication();
-            Bootstrapper.InitApplication(RootFrame);
             ThemeManager.OverrideOptions = ThemeManagerOverrideOptions.SystemTrayColors;
             ThemeManager.ToDarkTheme();
             // Show graphics profiling information while debugging.
@@ -41,18 +40,6 @@ namespace TimeTable
             {
                 // Display the current frame rate counters.
                 Current.Host.Settings.EnableFrameRateCounter = true;
-
-                // Show the areas of the app that are being redrawn in each frame.
-                // Application.Current.Host.Settings.EnableRedrawRegions = true;
-
-                // Enable non-production analysis visualization mode, 
-                // which shows areas of a page that are handed off to GPU with a colored overlay.
-                //Application.Current.Host.Settings.EnableCacheVisualization = true;
-
-                // Disable the application idle detection by setting the UserIdleDetectionMode property of the
-                // application's PhoneApplicationService object to Disabled.
-                // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
-                // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
@@ -62,7 +49,7 @@ namespace TimeTable
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            CommonActivated();
+           CommonActivated();
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -90,8 +77,9 @@ namespace TimeTable
             CommonDeactivated();
         }
 
-        private static void CommonActivated()
+        private void CommonActivated()
         {
+            Bootstrapper.InitApplication(RootFrame);
             var flurryPublisher = Container.Resolve<FlurryPublisher>();
             ThreadPool.QueueUserWorkItem(o => flurryPublisher.StartSession());
         }
@@ -149,7 +137,10 @@ namespace TimeTable
  
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
-            RootFrame = new PhoneApplicationFrame {UriMapper = (UriMapper) Resources["ApplicationUriMapper"]};
+            RootFrame = new PhoneApplicationFrame
+            {
+//                UriMapper = (UriMapper) Resources["ApplicationUriMapper"]
+            };
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
             // Handle navigation failures

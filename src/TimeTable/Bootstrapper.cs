@@ -12,12 +12,13 @@ namespace TimeTable
     {
         public static void InitApplication([NotNull] PhoneApplicationFrame rootFrame)
         {
-            var stopwatch = Stopwatch.StartNew();
-            Debug.WriteLine("Bootstrapper::InitApplication started");
             if (rootFrame == null) throw new ArgumentNullException("rootFrame");
 
-            SmartDispatcher.Initialize();
+            var stopwatch = Stopwatch.StartNew();
+            Debug.WriteLine("Bootstrapper::InitApplication started");
+            SmartDispatcher.Initialize(rootFrame.Dispatcher);
             RegisterDependencies(rootFrame);
+            Debug.WriteLine("Bootstrapper::InitApplication resolving uri mapper at {0} ms", stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
             rootFrame.UriMapper = Container.Resolve<TimeTableUriMapper>();
             Debug.WriteLine("Bootstrapper::InitApplication ended in {0} ms", stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
         }
