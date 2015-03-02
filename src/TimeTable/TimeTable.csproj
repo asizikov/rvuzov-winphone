@@ -99,50 +99,45 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BindableApplicationBar, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\BindableApplicationBar.1.1.0.0\lib\wp8\BindableApplicationBar.dll</HintPath>
+    <Reference Include="BindableApplicationBar">
+      <HintPath>..\packages\BindableApplicationBar.1.1.0.0\lib\wp8\BindableApplicationBar.dll</HintPath>
     </Reference>
     <Reference Include="Coding4Fun.Toolkit">
-      <HintPath>packages\Coding4Fun.Toolkit.Controls.2.0.9\lib\windowsphone8\Coding4Fun.Toolkit.dll</HintPath>
+      <HintPath>..\packages\Coding4Fun.Toolkit.Controls.2.0.9\lib\windowsphone8\Coding4Fun.Toolkit.dll</HintPath>
     </Reference>
-    <Reference Include="Coding4Fun.Toolkit.Controls, Version=2.0.9.0, Culture=neutral, PublicKeyToken=c5fd7b72b1a17ce4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\Coding4Fun.Toolkit.Controls.2.0.9\lib\windowsphone8\Coding4Fun.Toolkit.Controls.dll</HintPath>
+    <Reference Include="Coding4Fun.Toolkit.Controls">
+      <HintPath>..\packages\Coding4Fun.Toolkit.Controls.2.0.9\lib\windowsphone8\Coding4Fun.Toolkit.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="FlurryWP8SDK, Version=3.1.1.0, Culture=neutral, PublicKeyToken=d822942b4ec01210, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\FlurryForWindowsPhone8.1.2\lib\wp8\FlurryWP8SDK.dll</HintPath>
+    <Reference Include="FlurryWP8SDK">
+      <HintPath>..\packages\FlurryForWindowsPhone8.1.2\lib\wp8\FlurryWP8SDK.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Annotations.PCL328">
-      <HintPath>packages\JetBrains.Annotations.8.0.5.0\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\JetBrains.Annotations.PCL328.dll</HintPath>
+      <HintPath>..\packages\JetBrains.Annotations.8.0.5.0\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\JetBrains.Annotations.PCL328.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
-      <HintPath>packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+      <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\sl4-windowsphone71\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="RateMyApp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\RateMyApp.1.1.0\lib\sl4-wp71\RateMyApp.dll</HintPath>
+    <Reference Include="RateMyApp">
+      <HintPath>..\packages\RateMyApp.1.1.0\lib\sl4-wp71\RateMyApp.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Core">
-      <HintPath>packages\Rx-Core.2.2.5\lib\windowsphone8\System.Reactive.Core.dll</HintPath>
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\windowsphone8\System.Reactive.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Interfaces">
-      <HintPath>packages\Rx-Interfaces.2.2.5\lib\windowsphone8\System.Reactive.Interfaces.dll</HintPath>
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\windowsphone8\System.Reactive.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Linq">
-      <HintPath>packages\Rx-Linq.2.2.5\lib\windowsphone8\System.Reactive.Linq.dll</HintPath>
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\windowsphone8\System.Reactive.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.PlatformServices">
-      <HintPath>packages\Rx-PlatformServices.2.2.5\lib\windowsphone8\System.Reactive.PlatformServices.dll</HintPath>
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\windowsphone8\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +226,7 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="RateMyAppGuide_v1 1.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
@@ -249,6 +245,7 @@
     <Content Include="Images\WideTile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="README_FIRST.txt" />
     <Content Include="Resources\Icons\appbar.cog.png" />
     <Content Include="Resources\Icons\appbar.message.send.png" />
     <Content Include="Resources\Icons\feature.calendar.png" />
