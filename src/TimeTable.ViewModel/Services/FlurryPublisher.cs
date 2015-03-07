@@ -112,7 +112,7 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture))
             };
 
-            PublishEvent(FlurryEvents.EVENT_CHOOSE_UNIVERSITY, parameters);
+            PublishEvent(FlurryEvents.ChooseUniversity, parameters);
         }
 
         public void PublishFacultySelected([NotNull] Faculty selectedFaculty, [NotNull] University university)
@@ -128,23 +128,26 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("Faculty name", selectedFaculty.Title),
                 new EventParameter("Faculty id", selectedFaculty.Id.ToString(CultureInfo.InvariantCulture))
             };
-            PublishEvent(FlurryEvents.EVENT_CHOOSE_FACULTY, parameters);
+            PublishEvent(FlurryEvents.ChooseFaculty, parameters);
         }
 
-        public void PublishGroupSelected([NotNull] Group selectedGroup, [NotNull] University university)
+        public void PublishGroupSelected([NotNull] Group selectedGroup, [NotNull] Faculty faculty, [NotNull] University university)
         {
             if (selectedGroup == null) throw new ArgumentNullException("selectedGroup");
+            if (faculty == null) throw new ArgumentNullException("faculty");
             if (university == null) throw new ArgumentNullException("university");
 
             var parameters = new[]
             {
-                new EventParameter("University name", university.Name),
-                new EventParameter("University shortname", university.ShortName),
-                new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
-                new EventParameter("Group name", selectedGroup.GroupName),
-                new EventParameter("Group id", selectedGroup.Id.ToString(CultureInfo.InvariantCulture))
+                new EventParameter("University_name", university.Name),
+                new EventParameter("University_id", university.Id.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("Faculty_id", faculty.Id.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("Faculty_name", faculty.Title),
+                new EventParameter("Group_name", selectedGroup.GroupName),
+                new EventParameter("Group_id", selectedGroup.Id.ToString(CultureInfo.InvariantCulture))
+ 
             };
-            PublishEvent(FlurryEvents.EVENT_CHOOSE_GROUP, parameters);
+            PublishEvent(FlurryEvents.ChooseGroup, parameters);
         }
 
         public void PublishContextMenuShowTeachersTimeTable(University university, string name, string id)
@@ -159,7 +162,7 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("Mode", "teacher")
             };
 
-            PublishEvent(FlurryEvents.EVENT_CONTEXT_TEACHER_SCHEDULE, parameters);
+            PublishEvent(FlurryEvents.ContextTeacherSchedule, parameters);
         }
 
         public void PublishActionbarScheduleSettings([NotNull] University university, bool isTeacher, string name,
@@ -179,7 +182,7 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("Mode", mode)
             };
 
-            PublishEvent(FlurryEvents.EVENT_ACTIONBAR_SCHEDULE_SETTINGS, parameters);
+            PublishEvent(FlurryEvents.ActionbarScheduleSettings, parameters);
         }
 
 
@@ -198,7 +201,7 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("Mode", mode)
             };
 
-            PublishEvent(FlurryEvents.EVENT_ACTIONBAR_TODAY, parameters);
+            PublishEvent(FlurryEvents.ActionbarToday, parameters);
         }
 
         public void PublishMarkFavorite([NotNull] University university, bool isTeacher, string name, int id)
@@ -216,7 +219,7 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("Object Id", id.ToString(CultureInfo.InvariantCulture)),
                 new EventParameter("Mode", mode)
             };
-            PublishEvent(FlurryEvents.EVENT_ACTIONBAR_MARK_FAVORITE, parameters);
+            PublishEvent(FlurryEvents.ActionbarMarkFavorite, parameters);
         }
 
         public void PublishTeacherSelected([NotNull] Teacher selectedTeacher, [NotNull] University university)
@@ -232,7 +235,7 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("Teacher name", selectedTeacher.Name),
                 new EventParameter("Teacher Id", selectedTeacher.Id.ToString(CultureInfo.InvariantCulture))
             };
-            PublishEvent(FlurryEvents.EVENT_CHOOSE_TEACHER, parameters);
+            PublishEvent(FlurryEvents.ChooseTeacher, parameters);
         }
 
         public void PublishContextMenuShowGroupTimeTable(University university, string groupName, int id)
@@ -245,14 +248,14 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("Group name", groupName),
                 new EventParameter("Teacher Id", id.ToString(CultureInfo.InvariantCulture))
             };
-            PublishEvent(FlurryEvents.EVENT_CONTEXT_GROUP_SCHEDULE,parameters);
+            PublishEvent(FlurryEvents.ContextGroupSchedule,parameters);
         }
 
         public void PublishTimtableNotFoundEvent([CanBeNull] NavigationFlow navigationFlow)
         {
             if (navigationFlow == null)
             {
-                PublishEvent(FlurryEvents.EVENT_TIMETABLE_NOT_FOUND);
+                PublishEvent(FlurryEvents.TimetableNotFound);
                 return;
             }
             var parameters = new List<EventParameter>
@@ -266,72 +269,57 @@ namespace TimeTable.ViewModel.Services
                 parameters.Add(new EventParameter("Faculty_id", navigationFlow.FacultyId.ToString(CultureInfo.InvariantCulture)));
                 parameters.Add(new EventParameter("Faculty_name", navigationFlow.FacultyName));
             }
-            PublishEvent(FlurryEvents.EVENT_TIMETABLE_NOT_FOUND);
-        }
-
-        public void PublishReportError(string message)
-        {
-            var parameters = new[]
-            {
-                new EventParameter("Error message", message)
-            };
-            PublishEvent(FlurryEvents.EVENT_CONTEXT_REPORT_ERROR, parameters);
+            PublishEvent(FlurryEvents.TimetableNotFound);
         }
 
         public void PublishPageLoadedUniversities()
         {
-            PublishEvent(FlurryEvents.EventUniversitiesPageLoaded);
-        }
-
-        public void PublishPageLoadedReportError()
-        {
-            PublishEvent(FlurryEvents.EventReportErrorPageLoaded);
+            PublishEvent(FlurryEvents.UniversitiesPageLoaded);
         }
 
         public void PublishPageLoadedSelectRole()
         {
-            PublishEvent(FlurryEvents.EventSelectRolePageLoaded);
+            PublishEvent(FlurryEvents.SelectRolePageLoaded);
         }
 
         public void PublishPageLoadedGroups()
         {
-            PublishEvent(FlurryEvents.EventSelectGroupsPageLoaded);
+            PublishEvent(FlurryEvents.SelectGroupsPageLoaded);
         }
 
         public void PublishPageLoadedFaculties()
         {
-            PublishEvent(FlurryEvents.EventSelectUniversityPageLoaded);
+            PublishEvent(FlurryEvents.SelectUniversityPageLoaded);
         }
 
         public void PublishPageLoadedLessons()
         {
-            PublishEvent(FlurryEvents.EventLessonsPageLoaded);
+            PublishEvent(FlurryEvents.LessonsPageLoaded);
         }
 
         public void PublishPageLoadedFavorites()
         {
-            PublishEvent(FlurryEvents.EventFavoritesPageLoaded);
+            PublishEvent(FlurryEvents.FavoritesPageLoaded);
         }
 
         public void PublishPageLoadedSettings()
         {
-            PublishEvent(FlurryEvents.EventSettingsPageLoaded);
+            PublishEvent(FlurryEvents.SettingsPageLoaded);
         }
 
         public void PublishPageLoadedAbout()
         {
-            PublishEvent(FlurryEvents.EventAboutPageLoaded);
+            PublishEvent(FlurryEvents.AboutPageLoaded);
         }
 
         public void PublishShowMobile()
         {
-            PublishEvent(FlurryEvents.EVENT_SUPPORT_GO_TO_MOBILE_SITE);
+            PublishEvent(FlurryEvents.SupportGoToMobileSite);
         }
-
 
         public void PublishUpdateLessonEvent()
         {
-            PublishEvent(FlurryEvents.EVENT_CONTEXT_EDIT_EVENT);
+            PublishEvent(FlurryEvents.ContextEditEvent);
         }
     }
 }

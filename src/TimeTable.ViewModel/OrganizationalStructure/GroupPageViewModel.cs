@@ -105,7 +105,11 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                     _dataProvider.GetUniversityByIdAsync(_universityId)
                         .Subscribe(university =>
                         {
-                            FlurryPublisher.PublishGroupSelected(_selectedGroup, university);
+                            FlurryPublisher.PublishGroupSelected(_selectedGroup, new Faculty
+                            {
+                                Id = _navigationFlow.FacultyId,
+                                Title = _navigationFlow.FacultyName
+                            }, university);
                             NavigateToLessonsPage(_selectedGroup, university);
                         });
                 }
