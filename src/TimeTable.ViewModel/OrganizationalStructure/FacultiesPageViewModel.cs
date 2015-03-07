@@ -121,6 +121,11 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                     _facultyGroupFunc);
         }
 
+        protected override NavigationFlow GetFlurryParameters()
+        {
+            return _navigationFlow;
+        }
+
         private void NavigateToGroupsPage(Faculty faculty)
         {
             if (!_applicationSettings.IsRegistrationCompleted)
@@ -133,6 +138,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                 _applicationSettings.Me.TemporaryFaculty = faculty;
             }
             _navigationFlow.FacultyId = faculty.Id;
+            _navigationFlow.FacultyName = faculty.Title;
             _navigationFlow.IsTeacher = false;
             _navigation.NavigateTo<GroupPageViewModel, NavigationFlow>(_navigationFlow);
         }

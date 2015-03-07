@@ -95,6 +95,7 @@
     <Compile Include="OrganizationalStructure\AuditoriumNavigationParameter.cs" />
     <Compile Include="OrganizationalStructure\AuditoriumViewModel.cs" />
     <Compile Include="MenuItems\AppbarButtonViewModel.cs" />
+    <Compile Include="OrganizationalStructure\ISearchViewModel.cs" />
     <Compile Include="OrganizationalStructure\NavigationFlow.cs" />
     <Compile Include="WeekOverview\Commands\ShowAuditoriumCommand.cs" />
     <Compile Include="WeekOverview\Commands\ShowGroupTimeTableCommand.cs" />

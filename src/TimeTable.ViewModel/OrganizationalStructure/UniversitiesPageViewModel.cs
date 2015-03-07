@@ -117,7 +117,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
             {
                 _applicationSettings.Me.TemporaryUniversity = university;
             }
-            var facultyParameter = new NavigationFlow {UniversityId = university.Id, Reason = _reason};
+            var facultyParameter = new NavigationFlow {UniversityId = university.Id, Reason = _reason, UniversityName =  university.ShortName};
             _navigation.NavigateTo<FacultiesPageViewModel,NavigationFlow>(facultyParameter);
         }
 
@@ -132,6 +132,11 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                 String.IsNullOrEmpty(search)
                     ? _storedRequest.Data
                     : _storedRequest.Data.Where(u => Matches(u, search)), _resultGrouper);
+        }
+
+        protected override NavigationFlow GetFlurryParameters()
+        {
+            return null;
         }
 
         private static bool Matches(University university, string search)

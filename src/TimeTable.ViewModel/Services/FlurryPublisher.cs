@@ -4,6 +4,7 @@ using System.Globalization;
 using JetBrains.Annotations;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
+using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.ViewModel.Services
 {
@@ -247,6 +248,27 @@ namespace TimeTable.ViewModel.Services
             PublishEvent(FlurryEvents.EVENT_CONTEXT_GROUP_SCHEDULE,parameters);
         }
 
+        public void PublishTimtableNotFoundEvent([CanBeNull] NavigationFlow navigationFlow)
+        {
+            if (navigationFlow == null)
+            {
+                PublishEvent(FlurryEvents.EVENT_TIMETABLE_NOT_FOUND);
+                return;
+            }
+            var parameters = new List<EventParameter>
+            {
+                new EventParameter("University name", navigationFlow.UniversityName),
+                new EventParameter("University id", navigationFlow.UniversityId.ToString(CultureInfo.InvariantCulture)),
+            };
+
+            if (navigationFlow.FacultyId != 0)
+            {
+                parameters.Add(new EventParameter("Faculty_id", navigationFlow.FacultyId.ToString(CultureInfo.InvariantCulture)));
+                parameters.Add(new EventParameter("Faculty_name", navigationFlow.FacultyName));
+            }
+            PublishEvent(FlurryEvents.EVENT_TIMETABLE_NOT_FOUND);
+        }
+
         public void PublishReportError(string message)
         {
             var parameters = new[]
@@ -256,7 +278,6 @@ namespace TimeTable.ViewModel.Services
             PublishEvent(FlurryEvents.EVENT_CONTEXT_REPORT_ERROR, parameters);
         }
 
-        #region PagesLoadedEvents
         public void PublishPageLoadedUniversities()
         {
             PublishEvent(FlurryEvents.EventUniversitiesPageLoaded);
@@ -301,17 +322,12 @@ namespace TimeTable.ViewModel.Services
         {
             PublishEvent(FlurryEvents.EventAboutPageLoaded);
         }
-        #endregion
 
         public void PublishShowMobile()
         {
             PublishEvent(FlurryEvents.EVENT_SUPPORT_GO_TO_MOBILE_SITE);
         }
 
-        public void PublishTimtableNotFoundEvent()
-        {
-            PublishEvent(FlurryEvents.EVENT_TIMETABLE_NOT_FOUND);
-        }
 
         public void PublishUpdateLessonEvent()
         {
