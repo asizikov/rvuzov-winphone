@@ -131,7 +131,7 @@ namespace TimeTable.ViewModel.Services
             PublishEvent(FlurryEvents.ChooseFaculty, parameters);
         }
 
-        public void PublishGroupSelected([NotNull] Group selectedGroup, [NotNull] Faculty faculty, [NotNull] University university)
+        public void PublishGroupSelected([NotNull] Group selectedGroup, [NotNull] Faculty faculty, [NotNull] University university, Reason reason)
         {
             if (selectedGroup == null) throw new ArgumentNullException("selectedGroup");
             if (faculty == null) throw new ArgumentNullException("faculty");
@@ -147,7 +147,19 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("Group_id", selectedGroup.Id.ToString(CultureInfo.InvariantCulture))
  
             };
-            PublishEvent(FlurryEvents.ChooseGroup, parameters);
+            switch (reason)
+            {
+                case Reason.Registration:
+                    PublishEvent(FlurryEvents.ChooseGroup, parameters);
+                    break;
+                case Reason.AddingFavorites:
+                    PublishEvent(FlurryEvents.FavoriteGroup, parameters);
+                    break;
+                case Reason.ChangeDefault:
+                    PublishEvent(FlurryEvents.ChangeGroup, parameters);
+                    break;
+            }
+            
         }
 
         public void PublishContextMenuShowTeachersTimeTable(University university, string name, string id)
@@ -222,20 +234,32 @@ namespace TimeTable.ViewModel.Services
             PublishEvent(FlurryEvents.ActionbarMarkFavorite, parameters);
         }
 
-        public void PublishTeacherSelected([NotNull] Teacher selectedTeacher, [NotNull] University university)
+        public void PublishTeacherSelected([NotNull] Teacher selectedTeacher, [NotNull] University university, [NotNull] Faculty faculty, Reason reason)
         {
             if (selectedTeacher == null) throw new ArgumentNullException("selectedTeacher");
             if (university == null) throw new ArgumentNullException("university");
 
             var parameters = new[]
             {
-                new EventParameter("University name", university.Name),
-                new EventParameter("University shortname", university.ShortName),
-                new EventParameter("University id", university.Id.ToString(CultureInfo.InvariantCulture)),
-                new EventParameter("Teacher name", selectedTeacher.Name),
-                new EventParameter("Teacher Id", selectedTeacher.Id.ToString(CultureInfo.InvariantCulture))
+                new EventParameter("University_name", university.Name),
+                new EventParameter("University_id", university.Id.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("Faculty_id", faculty.Id.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("Faculty_name", faculty.Title),
+                new EventParameter("Teacher_name", selectedTeacher.Name),
+                new EventParameter("Teacher_id", selectedTeacher.Id.ToString(CultureInfo.InvariantCulture))
             };
-            PublishEvent(FlurryEvents.ChooseTeacher, parameters);
+            switch (reason)
+            {
+                case Reason.Registration:
+                    PublishEvent(FlurryEvents.ChooseTeacher, parameters);
+                    break;
+                case Reason.AddingFavorites:
+                    PublishEvent(FlurryEvents.FavoriteTeacher, parameters);
+                    break;
+                case Reason.ChangeDefault:
+                    PublishEvent(FlurryEvents.ChangeTeacher, parameters);
+                    break;
+            }
         }
 
         public void PublishContextMenuShowGroupTimeTable(University university, string groupName, int id)

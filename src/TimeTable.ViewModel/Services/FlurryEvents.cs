@@ -6,6 +6,10 @@
         public const string ChooseFaculty = "CHOOSE_FACULTY";
         public const string ChooseTeacher = "CHOOSE_TEACHER";
         public const string ChooseGroup = "CHOOSE_GROUP";
+        public const string ChangeGroup = "CHANGE_GROUP";
+        public const string ChangeTeacher = "CHANGE_TEACHER";
+        public const string FavoriteGroup = "FAVORITE_GROUP";
+        public const string FavoriteTeacher = "FAVORITE_TEACHER";
         public static readonly string MenuFavoriteAdd = "MENU_FAVORITE_ADD";
         public const string ActionbarMarkFavorite = "ACTIONBAR_MARK_FAVORITE";
         public static readonly string ContextAuditory = "CONTEXT_AUDITORY";

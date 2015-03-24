@@ -109,7 +109,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                             {
                                 Id = _navigationFlow.FacultyId,
                                 Title = _navigationFlow.FacultyName
-                            }, university);
+                            }, university,_reason);
                             NavigateToLessonsPage(_selectedGroup, university);
                         });
                 }
@@ -130,7 +130,11 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                     _dataProvider.GetUniversityByIdAsync(_universityId)
                         .Subscribe(university =>
                         {
-                            FlurryPublisher.PublishTeacherSelected(_selectedTeacher, university);
+                            FlurryPublisher.PublishTeacherSelected(_selectedTeacher, university, new Faculty
+                            {
+                                Id = _navigationFlow.FacultyId,
+                                Title = _navigationFlow.FacultyName
+                            }, _reason);
                             NavigateToLessonsPage(_selectedTeacher, university);
                         });
                 }
