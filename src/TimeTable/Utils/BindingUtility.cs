@@ -24,7 +24,7 @@ namespace TimeTable.Utils
                     new PropertyMetadata(false, OnPropertyChanged));
 
         private static void OnPropertyChanged(DependencyObject d,
-            DependencyPropertyChangedEventArgs e)
+                                              DependencyPropertyChangedEventArgs e)
         {
             var textBox = d as TextBox;
             if (textBox == null)

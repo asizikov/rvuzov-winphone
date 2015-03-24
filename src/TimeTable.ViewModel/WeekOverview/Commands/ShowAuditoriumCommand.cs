@@ -16,7 +16,8 @@ namespace TimeTable.ViewModel.WeekOverview.Commands
         private readonly Auditorium _auditorium;
 
         public ShowAuditoriumCommand([NotNull] INavigationService navigationService,
-            [NotNull] IUiStringsProviders stringsProviders, int universityId, [NotNull] Auditorium auditorium)
+                                     [NotNull] IUiStringsProviders stringsProviders, int universityId,
+                                     [NotNull] Auditorium auditorium)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
             if (stringsProviders == null) throw new ArgumentNullException("stringsProviders");
@@ -36,14 +37,14 @@ namespace TimeTable.ViewModel.WeekOverview.Commands
             var address = String.IsNullOrEmpty(_auditorium.Address) ? string.Empty : _auditorium.Address;
             var name = String.IsNullOrEmpty(_auditorium.Name) ? string.Empty : _auditorium.Name;
 
-            _navigationService.NavigateTo<AuditoriumViewModel, AuditoriumNavigationParameter>(new AuditoriumNavigationParameter
-            {
-                AuditoriumId = _auditorium.Id,
-                AuditoriumName = name,
-                AuditoriumAddress = address,
-                UniversityId = _universityId
-            });
-
+            _navigationService.NavigateTo<AuditoriumViewModel, AuditoriumNavigationParameter>(
+                new AuditoriumNavigationParameter
+                {
+                    AuditoriumId = _auditorium.Id,
+                    AuditoriumName = name,
+                    AuditoriumAddress = address,
+                    UniversityId = _universityId
+                });
         }
 
         public event EventHandler CanExecuteChanged;

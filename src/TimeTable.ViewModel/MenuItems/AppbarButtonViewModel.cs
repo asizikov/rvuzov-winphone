@@ -7,10 +7,10 @@ namespace TimeTable.ViewModel.MenuItems
     {
         [UsedImplicitly]
         public string Text { get; set; }
+
         [UsedImplicitly]
         public ICommand Command { get; set; }
 
         public string IconUri { get; set; }
-        
     }
 }

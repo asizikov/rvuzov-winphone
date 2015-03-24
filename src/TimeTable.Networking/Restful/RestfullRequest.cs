@@ -12,7 +12,7 @@ namespace TimeTable.Networking.Restful
 
     public static class RestfullRequest
     {
-        public static RestfullRequest<T> Create<T>(string resource, [NotNull] WebService webService) where T: class
+        public static RestfullRequest<T> Create<T>(string resource, [NotNull] WebService webService) where T : class
         {
             return new RestfullRequest<T>(webService, resource);
         }

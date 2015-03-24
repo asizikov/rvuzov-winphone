@@ -20,8 +20,10 @@ namespace TimeTable.ViewModel.WeekOverview.Commands
 
 
         public ShowGroupTimeTableCommand([NotNull] INavigationService navigationService,
-            [NotNull] FlurryPublisher flurryPublisher, [NotNull] IAsyncDataProvider dataProvider,
-            [NotNull] IUiStringsProviders stringsProviders, [NotNull] University university, [NotNull] LessonGroup group)
+                                         [NotNull] FlurryPublisher flurryPublisher,
+                                         [NotNull] IAsyncDataProvider dataProvider,
+                                         [NotNull] IUiStringsProviders stringsProviders, [NotNull] University university,
+                                         [NotNull] LessonGroup group)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");

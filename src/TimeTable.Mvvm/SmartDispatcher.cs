@@ -11,26 +11,26 @@ using System.Windows.Threading;
 namespace TimeTable.Mvvm
 {
     /// <summary>
-    /// A smart dispatcher system for routing actions to the user interface
-    /// thread.
+    ///     A smart dispatcher system for routing actions to the user interface
+    ///     thread.
     /// </summary>
     public static class SmartDispatcher
     {
         /// <summary>
-        /// A single Dispatcher instance to marshall actions to the user
-        /// interface thread.
+        ///     A single Dispatcher instance to marshall actions to the user
+        ///     interface thread.
         /// </summary>
         private static Dispatcher _instance;
 
         /// <summary>
-        /// Backing field for a value indicating whether this is a design-time
-        /// environment.
+        ///     Backing field for a value indicating whether this is a design-time
+        ///     environment.
         /// </summary>
         private static bool? _designer;
 
         /// <summary>
-        /// Requires an instance and attempts to find a Dispatcher if one has
-        /// not yet been set.
+        ///     Requires an instance and attempts to find a Dispatcher if one has
+        ///     not yet been set.
         /// </summary>
         private static void RequireInstance()
         {
@@ -55,7 +55,9 @@ namespace TimeTable.Mvvm
             }
             catch (Exception e)
             {
-                throw new InvalidOperationException("The first time SmartDispatcher is used must be from a user interface thread. Consider having the application call Initialize, with or without an instance.", e);
+                throw new InvalidOperationException(
+                    "The first time SmartDispatcher is used must be from a user interface thread. Consider having the application call Initialize, with or without an instance.",
+                    e);
             }
 
             if (_instance == null)
@@ -65,8 +67,8 @@ namespace TimeTable.Mvvm
         }
 
         /// <summary>
-        /// Initializes the SmartDispatcher system, attempting to use the
-        /// RootVisual of the plugin to retrieve a Dispatcher instance.
+        ///     Initializes the SmartDispatcher system, attempting to use the
+        ///     RootVisual of the plugin to retrieve a Dispatcher instance.
         /// </summary>
         public static void Initialize()
         {
@@ -77,8 +79,8 @@ namespace TimeTable.Mvvm
         }
 
         /// <summary>
-        /// Initializes the SmartDispatcher system with the dispatcher
-        /// instance.
+        ///     Initializes the SmartDispatcher system with the dispatcher
+        ///     instance.
         /// </summary>
         /// <param name="dispatcher">The dispatcher instance.</param>
         public static void Initialize(Dispatcher dispatcher)
@@ -97,7 +99,6 @@ namespace TimeTable.Mvvm
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <returns></returns>
         public static bool CheckAccess()
@@ -111,13 +112,15 @@ namespace TimeTable.Mvvm
         }
 
         /// <summary>
-        /// Executes the specified delegate asynchronously on the user interface
-        /// thread. If the current thread is the user interface thread, the
-        /// dispatcher if not used and the operation happens immediately.
+        ///     Executes the specified delegate asynchronously on the user interface
+        ///     thread. If the current thread is the user interface thread, the
+        ///     dispatcher if not used and the operation happens immediately.
         /// </summary>
-        /// <param name="a">A delegate to a method that takes no arguments and 
-        /// does not return a value, which is either pushed onto the Dispatcher 
-        /// event queue or immediately run, depending on the current thread.</param>
+        /// <param name="a">
+        ///     A delegate to a method that takes no arguments and
+        ///     does not return a value, which is either pushed onto the Dispatcher
+        ///     event queue or immediately run, depending on the current thread.
+        /// </param>
         public static void BeginInvoke(Action a)
         {
             if (_instance == null)

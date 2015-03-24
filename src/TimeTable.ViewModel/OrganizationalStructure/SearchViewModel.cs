@@ -89,7 +89,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         }
 
         protected static ObservableCollection<ListGroup<T>> FormatResult<T>([NotNull] IEnumerable<T> result,
-            Func<T, char> groupFunc)
+                                                                            Func<T, char> groupFunc)
         {
             var grouped = result
                 .GroupBy(groupFunc)
@@ -106,7 +106,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private void NotFound()
         {
             FlurryPublisher.PublishTimtableNotFoundEvent(GetFlurryParameters());
-            var webBrowserTask = new WebBrowserTask { Uri = new Uri(Url) };
+            var webBrowserTask = new WebBrowserTask {Uri = new Uri(Url)};
             webBrowserTask.Show();
         }
     }

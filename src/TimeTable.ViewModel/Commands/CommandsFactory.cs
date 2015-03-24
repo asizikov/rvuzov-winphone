@@ -19,7 +19,7 @@ namespace TimeTable.ViewModel.Commands
         private readonly IAsyncDataProvider _dataProvider;
 
         public CommandsFactory([NotNull] INavigationService navigationService, [NotNull] FlurryPublisher flurryPublisher,
-            [NotNull] IUiStringsProviders stringsProviders, [NotNull] IAsyncDataProvider dataProvider)
+                               [NotNull] IUiStringsProviders stringsProviders, [NotNull] IAsyncDataProvider dataProvider)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
@@ -45,9 +45,9 @@ namespace TimeTable.ViewModel.Commands
                 university, group);
         }
 
-        public ITitledCommand GetUpdateLessonCommand(NavigationFlow navigationFlow,[CanBeNull] Group group)
+        public ITitledCommand GetUpdateLessonCommand(NavigationFlow navigationFlow, [CanBeNull] Group group)
         {
-            return new UpdateLessonCommand(_flurryPublisher,_stringsProviders, navigationFlow, group);
+            return new UpdateLessonCommand(_flurryPublisher, _stringsProviders, navigationFlow, group);
         }
 
         [NotNull]

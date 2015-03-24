@@ -57,7 +57,6 @@ namespace TimeTable.ViewModel.WeekOverview
                                     [NotNull] FavoritedItemsManager favoritedItemsManager,
                                     [NotNull] IUiStringsProviders stringsProviders,
                                     [NotNull] INotificationService notificationService)
-
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
@@ -196,10 +195,17 @@ namespace TimeTable.ViewModel.WeekOverview
 
             var navigationFlow = CreateNavigationFlowForFlurry();
 
-            Task.Factory.StartNew(() => CurrentWeek = _weekViewModelFactory.Create(days, weekNumber, WeekType.Current,navigationFlow, _group));
-            Task.Factory.StartNew(() => NextWeek = _weekViewModelFactory.Create(days, weekNumber + 1, WeekType.Next,navigationFlow, _group));
             Task.Factory.StartNew(
-                () => PreviousWeek = _weekViewModelFactory.Create(days, weekNumber - 1, WeekType.Previous,navigationFlow, _group));
+                () =>
+                    CurrentWeek =
+                        _weekViewModelFactory.Create(days, weekNumber, WeekType.Current, navigationFlow, _group));
+            Task.Factory.StartNew(
+                () =>
+                    NextWeek = _weekViewModelFactory.Create(days, weekNumber + 1, WeekType.Next, navigationFlow, _group));
+            Task.Factory.StartNew(
+                () =>
+                    PreviousWeek =
+                        _weekViewModelFactory.Create(days, weekNumber - 1, WeekType.Previous, navigationFlow, _group));
             IsLoading = false;
         }
 

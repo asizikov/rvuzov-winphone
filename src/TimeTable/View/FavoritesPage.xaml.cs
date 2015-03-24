@@ -5,7 +5,7 @@ using TimeTable.ViewModel.FavoritedTimeTables;
 
 namespace TimeTable.View
 {
-    [DependsOnViewModel(typeof(FavoritesViewModel))]
+    [DependsOnViewModel(typeof (FavoritesViewModel))]
     public partial class FavoritesPage
     {
         public FavoritesPage()

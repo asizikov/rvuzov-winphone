@@ -18,7 +18,8 @@ namespace TimeTable.ViewModel.WeekOverview.Factories
             _dayViewModelFactory = new DayViewModelFactory(menuItemsFactory, isTeacher, id);
         }
 
-        public WeekViewModel Create([CanBeNull] IEnumerable<Day> days, int weekNumber, WeekType weekType, NavigationFlow navigationFlow,[CanBeNull] Group group)
+        public WeekViewModel Create([CanBeNull] IEnumerable<Day> days, int weekNumber, WeekType weekType,
+                                    NavigationFlow navigationFlow, [CanBeNull] Group group)
         {
             return new WeekViewModel(days, weekNumber, _dayViewModelFactory, weekType, navigationFlow, group);
         }

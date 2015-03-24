@@ -5,7 +5,7 @@ using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.View
 {
-    [DependsOnViewModel(typeof(AuditoriumViewModel))]
+    [DependsOnViewModel(typeof (AuditoriumViewModel))]
     public partial class AuditoriumsPage
     {
         public AuditoriumsPage()

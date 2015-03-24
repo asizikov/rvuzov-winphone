@@ -9,6 +9,7 @@ namespace TimeTable.Domain.Lessons
     {
         [JsonProperty("lessons")]
         public List<Lesson> Lessons { get; set; }
+
         [JsonProperty("weekday")]
         public int Weekday { get; set; }
     }
@@ -17,6 +18,7 @@ namespace TimeTable.Domain.Lessons
     {
         [JsonProperty("lesson")]
         public ErrorLesson Lesson { get; set; }
+
         [JsonProperty("message")]
         public string ErrorText { get; set; }
     }
@@ -25,6 +27,5 @@ namespace TimeTable.Domain.Lessons
     {
         [JsonProperty("id")]
         public int Id { get; set; }
-        
     }
 }

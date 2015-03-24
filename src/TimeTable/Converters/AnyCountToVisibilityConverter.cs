@@ -10,6 +10,7 @@ namespace TimeTable.Converters
     public class AnyCountToVisibilityConverter : IValueConverter
     {
         private Visibility _anyVisibility = Visibility.Visible;
+
         public Visibility AnyVisibility
         {
             get { return _anyVisibility; }
@@ -17,6 +18,7 @@ namespace TimeTable.Converters
         }
 
         private Visibility _emptyVisibility = Visibility.Collapsed;
+
         public Visibility EmptyVisibility
         {
             get { return _emptyVisibility; }
@@ -29,7 +31,7 @@ namespace TimeTable.Converters
             if (iList == null)
             {
                 Debug.WriteLine("AnyCountToVisibilityConverter didn't get an IList as a parameter");
-                iList = new object[]{};
+                iList = new object[] {};
             }
 
             return iList.Count > 0 ? AnyVisibility : EmptyVisibility;

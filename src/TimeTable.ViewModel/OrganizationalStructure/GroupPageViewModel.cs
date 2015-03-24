@@ -35,9 +35,11 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private NavigationFlow _navigationFlow;
 
         public GroupPageViewModel([NotNull] INavigationService navigation,
-            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] IAsyncDataProvider dataProvider,
-            [NotNull] INotificationService notificationService, [NotNull] FlurryPublisher flurryPublisher,
-            [NotNull] FavoritedItemsManager favoritedItemsManager) : base(flurryPublisher)
+                                  [NotNull] BaseApplicationSettings applicationSettings,
+                                  [NotNull] IAsyncDataProvider dataProvider,
+                                  [NotNull] INotificationService notificationService,
+                                  [NotNull] FlurryPublisher flurryPublisher,
+                                  [NotNull] FavoritedItemsManager favoritedItemsManager) : base(flurryPublisher)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (notificationService == null) throw new ArgumentNullException("notificationService");
@@ -103,15 +105,15 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                 if (_selectedGroup != null)
                 {
                     _dataProvider.GetUniversityByIdAsync(_universityId)
-                        .Subscribe(university =>
-                        {
-                            FlurryPublisher.PublishGroupSelected(_selectedGroup, new Faculty
-                            {
-                                Id = _navigationFlow.FacultyId,
-                                Title = _navigationFlow.FacultyName
-                            }, university,_reason);
-                            NavigateToLessonsPage(_selectedGroup, university);
-                        });
+                                 .Subscribe(university =>
+                                 {
+                                     FlurryPublisher.PublishGroupSelected(_selectedGroup, new Faculty
+                                     {
+                                         Id = _navigationFlow.FacultyId,
+                                         Title = _navigationFlow.FacultyName
+                                     }, university, _reason);
+                                     NavigateToLessonsPage(_selectedGroup, university);
+                                 });
                 }
             }
         }
@@ -128,15 +130,15 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                 if (_selectedTeacher != null)
                 {
                     _dataProvider.GetUniversityByIdAsync(_universityId)
-                        .Subscribe(university =>
-                        {
-                            FlurryPublisher.PublishTeacherSelected(_selectedTeacher, university, new Faculty
-                            {
-                                Id = _navigationFlow.FacultyId,
-                                Title = _navigationFlow.FacultyName
-                            }, _reason);
-                            NavigateToLessonsPage(_selectedTeacher, university);
-                        });
+                                 .Subscribe(university =>
+                                 {
+                                     FlurryPublisher.PublishTeacherSelected(_selectedTeacher, university, new Faculty
+                                     {
+                                         Id = _navigationFlow.FacultyId,
+                                         Title = _navigationFlow.FacultyName
+                                     }, _reason);
+                                     NavigateToLessonsPage(_selectedTeacher, university);
+                                 });
                 }
             }
         }
@@ -238,7 +240,8 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                     _applicationSettings.Me.Teacher = null;
                     _applicationSettings.Me.TemporaryFaculty = null;
                     _applicationSettings.Me.TemporaryUniversity = null;
-                    _navigation.NavigateTo<LessonsPageViewModel, LessonsNavigationParameter>(GetNavigationParameters(group),
+                    _navigation.NavigateTo<LessonsPageViewModel, LessonsNavigationParameter>(
+                        GetNavigationParameters(group),
                         5);
                     break;
                 default:
@@ -285,7 +288,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private void AddTeacherToFavorites(Teacher teacher, University university)
         {
             _favoritedItemsManager.Add(true, teacher.Id, teacher.Name, university, _facultyId);
-            _navigation.NavigateTo<LessonsPageViewModel,LessonsNavigationParameter>(GetNavigationParameters(teacher),4);
+            _navigation.NavigateTo<LessonsPageViewModel, LessonsNavigationParameter>(GetNavigationParameters(teacher), 4);
         }
 
         private LessonsNavigationParameter GetNavigationParameters(Group group)

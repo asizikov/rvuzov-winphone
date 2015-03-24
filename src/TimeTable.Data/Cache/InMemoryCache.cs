@@ -24,7 +24,8 @@ namespace TimeTable.Data.Cache
             var stopwatch = Stopwatch.StartNew();
             Debug.WriteLine("InMemoryCache:Initializing");
             PullFromStorage();
-            Debug.WriteLine("InMemoryCache:Initialized in {0} ms", stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
+            Debug.WriteLine("InMemoryCache:Initialized in {0} ms",
+                stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
         }
 
         public bool IsCached<T>(string url) where T : class

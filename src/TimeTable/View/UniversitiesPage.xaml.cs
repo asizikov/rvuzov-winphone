@@ -8,7 +8,7 @@ using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.View
 {
-    [DependsOnViewModel(typeof(UniversitiesPageViewModel))]
+    [DependsOnViewModel(typeof (UniversitiesPageViewModel))]
     public partial class UniversitiesPage
     {
         public UniversitiesPage()
@@ -26,7 +26,7 @@ namespace TimeTable.View
             if (State.Count > 0)
             {
                 this.RestoreState(Search);
-                Search.Visibility = (Visibility)this.RestoreState(SearchKey);
+                Search.Visibility = (Visibility) this.RestoreState(SearchKey);
             }
         }
 

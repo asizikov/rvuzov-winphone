@@ -1,10 +1,10 @@
-﻿using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Resources;
-
-// General Information about an assembly is controlled through the following 
+﻿// General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+
+using System.Reflection;
+using System.Resources;
+using System.Runtime.InteropServices;
 using TimeTable.Mvvm.Navigation;
 
 [assembly: AssemblyTitle("Расписание вузов")]
@@ -17,5 +17,5 @@ using TimeTable.Mvvm.Navigation;
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("1.0.7")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: NeutralResourcesLanguageAttribute("ru")]
+[assembly: NeutralResourcesLanguage("ru")]
 [assembly: ContainsNavigationDestinations]

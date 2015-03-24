@@ -20,7 +20,7 @@ namespace TimeTable.Mvvm.Navigation
         }
 
         public NavigationService([NotNull] NavigationServiceConfiguration configuration,
-            [NotNull] IPlatformNavigationService platformNavigationService)
+                                 [NotNull] IPlatformNavigationService platformNavigationService)
         {
             if (configuration == null) throw new ArgumentNullException("configuration");
             if (platformNavigationService == null) throw new ArgumentNullException("platformNavigationService");

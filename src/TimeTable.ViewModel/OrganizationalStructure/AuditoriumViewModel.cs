@@ -41,16 +41,10 @@ namespace TimeTable.ViewModel.OrganizationalStructure
 
         private void Init(int universityId)
         {
-            _dataProvider.GetUniversityByIdAsync(universityId).Subscribe(university =>
-            {
-                _university = university;
-            });
+            _dataProvider.GetUniversityByIdAsync(universityId).Subscribe(university => { _university = university; });
         }
 
-        public ICommand ShowInApp
-        {
-            get; private set;
-        }
+        public ICommand ShowInApp { get; private set; }
 
         public string Address
         {
@@ -86,7 +80,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         {
             var mapsTask = new BingMapsTask
             {
-                SearchTerm = GetSearchQuery(), 
+                SearchTerm = GetSearchQuery(),
                 ZoomLevel = 2
             };
 
@@ -99,7 +93,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
             {
                 return Address;
             }
-            return _university == null?  string.Empty: _university.Name;
+            return _university == null ? string.Empty : _university.Name;
         }
     }
 }

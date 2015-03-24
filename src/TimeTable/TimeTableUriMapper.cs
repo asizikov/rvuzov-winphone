@@ -18,7 +18,7 @@ namespace TimeTable
         private INavigationService NavigationService { get; set; }
 
         public TimeTableUriMapper([NotNull] BaseApplicationSettings applicationSettings,
-            [NotNull] INavigationService navigationService)
+                                  [NotNull] INavigationService navigationService)
         {
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");
             if (navigationService == null) throw new ArgumentNullException("navigationService");
@@ -39,7 +39,7 @@ namespace TimeTable
                 var isTeacher = _applicationSettings.Me.Teacher != null;
                 var navigationParameter = new LessonsNavigationParameter
                 {
-                    Id=isTeacher ? _applicationSettings.Me.Teacher.Id : _applicationSettings.Me.DefaultGroup.Id,
+                    Id = isTeacher ? _applicationSettings.Me.Teacher.Id : _applicationSettings.Me.DefaultGroup.Id,
                     IsTeacher = isTeacher,
                     UniversityId = _applicationSettings.Me.University.Id,
                     FacultyId = _applicationSettings.Me.Faculty.Id
@@ -60,7 +60,7 @@ namespace TimeTable
             {
                 navigationFlow.UniversityId = _applicationSettings.Me.University.Id;
                 navigationFlow.UniversityName = _applicationSettings.Me.University.ShortName;
-                return NavigationService.GetUri<FacultiesPage, NavigationFlow>(navigationFlow );
+                return NavigationService.GetUri<FacultiesPage, NavigationFlow>(navigationFlow);
             }
             if (_applicationSettings.Me.Role != UserRole.None)
             {

@@ -22,7 +22,7 @@ namespace TimeTable.Data
         }
 
         protected IObservable<T> GetDataAsync<T>(RestfullRequest<T> request,
-            CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
+                                                 CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
             where T : class
         {
             if (!_cache.IsCached<T>(request.Url))
@@ -66,42 +66,42 @@ namespace TimeTable.Data
             where T : class
         {
             request.Execute()
-                .Subscribe(result =>
-                {
-                    _cache.Put(result, request.Url);
-                    observer.OnNext(result);
-                },
-                    ex =>
-                    {
-                        if (!ignoreErrors)
-                        {
-                            observer.OnError(ex);
-                        }
-                    },
-                    observer.OnCompleted);
+                   .Subscribe(result =>
+                   {
+                       _cache.Put(result, request.Url);
+                       observer.OnNext(result);
+                   },
+                       ex =>
+                       {
+                           if (!ignoreErrors)
+                           {
+                               observer.OnError(ex);
+                           }
+                       },
+                       observer.OnCompleted);
         }
 
         private void CheckIfNeededToBeUpdated<T>(RestfullRequest<T> request, IUpdatableModel updatable,
-            IObserver<T> observer)
+                                                 IObserver<T> observer)
             where T : class
         {
             var lastUpdated = updatable.LastUpdated;
             var lastUpdatedRequest = CallFactory.GetLastUpdatedRequest(request.ResourceUrl);
             Debug.WriteLine("WebClient::CheckIfNeededToBeUpdated " + lastUpdatedRequest.Url);
             lastUpdatedRequest.Execute()
-                .Subscribe(
-                    resutl =>
-                    {
-                        if (resutl.Data > lastUpdated)
-                        {
-                            Debug.WriteLine("WebClient::CheckIfNeededToBeUpdated::Updating " + request.Url);
-                            ExecuteRequest(request, observer);
-                        }
-                        else
-                        {
-                            observer.OnCompleted();
-                        }
-                    }, ex => observer.OnCompleted());
+                              .Subscribe(
+                                  resutl =>
+                                  {
+                                      if (resutl.Data > lastUpdated)
+                                      {
+                                          Debug.WriteLine("WebClient::CheckIfNeededToBeUpdated::Updating " + request.Url);
+                                          ExecuteRequest(request, observer);
+                                      }
+                                      else
+                                      {
+                                          observer.OnCompleted();
+                                      }
+                                  }, ex => observer.OnCompleted());
         }
     }
 }

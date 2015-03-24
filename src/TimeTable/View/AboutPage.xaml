@@ -41,7 +41,7 @@
             <TextBlock
                 Style="{StaticResource PhoneTextNormalStyle}"
                 Text="{Binding Strings.AboutText , Source={StaticResource LocalizedStrings}}"
-                TextWrapping="Wrap"></TextBlock>
+                TextWrapping="Wrap" />
             <Button 
                 Margin="0,12"
                 Command="{Binding ShowMobileSiteCommand}"

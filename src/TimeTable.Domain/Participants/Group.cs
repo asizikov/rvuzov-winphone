@@ -11,7 +11,7 @@ namespace TimeTable.Domain.Participants
         [JsonProperty("title")]
         public string GroupName { get; set; }
 
-        [CanBeNull,JsonProperty("speciality")]
+        [CanBeNull, JsonProperty("speciality")]
         public string Speciality { get; set; }
 
         [JsonProperty("timestamp")]

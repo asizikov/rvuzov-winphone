@@ -36,8 +36,7 @@
                 Visibility="{Binding IsSearchBoxVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay}"
                 Text="{Binding Query, Mode=TwoWay}"
                 utils:BindingUtility.UpdateSourceOnChange="True"
-                x:FieldModifier="private" Style="{StaticResource TimeTableSearchTextBoxStyle}">
-            </TextBox>
+                x:FieldModifier="private" Style="{StaticResource TimeTableSearchTextBoxStyle}" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->

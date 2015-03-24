@@ -39,7 +39,8 @@ namespace TimeTable.IoC
             Kernel.Bind<INotificationService>().To<NotificationService>().InSingletonScope();
             Kernel.Bind<ICommandFactory>().To<CommandsFactory>().InSingletonScope();
             Kernel.Bind<FavoritedItemsManager>().To<FavoritedItemsManager>().InSingletonScope();
-            Debug.WriteLine("Container::Initialize ended in {0} ms", stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
+            Debug.WriteLine("Container::Initialize ended in {0} ms",
+                stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
         }
 
         public static T Resolve<T>()

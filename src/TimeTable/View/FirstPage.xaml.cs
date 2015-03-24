@@ -5,7 +5,7 @@ using TimeTable.ViewModel.ApplicationLevel;
 
 namespace TimeTable.View
 {
-    [DependsOnViewModel(typeof(FirstPageViewModel))]
+    [DependsOnViewModel(typeof (FirstPageViewModel))]
     public partial class FirstPage : PhoneApplicationPage
     {
         public FirstPage()
