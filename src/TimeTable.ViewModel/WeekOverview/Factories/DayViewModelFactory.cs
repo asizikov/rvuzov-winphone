@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Domain.Lessons;
+using TimeTable.Domain.Participants;
+using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.ViewModel.WeekOverview.Factories
 {
@@ -20,14 +22,16 @@ namespace TimeTable.ViewModel.WeekOverview.Factories
             _holderId = holderId;
         }
 
-        public IEnumerable<DayViewModel> CreateList([CanBeNull] IEnumerable<Day> models, WeekType type, int parity)
+        public IEnumerable<DayViewModel> CreateList([CanBeNull] IEnumerable<Day> models, NavigationFlow navigationFlow,
+                                                    Group group, WeekType type, int parity)
         {
             if (models == null)
             {
                 return Enumerable.Empty<DayViewModel>();
             }
             return models.Select(
-                day => new DayViewModel(day, type, parity, _menuItemsFactory, _isTeacher, _holderId));
+                day =>
+                    new DayViewModel(day, type, parity, _menuItemsFactory, _isTeacher, _holderId, navigationFlow, group));
         }
     }
 }

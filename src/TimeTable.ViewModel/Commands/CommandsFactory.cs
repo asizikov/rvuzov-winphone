@@ -3,7 +3,9 @@ using JetBrains.Annotations;
 using TimeTable.Domain;
 using TimeTable.Domain.Lessons;
 using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Domain.Participants;
 using TimeTable.Mvvm.Navigation;
+using TimeTable.ViewModel.OrganizationalStructure;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.WeekOverview.Commands;
 
@@ -43,9 +45,9 @@ namespace TimeTable.ViewModel.Commands
                 university, group);
         }
 
-        public ITitledCommand GetUpdateLessonCommand()
+        public ITitledCommand GetUpdateLessonCommand(NavigationFlow navigationFlow,[CanBeNull] Group group)
         {
-            return new UpdateLessonCommand(_flurryPublisher,_stringsProviders);
+            return new UpdateLessonCommand(_flurryPublisher,_stringsProviders, navigationFlow, group);
         }
 
         [NotNull]

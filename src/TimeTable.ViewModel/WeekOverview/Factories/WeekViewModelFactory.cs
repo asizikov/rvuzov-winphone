@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using TimeTable.Domain.Lessons;
+using TimeTable.Domain.Participants;
+using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.ViewModel.WeekOverview.Factories
 {
@@ -16,9 +18,9 @@ namespace TimeTable.ViewModel.WeekOverview.Factories
             _dayViewModelFactory = new DayViewModelFactory(menuItemsFactory, isTeacher, id);
         }
 
-        public WeekViewModel Create([CanBeNull] IEnumerable<Day> days, int weekNumber, WeekType weekType)
+        public WeekViewModel Create([CanBeNull] IEnumerable<Day> days, int weekNumber, WeekType weekType, NavigationFlow navigationFlow,[CanBeNull] Group group)
         {
-            return new WeekViewModel(days, weekNumber, _dayViewModelFactory, weekType);
+            return new WeekViewModel(days, weekNumber, _dayViewModelFactory, weekType, navigationFlow, group);
         }
     }
 }

@@ -5,8 +5,10 @@ using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Domain.Lessons;
 using TimeTable.Domain.OrganizationalStructure;
+using TimeTable.Domain.Participants;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.MenuItems;
+using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.ViewModel.WeekOverview.Factories
 {
@@ -17,7 +19,7 @@ namespace TimeTable.ViewModel.WeekOverview.Factories
         private readonly OptionsMonitor _optionsMonitor;
 
         public LessonMenuItemsFactory([NotNull] ICommandFactory commandFactory, [NotNull] University university,
-            [NotNull] OptionsMonitor optionsMonitor)
+                                      [NotNull] OptionsMonitor optionsMonitor)
         {
             if (commandFactory == null) throw new ArgumentNullException("commandFactory");
             if (university == null) throw new ArgumentNullException("university");
@@ -47,11 +49,11 @@ namespace TimeTable.ViewModel.WeekOverview.Factories
             if (lesson.Teachers.Count <= 1) return CreateForOneTeacher(lesson);
 
             var options = lesson.Teachers.Where(t => !string.IsNullOrWhiteSpace(t.Id))
-                .Select(t => new OptionsItem
-                {
-                    Title = t.Name,
-                    Command = _commandFactory.GetShowTeachersTimeTableCommand(_university, t)
-                });
+                                .Select(t => new OptionsItem
+                                {
+                                    Title = t.Name,
+                                    Command = _commandFactory.GetShowTeachersTimeTableCommand(_university, t)
+                                });
 
             var menuItem = FormatAbstractMenuItem(_optionsMonitor, options);
             return menuItem;
@@ -105,9 +107,9 @@ namespace TimeTable.ViewModel.WeekOverview.Factories
             };
         }
 
-        public AbstractMenuItem CreateUpdateLessonsDetails()
+        public AbstractMenuItem CreateUpdateLessonsDetails(NavigationFlow navigationFlow, [CanBeNull] Group group)
         {
-            var changeLessonCommand = _commandFactory.GetUpdateLessonCommand();
+            var changeLessonCommand = _commandFactory.GetUpdateLessonCommand(navigationFlow, group);
             return new AbstractMenuItem
             {
                 Command = changeLessonCommand,
@@ -117,7 +119,7 @@ namespace TimeTable.ViewModel.WeekOverview.Factories
 
         [Pure, NotNull]
         private static AbstractMenuItem FormatAbstractMenuItem(OptionsMonitor optionsMonitor,
-            IEnumerable<OptionsItem> options)
+                                                               IEnumerable<OptionsItem> options)
         {
             var menuItem = new AbstractMenuItem
             {

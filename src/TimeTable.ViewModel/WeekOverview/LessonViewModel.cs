@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using TimeTable.Domain.Lessons;
+using TimeTable.Domain.Participants;
 using TimeTable.Mvvm;
 using TimeTable.ViewModel.MenuItems;
+using TimeTable.ViewModel.OrganizationalStructure;
 using TimeTable.ViewModel.WeekOverview.Factories;
 
 namespace TimeTable.ViewModel.WeekOverview
@@ -15,19 +17,19 @@ namespace TimeTable.ViewModel.WeekOverview
     {
         private readonly Lesson _lesson;
         private readonly DateTime _date;
-        private readonly bool _isTeacher;
-        private readonly int _holderId;
-        private string _auditoriesList;
+        private string _auditoriumsList;
         private string _teachersList;
         private readonly LessonMenuItemsFactory _menuItemsFactory;
+        private readonly NavigationFlow _navigationFlow;
+        [CanBeNull] private readonly Group _group;
 
         public LessonViewModel([NotNull] Lesson lesson, [NotNull] LessonMenuItemsFactory menuItemsFactory, DateTime date,
-            bool isTeacher, int holderId)
+                               NavigationFlow navigationFlow, [CanBeNull] Group group)
         {
             _lesson = lesson;
             _date = date;
-            _isTeacher = isTeacher;
-            _holderId = holderId;
+            _navigationFlow = navigationFlow;
+            _group = group;
             _menuItemsFactory = menuItemsFactory;
         }
 
@@ -42,7 +44,7 @@ namespace TimeTable.ViewModel.WeekOverview
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public string Auditory
         {
-            get { return FormatAuditories(); }
+            get { return FormatAuditoriums(); }
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -111,11 +113,11 @@ namespace TimeTable.ViewModel.WeekOverview
         }
 
         [CanBeNull]
-        private string FormatAuditories()
+        private string FormatAuditoriums()
         {
-            if (_auditoriesList != null)
+            if (_auditoriumsList != null)
             {
-                return _auditoriesList;
+                return _auditoriumsList;
             }
             if (_lesson.Auditoriums == null || !_lesson.Auditoriums.Any())
             {
@@ -135,8 +137,8 @@ namespace TimeTable.ViewModel.WeekOverview
                     sb.Append(", ");
                 }
             }
-            _auditoriesList = sb.ToString();
-            return _auditoriesList;
+            _auditoriumsList = sb.ToString();
+            return _auditoriumsList;
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -159,7 +161,7 @@ namespace TimeTable.ViewModel.WeekOverview
                     yield return _menuItemsFactory.CreateForGroups(_lesson);
                 }
 
-                yield return _menuItemsFactory.CreateUpdateLessonsDetails();
+                yield return _menuItemsFactory.CreateUpdateLessonsDetails(_navigationFlow, _group);
             }
         }
 

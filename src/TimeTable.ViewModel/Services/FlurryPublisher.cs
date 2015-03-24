@@ -131,7 +131,8 @@ namespace TimeTable.ViewModel.Services
             PublishEvent(FlurryEvents.ChooseFaculty, parameters);
         }
 
-        public void PublishGroupSelected([NotNull] Group selectedGroup, [NotNull] Faculty faculty, [NotNull] University university, Reason reason)
+        public void PublishGroupSelected([NotNull] Group selectedGroup, [NotNull] Faculty faculty,
+                                         [NotNull] University university, Reason reason)
         {
             if (selectedGroup == null) throw new ArgumentNullException("selectedGroup");
             if (faculty == null) throw new ArgumentNullException("faculty");
@@ -145,7 +146,6 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("Faculty_name", faculty.Title),
                 new EventParameter("Group_name", selectedGroup.GroupName),
                 new EventParameter("Group_id", selectedGroup.Id.ToString(CultureInfo.InvariantCulture))
- 
             };
             switch (reason)
             {
@@ -159,7 +159,6 @@ namespace TimeTable.ViewModel.Services
                     PublishEvent(FlurryEvents.ChangeGroup, parameters);
                     break;
             }
-            
         }
 
         public void PublishContextMenuShowTeachersTimeTable(University university, string name, string id)
@@ -178,7 +177,7 @@ namespace TimeTable.ViewModel.Services
         }
 
         public void PublishActionbarScheduleSettings([NotNull] University university, bool isTeacher, string name,
-            int id)
+                                                     int id)
         {
             var mode = "teacher";
 
@@ -234,7 +233,8 @@ namespace TimeTable.ViewModel.Services
             PublishEvent(FlurryEvents.ActionbarMarkFavorite, parameters);
         }
 
-        public void PublishTeacherSelected([NotNull] Teacher selectedTeacher, [NotNull] University university, [NotNull] Faculty faculty, Reason reason)
+        public void PublishTeacherSelected([NotNull] Teacher selectedTeacher, [NotNull] University university,
+                                           [NotNull] Faculty faculty, Reason reason)
         {
             if (selectedTeacher == null) throw new ArgumentNullException("selectedTeacher");
             if (university == null) throw new ArgumentNullException("university");
@@ -272,10 +272,10 @@ namespace TimeTable.ViewModel.Services
                 new EventParameter("Group name", groupName),
                 new EventParameter("Teacher Id", id.ToString(CultureInfo.InvariantCulture))
             };
-            PublishEvent(FlurryEvents.ContextGroupSchedule,parameters);
+            PublishEvent(FlurryEvents.ContextGroupSchedule, parameters);
         }
 
-        public void PublishTimtableNotFoundEvent([CanBeNull] NavigationFlow navigationFlow)
+        public void PublishTimtableNotFoundEvent([CanBeNull] NavigationFlow navigationFlow, Group group = null)
         {
             if (navigationFlow == null)
             {
@@ -284,16 +284,23 @@ namespace TimeTable.ViewModel.Services
             }
             var parameters = new List<EventParameter>
             {
-                new EventParameter("University name", navigationFlow.UniversityName),
-                new EventParameter("University id", navigationFlow.UniversityId.ToString(CultureInfo.InvariantCulture)),
+                new EventParameter("University_name", navigationFlow.UniversityName),
+                new EventParameter("University_id", navigationFlow.UniversityId.ToString(CultureInfo.InvariantCulture)),
             };
 
             if (navigationFlow.FacultyId != 0)
             {
-                parameters.Add(new EventParameter("Faculty_id", navigationFlow.FacultyId.ToString(CultureInfo.InvariantCulture)));
+                parameters.Add(new EventParameter("Faculty_id",
+                    navigationFlow.FacultyId.ToString(CultureInfo.InvariantCulture)));
                 parameters.Add(new EventParameter("Faculty_name", navigationFlow.FacultyName));
             }
-            PublishEvent(FlurryEvents.TimetableNotFound);
+
+            if (group != null)
+            {
+                parameters.Add(new EventParameter("Group_id", group.Id.ToString(CultureInfo.InvariantCulture)));
+                parameters.Add(new EventParameter("Group_name", group.GroupName));
+            }
+            PublishEvent(FlurryEvents.TimetableNotFound, parameters.ToArray());
         }
 
         public void PublishPageLoadedUniversities()
@@ -339,11 +346,6 @@ namespace TimeTable.ViewModel.Services
         public void PublishShowMobile()
         {
             PublishEvent(FlurryEvents.SupportGoToMobileSite);
-        }
-
-        public void PublishUpdateLessonEvent()
-        {
-            PublishEvent(FlurryEvents.ContextEditEvent);
         }
     }
 }

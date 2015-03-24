@@ -17,6 +17,10 @@
         public const string ContextGroupSchedule = "CONTEXT_GROUP_SCHEDULE";
         public const string ActionbarToday = "ACTIONBAR_TODAY";
         public const string ActionbarScheduleSettings = "ACTIONBAR_SCHEDULE_SETTINGS";
+        public const string SupportGoToMobileSite = "SUPPORT_GO_TO_MOBILE_SITE";
+        public const string TimetableNotFound = "ADD_SCHEDULE_CLICK";
+        public const string ContextEditEvent = "CONTEXT_EDIT_EVENT";
+
         public const string UniversitiesPageLoaded = "universities page loaded";
         public const string SelectRolePageLoaded = "select role page loaded";
         public const string SelectGroupsPageLoaded = "groups page loaded";
@@ -25,8 +29,5 @@
         public const string FavoritesPageLoaded = "favorites page loaded";
         public const string SettingsPageLoaded = "settings page loaded";
         public const string AboutPageLoaded = "about page loaded";
-        public const string SupportGoToMobileSite = "SUPPORT_GO_TO_MOBILE_SITE";
-        public const string TimetableNotFound = "ADD_SCHEDULE_CLICK";
-        public const string ContextEditEvent = "CONTEXT_EDIT_EVENT";
     }
 }
