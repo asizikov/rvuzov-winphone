@@ -92,7 +92,8 @@ namespace TimeTable.Data
 
 
         private IObservable<Groups> GetFacultyGroupsInternalAsync(int facultyId,
-            CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
+                                                                  CachePolicy cachePolicy =
+                                                                      CachePolicy.GetFromCacheAndUpdate)
         {
             var request = _callFactory.GetFacultyGroupsRequest(facultyId);
             return GetDataAsync(request, cachePolicy);
@@ -122,7 +123,8 @@ namespace TimeTable.Data
         }
 
         private IObservable<Faculties> GetUniversityFacultiesInternalAsync(int universityId,
-            CachePolicy cachePolicy = CachePolicy.GetFromCacheAndUpdate)
+                                                                           CachePolicy cachePolicy =
+                                                                               CachePolicy.GetFromCacheAndUpdate)
         {
             var request = _callFactory.GetUniversityFacultiesRequest(universityId);
             return GetDataAsync(request, cachePolicy);

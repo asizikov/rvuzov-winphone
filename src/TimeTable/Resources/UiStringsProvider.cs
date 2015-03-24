@@ -61,34 +61,22 @@ namespace TimeTable.Resources
 
         public string Oops
         {
-            get
-            {
-                return Strings.Ooops;
-            }
+            get { return Strings.Ooops; }
         }
 
         public string ThankYou
         {
-            get
-            {
-                return Strings.ThankYou;
-            }
+            get { return Strings.ThankYou; }
         }
 
         public string ReportErrorOk
         {
-            get
-            {
-                return Strings.ReportErrorOk;
-            }
+            get { return Strings.ReportErrorOk; }
         }
 
         public string SomethingWentWrong
         {
-            get
-            {
-                return Strings.SomethingWentWrong;
-            }
+            get { return Strings.SomethingWentWrong; }
         }
 
         public string UpdateLesson

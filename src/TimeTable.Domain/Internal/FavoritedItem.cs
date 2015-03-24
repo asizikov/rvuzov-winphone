@@ -25,6 +25,6 @@ namespace TimeTable.Domain.Internal
     public sealed class Favorites
     {
         [JsonProperty("favorites")]
-        public List<FavoritedItem> Items { get; set; } 
+        public List<FavoritedItem> Items { get; set; }
     }
 }

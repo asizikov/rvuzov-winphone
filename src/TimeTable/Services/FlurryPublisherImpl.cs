@@ -63,7 +63,9 @@ namespace TimeTable.Services
         private static void LogStackTrace(Exception exception)
         {
             var stacktrace = exception.StackTrace.Substring(0, exception.
-            StackTrace.Length >= 255 ? 255: exception.StackTrace.Length);
+                StackTrace.Length >= 255
+                ? 255
+                : exception.StackTrace.Length);
             FlurryWP8SDK.Api.LogError(stacktrace, exception);
         }
     }

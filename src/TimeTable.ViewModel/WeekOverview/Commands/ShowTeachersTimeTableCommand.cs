@@ -17,8 +17,10 @@ namespace TimeTable.ViewModel.WeekOverview.Commands
         private readonly LessonTeacher _teacher;
 
 
-        public ShowTeachersTimeTableCommand([NotNull] INavigationService navigationService, [NotNull] FlurryPublisher flurryPublisher,
-            [NotNull] IUiStringsProviders stringsProviders, [NotNull] University university, [NotNull] LessonTeacher teacher)
+        public ShowTeachersTimeTableCommand([NotNull] INavigationService navigationService,
+                                            [NotNull] FlurryPublisher flurryPublisher,
+                                            [NotNull] IUiStringsProviders stringsProviders,
+                                            [NotNull] University university, [NotNull] LessonTeacher teacher)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
@@ -42,14 +44,18 @@ namespace TimeTable.ViewModel.WeekOverview.Commands
         public void Execute(object parameter)
         {
             _flurryPublisher.PublishContextMenuShowTeachersTimeTable(_university, _teacher.Name, _teacher.Id);
-            _navigationService.NavigateTo<LessonsPageViewModel,LessonsNavigationParameter>(new LessonsNavigationParameter
-            {
-                Id = int.Parse(_teacher.Id),
-                IsTeacher = true,
-                UniversityId = _university.Id
-            });
+            _navigationService.NavigateTo<LessonsPageViewModel, LessonsNavigationParameter>(
+                new LessonsNavigationParameter
+                {
+                    Id = int.Parse(_teacher.Id),
+                    IsTeacher = true,
+                    UniversityId = _university.Id
+                });
         }
 
-        public string Title { get { return _stringsProviders.TeachersTimeTable; } }
+        public string Title
+        {
+            get { return _stringsProviders.TeachersTimeTable; }
+        }
     }
 }

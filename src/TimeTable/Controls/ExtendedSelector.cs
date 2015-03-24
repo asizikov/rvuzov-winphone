@@ -8,23 +8,26 @@ namespace TimeTable.Controls
     public class ExtendedSelector : Microsoft.Phone.Controls.LongListSelector
     {
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(ExtendedSelector), new PropertyMetadata(default(object)));
+            DependencyProperty.Register("SelectedItem", typeof (object), typeof (ExtendedSelector),
+                new PropertyMetadata(default(object)));
 
         public static readonly DependencyProperty SelectionModeProperty =
-            DependencyProperty.Register("SelectionMode", typeof(SelectionMode), typeof(ExtendedSelector), new PropertyMetadata(SelectionMode.Single));
+            DependencyProperty.Register("SelectionMode", typeof (SelectionMode), typeof (ExtendedSelector),
+                new PropertyMetadata(SelectionMode.Single));
 
         public static readonly DependencyProperty RepositionOnAddStyleProperty =
-            DependencyProperty.Register("RepositionOnAddStyle", typeof(PositionOnAdd), typeof(ExtendedSelector), new PropertyMetadata(PositionOnAdd.Default));
+            DependencyProperty.Register("RepositionOnAddStyle", typeof (PositionOnAdd), typeof (ExtendedSelector),
+                new PropertyMetadata(PositionOnAdd.Default));
 
         public PositionOnAdd RepositionOnAddStyle
         {
-            get { return (PositionOnAdd)GetValue(RepositionOnAddStyleProperty); }
+            get { return (PositionOnAdd) GetValue(RepositionOnAddStyleProperty); }
             set { SetValue(RepositionOnAddStyleProperty, value); }
         }
 
         public SelectionMode SelectionMode
         {
-            get { return (SelectionMode)GetValue(SelectionModeProperty); }
+            get { return (SelectionMode) GetValue(SelectionModeProperty); }
             set { SetValue(SelectionModeProperty, value); }
         }
 
@@ -54,14 +57,14 @@ namespace TimeTable.Controls
 
                     foreach (var item in args.AddedItems)
                     {
-                        ((List<object>)SelectedItem).Add(item);
+                        ((List<object>) SelectedItem).Add(item);
                     }
 
                     foreach (var removedItem in args.RemovedItems)
                     {
-                        if (((List<object>)SelectedItem).Contains(removedItem))
+                        if (((List<object>) SelectedItem).Contains(removedItem))
                         {
-                            ((List<object>)SelectedItem).Remove(removedItem);
+                            ((List<object>) SelectedItem).Remove(removedItem);
                         }
                     }
                 }
@@ -69,8 +72,8 @@ namespace TimeTable.Controls
 
             Loaded += (sender, args) =>
             {
-                if(ItemsSource == null) return;
-                ((INotifyCollectionChanged)ItemsSource).CollectionChanged += (sender2, args2) =>
+                if (ItemsSource == null) return;
+                ((INotifyCollectionChanged) ItemsSource).CollectionChanged += (sender2, args2) =>
                 {
                     if (ItemsSource.Count > 0 && args2.NewItems != null)
                     {

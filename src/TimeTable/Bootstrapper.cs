@@ -18,9 +18,11 @@ namespace TimeTable
             Debug.WriteLine("Bootstrapper::InitApplication started");
             SmartDispatcher.Initialize(rootFrame.Dispatcher);
             RegisterDependencies(rootFrame);
-            Debug.WriteLine("Bootstrapper::InitApplication resolving uri mapper at {0} ms", stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
+            Debug.WriteLine("Bootstrapper::InitApplication resolving uri mapper at {0} ms",
+                stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
             rootFrame.UriMapper = Container.Resolve<TimeTableUriMapper>();
-            Debug.WriteLine("Bootstrapper::InitApplication ended in {0} ms", stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
+            Debug.WriteLine("Bootstrapper::InitApplication ended in {0} ms",
+                stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
         }
 
 

@@ -10,19 +10,19 @@ namespace TimeTable.ViewModel.Utils
         private static readonly DateTime UnixEpoch =
             new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-         [PublicAPI]
+        [PublicAPI]
         public static long GetCurrentUnixTimestampMillis()
         {
             return (long) (DateTime.UtcNow - UnixEpoch).TotalMilliseconds;
         }
 
-         [PublicAPI]
+        [PublicAPI]
         public static DateTime DateTimeFromUnixTimestampMillis(long millis)
         {
             return UnixEpoch.AddMilliseconds(millis);
         }
 
-         [PublicAPI]
+        [PublicAPI]
         public static long GetCurrentUnixTimestampSeconds()
         {
             return (long) (DateTime.UtcNow - UnixEpoch).TotalSeconds;

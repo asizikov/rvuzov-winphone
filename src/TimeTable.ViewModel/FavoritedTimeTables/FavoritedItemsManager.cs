@@ -105,16 +105,16 @@ namespace TimeTable.ViewModel.FavoritedTimeTables
         public bool IsGroupFavorited(int facultyId, int groupId)
         {
             return _favoritedItems.Items
-                .Where(item => item.Type == FavoritedItemType.Group)
-                .Any(itm => itm.Faculty.Id == facultyId && itm.Id == groupId);
+                                  .Where(item => item.Type == FavoritedItemType.Group)
+                                  .Any(itm => itm.Faculty.Id == facultyId && itm.Id == groupId);
         }
 
         [Pure]
         public bool IsTeacherFavorited(int universityId, int groupId)
         {
             return _favoritedItems.Items
-                .Where(item => item.Type == FavoritedItemType.Teacher)
-                .Any(itm => itm.University.Id == universityId && itm.Id == groupId);
+                                  .Where(item => item.Type == FavoritedItemType.Teacher)
+                                  .Any(itm => itm.University.Id == universityId && itm.Id == groupId);
         }
 
         public void Save()

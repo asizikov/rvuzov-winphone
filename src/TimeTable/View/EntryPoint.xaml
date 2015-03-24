@@ -14,7 +14,6 @@
     shell:SystemTray.IsVisible="{StaticResource SystemTrayVisibility}">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
-    </Grid>
+    <Grid x:Name="LayoutRoot" Background="Transparent" />
 
 </phone:PhoneApplicationPage>

@@ -42,7 +42,7 @@ namespace TimeTable.Utils
         }
 
         public static void SaveState([NotNull] this PhoneApplicationPage page,
-            [NotNull] Pivot pivot)
+                                     [NotNull] Pivot pivot)
         {
             if (page == null) throw new ArgumentNullException("page");
             if (pivot == null) throw new ArgumentNullException("pivot");
@@ -98,7 +98,7 @@ namespace TimeTable.Utils
         }
 
         public static void SaveState([NotNull] this PhoneApplicationPage page, [NotNull] string key,
-            [NotNull] object value)
+                                     [NotNull] object value)
         {
             if (page == null) throw new ArgumentNullException("page");
             if (key == null) throw new ArgumentNullException("key");
@@ -114,7 +114,7 @@ namespace TimeTable.Utils
         }
 
         public static bool ShouldTombstone([NotNull] this PhoneApplicationPage page,
-            [NotNull] NavigatingCancelEventArgs e)
+                                           [NotNull] NavigatingCancelEventArgs e)
         {
             if (page == null) throw new ArgumentNullException("page");
             if (e == null) throw new ArgumentNullException("e");

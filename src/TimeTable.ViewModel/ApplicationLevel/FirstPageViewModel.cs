@@ -15,8 +15,8 @@ namespace TimeTable.ViewModel.ApplicationLevel
         private readonly BaseApplicationSettings _applicationSettings;
 
         public FirstPageViewModel([NotNull] Mvvm.Navigation.INavigationService navigation,
-            [NotNull] BaseApplicationSettings applicationSettings,
-            [NotNull] FlurryPublisher flurryPublisher)
+                                  [NotNull] BaseApplicationSettings applicationSettings,
+                                  [NotNull] FlurryPublisher flurryPublisher)
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
             if (applicationSettings == null) throw new ArgumentNullException("applicationSettings");

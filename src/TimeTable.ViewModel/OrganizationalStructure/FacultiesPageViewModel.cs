@@ -24,8 +24,10 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private readonly Func<Faculty, char> _facultyGroupFunc;
 
         public FacultiesPageViewModel([NotNull] Mvvm.Navigation.INavigationService navigation,
-            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] IAsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurryPublisher, [NotNull] INotificationService notificationService) :base(flurryPublisher)
+                                      [NotNull] BaseApplicationSettings applicationSettings,
+                                      [NotNull] IAsyncDataProvider dataProvider,
+                                      [NotNull] FlurryPublisher flurryPublisher,
+                                      [NotNull] INotificationService notificationService) : base(flurryPublisher)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (flurryPublisher == null) throw new ArgumentNullException("flurryPublisher");
@@ -74,11 +76,11 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                 if (_selectedFaculty != null)
                 {
                     _dataProvider.GetUniversityByIdAsync(_universityId)
-                        .Subscribe(university =>
-                        {
-                            FlurryPublisher.PublishFacultySelected(_selectedFaculty, university);
-                            NavigateToGroupsPage(_selectedFaculty);
-                        });
+                                 .Subscribe(university =>
+                                 {
+                                     FlurryPublisher.PublishFacultySelected(_selectedFaculty, university);
+                                     NavigateToGroupsPage(_selectedFaculty);
+                                 });
                 }
             }
         }

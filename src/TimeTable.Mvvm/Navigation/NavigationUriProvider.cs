@@ -29,11 +29,11 @@ namespace TimeTable.Mvvm.Navigation
                 assemblies.SelectMany(
                     assembly =>
                         assembly.GetTypes()
-                            .Where(
-                                t =>
-                                    t.IsPublic && t.IsClass && t.IsSubclassOf(typeof (Page)) &&
-                                    t.IsDefined(typeof (DependsOnViewModelAttribute))))
-                    .ToList();
+                                .Where(
+                                    t =>
+                                        t.IsPublic && t.IsClass && t.IsSubclassOf(typeof (Page)) &&
+                                        t.IsDefined(typeof (DependsOnViewModelAttribute))))
+                          .ToList();
             Debug.WriteLine("NavigationUriProvider:: pages selected loaded at {0} ms",
                 stopwatch.ElapsedMilliseconds.ToString(CultureInfo.InvariantCulture));
             Dictionary = pages.ToDictionary(
@@ -44,7 +44,9 @@ namespace TimeTable.Mvvm.Navigation
 
         private static IEnumerable<Assembly> LoadAssemblies()
         {
-            return AppDomain.CurrentDomain.GetAssemblies().Where(a => a.GetCustomAttribute<ContainsNavigationDestinations>() != null);
+            return
+                AppDomain.CurrentDomain.GetAssemblies()
+                         .Where(a => a.GetCustomAttribute<ContainsNavigationDestinations>() != null);
         }
 
 

@@ -25,7 +25,7 @@ namespace TimeTable.Mvvm.Navigation
 
         public static NavigationContext<TData> RestoreContext<TData>(this IDictionary<string, string> query)
         {
-            Debug.WriteLine("NavigationQueryExtension::RestoreContext<{0}>", typeof(TData));
+            Debug.WriteLine("NavigationQueryExtension::RestoreContext<{0}>", typeof (TData));
             string encodedContext;
             if (query.TryGetValue(Key, out encodedContext))
             {
@@ -34,7 +34,7 @@ namespace TimeTable.Mvvm.Navigation
                 var navigationSerializer = new NavigationSerializer();
                 return navigationSerializer.Deserialize<NavigationContext<TData>>(json);
             }
-            var actualQuery = query.Select(s =>string.Format(" [{0}:{1}]",s.Key, s.Value) ).Aggregate((s, a) => s + a);
+            var actualQuery = query.Select(s => string.Format(" [{0}:{1}]", s.Key, s.Value)).Aggregate((s, a) => s + a);
             throw new NavigationException("Can't restore context, actual query is:" + actualQuery);
         }
 

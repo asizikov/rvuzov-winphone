@@ -30,8 +30,10 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private Reason _reason;
 
         public UniversitiesPageViewModel([NotNull] Mvvm.Navigation.INavigationService navigation,
-            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] IAsyncDataProvider dataProvider,
-            [NotNull] FlurryPublisher flurry, [NotNull] INotificationService notificationService) :base(flurry)
+                                         [NotNull] BaseApplicationSettings applicationSettings,
+                                         [NotNull] IAsyncDataProvider dataProvider,
+                                         [NotNull] FlurryPublisher flurry,
+                                         [NotNull] INotificationService notificationService) : base(flurry)
         {
             if (dataProvider == null) throw new ArgumentNullException("dataProvider");
             if (notificationService == null) throw new ArgumentNullException("notificationService");
@@ -117,8 +119,13 @@ namespace TimeTable.ViewModel.OrganizationalStructure
             {
                 _applicationSettings.Me.TemporaryUniversity = university;
             }
-            var facultyParameter = new NavigationFlow {UniversityId = university.Id, Reason = _reason, UniversityName =  university.ShortName};
-            _navigation.NavigateTo<FacultiesPageViewModel,NavigationFlow>(facultyParameter);
+            var facultyParameter = new NavigationFlow
+            {
+                UniversityId = university.Id,
+                Reason = _reason,
+                UniversityName = university.ShortName
+            };
+            _navigation.NavigateTo<FacultiesPageViewModel, NavigationFlow>(facultyParameter);
         }
 
         protected override void GetResults(string search)

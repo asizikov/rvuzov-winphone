@@ -12,10 +12,7 @@ namespace TimeTable.Domain.Lessons
 
         public long LastUpdated
         {
-            get
-            {
-                return Data != null ? Data.LastUpdated : 0;
-            }
+            get { return Data != null ? Data.LastUpdated : 0; }
         }
     }
 }

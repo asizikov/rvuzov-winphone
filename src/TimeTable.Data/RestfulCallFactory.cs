@@ -57,7 +57,8 @@ namespace TimeTable.Data
 
         public RestfullRequest<Faculties> GetUniversityFacultiesRequest(int universityId)
         {
-            return RestfullRequest.Create<Faculties>(InjectIdToTemplate(ALL_FACULTIES_TEMPLATE, universityId), _webService);
+            return RestfullRequest.Create<Faculties>(InjectIdToTemplate(ALL_FACULTIES_TEMPLATE, universityId),
+                _webService);
         }
 
         public RestfullRequest<LastUpdated> GetLastUpdatedRequest(string url)

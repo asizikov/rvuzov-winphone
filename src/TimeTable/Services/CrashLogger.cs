@@ -21,7 +21,7 @@ namespace TimeTable.Services
             var time = DateTime.UtcNow.Ticks;
             var message = e.ExceptionObject.Message;
             var stackTrace = e.ExceptionObject.StackTrace;
-            
+
             var fileSuffix = RemoveInvalidCharacters(message + date + time.ToString(CultureInfo.InvariantCulture));
 
             if (e.ExceptionObject.InnerException != null)
@@ -48,8 +48,9 @@ namespace TimeTable.Services
         {
             var invalidFileNameChars = Path.GetInvalidFileNameChars();
             var name = fileName;
-            var invalids = invalidFileNameChars.Where(c => name.IndexOf(c) >=0);
-            fileName = invalids.Aggregate(fileName, (current, invalidFileNameChar) => current.Replace(invalidFileNameChar, '-'));
+            var invalids = invalidFileNameChars.Where(c => name.IndexOf(c) >= 0);
+            fileName = invalids.Aggregate(fileName,
+                (current, invalidFileNameChar) => current.Replace(invalidFileNameChar, '-'));
             return fileName;
         }
     }

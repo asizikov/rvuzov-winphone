@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using Newtonsoft.Json;
 using TimeTable.Domain.Internal;
 using TimeTable.Domain.OrganizationalStructure;
 using TimeTable.Domain.Participants;
@@ -81,7 +80,7 @@ namespace TimeTable.Data.Cache
         {
             var storage = new Storage
             {
-                Version = VERSION, 
+                Version = VERSION,
                 Data = _cache.Select(u => u.Value).ToList()
             };
             return storage;

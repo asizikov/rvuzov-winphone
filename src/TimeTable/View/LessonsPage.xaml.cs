@@ -7,7 +7,7 @@ using TimeTable.ViewModel.WeekOverview;
 
 namespace TimeTable.View
 {
-    [DependsOnViewModel(typeof(LessonsPageViewModel))]
+    [DependsOnViewModel(typeof (LessonsPageViewModel))]
     public partial class LessonsPage
     {
         public LessonsPage()

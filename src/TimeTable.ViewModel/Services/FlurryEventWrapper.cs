@@ -4,7 +4,6 @@ namespace TimeTable.ViewModel.Services
 {
     public class FlurryEventWrapper
     {
-
         public FlurryEventWrapper(Exception exception)
         {
             _exception = exception;
@@ -17,6 +16,7 @@ namespace TimeTable.ViewModel.Services
         }
 
         private readonly Exception _exception;
+
         public Exception Exception
         {
             get { return _exception; }

@@ -44,7 +44,7 @@ namespace TimeTable.Domain.Lessons
         [JsonProperty("date_end")]
         public string DateEnd { get; set; }
 
-        [CanBeNull,JsonProperty("dates")]
+        [CanBeNull, JsonProperty("dates")]
         public List<string> Dates { get; set; }
     }
 }

@@ -21,10 +21,7 @@ namespace TimeTable.Mvvm
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public bool IsLoading
         {
-            get
-            {
-                return _isLoading;
-            }
+            get { return _isLoading; }
             protected set
             {
                 if (value.Equals(_isLoading)) return;

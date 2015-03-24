@@ -9,6 +9,7 @@ namespace TimeTable.Domain.Lessons
     {
         [JsonProperty("parity_countdown")]
         public long ParityCountdown { get; set; }
+
         [JsonProperty("days")]
         public List<Day> Days { get; set; }
 

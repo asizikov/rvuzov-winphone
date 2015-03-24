@@ -16,8 +16,8 @@ namespace TimeTable.ViewModel.FavoritedTimeTables
         private ObservableCollection<FavoritedItemViewModel> _items;
 
         public FavoritesViewModel([NotNull] INavigationService navigationService,
-            [NotNull] FavoritedItemsManager favoritedItemsManager,
-            [NotNull] FlurryPublisher flurryPublisher)
+                                  [NotNull] FavoritedItemsManager favoritedItemsManager,
+                                  [NotNull] FlurryPublisher flurryPublisher)
         {
             if (navigationService == null) throw new ArgumentNullException("navigationService");
             if (favoritedItemsManager == null) throw new ArgumentNullException("favoritedItemsManager");

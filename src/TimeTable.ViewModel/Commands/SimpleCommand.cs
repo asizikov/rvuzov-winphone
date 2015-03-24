@@ -8,10 +8,8 @@ namespace TimeTable.ViewModel.Commands
     public class SimpleCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        [NotNull]
-        private readonly Action _action;
-        [CanBeNull]
-        private readonly Func<bool> _canExecuteEvaluator;
+        [NotNull] private readonly Action _action;
+        [CanBeNull] private readonly Func<bool> _canExecuteEvaluator;
         private readonly bool _canExecute;
 
         public SimpleCommand([NotNull] Action action, bool canExecute = true)
@@ -33,7 +31,6 @@ namespace TimeTable.ViewModel.Commands
             if (CanExecuteChanged != null)
             {
                 SmartDispatcher.BeginInvoke(() => CanExecuteChanged(this, new EventArgs()));
-               
             }
         }
 
@@ -48,7 +45,6 @@ namespace TimeTable.ViewModel.Commands
             {
                 _action();
             }
-            
         }
     }
 }
