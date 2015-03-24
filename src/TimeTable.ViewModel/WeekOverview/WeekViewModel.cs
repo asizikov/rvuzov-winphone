@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Domain.Lessons;
+using TimeTable.Domain.Participants;
 using TimeTable.Mvvm;
+using TimeTable.ViewModel.OrganizationalStructure;
 using TimeTable.ViewModel.WeekOverview.Factories;
 
 namespace TimeTable.ViewModel.WeekOverview
@@ -14,8 +16,7 @@ namespace TimeTable.ViewModel.WeekOverview
         private ObservableCollection<DayViewModel> _days;
         private DayViewModel _selectedDayItem;
 
-        public WeekViewModel(IEnumerable<Day> days, int weekNumber, [NotNull] DayViewModelFactory dayViewModelFactory,
-            WeekType type)
+        public WeekViewModel(IEnumerable<Day> days, int weekNumber, [NotNull] DayViewModelFactory dayViewModelFactory, WeekType type, NavigationFlow navigationFlow,[CanBeNull] Group group)
         {
             if (dayViewModelFactory == null) throw new ArgumentNullException("dayViewModelFactory");
             var parity = weekNumber%2;
@@ -23,7 +24,7 @@ namespace TimeTable.ViewModel.WeekOverview
 
             Days =
                 new ObservableCollection<DayViewModel>(
-                    dayViewModelFactory.CreateList(days, type, parity).Where(d => d.Lessons.Any()));
+                    dayViewModelFactory.CreateList(days, navigationFlow, @group, type, parity).Where(d => d.Lessons.Any()));
         }
 
         public int WeekNumber { get; private set; }

@@ -15,6 +15,7 @@ using TimeTable.ViewModel.ApplicationLevel;
 using TimeTable.ViewModel.Commands;
 using TimeTable.ViewModel.FavoritedTimeTables;
 using TimeTable.ViewModel.MenuItems;
+using TimeTable.ViewModel.OrganizationalStructure;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.Utils;
 using TimeTable.ViewModel.WeekOverview.Factories;
@@ -47,12 +48,15 @@ namespace TimeTable.ViewModel.WeekOverview
         private AppbarButtonViewModel _unfavoriteAppbarButton;
         private string _title;
         private WeekViewModelFactory _weekViewModelFactory;
+        private Faculty _faculty;
 
         public LessonsPageViewModel([NotNull] INavigationService navigation, [NotNull] FlurryPublisher flurryPublisher,
-            [NotNull] BaseApplicationSettings applicationSettings, [NotNull] ICommandFactory commandFactory,
-            [NotNull] IAsyncDataProvider dataProvider, [NotNull] FavoritedItemsManager favoritedItemsManager,
-            [NotNull] IUiStringsProviders stringsProviders,
-            [NotNull] INotificationService notificationService)
+                                    [NotNull] BaseApplicationSettings applicationSettings,
+                                    [NotNull] ICommandFactory commandFactory,
+                                    [NotNull] IAsyncDataProvider dataProvider,
+                                    [NotNull] FavoritedItemsManager favoritedItemsManager,
+                                    [NotNull] IUiStringsProviders stringsProviders,
+                                    [NotNull] INotificationService notificationService)
 
         {
             if (navigation == null) throw new ArgumentNullException("navigation");
@@ -83,7 +87,7 @@ namespace TimeTable.ViewModel.WeekOverview
 
             InitCommands();
             BuildAppBarButtons();
-            UpdateFaforitedSate();
+            UpdateFavoritedSate();
             _flurryPublisher.PublishPageLoadedLessons();
             Init(navigationParameter.UniversityId, navigationParameter.FacultyId);
         }
@@ -135,7 +139,7 @@ namespace TimeTable.ViewModel.WeekOverview
                     {
                         _teacher = teacher;
                         Title = (_teacher != null && _teacher.Name != null) ? _teacher.Name.Trim() : string.Empty;
-                        UpdateFaforitedSate();
+                        UpdateFavoritedSate();
                     });
                     LoadLessons();
                 }
@@ -143,6 +147,7 @@ namespace TimeTable.ViewModel.WeekOverview
                 {
                     _dataProvider.GetFacultyByIdAsync(universityId, facultyId).Subscribe(faculty =>
                     {
+                        _faculty = faculty;
                         //we need to go deeper :)
                         _dataProvider.GetGroupByIdAsync(_facultyId, _id).Subscribe(group =>
                         {
@@ -150,7 +155,7 @@ namespace TimeTable.ViewModel.WeekOverview
                             Title = (_group != null && _group.GroupName != null)
                                 ? _group.GroupName.Trim()
                                 : string.Empty;
-                            UpdateFaforitedSate();
+                            UpdateFavoritedSate();
                         });
                         LoadLessons();
                     });
@@ -163,12 +168,12 @@ namespace TimeTable.ViewModel.WeekOverview
             if (_isTeacher)
             {
                 _dataProvider.GetLessonsForTeacherAsync(_id)
-                    .Subscribe( FormatTimeTable, ex => OnError());
+                             .Subscribe(FormatTimeTable, ex => OnError());
             }
             else
             {
                 _dataProvider.GetLessonsForGroupAsync(_id)
-                    .Subscribe(FormatTimeTable,ex => OnError());
+                             .Subscribe(FormatTimeTable, ex => OnError());
             }
         }
 
@@ -189,9 +194,12 @@ namespace TimeTable.ViewModel.WeekOverview
                 days = timeTable.Data.Days;
             }
 
-            Task.Factory.StartNew(() => CurrentWeek =  _weekViewModelFactory.Create(days, weekNumber, WeekType.Current) );
-            Task.Factory.StartNew(() => NextWeek =  _weekViewModelFactory.Create(days, weekNumber + 1, WeekType.Next));
-            Task.Factory.StartNew(() => PreviousWeek = _weekViewModelFactory.Create(days, weekNumber - 1, WeekType.Previous));
+            var navigationFlow = CreateNavigationFlowForFlurry();
+
+            Task.Factory.StartNew(() => CurrentWeek = _weekViewModelFactory.Create(days, weekNumber, WeekType.Current,navigationFlow, _group));
+            Task.Factory.StartNew(() => NextWeek = _weekViewModelFactory.Create(days, weekNumber + 1, WeekType.Next,navigationFlow, _group));
+            Task.Factory.StartNew(
+                () => PreviousWeek = _weekViewModelFactory.Create(days, weekNumber - 1, WeekType.Previous,navigationFlow, _group));
             IsLoading = false;
         }
 
@@ -367,7 +375,7 @@ namespace TimeTable.ViewModel.WeekOverview
                 (_isTeacher ? _teacher.Name : _group.GroupName), (_isTeacher ? _teacher.Id : _group.Id));
         }
 
-        private void UpdateFaforitedSate()
+        private void UpdateFavoritedSate()
         {
             if (_group == null && _teacher == null)
             {
@@ -423,5 +431,21 @@ namespace TimeTable.ViewModel.WeekOverview
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public OptionsMonitor Options { get; private set; }
+
+        private NavigationFlow CreateNavigationFlowForFlurry()
+        {
+            var navigationFlow = new NavigationFlow
+            {
+                UniversityId = _university.Id,
+                UniversityName = _university.Name,
+                FacultyId = _facultyId,
+                IsTeacher = _isTeacher
+            };
+            if (_faculty != null)
+            {
+                navigationFlow.FacultyName = _faculty.Title;
+            }
+            return navigationFlow;
+        }
     }
 }

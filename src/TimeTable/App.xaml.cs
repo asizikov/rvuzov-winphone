@@ -42,6 +42,7 @@ namespace TimeTable
                 Current.Host.Settings.EnableFrameRateCounter = true;
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
+            Bootstrapper.InitApplication(RootFrame);
         }
 
         // Code to execute when the application is launching (eg, from Start)
@@ -78,8 +79,6 @@ namespace TimeTable
 
         private void CommonActivated()
         {
-            Bootstrapper.InitApplication(RootFrame);
-
             ThreadPool.QueueUserWorkItem(o =>
             {
                 var flurryPublisher = Container.Resolve<FlurryPublisher>();

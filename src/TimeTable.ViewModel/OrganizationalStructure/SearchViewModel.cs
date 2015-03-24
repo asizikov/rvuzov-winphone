@@ -14,23 +14,6 @@ using TimeTable.ViewModel.Services;
 
 namespace TimeTable.ViewModel.OrganizationalStructure
 {
-    public interface ISearchViewModel
-    {
-        string Query { get; set; }
-        Action<bool> OnLock { get; set; }
-        ICommand ShowSearchBoxCommand { get; }
-        ICommand OnFoundCommand { get; }
-
-        [UsedImplicitly(ImplicitUseKindFlags.Assign)]
-        bool IsSearchBoxVisible { get; set; }
-
-        [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        bool IsLoading { get; }
-
-        void ResetSearchState();
-        event PropertyChangedEventHandler PropertyChanged;
-    }
-
     public abstract class SearchViewModel<TData> : PageViewModel<TData>, ISearchViewModel
     {
         private const string Url = "http://raspisaniye-vuzov.ru/webform/step1.html";
@@ -117,9 +100,12 @@ namespace TimeTable.ViewModel.OrganizationalStructure
 
         protected abstract void GetResults(string result);
 
+        [CanBeNull]
+        protected abstract NavigationFlow GetFlurryParameters();
+
         private void NotFound()
         {
-            FlurryPublisher.PublishTimtableNotFoundEvent();
+            FlurryPublisher.PublishTimtableNotFoundEvent(GetFlurryParameters());
             var webBrowserTask = new WebBrowserTask { Uri = new Uri(Url) };
             webBrowserTask.Show();
         }

@@ -32,6 +32,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
         private readonly Func<Group, char> _groupFunc;
         private readonly Func<Teacher, char> _teachersGroupFunc;
         private Teacher _selectedTeacher;
+        private NavigationFlow _navigationFlow;
 
         public GroupPageViewModel([NotNull] INavigationService navigation,
             [NotNull] BaseApplicationSettings applicationSettings, [NotNull] IAsyncDataProvider dataProvider,
@@ -58,6 +59,7 @@ namespace TimeTable.ViewModel.OrganizationalStructure
 
         public override void Initialize(NavigationFlow navigationFlow)
         {
+            _navigationFlow = navigationFlow;
             _universityId = navigationFlow.UniversityId;
             _facultyId = navigationFlow.FacultyId;
             _reason = navigationFlow.Reason;
@@ -103,7 +105,11 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                     _dataProvider.GetUniversityByIdAsync(_universityId)
                         .Subscribe(university =>
                         {
-                            FlurryPublisher.PublishGroupSelected(_selectedGroup, university);
+                            FlurryPublisher.PublishGroupSelected(_selectedGroup, new Faculty
+                            {
+                                Id = _navigationFlow.FacultyId,
+                                Title = _navigationFlow.FacultyName
+                            }, university,_reason);
                             NavigateToLessonsPage(_selectedGroup, university);
                         });
                 }
@@ -124,7 +130,11 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                     _dataProvider.GetUniversityByIdAsync(_universityId)
                         .Subscribe(university =>
                         {
-                            FlurryPublisher.PublishTeacherSelected(_selectedTeacher, university);
+                            FlurryPublisher.PublishTeacherSelected(_selectedTeacher, university, new Faculty
+                            {
+                                Id = _navigationFlow.FacultyId,
+                                Title = _navigationFlow.FacultyName
+                            }, _reason);
                             NavigateToLessonsPage(_selectedTeacher, university);
                         });
                 }
@@ -199,6 +209,11 @@ namespace TimeTable.ViewModel.OrganizationalStructure
                             teacher => teacher.Name != null && teacher.Name.IgnoreCaseContains(search)),
                         _teachersGroupFunc);
             }
+        }
+
+        protected override NavigationFlow GetFlurryParameters()
+        {
+            return _navigationFlow;
         }
 
         private void NavigateToLessonsPage(Group group, University university)

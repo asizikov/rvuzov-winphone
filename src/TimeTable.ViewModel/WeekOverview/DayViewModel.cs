@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
 using TimeTable.Domain.Lessons;
+using TimeTable.Domain.Participants;
 using TimeTable.Mvvm;
+using TimeTable.ViewModel.OrganizationalStructure;
 using TimeTable.ViewModel.WeekOverview.Factories;
 
 namespace TimeTable.ViewModel.WeekOverview
@@ -15,12 +17,15 @@ namespace TimeTable.ViewModel.WeekOverview
         private readonly int _parity;
         private readonly bool _isTeacher;
         private readonly int _holderId;
+        private readonly NavigationFlow _navigationFlow;
+        [CanBeNull] private readonly Group _group;
         private ObservableCollection<LessonViewModel> _lessons;
         private DateTime _date;
+        private NavigationFlow NavigationFlow { get; set; }
 
         public DayViewModel([NotNull] Day dayData, WeekType weekType, int parity,
-            [NotNull] LessonMenuItemsFactory menuItemsFactory,
-            bool isTeacher, int holderId)
+                            [NotNull] LessonMenuItemsFactory menuItemsFactory, bool isTeacher, int holderId,
+                            NavigationFlow navigationFlow, [CanBeNull] Group group)
         {
             if (dayData == null) throw new ArgumentNullException("dayData");
             if (menuItemsFactory == null) throw new ArgumentNullException("menuItemsFactory");
@@ -29,7 +34,10 @@ namespace TimeTable.ViewModel.WeekOverview
             _parity = parity;
             _isTeacher = isTeacher;
             _holderId = holderId;
+            _navigationFlow = navigationFlow;
+            _group = @group;
             _date = SetUpDayName(weekType);
+            NavigationFlow = navigationFlow;
 
             if (_dayData.Lessons != null)
             {
@@ -44,7 +52,7 @@ namespace TimeTable.ViewModel.WeekOverview
         }
 
         private IEnumerable<LessonViewModel> FilterLessons(IEnumerable<Lesson> lessons,
-            LessonMenuItemsFactory menuItemsFactory)
+                                                           LessonMenuItemsFactory menuItemsFactory)
         {
             var ordered = lessons.OrderBy(lesson => lesson.TimeStart);
             foreach (var lesson in ordered)
@@ -84,9 +92,9 @@ namespace TimeTable.ViewModel.WeekOverview
         }
 
         private LessonViewModel CreateLessonViewModel(LessonMenuItemsFactory menuItemsFactory,
-            Lesson lesson)
+                                                      Lesson lesson)
         {
-            return new LessonViewModel(lesson, menuItemsFactory, _date, _isTeacher, _holderId);
+            return new LessonViewModel(lesson, menuItemsFactory, _date, _navigationFlow, _group);
         }
 
         private bool IsVisibleInCurrentWeek(Lesson lesson)
@@ -103,7 +111,7 @@ namespace TimeTable.ViewModel.WeekOverview
         private DateTime SetUpDayName(WeekType weekType)
         {
             var today = DateTime.Now;
-            var delta = (7 + (today.DayOfWeek - DayOfWeek.Monday)) % 7;
+            var delta = (7 + (today.DayOfWeek - DayOfWeek.Monday))%7;
             var monday = today.AddDays(-delta);
 
             switch (weekType)

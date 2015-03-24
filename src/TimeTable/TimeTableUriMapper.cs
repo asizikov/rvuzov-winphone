@@ -5,7 +5,6 @@ using JetBrains.Annotations;
 using TimeTable.Domain.Internal;
 using TimeTable.Mvvm.Navigation;
 using TimeTable.View;
-using TimeTable.ViewModel.ApplicationLevel;
 using TimeTable.ViewModel.OrganizationalStructure;
 using TimeTable.ViewModel.Services;
 using TimeTable.ViewModel.WeekOverview;
@@ -35,7 +34,6 @@ namespace TimeTable
                 return uri;
             }
 
-            var navigationFlow = new NavigationFlow();
             if (_applicationSettings.Me.DefaultGroup != null || _applicationSettings.Me.Teacher != null)
             {
                 var isTeacher = _applicationSettings.Me.Teacher != null;
@@ -48,15 +46,20 @@ namespace TimeTable
                 };
                 return NavigationService.GetUri<LessonsPage, LessonsNavigationParameter>(navigationParameter);
             }
+
+            var navigationFlow = new NavigationFlow();
             if (_applicationSettings.Me.Faculty != null)
             {
                 navigationFlow.FacultyId = _applicationSettings.Me.Faculty.Id;
                 navigationFlow.UniversityId = _applicationSettings.Me.University.Id;
+                navigationFlow.UniversityName = _applicationSettings.Me.University.ShortName;
+                navigationFlow.FacultyName = _applicationSettings.Me.Faculty.Title;
                 return NavigationService.GetUri<GroupsPage, NavigationFlow>(navigationFlow);
             }
             if (_applicationSettings.Me.University != null)
             {
                 navigationFlow.UniversityId = _applicationSettings.Me.University.Id;
+                navigationFlow.UniversityName = _applicationSettings.Me.University.ShortName;
                 return NavigationService.GetUri<FacultiesPage, NavigationFlow>(navigationFlow );
             }
             if (_applicationSettings.Me.Role != UserRole.None)
