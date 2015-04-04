@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
-  <DefaultLanguage xmlns="" code="" />
+  <DefaultLanguage xmlns="" code="ru-Ru" />
   <Languages xmlns="">
     <Language code="ru-Ru" />
-    <Language code="ru-RU" />
+    <Language code="ru" />
   </Languages>
   <App xmlns="" ProductID="{27e84732-0d0c-4453-9c26-b368676dbe5b}" Title="Расписание вузов" RuntimeType="Silverlight" Version="1.0.7.0" Genre="apps.normal" Author="Расписание вузов" Description="" Publisher="Расписание вузов" BitsPerPixel="32" PublisherID="{11d0676f-1b7b-4ede-bf41-22ed0cc39a6c}">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
