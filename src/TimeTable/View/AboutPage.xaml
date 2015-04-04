@@ -54,6 +54,15 @@
                     Style="{StaticResource PhoneTextLargeStyle}" />
                 </ContentControl>
             </Button>
+            <Button HorizontalAlignment="Left" Height="76" Width="444" Style="{StaticResource ButtonNoBorder}">
+				                <ContentControl>
+                    <TextBlock
+                    toolkit:TiltEffect.IsTiltEnabled="True"
+                    Text="{Binding Path=Strings.MobileSite, Source={StaticResource LocalizedStrings}}"
+                    Foreground="{StaticResource PhoneAccentBrush}"
+                    Style="{StaticResource PhoneTextLargeStyle}" Width="433" />
+                </ContentControl>
+			</Button>
         </StackPanel>
     </Grid>
 

@@ -141,7 +141,7 @@
                                             Foreground="{TemplateBinding Foreground}"
                                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                             Padding="{TemplateBinding Padding}"
-                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE" FontSize="26.667" />
                         </Border>
                     </Grid>
                 </ControlTemplate>

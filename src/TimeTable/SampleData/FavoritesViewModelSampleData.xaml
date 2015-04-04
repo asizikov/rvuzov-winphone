@@ -1,0 +1,14 @@
+﻿<FavoritedTimeTables:FavoritesViewModel xmlns:FavoritedTimeTables="clr-namespace:TimeTable.ViewModel.FavoritedTimeTables;assembly=TimeTable.ViewModel" IsLoading="True">
+	<FavoritedTimeTables:FavoritesViewModel.Items>
+		<FavoritedTimeTables:FavoritedItemViewModel IsLoading="True" Title="Cras maecenas" UniversityName="Praesent curabitur duis nam"/>
+		<FavoritedTimeTables:FavoritedItemViewModel IsLoading="False" Title="Phasellus aenean mauris accumsan" UniversityName="Sed dis nullam consequat vestibulum"/>
+		<FavoritedTimeTables:FavoritedItemViewModel IsLoading="True" Title="Aliquam class" UniversityName="Aptent nunc"/>
+		<FavoritedTimeTables:FavoritedItemViewModel IsLoading="False" Title="Est auctor convallis curae hac" UniversityName="Bibendum congue amet"/>
+		<FavoritedTimeTables:FavoritedItemViewModel IsLoading="True" Title="Leo mus ante" UniversityName="Integer dictumst donec cursus"/>
+		<FavoritedTimeTables:FavoritedItemViewModel IsLoading="False" Title="Eleifend facilisi" UniversityName="Quisque nec"/>
+		<FavoritedTimeTables:FavoritedItemViewModel IsLoading="True" Title="Dignissim etiam elementum" UniversityName="Fusce vivamus aliquam dictum lectus"/>
+		<FavoritedTimeTables:FavoritedItemViewModel IsLoading="False" Title="Arcu facilisis non fermentum faucibus" UniversityName="Habitant diam aliquet eget"/>
+		<FavoritedTimeTables:FavoritedItemViewModel IsLoading="True" Title="Libero lorem inceptos" UniversityName="Elit fringilla adipiscing"/>
+		<FavoritedTimeTables:FavoritedItemViewModel IsLoading="False" Title="Habitasse ligula" UniversityName="Morbi per"/>
+	</FavoritedTimeTables:FavoritesViewModel.Items>
+</FavoritedTimeTables:FavoritesViewModel>
