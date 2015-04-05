@@ -200,6 +200,9 @@
     <Compile Include="View\LessonsPage.xaml.cs">
       <DependentUpon>LessonsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NewUniversitiesPage.xaml.cs">
+      <DependentUpon>NewUniversitiesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SearchPage.cs" />
     <Compile Include="View\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -345,6 +348,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\NewUniversitiesPage.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -379,6 +386,15 @@
   </ItemGroup>
   <ItemGroup>
     <DesignData Include="SampleData\FavoritesViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
+    <DesignData Include="SampleData\LessonsPageViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
+    <DesignData Include="SampleData\Universi.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
+    <DesignData Include="SampleData\UniversitiesPageViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
   </ItemGroup>

@@ -8,7 +8,7 @@ using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.View
 {
-    [DependsOnViewModel(typeof (UniversitiesPageViewModel))]
+    //[DependsOnViewModel(typeof (UniversitiesPageViewModel))]
     public partial class UniversitiesPage
     {
         public UniversitiesPage()

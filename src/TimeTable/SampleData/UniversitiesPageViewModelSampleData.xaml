@@ -1,0 +1,12 @@
+﻿<OrganizationalStructure:UniversitiesPageViewModel xmlns:OrganizationalStructure="clr-namespace:TimeTable.ViewModel.OrganizationalStructure;assembly=TimeTable.ViewModel" xmlns:OrganizationalStructure1="clr-namespace:TimeTable.Domain.OrganizationalStructure;assembly=TimeTable.Domain" xmlns:System="clr-namespace:System;assembly=mscorlib" IsSearchBoxVisible="True" IsLoading="False" Query="Integer dictumst">
+	<OrganizationalStructure:UniversitiesPageViewModel.SelectedUniversity>
+		<OrganizationalStructure1:University Email="Vestibulum cras curabitur maecenas duis" Id="31" Name="Adipiscing phasellus" PublishUniversity="False" ParityCountdown="Aliquam accumsan consequat bibendum" PublishSchedule="True" ShortName="Aenean mauris praesent nullam nunc">
+			<OrganizationalStructure1:University.EndDate>
+				<System:Int64/>
+			</OrganizationalStructure1:University.EndDate>
+			<OrganizationalStructure1:University.StartDate>
+				<System:Int64/>
+			</OrganizationalStructure1:University.StartDate>
+		</OrganizationalStructure1:University>
+	</OrganizationalStructure:UniversitiesPageViewModel.SelectedUniversity>
+</OrganizationalStructure:UniversitiesPageViewModel>

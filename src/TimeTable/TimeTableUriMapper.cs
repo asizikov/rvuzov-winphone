@@ -64,7 +64,7 @@ namespace TimeTable
             }
             if (_applicationSettings.Me.Role != UserRole.None)
             {
-                return NavigationService.GetUri<UniversitiesPage, Reason>(Reason.Registration);
+                return NavigationService.GetUri<NewUniversitiesPage, Reason>(Reason.Registration);
             }
             return NavigationService.GetUri<FirstPage>();
         }
