@@ -29,19 +29,6 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
-        <DataTemplate x:Key="NewGroupHeaderResource">
-            <Border Background="{StaticResource NewTimeTableHigilghtLight}"
-                    HorizontalAlignment="Left"
-                    Width="480"
-                    Height="75"
-                    Margin="0"
-                    toolkit:TiltEffect.IsTiltEnabled="True" BorderThickness="0">
-                <TextBlock Text="{Binding Title}"
-                           FontFamily="{StaticResource PhoneFontFamilySemiLight}"
-                           HorizontalAlignment="Left" VerticalAlignment="Center"
-                           Style="{StaticResource PhoneTextLargeStyle}" />
-            </Border>
-        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
     <phone:PhoneApplicationPage.Foreground>
         <StaticResource ResourceKey="PhoneForegroundBrush" />
@@ -95,7 +82,6 @@
                     </ContentControl>
                 </Button>
                 <controls:ExtendedSelector
-                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     ItemsSource="{Binding UniversitiesList}"
                     LayoutMode="List"
                     IsGroupingEnabled="True"
@@ -104,6 +90,8 @@
                     Width="480"
                     Grid.Row="1"
                     ItemTemplate="{StaticResource NewUniversityTemplate}"
+                    SelectedItem="{Binding SelectedUniversity, Mode=TwoWay}"
+                                    Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
                     Style="{StaticResource LongListSelectorWithNoScrollBarStyle}" />
             </Grid>
 

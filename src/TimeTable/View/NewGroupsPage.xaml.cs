@@ -8,10 +8,10 @@ using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.View
 {
-//    [DependsOnViewModel(typeof (GroupPageViewModel))]
-    public partial class GroupsPage
+    [DependsOnViewModel(typeof (GroupPageViewModel))]
+    public partial class NewGroupsPage
     {
-        public GroupsPage()
+        public NewGroupsPage()
         {
             InitializeComponent();
         }
@@ -33,15 +33,15 @@ namespace TimeTable.View
 
             if (State.Count > 0)
             {
-                this.RestoreState(Search);
-                Search.Visibility = (Visibility) this.RestoreState(SearchKey);
-                this.RestoreState(Pivot);
+//                this.RestoreState(Search);
+//                Search.Visibility = (Visibility) this.RestoreState(SearchKey);
+//                this.RestoreState(Pivot);
             }
         }
 
         private void OnLock(bool state)
         {
-            Pivot.IsLocked = state;
+//            Pivot.IsLocked = state;
         }
 
         private void Search_GotFocus(object sender, RoutedEventArgs e)
@@ -54,15 +54,15 @@ namespace TimeTable.View
         {
             if (this.ShouldTombstone(e))
             {
-                this.SaveState(Search);
-                this.SaveState(SearchKey, Search.Visibility);
-                this.SaveState(Pivot);
+//                this.SaveState(Search);
+//                this.SaveState(SearchKey, Search.Visibility);
+//                this.SaveState(Pivot);
             }
         }
 
         protected override void SetFocus()
         {
-            Search.Focus();
+//            Search.Focus();
         }
 
         protected override void OnLeave()

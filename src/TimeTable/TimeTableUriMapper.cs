@@ -54,7 +54,7 @@ namespace TimeTable
                 navigationFlow.UniversityId = _applicationSettings.Me.University.Id;
                 navigationFlow.UniversityName = _applicationSettings.Me.University.ShortName;
                 navigationFlow.FacultyName = _applicationSettings.Me.Faculty.Title;
-                return NavigationService.GetUri<GroupsPage, NavigationFlow>(navigationFlow);
+                return NavigationService.GetUri<NewGroupsPage, NavigationFlow>(navigationFlow);
             }
             if (_applicationSettings.Me.University != null)
             {
