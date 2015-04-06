@@ -1,0 +1,156 @@
+﻿<view:SearchPage
+    x:Class="TimeTable.View.NewGroupsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:TimeTable.View"
+    xmlns:utils="clr-namespace:TimeTable.Utils"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:TimeTable.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="{Binding IsLoading}"
+                                 IsVisible="{Binding IsLoading}" />
+    </shell:SystemTray.ProgressIndicator>
+    <phone:PhoneApplicationPage.Resources>
+        <SolidColorBrush x:Key="NewTimeTableDarkBrush" Color="#FF606C7F" />
+        <DataTemplate x:Key="NewTimeTableTeachersTemplate">
+            <Border Background="#FFFEFEFE" BorderBrush="{StaticResource TimeTableItemSeparationBrush}"
+                    BorderThickness="1,1,1,0"
+                    Width="480">
+                <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
+                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}"
+                               Foreground="Black"
+                               Text="{Binding Name}" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="NewTimeTableGroupsTemplate">
+            <Border Background="#FFFEFEFE" BorderBrush="{StaticResource TimeTableItemSeparationBrush}"
+                    BorderThickness="1,1,1,0"
+                    Width="480">
+                <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
+                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}"
+                               Foreground="Black"
+                               Text="{Binding GroupName}" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="ContentPanel" Grid.Row="1">
+            <Grid HorizontalAlignment="Left" Height="768" VerticalAlignment="Top" Width="480">
+                <Grid.Background>
+                    <SolidColorBrush Color="{StaticResource NewTimeTableBackground}" />
+                </Grid.Background>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid x:Name="Header" HorizontalAlignment="Left"
+                      Height="162" VerticalAlignment="Top"
+                      Width="480"
+                      Background="{StaticResource NewTimeTableHighlightBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <ListBox
+                        SelectedIndex="{Binding SelectedIndex, ElementName=ContentPivot, Mode=TwoWay}"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBoxItem>
+                            <TextBlock
+                                Margin="10,27,0,0"
+                                FontSize="33.333"
+                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE"
+                                Text="{Binding Strings.Groups, Source={StaticResource LocalizedStrings}}" Width="123" />
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock
+                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE"
+                                Margin="10,27,0,0"
+                                FontSize="33.333"
+                                Text="{Binding Strings.Teachers, Source={StaticResource LocalizedStrings}}" />
+                        </ListBoxItem>
+                    </ListBox>
+
+                    <TextBox
+                        HorizontalAlignment="Left"
+                        Height="72" Margin="0,5,0,0"
+                        Grid.Row="1" TextWrapping="Wrap"
+                        x:Name="Search"
+                        GotFocus="Search_GotFocus"
+                        Text="{Binding Query, Mode=TwoWay}"
+                        utils:BindingUtility.UpdateSourceOnChange="True"
+                        VerticalAlignment="Top" Width="470" />
+                </Grid>
+                <phone:Pivot Name="ContentPivot"
+                             SelectedIndex="{Binding SelectedPivotIndex, Mode=TwoWay}"
+                             Grid.Row="1">
+                    <phone:PivotItem Margin="0,-12,0,0">
+                        <Grid Margin="0">
+                            <controls:ExtendedSelector
+                                Grid.Row="0"
+                                Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
+                                SelectedItem="{Binding SelectedGroup, Mode=TwoWay}"
+                                ItemsSource="{Binding GroupsList}"
+                                LayoutMode="List"
+                                JumpListStyle="{StaticResource TimeTableJumpListStyle}"
+                                IsGroupingEnabled="True"
+                                ItemTemplate ="{StaticResource NewTimeTableGroupsTemplate}"
+                                GroupHeaderTemplate="{StaticResource NewGroupHeaderResource}"
+                                Style="{StaticResource LongListSelectorWithNoScrollBarStyle}">
+                            </controls:ExtendedSelector>
+                            <TextBlock
+                                TextWrapping="Wrap"
+                                Style="{StaticResource PhoneTextLargeStyle}"
+                                Visibility="{Binding GroupsList, 
+                        Converter={StaticResource ReversedAnyCountToVisibeConverterKey},
+                        FallbackValue='Collapsed'}"
+                                Text="{Binding Strings.NoData, Source={StaticResource LocalizedStrings}}" />
+                        </Grid>
+                    </phone:PivotItem>
+                    <phone:PivotItem Margin="0,-12,0,0">
+                        <Grid>
+                            <controls:ExtendedSelector
+                                Style="{StaticResource LongListSelectorWithNoScrollBarStyle}"
+                                Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
+                                SelectedItem="{Binding SelectedTeacher, Mode=TwoWay}"
+                                ItemsSource="{Binding TeachersList}"
+                                LayoutMode="List"
+                                IsGroupingEnabled="True"
+                                ItemTemplate ="{StaticResource NewTimeTableTeachersTemplate}"
+                                JumpListStyle="{StaticResource TimeTableJumpListStyle}"
+                                GroupHeaderTemplate="{StaticResource NewGroupHeaderResource}">
+                            </controls:ExtendedSelector>
+                            <TextBlock
+                                TextWrapping="Wrap"
+                                Style="{StaticResource PhoneTextLargeStyle}"
+                                Visibility="{Binding TeachersList, 
+                        Converter={StaticResource ReversedAnyCountToVisibeConverterKey},
+                        FallbackValue='Collapsed'}"
+                                Text="{Binding Strings.NoData, Source={StaticResource LocalizedStrings}}" />
+                        </Grid>
+                    </phone:PivotItem>
+                </phone:Pivot>
+            </Grid>
+        </Grid>
+    </Grid>
+</view:SearchPage>

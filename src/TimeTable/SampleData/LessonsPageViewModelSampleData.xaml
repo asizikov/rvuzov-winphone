@@ -1,0 +1,82 @@
+﻿<WeekOverview:LessonsPageViewModel xmlns:WeekOverview="clr-namespace:TimeTable.ViewModel.WeekOverview;assembly=TimeTable.ViewModel" xmlns:MenuItems="clr-namespace:TimeTable.ViewModel.MenuItems;assembly=TimeTable.ViewModel" FavoritedState="Favorited" IsLoading="True" SelectedWeekIndex="34" Title="Nam aenean">
+	<WeekOverview:LessonsPageViewModel.AppbarButtons>
+		<MenuItems:AppbarButtonViewModel IconUri="Quis adipiscing" Text="Quam mus venenatis"/>
+		<MenuItems:AppbarButtonViewModel IconUri="Nullam parturient phasellus aptent" Text="Vulputate urna class aliquet curabitur"/>
+		<MenuItems:AppbarButtonViewModel IconUri="Curae cras dictumst auctor" Text="Vestibulum nec vestibulum"/>
+		<MenuItems:AppbarButtonViewModel IconUri="Donec blandit adipiscing non parturient" Text="Duis nunc eleifend consequat"/>
+		<MenuItems:AppbarButtonViewModel IconUri="Faucibus amet congue conubia per" Text="Vestibulum facilisi etiam commodo convallis"/>
+		<MenuItems:AppbarButtonViewModel IconUri="Cubilia inceptos" Text="Fusce dignissim vestibulum habitant cursus"/>
+		<MenuItems:AppbarButtonViewModel IconUri="Adipiscing facilisis fermentum sed" Text="Dapibus elementum ante interdum dictum"/>
+		<MenuItems:AppbarButtonViewModel IconUri="Lobortis lorem" Text="Parturient sem lectus"/>
+		<MenuItems:AppbarButtonViewModel IconUri="Fringilla euismod" Text="Morbi nulla egestas vestibulum"/>
+		<MenuItems:AppbarButtonViewModel IconUri="Gravida nascetur" Text="Arcu feugiat diam habitasse"/>
+	</WeekOverview:LessonsPageViewModel.AppbarButtons>
+	<WeekOverview:LessonsPageViewModel.CurrentWeek>
+		<WeekOverview:WeekViewModel IsLoading="False" WeekNumber="13">
+			<WeekOverview:WeekViewModel.Days>
+				<WeekOverview:DayViewModel IsLoading="True" NameForTheDay="Mauris maecenas praesent" Weekday="1">
+					<WeekOverview:DayViewModel.Lessons>
+						<WeekOverview:LessonViewModel Auditory="Aliquam class vestibulum" Groups="Cras vivamus donec aliquam" IsCurrent="True" IsLoading="False" Teachers="Integer quisque curae accumsan"/>
+						<WeekOverview:LessonViewModel Auditory="Sed curabitur nullam adipiscing" Groups="Etiam fusce dictumst duis nunc" IsCurrent="True" IsLoading="False" Teachers="Dis bibendum aliquet"/>
+						<WeekOverview:LessonViewModel Auditory="Blandit commodo eleifend conubia" Groups="Consequat ante lorem" IsCurrent="True" IsLoading="False" Teachers="Amet cubilia phasellus dapibus"/>
+						<WeekOverview:LessonViewModel Auditory="Aptent facilisi faucibus morbi" Groups="Parturient vestibulum arcu egestas" IsCurrent="True" IsLoading="False" Teachers="Nulla proin"/>
+						<WeekOverview:LessonViewModel Auditory="Est augue habitant" Groups="Convallis eget" IsCurrent="True" IsLoading="False" Teachers="Auctor euismod diam congue"/>
+					</WeekOverview:DayViewModel.Lessons>
+				</WeekOverview:DayViewModel>
+				<WeekOverview:DayViewModel IsLoading="False" NameForTheDay="Dolor hac fames leo cursus" Weekday="2">
+					<WeekOverview:DayViewModel.Lessons>
+						<WeekOverview:LessonViewModel Auditory="Vestibulum dignissim elementum" Groups="Fermentum dictum" IsCurrent="False" IsLoading="True" Teachers="Feugiat inceptos interdum lobortis facilisis"/>
+						<WeekOverview:LessonViewModel Auditory="Mus felis ipsum lectus" Groups="Adipiscing gravida ligula" IsCurrent="False" IsLoading="True" Teachers="Justo nec libero nascetur"/>
+						<WeekOverview:LessonViewModel Auditory="Lacus non per" Groups="Lacinia parturient" IsCurrent="False" IsLoading="True" Teachers="Iaculis lorem litora fringilla"/>
+						<WeekOverview:LessonViewModel Auditory="Magna sed" Groups="Magnis mattis metus mauris" IsCurrent="False" IsLoading="True" Teachers="Pharetra elit massa luctus"/>
+						<WeekOverview:LessonViewModel Auditory="Vestibulum enim mollis morbi" Groups="Laoreet erat" IsCurrent="False" IsLoading="True" Teachers="Montes neque habitasse vestibulum"/>
+					</WeekOverview:DayViewModel.Lessons>
+				</WeekOverview:DayViewModel>
+				<WeekOverview:DayViewModel IsLoading="True" NameForTheDay="Hendrerit netus nostra ornare" Weekday="3">
+					<WeekOverview:DayViewModel.Lessons>
+						<WeekOverview:LessonViewModel Auditory="Adipiscing placerat himenaeos imperdiet parturient" Groups="Vestibulum sem adipiscing natoque nibh" IsCurrent="True" IsLoading="False" Teachers="Nulla porta vestibulum eros"/>
+						<WeekOverview:LessonViewModel Auditory="Sit malesuada" Groups="Potenti pulvinar purus" IsCurrent="True" IsLoading="False" Teachers="Posuere vel platea"/>
+						<WeekOverview:LessonViewModel Auditory="Penatibus sagittis pretium risus" Groups="Nam sed senectus" IsCurrent="True" IsLoading="False" Teachers="Rhoncus primis nisi rutrum"/>
+						<WeekOverview:LessonViewModel Auditory="Velit vitae sociosqu" Groups="Parturient dis est vestibulum sodales" IsCurrent="True" IsLoading="False" Teachers="Suscipit torquent sapien"/>
+						<WeekOverview:LessonViewModel Auditory="Nisl viverra ultrices aliquam porttitor" Groups="Tristique ultricies venenatis vulputate" IsCurrent="True" IsLoading="False" Teachers="Tincidunt integer"/>
+					</WeekOverview:DayViewModel.Lessons>
+				</WeekOverview:DayViewModel>
+				<WeekOverview:DayViewModel IsLoading="False" NameForTheDay="Vehicula vestibulum" Weekday="4">
+					<WeekOverview:DayViewModel.Lessons>
+						<WeekOverview:LessonViewModel Auditory="Hac class quisque" Groups="Phasellus leo curae" IsCurrent="False" IsLoading="True" Teachers="Volutpat adipiscing maecenas curabitur"/>
+						<WeekOverview:LessonViewModel Auditory="Donec parturient semper mus" Groups="Sociis taciti praesent" IsCurrent="False" IsLoading="True" Teachers="Vestibulum vivamus"/>
+						<WeekOverview:LessonViewModel Auditory="Etiam nunc aliquam nec aliquet" Groups="Tellus adipiscing fusce" IsCurrent="False" IsLoading="True" Teachers="Vestibulum blandit"/>
+						<WeekOverview:LessonViewModel Auditory="Odio consequat" Groups="Conubia lorem" IsCurrent="False" IsLoading="True" Teachers="Tempor commodo accumsan"/>
+						<WeekOverview:LessonViewModel Auditory="Parturient morbi orci" Groups="Proin dictumst augue eleifend facilisi" IsCurrent="False" IsLoading="True" Teachers="Nulla pede bibendum non quam"/>
+					</WeekOverview:DayViewModel.Lessons>
+				</WeekOverview:DayViewModel>
+				<WeekOverview:DayViewModel IsLoading="True" NameForTheDay="Quis tempus tortor per turpis" Weekday="5">
+					<WeekOverview:DayViewModel.Lessons>
+						<WeekOverview:LessonViewModel Auditory="Faucibus cubilia urna vestibulum" Groups="Dapibus vestibulum varius dignissim" IsCurrent="True" IsLoading="False" Teachers="Habitant dolor fames convallis"/>
+						<WeekOverview:LessonViewModel Auditory="Felis elementum egestas euismod" Groups="Feugiat aenean facilisis duis lacus" IsCurrent="True" IsLoading="False" Teachers="Inceptos cras ipsum justo sed"/>
+						<WeekOverview:LessonViewModel Auditory="Nunc fermentum amet" Groups="Mauris nullam ante" IsCurrent="True" IsLoading="False" Teachers="Sem fringilla"/>
+						<WeekOverview:LessonViewModel Auditory="Sit vel nam" Groups="Parturient lorem sed" IsCurrent="True" IsLoading="False" Teachers="Adipiscing gravida habitasse"/>
+						<WeekOverview:LessonViewModel Auditory="Arcu interdum" Groups="Diam dis laoreet eget" IsCurrent="True" IsLoading="False" Teachers="Iaculis aptent lacinia"/>
+					</WeekOverview:DayViewModel.Lessons>
+				</WeekOverview:DayViewModel>
+			</WeekOverview:WeekViewModel.Days>
+		</WeekOverview:WeekViewModel>
+	</WeekOverview:LessonsPageViewModel.CurrentWeek>
+	<WeekOverview:LessonsPageViewModel.Options>
+		<WeekOverview:OptionsMonitor IsVisible="True" IsLoading="False" Title="Nisl nunc torquent">
+			<WeekOverview:OptionsMonitor.Items>
+				<WeekOverview:OptionsItem Title="Ultrices vehicula rhoncus odio"/>
+				<WeekOverview:OptionsItem Title="Vestibulum sodales viverra"/>
+				<WeekOverview:OptionsItem Title="Risus volutpat aliquam"/>
+				<WeekOverview:OptionsItem Title="Tristique ultricies"/>
+				<WeekOverview:OptionsItem Title="Vestibulum leo maecenas adipiscing integer"/>
+				<WeekOverview:OptionsItem Title="Quisque parturient turpis"/>
+				<WeekOverview:OptionsItem Title="Orci varius vivamus vestibulum"/>
+				<WeekOverview:OptionsItem Title="Aenean aliquam vestibulum praesent"/>
+				<WeekOverview:OptionsItem Title="Velit accumsan bibendum pede"/>
+				<WeekOverview:OptionsItem Title="Mauris vitae"/>
+			</WeekOverview:OptionsMonitor.Items>
+		</WeekOverview:OptionsMonitor>
+	</WeekOverview:LessonsPageViewModel.Options>
+
+</WeekOverview:LessonsPageViewModel>

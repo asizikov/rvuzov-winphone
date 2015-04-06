@@ -65,7 +65,7 @@
     </DataTemplate>
 
     <Style x:Key="TimeTablePageStyle" TargetType="phone:PhoneApplicationPage">
-        <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}" />
+        <Setter Property="FontFamily" Value="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE" />
         <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}" />
         <Setter Property="Foreground" Value="{StaticResource TimeTableSecondaryTextColorBrush}" />
         <Setter Property="SupportedOrientations" Value="Portrait" />
@@ -141,14 +141,26 @@
                                             Foreground="{TemplateBinding Foreground}"
                                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                             Padding="{TemplateBinding Padding}"
-                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE" FontSize="26.667" />
                         </Border>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
+    <DataTemplate x:Key="NewGroupHeaderResource">
+        <Border Background="{StaticResource NewTimeTableHigilghtLight}"
+                    HorizontalAlignment="Left"
+                    Width="480"
+                    Height="75"
+                    Margin="0"
+                    toolkit:TiltEffect.IsTiltEnabled="True" BorderThickness="0">
+            <TextBlock Text="{Binding Title}"
+                           FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                           HorizontalAlignment="Left" VerticalAlignment="Center"
+                           Style="{StaticResource PhoneTextLargeStyle}" />
+        </Border>
+    </DataTemplate>
     <DataTemplate x:Key="TimeTableWeekDataTemplate">
         <StackPanel Visibility="{Binding Lessons, Converter={StaticResource AnyCountToVisibeConverterKey}}">
             <StackPanel
@@ -361,4 +373,38 @@
         <Setter Property="Padding" Value="2,2,8,2" />
         <Setter Property="HorizontalAlignment" Value="Left" />
     </Style>
+
+    <Style x:Key="LongListSelectorWithNoScrollBarStyle" TargetType="phone:LongListSelector">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="phone:LongListSelector">
+                <Grid Background="{TemplateBinding Background}" d:DesignWidth="480" d:DesignHeight="800">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="ScrollStates">
+                            <VisualStateGroup.Transitions>
+                                <VisualTransition GeneratedDuration="00:00:00.5"/>
+                            </VisualStateGroup.Transitions>
+                            <VisualState x:Name="Scrolling" />
+                            <VisualState x:Name="NotScrolling"/>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <Grid Margin="{TemplateBinding Padding}">
+                        <ViewportControl x:Name="ViewportControl" HorizontalContentAlignment="Stretch" VerticalAlignment="Top"/>
+                    </Grid>
+                </Grid>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+
+    <Color x:Key="NewTimeTableBackground">#FF606C7F</Color>
+    <SolidColorBrush x:Key="NewTimeTableHighlightBrush" Color="#FF4C6DA7"/>
+    <SolidColorBrush x:Key="NewTimeTableLightBrush" Color="#FFC1D7FF"/>
+    <SolidColorBrush x:Key="NewTimeTableHigilghtLight" Color="#FF5D85CC"/>
+    <SolidColorBrush x:Key="TimeTableItemSeparationBrush" Color="#FFD6D3D3"/>
+    <SolidColorBrush x:Key="NewTimeTableDarkBrush" Color="#FF606C7F" />
 </ResourceDictionary>

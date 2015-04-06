@@ -1,0 +1,16 @@
+﻿<OrganizationalStructure:University 
+xmlns:OrganizationalStructure="clr-namespace:TimeTable.Domain.OrganizationalStructure;assembly=TimeTable.Domain" xmlns:System="clr-namespace:System;assembly=mscorlib" 
+Email="Aenean vestibulum class nam" 
+Id="74" 
+Name="Национальный исследовательский университет Информационных технологий, механики и оптики" 
+PublishUniversity="False" 
+ParityCountdown="Parturient aptent vestibulum vestibulum phasellus" 
+PublishSchedule="True" 
+ShortName="ИТМО">
+	<OrganizationalStructure:University.EndDate>
+		<System:Int64/>
+	</OrganizationalStructure:University.EndDate>
+	<OrganizationalStructure:University.StartDate>
+		<System:Int64/>
+	</OrganizationalStructure:University.StartDate>
+</OrganizationalStructure:University>

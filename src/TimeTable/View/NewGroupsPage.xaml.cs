@@ -8,10 +8,10 @@ using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.View
 {
-    [DependsOnViewModel(typeof (FacultiesPageViewModel))]
-    public partial class FacultiesPage
+    [DependsOnViewModel(typeof (GroupPageViewModel))]
+    public partial class NewGroupsPage
     {
-        public FacultiesPage()
+        public NewGroupsPage()
         {
             InitializeComponent();
         }
@@ -21,14 +21,27 @@ namespace TimeTable.View
             base.OnNavigatedTo(e);
             var navigationContext = NavigationContext.QueryString.RestoreContext<NavigationFlow>();
 
-            ViewModel = ViewModelLocator.GetFacultiesPageViewModel(navigationContext.Body) as ISearchViewModel;
+            ViewModel =
+                ViewModelLocator.GetGroupsPageViewModel(navigationContext.Body) as
+                    ISearchViewModel;
+
+            if (ViewModel != null)
+            {
+                ViewModel.OnLock += OnLock;
+            }
             DataContext = ViewModel;
 
             if (State.Count > 0)
             {
-                this.RestoreState(Search);
-                Search.Visibility = (Visibility) this.RestoreState(SearchKey);
+//                this.RestoreState(Search);
+//                Search.Visibility = (Visibility) this.RestoreState(SearchKey);
+//                this.RestoreState(Pivot);
             }
+        }
+
+        private void OnLock(bool state)
+        {
+//            Pivot.IsLocked = state;
         }
 
         private void Search_GotFocus(object sender, RoutedEventArgs e)
@@ -41,14 +54,25 @@ namespace TimeTable.View
         {
             if (this.ShouldTombstone(e))
             {
-                this.SaveState(Search);
-                this.SaveState(SearchKey, Search.Visibility);
+//                this.SaveState(Search);
+//                this.SaveState(SearchKey, Search.Visibility);
+//                this.SaveState(Pivot);
             }
         }
 
         protected override void SetFocus()
         {
-            Search.Focus();
+//            Search.Focus();
+        }
+
+        protected override void OnLeave()
+        {
+            if (ViewModel != null)
+            {
+// ReSharper disable once DelegateSubtraction
+                ViewModel.OnLock -= OnLock;
+            }
+            base.OnLeave();
         }
     }
 }

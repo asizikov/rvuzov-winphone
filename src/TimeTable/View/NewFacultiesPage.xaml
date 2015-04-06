@@ -1,0 +1,102 @@
+﻿<view:SearchPage
+    x:Class="TimeTable.View.NewFacultiesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:TimeTable.View"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:utils="clr-namespace:TimeTable.Utils"
+    xmlns:controls="clr-namespace:TimeTable.Controls"
+    mc:Ignorable="d"
+    Style="{StaticResource TimeTablePageStyle}"
+    shell:SystemTray.IsVisible="True">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="{Binding IsLoading}"
+                                 IsVisible="{Binding IsLoading}" />
+    </shell:SystemTray.ProgressIndicator>
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="NewFacultyTemplate">
+            <Border Background="#FFFEFEFE" BorderBrush="{StaticResource TimeTableItemSeparationBrush}"
+                    BorderThickness="1,1,1,0"
+                    Width="480">
+                <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
+                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}"
+                               Foreground="Black"
+                               TextWrapping="Wrap"
+                               Text="{Binding Title}" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+    <phone:PhoneApplicationPage.Foreground>
+        <StaticResource ResourceKey="PhoneForegroundBrush" />
+    </phone:PhoneApplicationPage.Foreground>
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="ContentPanel" Grid.Row="1">
+            <Grid HorizontalAlignment="Left" Height="768" VerticalAlignment="Top" Width="480">
+                <Grid.Background>
+                    <SolidColorBrush Color="{StaticResource NewTimeTableBackground}" />
+                </Grid.Background>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid x:Name="Header" HorizontalAlignment="Left"
+                      Height="162" VerticalAlignment="Top"
+                      Width="480"
+                      Background="{StaticResource NewTimeTableHighlightBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Margin="10,27,0,0"
+                        FontSize="33.333"
+                        Text="{Binding Strings.SelectFaculty, Source={StaticResource LocalizedStrings}}" />
+                    <TextBox
+                        HorizontalAlignment="Left"
+                        Height="72" Margin="0,5,0,0"
+                        Grid.Row="1" TextWrapping="Wrap"
+                        x:Name="Search"
+                        GotFocus="Search_GotFocus"
+                        Text="{Binding Query, Mode=TwoWay}"
+                        utils:BindingUtility.UpdateSourceOnChange="True"
+                        VerticalAlignment="Top" Width="470" />
+                </Grid>
+                <Button HorizontalAlignment="Left"
+                        Style="{StaticResource NoTimtableButtonNoBorder}"
+                        VerticalAlignment="Top" Width="480" Margin="0,81,0,0" Grid.Row="1">
+                    <ContentControl>
+                        <TextBlock
+                            toolkit:TiltEffect.IsTiltEnabled="True"
+                            Text="{Binding Strings.NoTimeTable, Source={StaticResource LocalizedStrings}}"
+                            Foreground="{StaticResource TimeTablePrimaryTextColorBrush}"
+                            Style="{StaticResource PhoneTextLargeStyle}" Width="455"
+                            FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE" />
+                    </ContentControl>
+                </Button>
+                <controls:ExtendedSelector
+                    ItemsSource="{Binding FacultiesList}"
+                    SelectedItem="{Binding SelectedFaculty, Mode=TwoWay}"
+                    LayoutMode="List"
+                    IsGroupingEnabled="True"
+                    JumpListStyle="{StaticResource TimeTableJumpListStyle}"
+                    GroupHeaderTemplate="{StaticResource NewGroupHeaderResource}"
+                    Width="480"
+                    Grid.Row="1"
+                    ItemTemplate="{StaticResource NewFacultyTemplate}"
+                    Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
+                    Style="{StaticResource LongListSelectorWithNoScrollBarStyle}" />
+            </Grid>
+
+        </Grid>
+    </Grid>
+
+</view:SearchPage>

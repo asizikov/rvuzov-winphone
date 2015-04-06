@@ -8,40 +8,26 @@ using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.View
 {
-    [DependsOnViewModel(typeof (GroupPageViewModel))]
-    public partial class GroupsPage
+    [DependsOnViewModel(typeof(FacultiesPageViewModel))]
+    public partial class NewFacultiesPage
     {
-        public GroupsPage()
+        public NewFacultiesPage()
         {
             InitializeComponent();
         }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             var navigationContext = NavigationContext.QueryString.RestoreContext<NavigationFlow>();
 
-            ViewModel =
-                ViewModelLocator.GetGroupsPageViewModel(navigationContext.Body) as
-                    ISearchViewModel;
-
-            if (ViewModel != null)
-            {
-                ViewModel.OnLock += OnLock;
-            }
+            ViewModel = ViewModelLocator.GetFacultiesPageViewModel(navigationContext.Body) as ISearchViewModel;
             DataContext = ViewModel;
 
             if (State.Count > 0)
             {
                 this.RestoreState(Search);
-                Search.Visibility = (Visibility) this.RestoreState(SearchKey);
-                this.RestoreState(Pivot);
+                Search.Visibility = (Visibility)this.RestoreState(SearchKey);
             }
-        }
-
-        private void OnLock(bool state)
-        {
-            Pivot.IsLocked = state;
         }
 
         private void Search_GotFocus(object sender, RoutedEventArgs e)
@@ -56,23 +42,12 @@ namespace TimeTable.View
             {
                 this.SaveState(Search);
                 this.SaveState(SearchKey, Search.Visibility);
-                this.SaveState(Pivot);
             }
         }
 
         protected override void SetFocus()
         {
             Search.Focus();
-        }
-
-        protected override void OnLeave()
-        {
-            if (ViewModel != null)
-            {
-// ReSharper disable once DelegateSubtraction
-                ViewModel.OnLock -= OnLock;
-            }
-            base.OnLeave();
         }
     }
 }

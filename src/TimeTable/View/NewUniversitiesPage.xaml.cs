@@ -9,9 +9,9 @@ using TimeTable.ViewModel.OrganizationalStructure;
 namespace TimeTable.View
 {
     [DependsOnViewModel(typeof (UniversitiesPageViewModel))]
-    public partial class UniversitiesPage
+    public partial class NewUniversitiesPage
     {
-        public UniversitiesPage()
+        public NewUniversitiesPage()
         {
             InitializeComponent();
         }
