@@ -167,7 +167,7 @@
                 CacheMode="BitmapCache"
                 Orientation="Horizontal">
                 <TextBlock
-                    Margin="12,0,0,12"
+                    Margin="12,0"
                     Text="{Binding Weekday, Converter={StaticResource NumberToWeekDayConverter}}"
                     Style="{StaticResource PhoneTextTitle2Style}"
                     Foreground="White" />
@@ -181,13 +181,13 @@
                            Style="{StaticResource PhoneTextTitle2Style}" />
             </StackPanel>
 
-            <ItemsControl Margin="12,12,24,0" ItemsSource="{Binding Lessons}">
+            <ItemsControl Margin="0" ItemsSource="{Binding Lessons}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="White"
                               CacheMode="BitmapCache"
-                              Width="432"
-                              Margin="0,0,0,12">
+                              Width="480"
+                              Margin="0">
                             <toolkit:ContextMenuService.ContextMenu>
                                 <controls:CommandReadyContextMenu
                                     IsZoomEnabled="False" ItemsSource="{Binding ContextMenuItems}" />
@@ -204,104 +204,97 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Rectangle 
-                                CacheMode="BitmapCache"
-                                Fill="{Binding IsCurrent, Converter={StaticResource BoolToLessonColorConverter}}"
-                                Grid.RowSpan="5"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Width="7"/>
-                            <StackPanel
-                                Margin="12,0,12,0"
-                                Grid.Row="0"
-                                Grid.ColumnSpan="2"
-                                Grid.Column="1"
-                                Orientation="Horizontal">
-                                <TextBlock 
-                                    CacheMode="BitmapCache"
-                                    Text="{Binding Lesson.TimeStart}" Margin="0"
-                                           Foreground="{StaticResource TimeTableBackgorundColorBrush}"
-                                           Style="{StaticResource PhoneTextLargeStyle}" />
-                                <TextBlock Text="-" Margin="0"
-                                           CacheMode="BitmapCache"
-                                           Foreground="{StaticResource TimeTableBackgorundColorBrush}"
-                                           Style="{StaticResource PhoneTextLargeStyle}" />
-                                <TextBlock Text="{Binding Lesson.TimeEnd}" Margin="0 "
-                                           CacheMode="BitmapCache"
-                                           Foreground="{StaticResource TimeTableBackgorundColorBrush}"
-                                           Style="{StaticResource PhoneTextLargeStyle}" />
-                            </StackPanel>
-                            <TextBlock
-                                Grid.ColumnSpan="2"
-                                Grid.Column="1"
-                                CacheMode="BitmapCache"
-                                Grid.Row="1" Margin="12,0,24,0" Text="{Binding Lesson.TypeName}"
-                                Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                                TextWrapping="Wrap" />
-                            <TextBlock
-                                Grid.ColumnSpan="2"
-                                Grid.Column="1"
-                                Margin="12,0,12,12"
-                                CacheMode="BitmapCache"
-                                Grid.Row="2" Text="{Binding Lesson.Subject}"
-                                Foreground="{StaticResource TimeTableBackgorundColorBrush}"
-                                Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" />
-                            <Image
-                                Grid.Row="4"
-                                Grid.Column="1"
-                                Visibility="{Binding Auditory, 
-                                Converter={StaticResource StringContentToVisibilityConverter}}"
-                                Margin="12,0,12,12"
-                                CacheMode="BitmapCache"
-                                Source="../Resources/Images/Lesson/target.png" />
-                            <TextBlock
-                                Grid.Column="2"
-                                Grid.Row="4"
-                                Margin="0,0,12,12"
-                                CacheMode="BitmapCache"
-                                Visibility="{Binding Auditory, 
-                                Converter={StaticResource StringContentToVisibilityConverter}}"
-                                Text="{Binding Auditory}"
-                                Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                                TextWrapping="Wrap" />
-                            <Image
-                                Grid.Row="3"
-                                Visibility="{Binding Teachers, 
-                                Converter={StaticResource StringContentToVisibilityConverter}}"
-                                Grid.Column="1"
-                                Margin="12,0,12,12" CacheMode="BitmapCache"
-                                Source="../Resources/Images/Lesson/teacher.png" />
-                            <TextBlock
-                                CacheMode="BitmapCache"
-                                Grid.Row="3"
-                                Grid.Column="2"
-                                Margin="0,0,12,12"
-                                Visibility="{Binding Teachers, 
-                                Converter={StaticResource StringContentToVisibilityConverter}}"
-                                Text="{Binding Teachers}"
-                                Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                                TextWrapping="Wrap" />
-
-                            <Image
-                                Grid.Column="1"
-                                Grid.Row="3"
-                                Visibility="{Binding Groups, 
-                                Converter={StaticResource StringContentToVisibilityConverter}}"
-                                Margin="12,0,12,12"
-                                CacheMode="BitmapCache"
-                                Source="../Resources/Images/Lesson/students.png" />
-                            <TextBlock
-                                Grid.Column="2"
-                                Grid.Row="3"
-                                Margin="0,0,12,12"
-                                CacheMode="BitmapCache"
-                                Visibility="{Binding Groups, 
-                                Converter={StaticResource StringContentToVisibilityConverter}}"
-                                Text="{Binding Groups}"
-                                Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                                TextWrapping="Wrap" />
+                            <Border BorderBrush="Black" BorderThickness="0,0,0,1" Margin="0" Grid.RowSpan="5" Grid.ColumnSpan="3" Width="480"/>
+                        	<Rectangle 
+                        		CacheMode="BitmapCache"
+                        		Fill="{Binding IsCurrent, Converter={StaticResource BoolToLessonColorConverter}}"
+                        		Grid.RowSpan="5"
+                        		Grid.Row="0"
+                        		Grid.Column="0"
+                        		Width="7"/>
+                        	<StackPanel
+                        		Margin="12,0,12,0"
+                        		Grid.Row="0"
+                        		Grid.ColumnSpan="2"
+                        		Grid.Column="1"
+                        		Orientation="Horizontal">
+                        		<TextBlock 
+                        			CacheMode="BitmapCache"
+                        			Text="{Binding Lesson.TimeStart}" Margin="0"
+                        			Foreground="{StaticResource TimeTableBackgorundColorBrush}"
+                        			Style="{StaticResource PhoneTextLargeStyle}" />
+                        		<TextBlock Text="-" Margin="0"
+                        			CacheMode="BitmapCache"
+                        			Foreground="{StaticResource TimeTableBackgorundColorBrush}"
+                        			Style="{StaticResource PhoneTextLargeStyle}" />
+                        		<TextBlock Text="{Binding Lesson.TimeEnd}" Margin="0 "
+                        			CacheMode="BitmapCache"
+                        			Foreground="{StaticResource TimeTableBackgorundColorBrush}"
+                        			Style="{StaticResource PhoneTextLargeStyle}" />
+                        	</StackPanel>
+                        	<TextBlock
+                        		Grid.ColumnSpan="2"
+                        		Grid.Column="1"
+                        		CacheMode="BitmapCache"
+                        		Grid.Row="1" Margin="12,0,24,0" Text="{Binding Lesson.TypeName}"
+                        		Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+                        		TextWrapping="Wrap" />
+                        	<TextBlock
+                        		Grid.ColumnSpan="2"
+                        		Grid.Column="1"
+                        		Margin="12,0,12,12"
+                        		CacheMode="BitmapCache"
+                        		Grid.Row="2" Text="{Binding Lesson.Subject}"
+                        		Foreground="{StaticResource TimeTableBackgorundColorBrush}"
+                        		Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" />
+                        	<Image
+                        		Grid.Row="4"
+                        		Grid.Column="1"
+                        		Visibility="{Binding Auditory, Converter={StaticResource StringContentToVisibilityConverter}}"
+                        		Margin="12,0,12,12"
+                        		CacheMode="BitmapCache"
+                        		Source="../Resources/Images/Lesson/target.png" />
+                        	<TextBlock
+                        		Grid.Column="2"
+                        		Grid.Row="4"
+                        		Margin="0,0,12,12"
+                        		CacheMode="BitmapCache"
+                        		Visibility="{Binding Auditory, Converter={StaticResource StringContentToVisibilityConverter}}"
+                        		Text="{Binding Auditory}"
+                        		Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+                        		TextWrapping="Wrap" />
+                        	<Image
+                        		Grid.Row="3"
+                        		Visibility="{Binding Teachers, Converter={StaticResource StringContentToVisibilityConverter}}"
+                        		Grid.Column="1"
+                        		Margin="12,0,12,12" CacheMode="BitmapCache"
+                        		Source="../Resources/Images/Lesson/teacher.png" />
+                        	<TextBlock
+                        		CacheMode="BitmapCache"
+                        		Grid.Row="3"
+                        		Grid.Column="2"
+                        		Margin="0,0,12,12"
+                        		Visibility="{Binding Teachers, Converter={StaticResource StringContentToVisibilityConverter}}"
+                        		Text="{Binding Teachers}"
+                        		Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+                        		TextWrapping="Wrap" />
+                        	<Image
+                        		Grid.Column="1"
+                        		Grid.Row="3"
+                        		Visibility="{Binding Groups, Converter={StaticResource StringContentToVisibilityConverter}}"
+                        		Margin="12,0,12,12"
+                        		CacheMode="BitmapCache"
+                        		Source="../Resources/Images/Lesson/students.png" />
+                        	<TextBlock
+                        		Grid.Column="2"
+                        		Grid.Row="3"
+                        		Margin="0,0,12,12"
+                        		CacheMode="BitmapCache"
+                        		Visibility="{Binding Groups, Converter={StaticResource StringContentToVisibilityConverter}}"
+                        		Text="{Binding Groups}"
+                        		Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+                        		TextWrapping="Wrap" />
                         </Grid>
-
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

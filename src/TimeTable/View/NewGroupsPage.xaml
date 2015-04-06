@@ -51,7 +51,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid x:Name="ContentPanel" Grid.Row="1">
-            <Grid HorizontalAlignment="Left" Height="768" VerticalAlignment="Top" Width="480">
+            <Grid HorizontalAlignment="Left" Height="800" VerticalAlignment="Top" Width="480">
                 <Grid.Background>
                     <SolidColorBrush Color="{StaticResource NewTimeTableBackground}" />
                 </Grid.Background>

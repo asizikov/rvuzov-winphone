@@ -200,6 +200,9 @@
     <Compile Include="View\NewGroupsPage.xaml.cs">
       <DependentUpon>NewGroupsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NewLessonsPage.xaml.cs">
+      <DependentUpon>NewLessonsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NewUniversitiesPage.xaml.cs">
       <DependentUpon>NewUniversitiesPage.xaml</DependentUpon>
     </Compile>
@@ -338,6 +341,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NewGroupsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NewLessonsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
