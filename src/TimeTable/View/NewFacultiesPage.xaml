@@ -1,35 +1,32 @@
 ﻿<view:SearchPage
+    x:Class="TimeTable.View.NewFacultiesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:TimeTable.View"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:utils="clr-namespace:TimeTable.Utils"
-    xmlns:view="clr-namespace:TimeTable.View"
     xmlns:controls="clr-namespace:TimeTable.Controls"
-    x:Class="TimeTable.View.NewUniversitiesPage"
     mc:Ignorable="d"
-    shell:SystemTray.IsVisible="True"
-    Style="{StaticResource TimeTablePageStyle}">
+    Style="{StaticResource TimeTablePageStyle}"
+    shell:SystemTray.IsVisible="True">
     <shell:SystemTray.ProgressIndicator>
         <shell:ProgressIndicator IsIndeterminate="{Binding IsLoading}"
                                  IsVisible="{Binding IsLoading}" />
     </shell:SystemTray.ProgressIndicator>
     <phone:PhoneApplicationPage.Resources>
-        <SolidColorBrush x:Key="NewTimeTableDarkBrush" Color="#FF606C7F" />
-        <DataTemplate x:Key="NewUniversityTemplate">
+        <DataTemplate x:Key="NewFacultyTemplate">
             <Border Background="#FFFEFEFE" BorderBrush="{StaticResource TimeTableItemSeparationBrush}"
                     BorderThickness="1,1,1,0"
                     Width="480">
                 <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}"
                                Foreground="Black"
-                               Text="{Binding ShortName}" />
-                    <TextBlock Style="{StaticResource PhoneTextSmallStyle}"
-                               Foreground="Black"
-                               TextWrapping="Wrap" Text="{Binding Name}" />
+                               TextWrapping="Wrap"
+                               Text="{Binding Title}" />
                 </StackPanel>
             </Border>
         </DataTemplate>
@@ -62,7 +59,7 @@
                     <TextBlock
                         Margin="10,27,0,0"
                         FontSize="33.333"
-                        Text="{Binding Strings.SelectUniversity, Source={StaticResource LocalizedStrings}}" />
+                        Text="{Binding Strings.SelectFaculty, Source={StaticResource LocalizedStrings}}" />
                     <TextBox
                         HorizontalAlignment="Left"
                         Height="72" Margin="0,5,0,0"
@@ -86,19 +83,20 @@
                     </ContentControl>
                 </Button>
                 <controls:ExtendedSelector
-                    ItemsSource="{Binding UniversitiesList}"
+                    ItemsSource="{Binding FacultiesList}"
+                    SelectedItem="{Binding SelectedFaculty, Mode=TwoWay}"
                     LayoutMode="List"
                     IsGroupingEnabled="True"
                     JumpListStyle="{StaticResource TimeTableJumpListStyle}"
                     GroupHeaderTemplate="{StaticResource NewGroupHeaderResource}"
                     Width="480"
                     Grid.Row="1"
-                    ItemTemplate="{StaticResource NewUniversityTemplate}"
-                    SelectedItem="{Binding SelectedUniversity, Mode=TwoWay}"
-                                    Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
+                    ItemTemplate="{StaticResource NewFacultyTemplate}"
+                    Visibility="{Binding IsLoading, Converter={StaticResource ReversedBoolToVisibilityConverter}}"
                     Style="{StaticResource LongListSelectorWithNoScrollBarStyle}" />
             </Grid>
 
         </Grid>
     </Grid>
+
 </view:SearchPage>

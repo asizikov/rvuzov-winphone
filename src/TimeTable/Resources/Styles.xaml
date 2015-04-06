@@ -406,4 +406,5 @@
     <SolidColorBrush x:Key="NewTimeTableLightBrush" Color="#FFC1D7FF"/>
     <SolidColorBrush x:Key="NewTimeTableHigilghtLight" Color="#FF5D85CC"/>
     <SolidColorBrush x:Key="TimeTableItemSeparationBrush" Color="#FFD6D3D3"/>
+    <SolidColorBrush x:Key="NewTimeTableDarkBrush" Color="#FF606C7F" />
 </ResourceDictionary>

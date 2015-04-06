@@ -182,9 +182,6 @@
     <Compile Include="View\AuditoriumsPage.xaml.cs">
       <DependentUpon>AuditoriumsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\FacultiesPage.xaml.cs">
-      <DependentUpon>FacultiesPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\EntryPoint.xaml.cs">
       <DependentUpon>EntryPoint.xaml</DependentUpon>
     </Compile>
@@ -194,11 +191,11 @@
     <Compile Include="View\FirstPage.xaml.cs">
       <DependentUpon>FirstPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\GroupsPage.xaml.cs">
-      <DependentUpon>GroupsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\LessonsPage.xaml.cs">
       <DependentUpon>LessonsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewFacultiesPage.xaml.cs">
+      <DependentUpon>NewFacultiesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NewGroupsPage.xaml.cs">
       <DependentUpon>NewGroupsPage.xaml</DependentUpon>
@@ -209,9 +206,6 @@
     <Compile Include="View\SearchPage.cs" />
     <Compile Include="View\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UniversitiesPage.xaml.cs">
-      <DependentUpon>UniversitiesPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -315,12 +309,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\FacultiesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\EntryPoint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -339,17 +327,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\GroupsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\LessonsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\NewFacultiesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NewGroupsPage.xaml">
       <SubType>Designer</SubType>
@@ -360,12 +346,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\SettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\UniversitiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>

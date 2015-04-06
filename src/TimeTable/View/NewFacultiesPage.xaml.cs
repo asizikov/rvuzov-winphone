@@ -8,25 +8,25 @@ using TimeTable.ViewModel.OrganizationalStructure;
 
 namespace TimeTable.View
 {
-    //[DependsOnViewModel(typeof (UniversitiesPageViewModel))]
-    public partial class UniversitiesPage
+    [DependsOnViewModel(typeof(FacultiesPageViewModel))]
+    public partial class NewFacultiesPage
     {
-        public UniversitiesPage()
+        public NewFacultiesPage()
         {
             InitializeComponent();
         }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var navigationContext = NavigationContext.QueryString.RestoreContext<Reason>();
-            ViewModel = ViewModelLocator.GetUniversitiesViewModel(navigationContext.Body) as ISearchViewModel;
+            var navigationContext = NavigationContext.QueryString.RestoreContext<NavigationFlow>();
+
+            ViewModel = ViewModelLocator.GetFacultiesPageViewModel(navigationContext.Body) as ISearchViewModel;
             DataContext = ViewModel;
 
             if (State.Count > 0)
             {
                 this.RestoreState(Search);
-                Search.Visibility = (Visibility) this.RestoreState(SearchKey);
+                Search.Visibility = (Visibility)this.RestoreState(SearchKey);
             }
         }
 

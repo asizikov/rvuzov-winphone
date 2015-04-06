@@ -16,6 +16,10 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="{Binding IsLoading}"
+                                 IsVisible="{Binding IsLoading}" />
+    </shell:SystemTray.ProgressIndicator>
     <phone:PhoneApplicationPage.Resources>
         <SolidColorBrush x:Key="NewTimeTableDarkBrush" Color="#FF606C7F" />
         <DataTemplate x:Key="NewTimeTableTeachersTemplate">

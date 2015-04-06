@@ -60,7 +60,7 @@ namespace TimeTable
             {
                 navigationFlow.UniversityId = _applicationSettings.Me.University.Id;
                 navigationFlow.UniversityName = _applicationSettings.Me.University.ShortName;
-                return NavigationService.GetUri<FacultiesPage, NavigationFlow>(navigationFlow);
+                return NavigationService.GetUri<NewFacultiesPage, NavigationFlow>(navigationFlow);
             }
             if (_applicationSettings.Me.Role != UserRole.None)
             {
