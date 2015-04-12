@@ -163,6 +163,11 @@
                        Style="{StaticResource PhoneTextLargeStyle}" />
         </Border>
     </DataTemplate>
+    <Style x:Key="LessonDetailsTextStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
     <DataTemplate x:Key="NewTimeTableLessonTemplate">
         <Grid Background="White"
               CacheMode="BitmapCache"
@@ -176,51 +181,62 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" MinWidth="120" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border BorderBrush="Black" BorderThickness="0,0,0,1" Margin="0" Grid.RowSpan="5" Grid.ColumnSpan="3"
-                    Width="480" />
-            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Grid.Row="1">
-                <StackPanel x:Name="Time" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100">
+            <Border BorderBrush="Black" BorderThickness="0,0,0,1" Margin="0" Grid.ColumnSpan="2" />
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="159">
+                <StackPanel x:Name="Time" HorizontalAlignment="Left" VerticalAlignment="Top" Width="98" Margin="12,0,0,-63" Height="157">
                     <TextBlock x:Name="Start" HorizontalAlignment="Left"
                                Foreground="{StaticResource TimeTableBackgorundColorBrush}" TextWrapping="Wrap"
                                Text="{Binding Lesson.TimeStart}" VerticalAlignment="Top"
-                               FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE" FontSize="29.333" />
+                               FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx" FontSize="33.333" />
                     <TextBlock x:Name="End" HorizontalAlignment="Left" TextWrapping="Wrap"
                                Text="{Binding Lesson.TimeEnd}"
                                Foreground="{StaticResource TimeTableBackgorundColorBrush}"
-                               FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE" FontSize="29.333"
-                               VerticalAlignment="Top" />
-                    <TextBlock x:Name="Type" HorizontalAlignment="Left" TextWrapping="Wrap"
-                               Text="{Binding Lesson.TypeName}"
-                               Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                               FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE" FontSize="20"
+                               FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx" FontSize="33.333"
                                VerticalAlignment="Top" />
                 </StackPanel>
             </Grid>
             <StackPanel x:Name="LessonInfo" Margin="0" Grid.Column="1">
                 <TextBlock x:Name="Name" TextWrapping="Wrap" Text="{Binding Lesson.Subject}"
-                           FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE" Foreground="#FF040404"
+                           FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx" Foreground="#FF040404"
                            FontSize="29.333" />
-                <StackPanel x:Name="Teacher" Orientation="Horizontal" Height="100">
+                <TextBlock x:Name="Type" HorizontalAlignment="Left" TextWrapping="Wrap"
+                	Text="{Binding Lesson.TypeName}"
+                           Style="{StaticResource LessonDetailsTextStyle}"
+                	Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+                           FontSize="20"
+                	VerticalAlignment="Top" Width="350" />
+                <StackPanel x:Name="Teacher" Orientation="Horizontal" Visibility="{Binding Teachers, Converter={StaticResource StringContentToVisibilityConverter}}">
                     <Image
-                        Visibility="{Binding Teachers, Converter={StaticResource StringContentToVisibilityConverter}}"
-
-                        Margin="12,0,12,12" CacheMode="BitmapCache"
-                        Source="../Resources/Images/Lesson/teacher.png" />
-
+                        Margin="0,6,12,0" CacheMode="BitmapCache"
+                        Source="../Resources/Images/Lesson/teacher.png" Width="14" Height="14" VerticalAlignment="Top" />
                     <TextBlock
                         x:Name="Name1"
-                        TextWrapping="Wrap"
-                        Text="{Binding Teachers}"
                         Visibility="{Binding Teachers, 
                                 Converter={StaticResource StringContentToVisibilityConverter}}"
-                        FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE"
-                        Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" />
+                        Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" 
+                        Text="{Binding Teachers}" 
+                        Style="{StaticResource LessonDetailsTextStyle}" />
                 </StackPanel>
-                <StackPanel x:Name="Group" Height="100">
-                    <TextBlock TextWrapping="Wrap" Text="TextBlock" />
+                <StackPanel x:Name="Group" Orientation="Horizontal" Visibility="{Binding Groups, 
+                                Converter={StaticResource StringContentToVisibilityConverter}}">
+                    <Image
+                                Margin="0,6,12,0"
+                        Width="14" Height="14" VerticalAlignment="Top"
+                                CacheMode="BitmapCache"
+                                Source="../Resources/Images/Lesson/students.png" />
+                    <TextBlock Text="{Binding Groups}" Style="{StaticResource LessonDetailsTextStyle}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" />
+                </StackPanel>
+                <StackPanel x:Name="Auditorium" Orientation="Horizontal" Visibility="{Binding Auditory, 
+                                Converter={StaticResource StringContentToVisibilityConverter}}">
+                    <Image
+                                Margin="0,6,12,0"
+                        Width="14" Height="14" VerticalAlignment="Top"
+                                CacheMode="BitmapCache"
+                                Source="../Resources/Images/Lesson/target.png" />
+                    <TextBlock Text="{Binding Auditory}" Style="{StaticResource LessonDetailsTextStyle}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" />
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -234,15 +250,15 @@
                     Margin="12,0"
                     Text="{Binding Weekday, Converter={StaticResource NumberToWeekDayConverter}}"
                     Style="{StaticResource PhoneTextTitle2Style}"
-                    Foreground="White" />
+                    Foreground="White" FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx" />
                 <TextBlock Text=","
                            Margin="0,0,0,12"
                            Foreground="White"
-                           Style="{StaticResource PhoneTextTitle2Style}" />
+                           Style="{StaticResource PhoneTextTitle2Style}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx" />
                 <TextBlock Text="{Binding NameForTheDay}"
                            Margin="12,0,0,12"
                            Foreground="White"
-                           Style="{StaticResource PhoneTextTitle2Style}" />
+                           Style="{StaticResource PhoneTextTitle2Style}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx" />
             </StackPanel>
 
             <ItemsControl Margin="0" ItemsSource="{Binding Lessons}"

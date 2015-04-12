@@ -35,7 +35,7 @@
             <TextBlock
                         Margin="10,27,0,0"
                         FontSize="33.333"
-                        Text="{Binding Title}" />
+                        Text="{Binding Title}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaInseratCyr Upright" />
             <ListBox
                         Grid.Row="1"
                         SelectedIndex="{Binding SelectedIndex, ElementName=Pivot, Mode=TwoWay}"
@@ -49,19 +49,19 @@
                     <TextBlock
                                 Margin="10,27,0,0"
                                 FontSize="33.333"
-                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE"
+                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaInseratCyr Upright"
                                 Text="{Binding PreviousWeek.WeekNumber, Converter={StaticResource WeekNumberToTextConverter}}" Width="123" />
                 </ListBoxItem>
                 <ListBoxItem>
                     <TextBlock
-                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE"
+                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx"
                                 Margin="10,27,0,0"
                                 FontSize="33.333"
                                 Text="{Binding CurrentWeek.WeekNumber, Converter={StaticResource WeekNumberToTextConverter}}" />
                 </ListBoxItem>
                 <ListBoxItem>
                     <TextBlock
-                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE"
+                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx"
                                 Margin="10,27,0,0"
                                 FontSize="33.333"
                                 Text="{Binding NextWeek.WeekNumber, Converter={StaticResource WeekNumberToTextConverter}}" />
@@ -73,7 +73,7 @@
             SelectedIndex="{Binding SelectedWeekIndex, Mode=TwoWay}"
             Grid.Row="1">
             <phone:PivotItem DataContext="{Binding PreviousWeek}" Margin="0">
-                <Grid>
+                <Grid Margin="0,-12,0,0">
                     <controls:ExtendedSelector
                         Style="{StaticResource LongListSelectorWithNoScrollBarStyle}"
                         LayoutMode="List"
