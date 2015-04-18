@@ -60,9 +60,8 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock
-                        Margin="10,27,0,0"
-                        FontSize="33.333"
-                        Text="{Binding Strings.SelectUniversity, Source={StaticResource LocalizedStrings}}" />
+                        Text="{Binding Strings.SelectUniversity, Source={StaticResource LocalizedStrings}}"
+                        Style="{StaticResource TimeTableHeaderTextBlockStyle}" />
                     <TextBox
                         HorizontalAlignment="Left"
                         Height="72" Margin="0,5,0,0"
