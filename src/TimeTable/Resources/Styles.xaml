@@ -190,24 +190,24 @@
                     <TextBlock x:Name="Start" HorizontalAlignment="Left"
                                Foreground="{StaticResource TimeTableBackgorundColorBrush}" TextWrapping="Wrap"
                                Text="{Binding Lesson.TimeStart}" VerticalAlignment="Top"
-                               FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx" FontSize="33.333" />
+                               FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" FontSize="33.333" />
                     <TextBlock x:Name="End" HorizontalAlignment="Left" TextWrapping="Wrap"
                                Text="{Binding Lesson.TimeEnd}"
                                Foreground="{StaticResource TimeTableBackgorundColorBrush}"
-                               FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx" FontSize="33.333"
+                               FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" FontSize="33.333"
                                VerticalAlignment="Top" />
                 </StackPanel>
             </Grid>
             <StackPanel x:Name="LessonInfo" Margin="0" Grid.Column="1">
                 <TextBlock x:Name="Name" TextWrapping="Wrap" Text="{Binding Lesson.Subject}"
-                           FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx" Foreground="#FF040404"
+                           FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" Foreground="#FF040404"
                            FontSize="29.333" />
                 <TextBlock x:Name="Type" HorizontalAlignment="Left" TextWrapping="Wrap"
                 	Text="{Binding Lesson.TypeName}"
                            Style="{StaticResource LessonDetailsTextStyle}"
                 	Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
                            FontSize="20"
-                	VerticalAlignment="Top" Width="350" />
+                	VerticalAlignment="Top" Width="350" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
                 <StackPanel x:Name="Teacher" Orientation="Horizontal" Visibility="{Binding Teachers, Converter={StaticResource StringContentToVisibilityConverter}}">
                     <Image
                         Margin="0,6,12,0" CacheMode="BitmapCache"
@@ -218,7 +218,7 @@
                                 Converter={StaticResource StringContentToVisibilityConverter}}"
                         Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" 
                         Text="{Binding Teachers}" 
-                        Style="{StaticResource LessonDetailsTextStyle}" />
+                        Style="{StaticResource LessonDetailsTextStyle}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
                 </StackPanel>
                 <StackPanel x:Name="Group" Orientation="Horizontal" Visibility="{Binding Groups, 
                                 Converter={StaticResource StringContentToVisibilityConverter}}">
@@ -227,7 +227,7 @@
                         Width="14" Height="14" VerticalAlignment="Top"
                                 CacheMode="BitmapCache"
                                 Source="../Resources/Images/Lesson/students.png" />
-                    <TextBlock Text="{Binding Groups}" Style="{StaticResource LessonDetailsTextStyle}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" />
+                    <TextBlock Text="{Binding Groups}" Style="{StaticResource LessonDetailsTextStyle}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
                 </StackPanel>
                 <StackPanel x:Name="Auditorium" Orientation="Horizontal" Visibility="{Binding Auditory, 
                                 Converter={StaticResource StringContentToVisibilityConverter}}">
@@ -236,7 +236,7 @@
                         Width="14" Height="14" VerticalAlignment="Top"
                                 CacheMode="BitmapCache"
                                 Source="../Resources/Images/Lesson/target.png" />
-                    <TextBlock Text="{Binding Auditory}" Style="{StaticResource LessonDetailsTextStyle}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" />
+                    <TextBlock Text="{Binding Auditory}" Style="{StaticResource LessonDetailsTextStyle}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -250,15 +250,15 @@
                     Margin="12,0"
                     Text="{Binding Weekday, Converter={StaticResource NumberToWeekDayConverter}}"
                     Style="{StaticResource PhoneTextTitle2Style}"
-                    Foreground="White" FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx" />
+                    Foreground="White" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
                 <TextBlock Text=","
                            Margin="0,0,0,12"
                            Foreground="White"
-                           Style="{StaticResource PhoneTextTitle2Style}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx" />
+                           Style="{StaticResource PhoneTextTitle2Style}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
                 <TextBlock Text="{Binding NameForTheDay}"
                            Margin="12,0,0,12"
                            Foreground="White"
-                           Style="{StaticResource PhoneTextTitle2Style}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx" />
+                           Style="{StaticResource PhoneTextTitle2Style}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
             </StackPanel>
 
             <ItemsControl Margin="0" ItemsSource="{Binding Lessons}"

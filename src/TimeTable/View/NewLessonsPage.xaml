@@ -35,7 +35,7 @@
             <TextBlock
                         Margin="10,27,0,0"
                         FontSize="33.333"
-                        Text="{Binding Title}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaInseratCyr Upright" />
+                        Text="{Binding Title}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
             <ListBox
                         Grid.Row="1"
                         SelectedIndex="{Binding SelectedIndex, ElementName=Pivot, Mode=TwoWay}"
@@ -49,19 +49,19 @@
                     <TextBlock
                                 Margin="10,27,0,0"
                                 FontSize="33.333"
-                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaInseratCyr Upright"
+                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx"
                                 Text="{Binding PreviousWeek.WeekNumber, Converter={StaticResource WeekNumberToTextConverter}}" Width="123" />
                 </ListBoxItem>
                 <ListBoxItem>
                     <TextBlock
-                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx"
+                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin"
                                 Margin="10,27,0,0"
                                 FontSize="33.333"
                                 Text="{Binding CurrentWeek.WeekNumber, Converter={StaticResource WeekNumberToTextConverter}}" />
                 </ListBoxItem>
                 <ListBoxItem>
                     <TextBlock
-                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx"
+                                FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin"
                                 Margin="10,27,0,0"
                                 FontSize="33.333"
                                 Text="{Binding NextWeek.WeekNumber, Converter={StaticResource WeekNumberToTextConverter}}" />
@@ -85,7 +85,7 @@
                         Style="{StaticResource PhoneTextLargeStyle}"
                         Visibility="{Binding Days, 
                         Converter={StaticResource ReversedAnyCountToVisibeConverterKey},FallbackValue='Collapsed'}"
-                        Text="{Binding Strings.NoLessons, Source={StaticResource LocalizedStrings}}" />
+                        Text="{Binding Strings.NoLessons, Source={StaticResource LocalizedStrings}}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
                 </Grid>
             </phone:PivotItem>
             <phone:PivotItem DataContext="{Binding CurrentWeek}" Margin="0">
