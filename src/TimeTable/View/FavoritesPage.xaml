@@ -57,12 +57,12 @@
                                     Foreground="Black"
                                     TextWrapping="Wrap"
                                     Style="{StaticResource PhoneTextLargeStyle}"
-                                    Text="{Binding Title}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
+                                    Text="{Binding Title}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" Margin="12,12,12,0" FontSize="32" />
                                 <TextBlock Grid.Row="1"
                                            TextWrapping="Wrap"
                                            Style="{StaticResource PhoneTextNormalStyle}"
                                            Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                                           Text="{Binding UniversityName}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
+                                           Text="{Binding UniversityName}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" FontSize="24" Margin="12,0,12,12" />
                             </Grid>
                         </Button>
                     </DataTemplate>
