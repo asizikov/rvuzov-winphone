@@ -44,7 +44,7 @@ namespace TimeTable
                     UniversityId = _applicationSettings.Me.University.Id,
                     FacultyId = _applicationSettings.Me.Faculty.Id
                 };
-                return NavigationService.GetUri<LessonsPage, LessonsNavigationParameter>(navigationParameter);
+                return NavigationService.GetUri<NewLessonsPage, LessonsNavigationParameter>(navigationParameter);
             }
 
             var navigationFlow = new NavigationFlow();

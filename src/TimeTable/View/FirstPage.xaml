@@ -41,8 +41,8 @@
                        Style="{StaticResource PhoneTextExtraLargeStyle}"/>
             <Image Grid.Row="1" Source="../Resources/Images/logo.png" Width="206" Height="206"/>
                 <StackPanel Grid.Row="2" Margin="12,0,12,64">
-                <Button Content="{Binding Path=Strings.ImStudent, Source ={StaticResource LocalizedStrings}}" Command="{Binding ImStudentCommand}" Style="{StaticResource TimeTableButtonStyle}"/>
-                <Button Content="{Binding Path=Strings.ImTeacher, Source ={StaticResource LocalizedStrings}}" Command="{Binding ImTeacherCommand}" Style="{StaticResource TimeTableButtonStyle}"/>
+                <Button Content="{Binding Path=Strings.ImStudent, Source ={StaticResource LocalizedStrings}}" Command="{Binding ImStudentCommand}" Style="{StaticResource TimeTableButtonStyle}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin"/>
+                <Button Content="{Binding Path=Strings.ImTeacher, Source ={StaticResource LocalizedStrings}}" Command="{Binding ImTeacherCommand}" Style="{StaticResource TimeTableButtonStyle}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin"/>
             </StackPanel>            
             </Grid>
     </Grid>

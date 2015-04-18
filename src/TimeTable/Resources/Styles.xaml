@@ -18,7 +18,7 @@
     <Color x:Key="TimeTableBackgorundColor">#2D3541</Color>
 
     <Style x:Key="TimeTableJumpListStyle" TargetType="phone:LongListSelector">
-        <Setter Property="GridCellSize"  Value="113,113"/>
+        <Setter Property="GridCellSize" Value="113,113" />
         <Setter Property="LayoutMode" Value="Grid" />
         <Setter Property="ItemTemplate">
             <Setter.Value>
@@ -40,27 +40,27 @@
 
     <DataTemplate x:Key="TimeTableGroupHeaderTemplate">
         <Border Background="{StaticResource TimeTableHilighthBrush}"
-                    HorizontalAlignment="Left"
-                    Width="75"
-                    Height="75" 
-                    Margin="12"
-                    toolkit:TiltEffect.IsTiltEnabled="True"
-                    Padding="{StaticResource PhoneTouchTargetOverhang}">
+                HorizontalAlignment="Left"
+                Width="75"
+                Height="75"
+                Margin="12"
+                toolkit:TiltEffect.IsTiltEnabled="True"
+                Padding="{StaticResource PhoneTouchTargetOverhang}">
             <TextBlock Text="{Binding Title}"
-                           FontFamily="{StaticResource PhoneFontFamilySemiLight}"
-                           HorizontalAlignment="Left" VerticalAlignment="Center"
-                           Style="{StaticResource PhoneTextLargeStyle}" />
+                       FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Style="{StaticResource PhoneTextLargeStyle}" />
         </Border>
     </DataTemplate>
 
     <DataTemplate x:Key="TimeTableUniversityItemTemplate">
         <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,12">
             <TextBlock Style="{StaticResource PhoneTextLargeStyle}"
-                                       Foreground="{StaticResource TimeTablePrimaryTextColorBrush}"
-                                       Text="{Binding ShortName}" />
+                       Foreground="{StaticResource TimeTablePrimaryTextColorBrush}"
+                       Text="{Binding ShortName}" />
             <TextBlock Style="{StaticResource PhoneTextSmallStyle}"
-                                       Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                                       TextWrapping="Wrap" Text="{Binding Name}" />
+                       Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+                       TextWrapping="Wrap" Text="{Binding Name}" />
         </StackPanel>
     </DataTemplate>
 
@@ -141,7 +141,9 @@
                                             Foreground="{TemplateBinding Foreground}"
                                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                             Padding="{TemplateBinding Padding}"
-                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE" FontSize="26.667" />
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            FontFamily="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE"
+                                            FontSize="26.667" />
                         </Border>
                     </Grid>
                 </ControlTemplate>
@@ -150,16 +152,94 @@
     </Style>
     <DataTemplate x:Key="NewGroupHeaderResource">
         <Border Background="{StaticResource NewTimeTableHigilghtLight}"
-                    HorizontalAlignment="Left"
-                    Width="480"
-                    Height="75"
-                    Margin="0"
-                    toolkit:TiltEffect.IsTiltEnabled="True" BorderThickness="0">
+                HorizontalAlignment="Left"
+                Width="480"
+                Height="75"
+                Margin="0"
+                toolkit:TiltEffect.IsTiltEnabled="True" BorderThickness="0">
             <TextBlock Text="{Binding Title}"
-                           FontFamily="{StaticResource PhoneFontFamilySemiLight}"
-                           HorizontalAlignment="Left" VerticalAlignment="Center"
-                           Style="{StaticResource PhoneTextLargeStyle}" />
+                       FontFamily="{StaticResource PhoneFontFamilySemiLight}"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Style="{StaticResource PhoneTextLargeStyle}" />
         </Border>
+    </DataTemplate>
+    <Style x:Key="LessonDetailsTextStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
+    <DataTemplate x:Key="NewTimeTableLessonTemplate">
+        <Grid Background="White"
+              CacheMode="BitmapCache"
+              Width="480"
+              Margin="0">
+            <toolkit:ContextMenuService.ContextMenu>
+                <controls:CommandReadyContextMenu
+                    IsZoomEnabled="False" ItemsSource="{Binding ContextMenuItems}" />
+            </toolkit:ContextMenuService.ContextMenu>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="120" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="Black" BorderThickness="0,0,0,1" Margin="0" Grid.ColumnSpan="2" />
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="159">
+                <StackPanel x:Name="Time" HorizontalAlignment="Left" VerticalAlignment="Top" Width="98" Margin="12,0,0,-63" Height="157">
+                    <TextBlock x:Name="Start" HorizontalAlignment="Left"
+                               Foreground="{StaticResource TimeTableBackgorundColorBrush}" TextWrapping="Wrap"
+                               Text="{Binding Lesson.TimeStart}" VerticalAlignment="Top"
+                               FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" FontSize="33.333" />
+                    <TextBlock x:Name="End" HorizontalAlignment="Left" TextWrapping="Wrap"
+                               Text="{Binding Lesson.TimeEnd}"
+                               Foreground="{StaticResource TimeTableBackgorundColorBrush}"
+                               FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" FontSize="33.333"
+                               VerticalAlignment="Top" />
+                </StackPanel>
+            </Grid>
+            <StackPanel x:Name="LessonInfo" Margin="0" Grid.Column="1">
+                <TextBlock x:Name="Name" TextWrapping="Wrap" Text="{Binding Lesson.Subject}"
+                           FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" Foreground="#FF040404"
+                           FontSize="29.333" />
+                <TextBlock x:Name="Type" HorizontalAlignment="Left" TextWrapping="Wrap"
+                	Text="{Binding Lesson.TypeName}"
+                           Style="{StaticResource LessonDetailsTextStyle}"
+                	Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+                           FontSize="20"
+                	VerticalAlignment="Top" Width="350" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
+                <StackPanel x:Name="Teacher" Orientation="Horizontal" Visibility="{Binding Teachers, Converter={StaticResource StringContentToVisibilityConverter}}">
+                    <Image
+                        Margin="0,6,12,0" CacheMode="BitmapCache"
+                        Source="../Resources/Images/Lesson/teacher.png" Width="14" Height="14" VerticalAlignment="Top" />
+                    <TextBlock
+                        x:Name="Name1"
+                        Visibility="{Binding Teachers, 
+                                Converter={StaticResource StringContentToVisibilityConverter}}"
+                        Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" 
+                        Text="{Binding Teachers}" 
+                        Style="{StaticResource LessonDetailsTextStyle}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
+                </StackPanel>
+                <StackPanel x:Name="Group" Orientation="Horizontal" Visibility="{Binding Groups, 
+                                Converter={StaticResource StringContentToVisibilityConverter}}">
+                    <Image
+                                Margin="0,6,12,0"
+                        Width="14" Height="14" VerticalAlignment="Top"
+                                CacheMode="BitmapCache"
+                                Source="../Resources/Images/Lesson/students.png" />
+                    <TextBlock Text="{Binding Groups}" Style="{StaticResource LessonDetailsTextStyle}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
+                </StackPanel>
+                <StackPanel x:Name="Auditorium" Orientation="Horizontal" Visibility="{Binding Auditory, 
+                                Converter={StaticResource StringContentToVisibilityConverter}}">
+                    <Image
+                                Margin="0,6,12,0"
+                        Width="14" Height="14" VerticalAlignment="Top"
+                                CacheMode="BitmapCache"
+                                Source="../Resources/Images/Lesson/target.png" />
+                    <TextBlock Text="{Binding Auditory}" Style="{StaticResource LessonDetailsTextStyle}" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </DataTemplate>
     <DataTemplate x:Key="TimeTableWeekDataTemplate">
         <StackPanel Visibility="{Binding Lessons, Converter={StaticResource AnyCountToVisibeConverterKey}}">
@@ -167,147 +247,25 @@
                 CacheMode="BitmapCache"
                 Orientation="Horizontal">
                 <TextBlock
-                    Margin="12,0,0,12"
+                    Margin="12,0"
                     Text="{Binding Weekday, Converter={StaticResource NumberToWeekDayConverter}}"
                     Style="{StaticResource PhoneTextTitle2Style}"
-                    Foreground="White" />
+                    Foreground="White" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
                 <TextBlock Text=","
                            Margin="0,0,0,12"
                            Foreground="White"
-                           Style="{StaticResource PhoneTextTitle2Style}" />
+                           Style="{StaticResource PhoneTextTitle2Style}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
                 <TextBlock Text="{Binding NameForTheDay}"
                            Margin="12,0,0,12"
                            Foreground="White"
-                           Style="{StaticResource PhoneTextTitle2Style}" />
+                           Style="{StaticResource PhoneTextTitle2Style}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
             </StackPanel>
 
-            <ItemsControl Margin="12,12,24,0" ItemsSource="{Binding Lessons}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Background="White"
-                              CacheMode="BitmapCache"
-                              Width="432"
-                              Margin="0,0,0,12">
-                            <toolkit:ContextMenuService.ContextMenu>
-                                <controls:CommandReadyContextMenu
-                                    IsZoomEnabled="False" ItemsSource="{Binding ContextMenuItems}" />
-                            </toolkit:ContextMenuService.ContextMenu>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Rectangle 
-                                CacheMode="BitmapCache"
-                                Fill="{Binding IsCurrent, Converter={StaticResource BoolToLessonColorConverter}}"
-                                Grid.RowSpan="5"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Width="7"/>
-                            <StackPanel
-                                Margin="12,0,12,0"
-                                Grid.Row="0"
-                                Grid.ColumnSpan="2"
-                                Grid.Column="1"
-                                Orientation="Horizontal">
-                                <TextBlock 
-                                    CacheMode="BitmapCache"
-                                    Text="{Binding Lesson.TimeStart}" Margin="0"
-                                           Foreground="{StaticResource TimeTableBackgorundColorBrush}"
-                                           Style="{StaticResource PhoneTextLargeStyle}" />
-                                <TextBlock Text="-" Margin="0"
-                                           CacheMode="BitmapCache"
-                                           Foreground="{StaticResource TimeTableBackgorundColorBrush}"
-                                           Style="{StaticResource PhoneTextLargeStyle}" />
-                                <TextBlock Text="{Binding Lesson.TimeEnd}" Margin="0 "
-                                           CacheMode="BitmapCache"
-                                           Foreground="{StaticResource TimeTableBackgorundColorBrush}"
-                                           Style="{StaticResource PhoneTextLargeStyle}" />
-                            </StackPanel>
-                            <TextBlock
-                                Grid.ColumnSpan="2"
-                                Grid.Column="1"
-                                CacheMode="BitmapCache"
-                                Grid.Row="1" Margin="12,0,24,0" Text="{Binding Lesson.TypeName}"
-                                Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                                TextWrapping="Wrap" />
-                            <TextBlock
-                                Grid.ColumnSpan="2"
-                                Grid.Column="1"
-                                Margin="12,0,12,12"
-                                CacheMode="BitmapCache"
-                                Grid.Row="2" Text="{Binding Lesson.Subject}"
-                                Foreground="{StaticResource TimeTableBackgorundColorBrush}"
-                                Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" />
-                            <Image
-                                Grid.Row="4"
-                                Grid.Column="1"
-                                Visibility="{Binding Auditory, 
-                                Converter={StaticResource StringContentToVisibilityConverter}}"
-                                Margin="12,0,12,12"
-                                CacheMode="BitmapCache"
-                                Source="../Resources/Images/Lesson/target.png" />
-                            <TextBlock
-                                Grid.Column="2"
-                                Grid.Row="4"
-                                Margin="0,0,12,12"
-                                CacheMode="BitmapCache"
-                                Visibility="{Binding Auditory, 
-                                Converter={StaticResource StringContentToVisibilityConverter}}"
-                                Text="{Binding Auditory}"
-                                Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                                TextWrapping="Wrap" />
-                            <Image
-                                Grid.Row="3"
-                                Visibility="{Binding Teachers, 
-                                Converter={StaticResource StringContentToVisibilityConverter}}"
-                                Grid.Column="1"
-                                Margin="12,0,12,12" CacheMode="BitmapCache"
-                                Source="../Resources/Images/Lesson/teacher.png" />
-                            <TextBlock
-                                CacheMode="BitmapCache"
-                                Grid.Row="3"
-                                Grid.Column="2"
-                                Margin="0,0,12,12"
-                                Visibility="{Binding Teachers, 
-                                Converter={StaticResource StringContentToVisibilityConverter}}"
-                                Text="{Binding Teachers}"
-                                Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                                TextWrapping="Wrap" />
-
-                            <Image
-                                Grid.Column="1"
-                                Grid.Row="3"
-                                Visibility="{Binding Groups, 
-                                Converter={StaticResource StringContentToVisibilityConverter}}"
-                                Margin="12,0,12,12"
-                                CacheMode="BitmapCache"
-                                Source="../Resources/Images/Lesson/students.png" />
-                            <TextBlock
-                                Grid.Column="2"
-                                Grid.Row="3"
-                                Margin="0,0,12,12"
-                                CacheMode="BitmapCache"
-                                Visibility="{Binding Groups, 
-                                Converter={StaticResource StringContentToVisibilityConverter}}"
-                                Text="{Binding Groups}"
-                                Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                                TextWrapping="Wrap" />
-                        </Grid>
-
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <ItemsControl Margin="0" ItemsSource="{Binding Lessons}"
+                          ItemTemplate="{StaticResource NewTimeTableLessonTemplate}" />
         </StackPanel>
     </DataTemplate>
-    
+
     <Style x:Key="ButtonNoBorder" TargetType="Button">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalAlignment" Value="Left" />
@@ -355,8 +313,8 @@
         </Setter>
     </Style>
 
-    <Style x:Key="NoTimtableButtonNoBorder" TargetType="Button" BasedOn="{StaticResource ButtonNoBorder}" >
-        <Setter Property="Margin" Value="12,0,0,12"/>
+    <Style x:Key="NoTimtableButtonNoBorder" TargetType="Button" BasedOn="{StaticResource ButtonNoBorder}">
+        <Setter Property="Margin" Value="12,0,0,12" />
     </Style>
 
     <Style x:Key="TimeTableAppBarStyle" TargetType="bindableApplicationBar:BindableApplicationBar">
@@ -379,32 +337,33 @@
         <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate TargetType="phone:LongListSelector">
-                <Grid Background="{TemplateBinding Background}" d:DesignWidth="480" d:DesignHeight="800">
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="ScrollStates">
-                            <VisualStateGroup.Transitions>
-                                <VisualTransition GeneratedDuration="00:00:00.5"/>
-                            </VisualStateGroup.Transitions>
-                            <VisualState x:Name="Scrolling" />
-                            <VisualState x:Name="NotScrolling"/>
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
-                    <Grid Margin="{TemplateBinding Padding}">
-                        <ViewportControl x:Name="ViewportControl" HorizontalContentAlignment="Stretch" VerticalAlignment="Top"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="phone:LongListSelector">
+                    <Grid Background="{TemplateBinding Background}" d:DesignWidth="480" d:DesignHeight="800">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="ScrollStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="00:00:00.5" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Scrolling" />
+                                <VisualState x:Name="NotScrolling" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <ViewportControl x:Name="ViewportControl" HorizontalContentAlignment="Stretch"
+                                             VerticalAlignment="Top" />
+                        </Grid>
                     </Grid>
-                </Grid>
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
-</Style>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Color x:Key="NewTimeTableBackground">#FF606C7F</Color>
-    <SolidColorBrush x:Key="NewTimeTableHighlightBrush" Color="#FF4C6DA7"/>
-    <SolidColorBrush x:Key="NewTimeTableLightBrush" Color="#FFC1D7FF"/>
-    <SolidColorBrush x:Key="NewTimeTableHigilghtLight" Color="#FF5D85CC"/>
-    <SolidColorBrush x:Key="TimeTableItemSeparationBrush" Color="#FFD6D3D3"/>
+    <SolidColorBrush x:Key="NewTimeTableHighlightBrush" Color="#FF4C6DA7" />
+    <SolidColorBrush x:Key="NewTimeTableLightBrush" Color="#FFC1D7FF" />
+    <SolidColorBrush x:Key="NewTimeTableHigilghtLight" Color="#FF5D85CC" />
+    <SolidColorBrush x:Key="TimeTableItemSeparationBrush" Color="#FFD6D3D3" />
     <SolidColorBrush x:Key="NewTimeTableDarkBrush" Color="#FF606C7F" />
 </ResourceDictionary>

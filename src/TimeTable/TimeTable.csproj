@@ -200,6 +200,9 @@
     <Compile Include="View\NewGroupsPage.xaml.cs">
       <DependentUpon>NewGroupsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NewLessonsPage.xaml.cs">
+      <DependentUpon>NewLessonsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NewUniversitiesPage.xaml.cs">
       <DependentUpon>NewUniversitiesPage.xaml</DependentUpon>
     </Compile>
@@ -341,6 +344,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\NewLessonsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\NewUniversitiesPage.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
@@ -392,6 +399,27 @@
       <AutoFill>True</AutoFill>
     </BlendEmbeddedFont>
     <BlendEmbeddedFont Include="Fonts\Helvetica CE Regular.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+    </BlendEmbeddedFont>
+  </ItemGroup>
+  <ItemGroup>
+    <BlendEmbeddedFont Include="Fonts\Helvetica LT 33 Thin Extended.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+    </BlendEmbeddedFont>
+  </ItemGroup>
+  <ItemGroup>
+    <BlendEmbeddedFont Include="Fonts\Helvetica Inserat Cyrillic Upright.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+    </BlendEmbeddedFont>
+  </ItemGroup>
+  <ItemGroup>
+    <BlendEmbeddedFont Include="Fonts\NeueHaasUnicaW1G-Thin.ttf">
       <IsSystemFont>True</IsSystemFont>
       <All>True</All>
       <AutoFill>True</AutoFill>
