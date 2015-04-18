@@ -9,6 +9,7 @@
     xmlns:controls="clr-namespace:TimeTable.Controls"
     xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     mc:Ignorable="d">
+
     <SolidColorBrush x:Key="TimeTableBackgorundColorBrush">#2D3541</SolidColorBrush>
     <SolidColorBrush x:Key="TimeTableHilighthBrush">#4C6DA7</SolidColorBrush>
     <SolidColorBrush x:Key="TimeTableSecondaryTextColorBrush">#A1ACB7</SolidColorBrush>
@@ -16,7 +17,31 @@
     <SolidColorBrush x:Key="TimeTableButtonBackgroundColorBrush">#46659E</SolidColorBrush>
     <Color x:Key="TimeTableHilighthColor">#4C6DA7</Color>
     <Color x:Key="TimeTableBackgorundColor">#2D3541</Color>
+    <Color x:Key="NewTimeTableBackground">#FF606C7F</Color>
+    <SolidColorBrush x:Key="NewTimeTableHighlightBrush" Color="#FF4C6DA7" />
+    <SolidColorBrush x:Key="NewTimeTableLightBrush" Color="#FFC1D7FF" />
+    <SolidColorBrush x:Key="NewTimeTableHigilghtLight" Color="#FF5D85CC" />
+    <SolidColorBrush x:Key="TimeTableItemSeparationBrush" Color="#FFD6D3D3" />
+    <SolidColorBrush x:Key="NewTimeTableDarkBrush" Color="#FF606C7F" />
 
+    <Style x:Key="TimeTableHeaderTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="10,27,0,0" />
+        <Setter Property="FontSize" Value="33.333" />
+        <Setter Property="FontFamily" Value="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style x:Key="TimeTablePageStyle" TargetType="phone:PhoneApplicationPage">
+        <Setter Property="FontFamily" Value="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
+        <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}" />
+        <Setter Property="Foreground" Value="{StaticResource TimeTableSecondaryTextColorBrush}" />
+        <Setter Property="SupportedOrientations" Value="Portrait" />
+        <Setter Property="Orientation" Value="Portrait" />
+        <Setter Property="shell:SystemTray.IsVisible" Value="True" />
+        <Setter Property="shell:SystemTray.Opacity" Value="0" />
+        <Setter Property="shell:SystemTray.ForegroundColor" Value="White" />
+    </Style>
+    
     <Style x:Key="TimeTableJumpListStyle" TargetType="phone:LongListSelector">
         <Setter Property="GridCellSize" Value="113,113" />
         <Setter Property="LayoutMode" Value="Grid" />
@@ -63,17 +88,6 @@
                        TextWrapping="Wrap" Text="{Binding Name}" />
         </StackPanel>
     </DataTemplate>
-
-    <Style x:Key="TimeTablePageStyle" TargetType="phone:PhoneApplicationPage">
-        <Setter Property="FontFamily" Value="/TimeTable;component/Fonts/Fonts.zip#Helvetica CE" />
-        <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}" />
-        <Setter Property="Foreground" Value="{StaticResource TimeTableSecondaryTextColorBrush}" />
-        <Setter Property="SupportedOrientations" Value="Portrait" />
-        <Setter Property="Orientation" Value="Portrait" />
-        <Setter Property="shell:SystemTray.IsVisible" Value="True" />
-        <Setter Property="shell:SystemTray.Opacity" Value="0" />
-        <Setter Property="shell:SystemTray.ForegroundColor" Value="White" />
-    </Style>
 
     <Style x:Key="TimeTableButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource TimeTableButtonBackgroundColorBrush}" />
@@ -164,7 +178,7 @@
         </Border>
     </DataTemplate>
     <Style x:Key="LessonDetailsTextStyle" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="/TimeTable;component/Fonts/Fonts.zip#HelveticaNeue LT 33 ThinEx"/>
+        <Setter Property="FontFamily" Value="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="VerticalAlignment" Value="Bottom"/>
     </Style>
@@ -207,7 +221,7 @@
                            Style="{StaticResource LessonDetailsTextStyle}"
                 	Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
                            FontSize="20"
-                	VerticalAlignment="Top" Width="350" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
+                	VerticalAlignment="Top" Width="350" />
                 <StackPanel x:Name="Teacher" Orientation="Horizontal" Visibility="{Binding Teachers, Converter={StaticResource StringContentToVisibilityConverter}}">
                     <Image
                         Margin="0,6,12,0" CacheMode="BitmapCache"
@@ -218,7 +232,7 @@
                                 Converter={StaticResource StringContentToVisibilityConverter}}"
                         Foreground="{StaticResource TimeTableSecondaryTextColorBrush}" 
                         Text="{Binding Teachers}" 
-                        Style="{StaticResource LessonDetailsTextStyle}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
+                        Style="{StaticResource LessonDetailsTextStyle}" />
                 </StackPanel>
                 <StackPanel x:Name="Group" Orientation="Horizontal" Visibility="{Binding Groups, 
                                 Converter={StaticResource StringContentToVisibilityConverter}}">
@@ -359,11 +373,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Color x:Key="NewTimeTableBackground">#FF606C7F</Color>
-    <SolidColorBrush x:Key="NewTimeTableHighlightBrush" Color="#FF4C6DA7" />
-    <SolidColorBrush x:Key="NewTimeTableLightBrush" Color="#FFC1D7FF" />
-    <SolidColorBrush x:Key="NewTimeTableHigilghtLight" Color="#FF5D85CC" />
-    <SolidColorBrush x:Key="TimeTableItemSeparationBrush" Color="#FFD6D3D3" />
-    <SolidColorBrush x:Key="NewTimeTableDarkBrush" Color="#FF606C7F" />
 </ResourceDictionary>

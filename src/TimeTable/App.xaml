@@ -8,6 +8,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Common.xaml"/>
+                <ResourceDictionary Source="Resources/Styles.xaml"/>
                 <ResourceDictionary>
                     <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
                     <converters:ReversedBoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter" />
@@ -23,7 +25,6 @@
                     <local:LocalizedStrings xmlns:local="clr-namespace:TimeTable.Resources" x:Key="LocalizedStrings" />
                     <system:Boolean x:Key="SystemTrayVisibility">True</system:Boolean>
                 </ResourceDictionary>
-                <ResourceDictionary Source="Resources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

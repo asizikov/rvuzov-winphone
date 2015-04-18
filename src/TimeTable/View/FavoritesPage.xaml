@@ -8,52 +8,62 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
+    xmlns:utils="clr-namespace:TimeTable.Utils"
     mc:Ignorable="d"
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.IsVisible="{StaticResource SystemTrayVisibility}">
 
-    <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="{StaticResource TimeTableBackgorundColorBrush}">
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,17,12,0">
-            <TextBlock 
-                Foreground="White"
-                Text="{Binding Strings.Favorite, Source={StaticResource LocalizedStrings}}" 
-                Margin="9,-7,0,0" 
-                Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
-
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox ItemsSource="{Binding Items}">
+        <Grid HorizontalAlignment="Left" Height="768" VerticalAlignment="Top" Width="480">
+            <Grid.Background>
+                <SolidColorBrush Color="{StaticResource NewTimeTableBackground}" />
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid x:Name="Header" HorizontalAlignment="Left"
+                  Height="162" VerticalAlignment="Top"
+                  Width="480"
+                  Background="{StaticResource NewTimeTableHighlightBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Style="{StaticResource TimeTableHeaderTextBlockStyle}"
+                    Text="{Binding Strings.Favorite, Source={StaticResource LocalizedStrings}}" />
+            </Grid>
+            <ListBox Grid.Row="1" ItemsSource="{Binding Items}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Button
                             Style="{StaticResource ButtonNoBorder}"
                             Command="{Binding ShowTimeTable}"
                             toolkit:TiltEffect.IsTiltEnabled="True">
-                        <Grid Margin="0,12,12,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                                <TextBlock 
+                            <Grid Margin="0" Width="480" Background="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Border BorderBrush="#FF979797" BorderThickness="0,0,0,1" HorizontalAlignment="Left" Grid.RowSpan="2" VerticalAlignment="Top" Width="480"/>
+                                <TextBlock
                                     Grid.Row="0"
-                                    Foreground="White"
+                                    Foreground="Black"
                                     TextWrapping="Wrap"
                                     Style="{StaticResource PhoneTextLargeStyle}"
-                                    Text="{Binding Title}"/>
-                            <TextBlock Grid.Row="1"
-                                       TextWrapping="Wrap"
-                                       Style="{StaticResource PhoneTextNormalStyle}"
-                                       Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                                       Text="{Binding UniversityName}"/>
-                        </Grid>
+                                    Text="{Binding Title}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" Margin="12,12,12,0" FontSize="32" />
+                                <TextBlock Grid.Row="1"
+                                           TextWrapping="Wrap"
+                                           Style="{StaticResource PhoneTextNormalStyle}"
+                                           Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+                                           Text="{Binding UniversityName}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" FontSize="24" Margin="12,0,12,12" />
+                            </Grid>
                         </Button>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -63,10 +73,10 @@
     <bindableApplicationBar:Bindable.ApplicationBar>
         <bindableApplicationBar:BindableApplicationBar
             Style="{StaticResource TimeTableAppBarStyle}">
-                        <bindableApplicationBar:BindableApplicationBarButton
-                            Text="{Binding  Strings.Add, Source={StaticResource LocalizedStrings}}"
-                            Command="{Binding AddCommand}"
-                            IconUri="/Resources/Icons/new.png" />
+            <bindableApplicationBar:BindableApplicationBarButton
+                Text="{Binding  Strings.Add, Source={StaticResource LocalizedStrings}}"
+                Command="{Binding AddCommand}"
+                IconUri="/Resources/Icons/new.png" />
         </bindableApplicationBar:BindableApplicationBar>
     </bindableApplicationBar:Bindable.ApplicationBar>
 </phone:PhoneApplicationPage>
