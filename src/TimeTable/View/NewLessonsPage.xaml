@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:TimeTable.Controls"
+    xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     mc:Ignorable="d"
@@ -124,4 +125,20 @@
             </phone:PivotItem>
         </phone:Pivot>
     </Grid>
+    <bindableApplicationBar:Bindable.ApplicationBar>
+        <bindableApplicationBar:BindableApplicationBar
+            ButtonsSource="{Binding AppbarButtons}"
+            ForegroundColor="White"
+            Name="BindableApplicationBar"
+            BackgroundColor="{StaticResource TimeTableHilighthColor}" x:FieldModifier="private">
+            <bindableApplicationBar:BindableApplicationBar.MenuItems>
+                <bindableApplicationBar:BindableApplicationBarMenuItem
+                    Text="{Binding Strings.Favorite , Source={StaticResource LocalizedStrings}}"
+                    Command="{Binding GoToFavoritesListCommand}" />
+                <bindableApplicationBar:BindableApplicationBarMenuItem
+                    Text="{Binding Strings.About , Source={StaticResource LocalizedStrings}}"
+                    Command="{Binding GoToAboutPage}" />
+            </bindableApplicationBar:BindableApplicationBar.MenuItems>
+        </bindableApplicationBar:BindableApplicationBar>
+    </bindableApplicationBar:Bindable.ApplicationBar>
 </phone:PhoneApplicationPage>
