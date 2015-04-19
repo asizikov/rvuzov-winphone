@@ -19,27 +19,29 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <controls:TimeTableSmallHeader Text="{Binding Strings.Settings, Source={StaticResource LocalizedStrings}}"/>
-        <StackPanel VerticalAlignment="Top" Grid.Row="1" Margin="12,0,32,0">
+        <StackPanel VerticalAlignment="Top" Grid.Row="1" Height="724" Background="White" Margin="0,0,0,-37">
+            <TextBlock
+        		Text="{Binding Strings.DefaultUniversityAndGroup, Source={StaticResource LocalizedStrings}}"
+        		Margin="12,12,10,0"
+        		Style="{StaticResource PhoneTextLargeStyle}"
+        		Foreground="{StaticResource PhoneContrastForegroundBrush}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
             <Button
                 toolkit:TiltEffect.IsTiltEnabled="True"
-                Command="{Binding Default.ChangeDefaultCommand }"
-                Style="{StaticResource ButtonNoBorder}" Margin="12,12,0,0">
-                <StackPanel>
-                    <TextBlock
-                        Text="{Binding Strings.DefaultUniversityAndGroup, Source={StaticResource LocalizedStrings}}"
-                        Margin="0,12,0,0"
-                        Style="{StaticResource PhoneTextLargeStyle}"
-                        Foreground="{StaticResource TimeTableHilighthBrush}" />
-                    <TextBlock Text="{Binding Default.Name}"
-                               Margin="0,12,0,0"
-                               Foreground="White"
-                               TextWrapping="Wrap"
-                               Style="{StaticResource PhoneTextLargeStyle}" />
-                    <TextBlock Text="{Binding Default.University}"
-                               Margin="0,12,0,0" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
-                               FontSize="{StaticResource PhoneFontSizeNormal}"
-                               TextWrapping="Wrap" />
-                </StackPanel>
+                Command="{Binding Default.ChangeDefaultCommand}"
+                Style="{StaticResource ButtonNoBorder}" Margin="0,12,0,0" Width="480">
+            	<Border BorderBrush="{StaticResource TimeTableItemSeparationBrush}" BorderThickness="0,0,0,1" Width="470">
+            		<StackPanel Margin="12,0,0,0">
+            			<TextBlock Text="{Binding Default.Name}"
+            				Margin="0,12,0,0"
+            				Foreground="{StaticResource PhoneContrastForegroundBrush}"
+            				TextWrapping="Wrap"
+            				Style="{StaticResource PhoneTextLargeStyle}" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" />
+            			<TextBlock Text="{Binding Default.University}"
+            				Margin="0,12,0,0" Foreground="{StaticResource TimeTableSecondaryTextColorBrush}"
+            				FontSize="{StaticResource PhoneFontSizeNormal}"
+            				TextWrapping="Wrap" FontFamily="/TimeTable;component/Fonts/Fonts.zip#Neue Haas Unica W1G Thin" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            		</StackPanel>
+            	</Border>
             </Button>
         </StackPanel>
     </Grid>
