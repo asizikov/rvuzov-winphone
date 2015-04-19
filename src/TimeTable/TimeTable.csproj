@@ -430,6 +430,7 @@
     </BlendEmbeddedFont>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Images\appbar.map.location.png" />
     <Resource Include="Resources\Images\bird1.png" />
     <Resource Include="Resources\Images\internet54.png" />
     <Resource Include="View\bird1.png" />
