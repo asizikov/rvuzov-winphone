@@ -172,6 +172,9 @@
     <Compile Include="Services\FlurryPublisherImpl.cs" />
     <Compile Include="Services\Notification.cs" />
     <Compile Include="ThemeManager.cs" />
+    <Compile Include="Controls\TimeTableSmallHeader.xaml.cs">
+      <DependentUpon>TimeTableSmallHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TimeTableUriMapper.cs" />
     <Compile Include="Utils\BindingUtility.cs" />
     <Compile Include="Utils\TombstoneHelper.cs" />
@@ -302,6 +305,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TimeTableSmallHeader.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AboutPage.xaml">

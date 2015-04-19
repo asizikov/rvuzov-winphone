@@ -9,6 +9,7 @@
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:bindableApplicationBar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     xmlns:utils="clr-namespace:TimeTable.Utils"
+    xmlns:controls="clr-namespace:TimeTable.Controls"
     mc:Ignorable="d"
     Style="{StaticResource TimeTablePageStyle}"
     shell:SystemTray.IsVisible="{StaticResource SystemTrayVisibility}">
@@ -27,17 +28,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Grid x:Name="Header" HorizontalAlignment="Left"
-                  Height="81" VerticalAlignment="Top"
-                  Width="480"
-                  Background="{StaticResource NewTimeTableHighlightBrush}">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
-                    Style="{StaticResource TimeTableHeaderTextBlockStyle}"
-                    Text="{Binding Strings.Favorite, Source={StaticResource LocalizedStrings}}" />
-            </Grid>
+            <controls:TimeTableSmallHeader Text="{Binding Strings.Favorite, Source={StaticResource LocalizedStrings}}"/>
             <ListBox Grid.Row="1" ItemsSource="{Binding Items}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
