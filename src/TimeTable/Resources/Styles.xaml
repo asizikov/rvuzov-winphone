@@ -373,4 +373,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <SolidColorBrush x:Key="TimeTableBorderBrush" Color="#FFC1C1C1"/>
 </ResourceDictionary>
