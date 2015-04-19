@@ -16,7 +16,7 @@ namespace TimeTable.ViewModel.ApplicationLevel
         {
             _model = model;
             _navigationService = navigationService;
-            ChangeDefacultCommand = new SimpleCommand(ChangeDefault);
+            ChangeDefaultCommand = new SimpleCommand(ChangeDefault);
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
@@ -32,7 +32,7 @@ namespace TimeTable.ViewModel.ApplicationLevel
         }
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
-        public ICommand ChangeDefacultCommand { get; private set; }
+        public ICommand ChangeDefaultCommand { get; private set; }
 
         private void ChangeDefault()
         {
