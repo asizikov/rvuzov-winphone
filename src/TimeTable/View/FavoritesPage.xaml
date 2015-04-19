@@ -28,11 +28,10 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid x:Name="Header" HorizontalAlignment="Left"
-                  Height="162" VerticalAlignment="Top"
+                  Height="81" VerticalAlignment="Top"
                   Width="480"
                   Background="{StaticResource NewTimeTableHighlightBrush}">
                 <Grid.RowDefinitions>
-                    <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock
