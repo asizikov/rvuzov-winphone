@@ -422,6 +422,11 @@
       <AutoFill>True</AutoFill>
     </BlendEmbeddedFont>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\bird1.png" />
+    <Resource Include="Resources\Images\internet54.png" />
+    <Resource Include="View\bird1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

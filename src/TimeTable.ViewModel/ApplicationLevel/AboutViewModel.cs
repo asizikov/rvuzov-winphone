@@ -11,7 +11,8 @@ namespace TimeTable.ViewModel.ApplicationLevel
     public class AboutViewModel : PageViewModel
     {
         private readonly FlurryPublisher _flurryPublisher;
-        private const string URL = "http://raspisaniye-vuzov.ru/m/universities";
+        private const string URL = "http://raspisaniye-vuzov.ru/mobile/";
+        private const string TWITTER = "https://twitter.com/raspisanievuzov";
 
         public AboutViewModel([NotNull] FlurryPublisher flurryPublisher)
         {
@@ -24,12 +25,19 @@ namespace TimeTable.ViewModel.ApplicationLevel
         private void InitCommands()
         {
             ShowMobileSiteCommand = new SimpleCommand(ShowWebSite);
+            ShowTwitterCommand = new SimpleCommand(ShowTwitter);
         }
 
         private void ShowWebSite()
         {
             _flurryPublisher.PublishShowMobile();
             var webBrowserTask = new WebBrowserTask {Uri = new Uri(URL)};
+            webBrowserTask.Show();
+        }
+
+        private void ShowTwitter()
+        {
+            var webBrowserTask = new WebBrowserTask { Uri = new Uri(TWITTER) };
             webBrowserTask.Show();
         }
 
@@ -41,5 +49,6 @@ namespace TimeTable.ViewModel.ApplicationLevel
 
         [UsedImplicitly(ImplicitUseKindFlags.Access)]
         public ICommand ShowMobileSiteCommand { get; private set; }
+        public ICommand ShowTwitterCommand { get; private set; }
     }
 }
